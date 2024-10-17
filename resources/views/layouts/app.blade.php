@@ -86,32 +86,10 @@
                         </li>
                     </ul>
 
-                    <!-- Dropdown de usuario -->
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            @auth
-                                <div>{{ Auth::user()->name }}</div>
-                            @else
-                                <div>{{ __('Guest') }}</div>
-                            @endauth
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li>
-                                <x-dropdown-link :href="route('profile.edit')" class="dropdown-item">
-                                    {{ __('Profile') }}
-                                </x-dropdown-link>
-                            </li>
-                            <li>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <x-dropdown-link :href="route('logout')" class="dropdown-item"
-                                        onclick="event.preventDefault(); this.closest('form').submit();">
-                                        {{ __('Log Out') }}
-                                    </x-dropdown-link>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
+                    <a href="{{route('login')}}"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="size-6" width="30px" height="30px">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                    </svg></a>
+                    
                 </div>
             </div>
         </nav>
