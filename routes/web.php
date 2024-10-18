@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiciosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,7 @@ Route::get('/servicio', [ServiciosController::class, 'index'])->name('servicio')
     Route::get('/galeria', [GaleriaController::class, 'index'])->name('galeria');
     Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto');
     Route::get('/citas', [CitasController::class, 'index'])->name('citas');
-
+    Route::post('/users/{id}/assign-role', [UserController::class, 'assignRole']);
+    Route::get('/users/{id}/roles', [UserController::class, 'getUserRoles']);
 
 require __DIR__.'/auth.php';
