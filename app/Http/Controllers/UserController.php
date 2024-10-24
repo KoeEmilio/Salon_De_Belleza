@@ -8,10 +8,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    // Asigna un rol a un usuario
     public function assignRole(Request $request, $userId)
     {
-        // Validar la solicitud
         $request->validate([
             'role_id' => 'required|exists:roles,id',
         ]);
@@ -24,7 +22,6 @@ class UserController extends Controller
         return response()->json(['message' => 'Rol asignado correctamente.']);
     }
 
-    // Obtiene los roles de un usuario
     public function getUserRoles($userId)
     {
         $user = User::with('roles')->findOrFail($userId);
