@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiciosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RecepcionistaController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -40,5 +41,16 @@ Route::get('/servicio', [ServiciosController::class, 'index'])->name('servicio')
     Route::get('/citas', [CitasController::class, 'index'])->name('citas');
     Route::post('/users/{id}/assign-role', [UserController::class, 'assignRole']);
     Route::get('/users/{id}/roles', [UserController::class, 'getUserRoles']);
+
+
+    Route::prefix('recepcionista')->group(function () {
+        Route::get('/', [RecepcionistaController::class, 'index'])->name('recepcionista.inicio');
+        Route::get('/dashboard', [RecepcionistaController::class, 'index'])->name('recepcionista.dashboard');
+        Route::get('/citas', [RecepcionistaController::class, 'citas'])->name('recepcionista.citas');
+        Route::get('/clientes', [RecepcionistaController::class, 'clientes'])->name('recepcionista.clientes');
+        Route::get('/servicios', [RecepcionistaController::class, 'servicios'])->name('recepcionista.servicios');
+        Route::get('/perfil', [RecepcionistaController::class, 'perfil'])->name('recepcionista.perfil'); // Asegúrate de agregar esto
+    });
+    
 
 require __DIR__.'/auth.php';
