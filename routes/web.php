@@ -56,6 +56,7 @@ Route::get('/servicio', [ServiciosController::class, 'index'])->name('servicio')
         Route::get('/servicios', [RecepcionistaController::class, 'servicios'])->name('recepcionista.servicios');
         Route::get('/perfil', [RecepcionistaController::class, 'perfil'])->name('recepcionista.perfil'); // Asegúrate de agregar esto
         
+        
 
 
     
