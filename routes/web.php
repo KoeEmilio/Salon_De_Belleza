@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CitasController;
+use App\Http\Controllers\CitasRecepcionistaController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\GaleriaController;
 use App\Http\Controllers\InicioController;
@@ -50,6 +52,11 @@ Route::get('/servicio', [ServiciosController::class, 'index'])->name('servicio')
         Route::get('/clientes', [RecepcionistaController::class, 'clientes'])->name('recepcionista.clientes');
         Route::get('/servicios', [RecepcionistaController::class, 'servicios'])->name('recepcionista.servicios');
         Route::get('/perfil', [RecepcionistaController::class, 'perfil'])->name('recepcionista.perfil'); // Asegúrate de agregar esto
+        
+
+
+    
+    
     });
     
 

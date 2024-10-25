@@ -5,6 +5,7 @@
    
     /* Estilos para el contenido */
     .content {
+        padding:3%;
         position: relative; /* Para colocar contenido encima del video */
         color:  #ff77a7; /* Color del texto principal */
         text-align: center;
