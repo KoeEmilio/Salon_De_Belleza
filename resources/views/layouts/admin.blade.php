@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin')</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
     <style>
     
     *{
@@ -28,15 +30,37 @@
     .fondo_personalizado {
         background-color: #000000;
     }
+
+    .custom-color-text {
+            color: #ffb7c2;
+        }
+        .custom-icon-size {
+            font-size: 24px;
+        }
+        .custom-icon-color {
+            color: white;
+        }
+        .logout-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class="contenedor">
         <nav class="navbar navbar-expand-lg navbar-light fondo_personalizado justify-content-center">
             <h1>Bienvenido</h1>
+            <form method="POST" action="{{ route('logout') }}" class="ml-auto">
+                @csrf
+                <button type="submit" class="btn logout-button">
+                    <i class='bx bx-log-out custom-icon-size custom-icon-color'></i>
+                    <span class="custom-color-text">Logout</span>
+                </button>
+            </form>
         </nav>
     </div>
-
     <div class="container">
         @yield('body')
     </div>

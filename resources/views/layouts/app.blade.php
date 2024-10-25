@@ -83,6 +83,15 @@
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('citas') ? 'active' : '' }}" href="{{ route('citas') }}">Citas</a>
                         </li>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}" class="ml-auto">
+                                @csrf
+                                <button type="submit" class="btn logout-button">
+                                    <i class='bx bx-log-out custom-icon-size custom-icon-color'></i>
+                                    <span class="custom-color-text">Logout</span>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
 
                     <a href="{{route('login')}}"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="size-6" width="30px" height="30px">
