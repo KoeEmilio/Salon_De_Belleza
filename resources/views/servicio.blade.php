@@ -6,7 +6,7 @@
 <style>
   body {
     font-family: Arial, sans-serif;
-    background-color: #ffb7c2 ; 
+    background-color: #ffb7c2 ; /* Color de fondo añadido */
   }
   .divider {
       margin: 20px 0;
@@ -54,7 +54,7 @@
     z-index: 1;
   }
   .card:hover .description-overlay {
-    opacity: 1; 
+    opacity: 1; /* Show the overlay on hover */
   }
 </style>
 
