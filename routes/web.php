@@ -33,7 +33,11 @@ Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.
 
 Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
-  
+
+});
+
+Route::middleware(['auth','role:recepcionista'])->group(function () {
+    Route::get('/inicio_recepcionista', [RecepcionistaController::class, 'index'])->name('recepcionista.inicio');
 
 });
 Route::get('/welcome', [InicioController::class, 'index'])->name('welcome');
@@ -46,7 +50,6 @@ Route::get('/servicio', [ServiciosController::class, 'index'])->name('servicio')
 
 
     Route::prefix('recepcionista')->group(function () {
-        Route::get('/', [RecepcionistaController::class, 'index'])->name('recepcionista.inicio');
         Route::get('/dashboard', [RecepcionistaController::class, 'index'])->name('recepcionista.dashboard');
         Route::get('/citas', [RecepcionistaController::class, 'citas'])->name('recepcionista.citas');
         Route::get('/clientes', [RecepcionistaController::class, 'clientes'])->name('recepcionista.clientes');

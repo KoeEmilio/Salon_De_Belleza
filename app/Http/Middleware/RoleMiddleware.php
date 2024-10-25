@@ -16,8 +16,10 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-    
         if (auth()->user()->hasRole('admin')) {
+            return $next($request);
+        }
+        else if (auth()->user()->hasRole('recepcionista')) {
             return $next($request);
         }
         return redirect()->route('welcome');

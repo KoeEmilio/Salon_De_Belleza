@@ -12,7 +12,6 @@ class RecepcionistaController extends Controller
             'fecha_ingreso' => '2023-02-20'
         ];
 
-        // Pasar estos datos a la vista
         return view('home_recepcionista', compact('recepcionista'));
     }
 
@@ -34,7 +33,6 @@ class RecepcionistaController extends Controller
             'fecha_ingreso' => '2023-02-20'
         ];
     
-        // Pasar estos datos a la vista de perfil
         return view('perfil_recepcionista', compact('recepcionista'));
     }
     
