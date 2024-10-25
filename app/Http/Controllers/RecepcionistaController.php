@@ -1,16 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class RecepcionistaController extends Controller
 {
     public function index() {
-        $recepcionista = (object) [
-            'nombre' => 'Ana Martínez',
-            'fecha_ingreso' => '2023-02-20'
-        ];
+        // Obtener el recepcionista autenticado
+        $recepcionista = Auth::user(); // Asegúrate de que esto devuelva el modelo correcto
 
         return view('home_recepcionista', compact('recepcionista'));
     }
@@ -27,14 +25,7 @@ class RecepcionistaController extends Controller
         return view('servicios_recepcionista');
     }
 
-    public function perfil() {
-        $recepcionista = (object) [
-            'nombre' => 'Ana Martínez',
-            'fecha_ingreso' => '2023-02-20'
-        ];
-    
-        return view('perfil_recepcionista', compact('recepcionista'));
-    }
+   
     
 }
 
