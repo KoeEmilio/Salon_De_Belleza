@@ -10,15 +10,12 @@ class CreateBonusesTaxTable extends Migration
     {
         Schema::create('bonuses_tax', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('employee_id'); // Clave foránea para el empleado
-            $table->date('date_recorded'); // Fecha del bono o impuesto
-            $table->enum('type', ['Bono', 'impuesto']); // Tipo de bono o impuesto
-            $table->text('description'); // Descripción
-            $table->decimal('amount', 10, 2); // Monto
-
-            // Definir clave foránea
+            $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees_data')->onDelete('cascade');
-
+            $table->date('date_recorded');
+            $table->enum('type', ['Bono', 'impuesto']);
+            $table->text('description');
+            $table->decimal('amount', 10, 2);
             $table->timestamps();
         });
     }
