@@ -18,6 +18,11 @@ class User extends Authenticatable implements AuthenticatableContract
         'remember_token',
     ];
 
+    public function person()
+    {
+        return $this->hasOne(Person::class);
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_rol', 'user', 'rol');

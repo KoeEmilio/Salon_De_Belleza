@@ -5,30 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Recepcionista App') }}</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Styles -->
-
-    <!-- Custom Styles -->
     <style>
         body {
-            background-color: #f9f9f9; /* Fondo claro para toda la página */
+            background-color: #f9f9f9; 
         }
         nav.navbar {
             font-size: 1.2rem;
             padding: 1rem;
-            background-color: #ffb6c1; /* Rosa claro */
-            border-bottom: 2px solid #ff69b4; /* Rosa fuerte */
+            background-color: #ffb6c1; 
+            border-bottom: 2px solid #ff69b4; 
         }
         nav.navbar a.nav-link {
             color: #fff; /* Texto blanco */
