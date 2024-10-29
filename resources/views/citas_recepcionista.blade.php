@@ -1,79 +1,106 @@
 @extends('layouts.recepcionista')
 
 @section('content')
-<div class="container text-center">
-    <h1 class="display-4">Gestión de Citas</h1>
-
-    <!-- Calendario de vistas (anual, mensual, semanal, día) -->
-    <div class="calendar-options my-4">
-        <a href="#" class="btn btn-link">ANUAL</a>
-        <a href="#" class="btn btn-link">MENSUAL</a>
-        <a href="#" class="btn btn-link">SEMANAL</a>
-        <a href="#" class="btn btn-link text-warning">DÍA</a>
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-danger">Gestión de Citas</h1>
+        <p class="text-muted">Administra y organiza las citas de manera eficiente.</p>
     </div>
 
-    <!-- Tabla de Citas Programadas -->
-    <h3 class="mt-4">Citas Programadas</h3>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>DÍA</th>
-                <th>MES</th>
-                <th>AÑO</th>
-                <th>HORA</th>
-                <th>CLIENTE</th>
-                <th>SERVICIO</th>
-                <th>ESTADO</th>
-                <th>ACCIONES</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Ejemplo de cita programada -->
-            <tr>
-                <td>Lunes</td>
-                <td>Octubre</td>
-                <td>2024</td>
-                <td>11:00</td>
-                <td>Juan Pérez</td>
-                <td>Corte de Cabello</td>
-                <td><span class="badge bg-success">Confirmada</span></td>
-                <td>
-                    <a href="#" class="btn btn-sm btn-primary">Editar</a>
-                    <a href="#" class="btn btn-sm btn-danger">Cancelar</a>
-                </td>
-            </tr>
-            <tr>
-                <td>Lunes</td>
-                <td>Octubre</td>
-                <td>2024</td>
-                <td>14:00</td>
-                <td>María López</td>
-                <td>Manicure</td>
-                <td><span class="badge bg-warning">Pendiente</span></td>
-                <td>
-                    <a href="#" class="btn btn-sm btn-primary">Editar</a>
-                    <a href="#" class="btn btn-sm btn-danger">Cancelar</a>
-                </td>
-            </tr>
-            <tr>
-                <td>Lunes</td>
-                <td>Octubre</td>
-                <td>2024</td>
-                <td>17:00</td>
-                <td>Carlos García</td>
-                <td>Maquillaje</td>
-                <td><span class="badge bg-danger">Cancelada</span></td>
-                <td>
-                    <a href="#" class="btn btn-sm btn-primary">Editar</a>
-                    <a href="#" class="btn btn-sm btn-danger">Cancelar</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Barra de búsqueda -->
+    <div class="mb-4">
+        <form action="{{ route('recepcionista.citas') }}" method="GET">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Buscar por nombre o apellido" value="{{ request()->input('search') }}">
+                <button class="btn btn-danger" type="submit">Buscar</button>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- Tabla de citas programadas -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-danger text-white">
+            <h3 class="my-0">Citas Programadas</h3>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover table-striped m-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Cliente</th>
+                        <th>Estado</th>
+                        <th>Método de Pago</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($appointments as $appointment)
+                    <tr>
+                        <td>{{ \Carbon\Carbon::parse($appointment->appointment_day)->format('d/m/Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('H:i') }}</td>
+                        <td>{{ $appointment->client->name }} {{ $appointment->client->last_name }}</td>
+                        <td>
+                            @if ($appointment->status == 'confirmada')
+                                <span class="badge bg-success">Confirmada</span>
+                            @elseif ($appointment->status == 'pendiente')
+                                <span class="badge bg-warning text-dark">Pendiente</span>
+                            @else
+                                <span class="badge bg-danger">Cancelada</span>
+                            @endif
+                        </td>
+                        <td>{{ ucfirst($appointment->payment_type) }}</td>
+                        <td>
+                            <a href="{{ route('recepcionista.citas.edit', $appointment->id) }}" class="btn btn-sm btn-outline-danger">Editar</a>
+                            <a href="{{ route('ver_servicios', ['appointmentId' => $appointment->id]) }}">Ver Servicios</a>
+                            <form action="{{ route('recepcionista.citas.destroy', $appointment->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="6" class="text-center">No hay citas programadas.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        {{ $appointments->appends(['search' => $search])->links('pagination::bootstrap-5') }}
+    </div>
 
     <!-- Botón para agregar nueva cita -->
-    <div class="mt-4">
-        <a href="{{ url('/recepcionista/nueva_cita') }}" class="btn btn-lg btn-success">Agregar Nueva Cita</a>
+    <div class="text-center mt-5">
+        <a href="{{ route('recepcionista.citas.create') }}" class="btn btn-lg btn-danger px-5 py-3 shadow-sm">
+            <i class="fas fa-plus-circle"></i> Agregar Nueva Cita
+        </a>
     </div>
 </div>
+
+<style>
+    body {
+        background-color: #f8f9fa; /* Color de fondo claro */
+    }
+    .btn-danger {
+        background-color: #dc3545; /* Color principal */
+        border-color: #dc3545; /* Color principal */
+    }
+    .btn-outline-danger {
+        color: #dc3545; /* Color texto botón */
+        border-color: #dc3545; /* Color borde botón */
+    }
+    .btn-outline-danger:hover {
+        background-color: #dc3545; /* Color fondo al pasar el ratón */
+        color: white; /* Color texto al pasar el ratón */
+    }
+    .table th, .table td {
+        vertical-align: middle; /* Alinear verticalmente */
+    }
+</style>
 @endsection

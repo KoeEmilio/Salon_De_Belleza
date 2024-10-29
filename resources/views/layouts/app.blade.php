@@ -14,7 +14,9 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Styles -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
     <!-- Custom Styles -->
     <style>
@@ -47,8 +49,44 @@
             z-index: 1030;
         }
         footer {
-            background-color: #343a40;
+            background-color: black; /* Rosa claro */
+            color: #fff; /* Texto blanco en el pie de página */
+            padding: 2rem 0; /* Espaciado vertical */
+            margin-top: 2rem; /* Margen superior */
         }
+        footer h5 {
+            color: #ff69b4; /* Títulos en rosa fuerte */
+        }
+        footer a {
+            color: #fff; /* Enlaces en blanco */
+            transition: color 0.3s ease; /* Efecto de transición */
+        }
+        footer a:hover {
+            color: #ff69b4; /* Cambiar color en hover */
+        }
+        .footer-icon {
+            margin: 0 15px; /* Espaciado horizontal entre íconos */
+        }
+        .btn-logout {
+            display: flex; /* Para centrar el ícono y el texto */
+            align-items: center; /* Centrar verticalmente */
+            background-color: #ff69b4; /* Rosa fuerte */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 30px; /* Bordes redondeados */
+            transition: background-color 0.3s ease; /* Transición suave para el fondo */
+            text-decoration: none; /* Sin subrayado */
+        }
+
+        .btn-logout i {
+            margin-right: 18px; /* Espacio entre el ícono y el texto */
+        }
+
+        .btn-logout:hover {
+            background-color: #ff1493; /* Rosa más intenso al pasar el ratón */
+        } 
     </style>
 </head>
 <body class="font-sans antialiased">
@@ -108,8 +146,8 @@
         </main>
 
         <!-- Footer -->
-        <footer class="text-white mt-5">
-            <div class="container py-4">
+        <footer>
+            <div class="container">
                 <div class="row">
                     <div class="col-md-4">
                         <h5>Sobre Nosotros</h5>
@@ -123,9 +161,15 @@
                     </div>
                     <div class="col-md-4">
                         <h5>Redes Sociales</h5>
-                        <a href="#" class="text-white"><img src="path-to-facebook-icon.png" alt="Facebook" height="30"></a>
-                        <a href="#" class="text-white"><img src="path-to-twitter-icon.png" alt="Twitter" height="30"></a>
-                        <a href="https://www.instagram.com" class="text-white"><img src="path-to-instagram-icon.png" alt="Instagram" height="30"></a>
+                        <a href="#" class="footer-icon text-white">
+                            <i class="fab fa-facebook-f" style="font-size: 30px;"></i>
+                        </a>
+                        <a href="#" class="footer-icon text-white">
+                            <i class="fab fa-twitter" style="font-size: 30px;"></i>
+                        </a>
+                        <a href="https://www.instagram.com" class="footer-icon text-white">
+                            <i class="fab fa-instagram" style="font-size: 30px;"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="text-center mt-4">
@@ -137,7 +181,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
