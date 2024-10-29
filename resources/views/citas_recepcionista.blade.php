@@ -7,7 +7,7 @@
         <p class="text-muted">Administra y organiza las citas de manera eficiente.</p>
     </div>
 
-    <!-- Barra de búsqueda -->
+   
     <div class="mb-4">
         <form action="{{ route('recepcionista.citas') }}" method="GET">
             <div class="input-group">
@@ -18,7 +18,7 @@
     </div>
 
 
-    <!-- Tabla de citas programadas -->
+   
     <div class="card shadow-sm">
         <div class="card-header bg-danger text-white">
             <h3 class="my-0">Citas Programadas</h3>

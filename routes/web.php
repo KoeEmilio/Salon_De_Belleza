@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CitasController;
 use App\Http\Controllers\CitasRecepcionistaController;
+use App\Http\Controllers\ClientePerfilController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\GaleriaController;
 use App\Http\Controllers\InicioController;
@@ -13,7 +14,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Recepcionista_Cliente_Controller;
 use App\Http\Controllers\RecepcionistaController;
 use App\Http\Controllers\ServicioController;
-use App\Http\Controllers\servicioHome;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServicioHomeController;
 /*
@@ -37,6 +37,7 @@ Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.
 Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
+    
 });
 
 Route::middleware(['auth','role:recepcionista'])->group(function () {
@@ -53,12 +54,13 @@ Route::get('/servicio', [ServicioHomeController::class, 'index'])->name('servici
 
 
     Route::prefix('recepcionista')->group(function () {
-        Route::get('/dashboard', [RecepcionistaController::class, 'index'])->name('recepcionista.dashboard');
-        Route::get('/citas', [RecepcionistaController::class, 'citas'])->name('recepcionista.citas');
-        Route::get('/clientes', [RecepcionistaController::class, 'clientes'])->name('recepcionista.clientes');
-        Route::get('/servicios', [RecepcionistaController::class, 'servicios'])->name('recepcionista.servicios');
-        Route::get('/perfil', [RecepcionistaController::class, 'perfil'])->name('recepcionista.perfil'); // Asegúrate de agregar esto
-// Rutas para agregar, almacenar, editar, actualizar y eliminar citas
+Route::get('/dashboard', [RecepcionistaController::class, 'index'])->name('recepcionista.dashboard');
+Route::get('/citas', [RecepcionistaController::class, 'citas'])->name('recepcionista.citas');
+Route::get('/clientes', [RecepcionistaController::class, 'clientes'])->name('recepcionista.clientes');
+Route::get('/servicios', [RecepcionistaController::class, 'servicios'])->name('recepcionista.servicios');
+Route::get('/perfil', [RecepcionistaController::class, 'perfil'])->name('recepcionista.perfil'); 
+
+
 Route::get('/citas', [RecepcionistaController::class, 'citas'])->name('recepcionista.citas');
 Route::get('/citas/agregar', [RecepcionistaController::class, 'create'])->name('recepcionista.citas.create');
 Route::post('/citas', [RecepcionistaController::class, 'store'])->name('recepcionista.citas.store');
@@ -67,12 +69,11 @@ Route::put('/citas/{id}', [RecepcionistaController::class, 'update'])->name('rec
 Route::delete('/citas/{id}', [RecepcionistaController::class, 'destroy'])->name('recepcionista.citas.destroy');
 
 Route::prefix('citas')->group(function () {
-    // Mostrar servicios de una cita específica
     Route::get('{id}/servicios', [ServicioController::class, 'index'])->name('recepcionista.citas.servicios');
 });
 
 Route::prefix('servicios')->group(function () {
-    // Asegúrate de que este es el formato correcto
+
     Route::get('/servicios/{appointmentId}', [ServicioController::class, 'index'])->name('ver_servicios');
         Route::get('servicios/create/{appointmentId}', [ServicioController::class, 'create'])->name('servicios.create');
         Route::post('servicios/store/{appointmentId}', [ServicioController::class, 'store'])->name('servicios.store');
@@ -90,9 +91,14 @@ Route::prefix('servicios')->group(function () {
         Route::get('/clientes/{id}/historial', [Recepcionista_Cliente_Controller::class, 'historial'])->name('clientes.historial');
         
     });
-
-
     Route::get('/servicios', [ServiciosController::class, 'index'])->name('servicios_recepcionista');
+
+    Route::prefix('clientes')->group(function () {
+        Route::get('/perfil', [ClientePerfilController::class, 'perfil'])->name('clientes.perfil');
+        Route::get('/perfil/editar', [ClientePerfilController::class, 'editarPerfil'])->name('clientes.perfil.editar');
+        Route::put('/perfil', [ClientePerfilController::class, 'actualizarPerfil'])->name('clientes.perfil.actualizar');
+        Route::get('/perfil/historial', [ClientePerfilController::class, 'historialPerfil'])->name('clientes.perfil.historial');
+    });
 
 }); 
 
