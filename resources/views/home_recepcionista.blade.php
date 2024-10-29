@@ -55,7 +55,7 @@
                 <p class="lead">¡Gestiona tu salón de belleza de manera eficiente y efectiva!</p>
                 <h2>Información del Recepcionista</h2>
                 
-                <p>Nombre: <strong>{{ $recepcionista->name }}</strong></p>
+                <p>Nombre: <strong>{{ $recepcionista->name}}</strong></p>
                 <p>Correo: <strong>{{ $recepcionista->email }}</strong></p>
                 <p>Fecha de Ingreso: <strong>{{ now()->format('Y-m-d') }}</strong></p>
             </div>
