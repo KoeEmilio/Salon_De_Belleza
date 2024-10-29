@@ -146,7 +146,7 @@
 
     <div class="container  d-flex flex-column align-items-center" id="contenedor-botones">
         <div class="row menu flex-grow-1">
-            <a href="{{route('')}}"></a>
+            <a href="{{route('empleados')}}"></a>
             <div class="col-12 col-sm-3 d-flex justify-content-center" id="botones-nav-1">
                     <div class="text-center">
                         <i class='bx bx-user custom-icon-size custom-icon-color-2'></i>

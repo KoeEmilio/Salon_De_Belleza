@@ -16,6 +16,6 @@ class DashboardController extends Controller
     }
 
     public function personas(){
-        return view
+        return view('empleados');
     }
 }
