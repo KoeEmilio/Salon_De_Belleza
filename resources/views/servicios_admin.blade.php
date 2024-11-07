@@ -54,10 +54,9 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #adadad;
             justify-content: space-evenly;
+            background-color: #adadad;
+            align-items: center;
         }
         .btn-custom {
             margin: 10px;
@@ -107,7 +106,6 @@
         .btn-container:hover::before {
         width: 100%;
         }
-
         .search {
             margin-top: 20px;
             padding: 10px;
@@ -120,7 +118,7 @@
     <div class="contenedor">
         <nav class="navbar navbar-expand-lg navbar-light fondo_personalizado">
             <div class="navbar-center">
-                <h1>EMPLEADOS</h1>
+                <h1>SERVICIOS</h1>
             </div>
             <div class="ml-auto">
                 <a href="{{ route('dashboard') }}" class="btn logout-button">
@@ -133,28 +131,28 @@
 
     <div class="principal">
         <div class="container">
-            <input class="search" style="width: 100%" type="text" placeholder="Busca a un empleado">
+            <input class="search" style="width: 100%" type="text" placeholder="Busca un servicio">
             <table class="table table-borderless">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Correo</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col">Dirección</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Duracion</th>
+                        <th scope="col">Tipo</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($empleados as $empleado)
+                    @foreach($servicios as $servicio)
                     <tr>
-                        <td>{{ $empleado->id }}</td>
-                        <td>{{ $empleado->person->name }}</td>
-                        <td>{{ $empleado->person->last_name }}</td>
-                        <td>{{ $empleado->person->e_mail }}</td>
-                        <td>{{ $empleado->person->phone }}</td>
-                        <td>{{ $empleado->address }}</td>
+                        <td>{{ $servicio->id }}</td>
+                        <td>{{ $servicio->service }}</td>
+                        <td>{{ $servicio->price }}</td>
+                        <td>{{ $servicio->description }}</td>
+                        <td>{{ $servicio->duration }}</td>
+                        <td>{{ $servicio->typeService->type }}</td>
                     </tr>
                     @endforeach
                 </tbody>

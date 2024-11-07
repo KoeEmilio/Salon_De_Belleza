@@ -11,6 +11,17 @@ class Employee extends Model
 
     protected $table = 'employees_data';
 
+    protected $fillable = [
+        'nss', 
+        'curp', 
+        'rfc', 
+        'address', 
+        'status', 
+        'person_id', 
+        'base_salary'
+    ];
+
+
     public function person()
     {
         return $this->belongsTo(Person::class, 'person_id');

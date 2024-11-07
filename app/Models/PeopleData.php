@@ -27,7 +27,6 @@ class PeopleData extends Model
     }
     public function clientes()
 {
-    // Obtener todos los datos de personas con sus servicios
     $clientes = PeopleData::with(['services'])->get();
     return view('clientes_recepcionista', compact('clientes'));
 }
@@ -35,6 +34,6 @@ class PeopleData extends Model
 {
     return $this->hasManyThrough(Service::class, Appointment::class, 'people_data_id', 'id', 'id', 'service_id')
         ->join('appointment_service', 'appointments.id', '=', 'appointment_service.appointment_id')
-        ->select('services.*'); // Asegúrate de seleccionar las columnas correctas
+        ->select('services.*'); 
 }
 }

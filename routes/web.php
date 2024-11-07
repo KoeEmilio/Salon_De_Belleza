@@ -35,8 +35,10 @@ Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.up
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 Route::middleware(['auth','role:admin'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
-
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/empleados', [DashboardController::class, 'empleados'])->name('empleados');
+    Route::get('/servicios_admin', [DashboardController::class, 'servicios'])->name('servicios_admin');
+    Route::get('/clientes_admin', [DashboardController::class, 'usuarios'])->name('clientes_admin');
     
 });
 
@@ -59,7 +61,6 @@ Route::get('/servicio', [ServicioHomeController::class, 'index'])->name('servici
         Route::get('/clientes', [RecepcionistaController::class, 'clientes'])->name('recepcionista.clientes');
         Route::get('/servicios', [RecepcionistaController::class, 'servicios'])->name('recepcionista.servicios');
         Route::get('/perfil', [RecepcionistaController::class, 'perfil'])->name('recepcionista.perfil'); // Asegúrate de agregar esto
-// Rutas para agregar, almacenar, editar, actualizar y eliminar citas
 Route::get('/citas', [RecepcionistaController::class, 'citas'])->name('recepcionista.citas');
 Route::get('/citas/agregar', [RecepcionistaController::class, 'create'])->name('recepcionista.citas.create');
 Route::post('/citas', [RecepcionistaController::class, 'store'])->name('recepcionista.citas.store');
@@ -68,12 +69,10 @@ Route::put('/citas/{id}', [RecepcionistaController::class, 'update'])->name('rec
 Route::delete('/citas/{id}', [RecepcionistaController::class, 'destroy'])->name('recepcionista.citas.destroy');
 
 Route::prefix('citas')->group(function () {
-    // Mostrar servicios de una cita específica
     Route::get('{id}/servicios', [ServicioController::class, 'index'])->name('recepcionista.citas.servicios');
 });
 
 Route::prefix('servicios')->group(function () {
-    // Asegúrate de que este es el formato correcto
     Route::get('/servicios/{appointmentId}', [ServicioController::class, 'index'])->name('ver_servicios');
         Route::get('servicios/create/{appointmentId}', [ServicioController::class, 'create'])->name('servicios.create');
         Route::post('servicios/store/{appointmentId}', [ServicioController::class, 'store'])->name('servicios.store');
