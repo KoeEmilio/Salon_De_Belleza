@@ -14,10 +14,9 @@ class CreatePeopleDataTable extends Migration
             $table->integer('age');
             $table->enum('gender', ['H', 'M']);
             $table->char('phone', 10);
-            $table->string('e_mail', 50); // Cambié a string para mejor compatibilidad
-            $table->unsignedBigInteger('user_id')->nullable(); // Permitir que sea nulo
+            $table->string('e_mail', 50);
+            $table->unsignedBigInteger('user_id')->nullable(); 
 
-            // Definir clave foránea
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             
             $table->timestamps();

@@ -54,8 +54,10 @@
                 <h1 class="display-4 font-weight-bold">Bienvenido, Recepcionista</h1>
                 <p class="lead">¡Gestiona tu salón de belleza de manera eficiente y efectiva!</p>
                 <h2>Información del Recepcionista</h2>
-                <p>Nombre: <strong>{{ $recepcionista->nombre }}</strong></p>
-                <p>Fecha de Ingreso: <strong>{{ $recepcionista->fecha_ingreso }}</strong></p>
+                
+                <p>Nombre: <strong>{{ $recepcionista->name}}</strong></p>
+                <p>Correo: <strong>{{ $recepcionista->email }}</strong></p>
+                <p>Fecha de Ingreso: <strong>{{ now()->format('Y-m-d') }}</strong></p>
             </div>
         </div>
     </div>

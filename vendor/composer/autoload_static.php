@@ -578,8 +578,6 @@ class ComposerStaticInit103cabcdf2f7cefd377f94b3329b4c31
         'App\\Models\\Shift' => __DIR__ . '/../..' . '/app/Models/Shift.php',
         'App\\Models\\TypeService' => __DIR__ . '/../..' . '/app/Models/TypeService.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
-        'App\\Models\\UserRol' => __DIR__ . '/../..' . '/app/Models/UserRol.php',
-        'App\\Models\\agregados' => __DIR__ . '/../..' . '/app/Models/agregados.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

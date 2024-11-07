@@ -59,8 +59,6 @@ return array(
     'App\\Models\\Shift' => $baseDir . '/app/Models/Shift.php',
     'App\\Models\\TypeService' => $baseDir . '/app/Models/TypeService.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
-    'App\\Models\\UserRol' => $baseDir . '/app/Models/UserRol.php',
-    'App\\Models\\agregados' => $baseDir . '/app/Models/agregados.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

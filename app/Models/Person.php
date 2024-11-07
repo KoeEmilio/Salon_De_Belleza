@@ -11,6 +11,16 @@ class Person extends Model
 
     protected $table = 'people_data';
 
+    protected $fillable = [
+        'name',
+        'last_name',
+        'age',
+        'gender',
+        'phone',
+        'e_mail',
+        'user_id',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
