@@ -53,6 +53,19 @@ Route::get('/servicio', [ServicioHomeController::class, 'index'])->name('servici
     Route::get('/citas', [CitasController::class, 'index'])->name('citas');
     Route::post('/users/{id}/assign-role', [UserController::class, 'assignRole']);
     Route::get('/users/{id}/roles', [UserController::class, 'getUserRoles']);
+    Route::get('/paso1', function () { return view('cita1');});
+    Route::get('/paso2', function () { return view('cita2');});
+Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
+use App\Http\Controllers\FavoritosController;
+Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado');
+Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
+
+    
+    
+    
+
+
+
 
 
     Route::prefix('recepcionista')->group(function () {

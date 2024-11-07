@@ -1,275 +1,217 @@
 @extends('layouts.app')
 
 @section('content')
-<title>Salón de Belleza</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color:#ffb7c2 ;
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-    }
-    .btn-custom {
-      background-color: #ffb7c2;
-      border: none;
-      color: white;
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      border-radius: 30px;
-      transition: background-color 0.3s ease-in-out;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Studio - Salón de Belleza</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+     
+        :root {
+            --color-principal: #fe889f;
+            --color-secundario: #ffb7c2;
+            --color-acentuado: #faccd3;
+            --color-texto: #4d4d4d;
+        }
 
-    .btn-custom:hover {
-      background-color: #fe889f;
-    }
-    .hero {
-      background-color: black;
-      height: 70vh;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      transition: background-color 0.3s ease, opacity 0.5s ease;
-      animation: diamond-in-center 1.5s cubic-bezier(.25, 1, .30, 1) both;
-    }
+        body {
+            background-color:#F48FB1
+            ;
+            color: var(--color-texto);
+            scroll-behavior: smooth;
+        }
 
-    @keyframes diamond-in-center {
-      from {
-        clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
-      }
-      to {
-        clip-path: polygon(-50% 50%, 50% -50%, 150% 50%, 50% 150%);
-      }
-    }
+        
+        .hero {
+            background-color:black
+            ;
+            color: #fff;
+            padding: 100px 0;
+            text-align: center;
+            background-image: url('https://example.com/imagen-glow.jpg');
+            background-size: cover;
+            background-position: center;
+            animation: fadeIn 4s;
+        }
 
-    .hero h1 {
-      font-size: 3.5rem;
-      opacity: 0;
-      transform: translateY(50px);
-      animation: slideIn 1s forwards;
-      animation-delay: 1s; 
-      color: pink;
-    }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+        }
 
-    @keyframes slideIn {
-      0% { opacity: 0; transform: translateY(50px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
+        .hero p {
+            font-size: 1.3rem;
+            margin-top: 20px;
+            animation: fadeInUp 1.5s;
+        }
 
-    .second-image-section {
-      background-image: url('https://ath2.unileverservices.com/wp-content/uploads/sites/13/2023/05/23214222/color-lila-pastel.jpg');
-      background-size: cover;
-      background-attachment: fixed;
-      background-position: center;
-      height: 100vh; 
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+        .btn-custom {
+            background-color: var(--color-secundario);
+            color: #fff;
+            border: none;
+            transition: transform 0.3s ease;
+        }
 
-    .second-image-section h2 {
-      font-size: 3rem;
-      color: #ffffff;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-      opacity: 0;
-      transform: translateY(50px);
-      animation: fadeInUp 1s forwards;
-      animation-delay: 2s; 
-    }
+        .btn-custom:hover {
+            transform: scale(1.1);
+            background-color: var(--color-principal);
+        }
 
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(50px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
+       
+        .services-section {
+            background-color: #F48FB1;
+            padding: 50px 0;
+        }
 
-    .image-content-section {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start; /* Cambiado a flex-start para alinear los elementos al principio */
-        padding: 30px;
-        margin: 0;
-        gap: 10px;
-        background-color: white;
-        z-index: 2;
-        position: relative;
-    }
+        .card-service {
+            border: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    .image-content-section .imagen {
-        width: 30%;
-        height: auto;
-        overflow: hidden;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        margin-right: 20px;
-        position: relative; /* Para poder usarlo en el siguiente ajuste */
-    }
-    .contenedor {
-      width: 40%; 
-      padding: 0px;
-      border-radius: 15px;
-      text-align: left; 
-      z-index: 2;
-      position: relative;
-      opacity: 0;
-      transform: translateY(50px);
-      animation: fadeInUp 1s forwards;
-      animation-delay: 3.5s; 
-    }
+        .card-service:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
 
-    .about-section {
-      background-color: black;
-      color: #E91E63;
-      padding: 50px 20px;
-      text-align: center;
-      border-radius: 20px;
-      margin-top: 50px;
-      z-index: 1;
-    }
+        .card-service img {
+            height: 200px;
+            object-fit: cover;
+        }
 
-    @media (max-width: 768px) {
-      .image-content-section {
-        flex-direction: column;
-        align-items: center;
-      }
-      .imagen {
-        width: 80%; 
-        margin-right: 0;
-      }
-      .contenedor {
-        width: 90%; 
-      }
-    }
 
-    .image-card {
-      width: 30%;
-      overflow: hidden;
-    }
+        .fixed-background {
+    background-image: url('https://st4prdbebeautiful4s4ci.blob.core.windows.net/www-bebeautiful-in/how-to-take-care-of-coloured-hair_10.jpg'); /* Usa una imagen de alta resolución */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Mantiene la imagen fija al hacer scroll */
+    filter: brightness(0.9) contrast(1.1); /* Opcional: Mejora el contraste y brillo */
+    height: 600px; /* Ajusta la altura según tu preferencia */
+    width: 100%;
+    image-rendering: -webkit-optimize-contrast; /* Mejora el renderizado en navegadores webkit */
+}
 
-    .image-card img {
-      width: 100%;
-      transition: transform 0.5s ease;
-    }
 
-    .image-card:hover img {
-      transform: scale(1.1);
-    }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-    @keyframes fadeInText {
-      0% { opacity: 0; }
-      100% { opacity: 3; }
-    }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .Subtitulo {
-      color:#E91E63;
-    }
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
 
-    .extra-containers {
-      display: flex;
-      justify-content: space-around;
-      margin: 50px 0;
-    }
-
-    .extra-container {
-      width: 17%;
-      padding: 20px;
-      background-color: #ffffff;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      text-align: center;
-    }
-
-    .extra-container img {
-      width: 100%;
-      border-radius: 15px;
-    }
-
-  </style>
+        
+        .about-section {
+            background-color: #fff;
+            padding: 50px 0;
+            animation: fadeInLeft 1.5s;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Hero Section -->
-  <div class="hero" id="hero-section">
-    <h1 id="main-text">Glow Studio</h1>
-    <h1 id="main-text">La solución integral para Manicuristas</h1>
-    <button class="btn-custom">Agendar</button>
-  </div><br>
+    <!-- Sección Hero -->
+    <section class="hero d-flex align-items-center">
+        <div class="container text-center">
+            <h1>Bienvenidos a Glow Studio</h1>
+            <p>Donde la belleza y el estilo se encuentran</p>
+            <a href="#servicios" class="btn btn-custom btn-lg mt-4">Descubre Nuestros Servicios</a>
+        </div>
+    </section>
 
-  <!-- Segunda Sección con imagen de fondo fija -->
-  <div class="second-image-section">
-    <h2>Servicios Profesionales de Belleza</h2>
-  </div>
+    <section class="fixed-background"></section>
 
-  <!-- Imagen y Contenedor después de la segunda imagen -->
-<div class="row image-content-section">
-    <div class="col-md-6 col-sm-12 imagen">
-        <img src="https://i.pinimg.com/originals/22/fb/1f/22fb1f6a431e5de887697e5739c52c45.jpg" alt="Corte de Cabello" style="width: 100%; height: auto;">
-    </div>
-    <div class="col-md-6 col-sm-12 contenedor">
-        <h1 class="Subtitulo">Bienvenidos a Glow Studio</h1>
-        <h3>En Glow Studio, creemos que la belleza es más que una apariencia física; es una experiencia de cuidado personal que eleva la autoestima. Nuestro salón se ha diseñado para que te relajes, rejuvenezcas y embellezcas. Nos especializamos en una amplia gama de tratamientos de belleza, desde cortes de cabello de tendencia hasta servicios de mesoterapia que renovarán tu espíritu.
-            <br>
-            <br>
-            Lo que nos distingue en Glow Studio es nuestra filosofía única. Creemos que la verdadera belleza comienza desde adentro, y nuestro equipo de expertos se dedica no solo a resaltar tu belleza exterior, sino también a ayudarte a sentirte más saludable, relajada y segura por dentro. Cada uno de nuestros tratamientos está cuidadosamente diseñado para ofrecer resultados visibles y duraderos, al mismo tiempo que proporciona una experiencia de relajación y bienestar.</h3>
-    </div>
-</div>
+        <!-- Sección Sobre Nosotros -->
+        <section class="about-section" id="about">
+        <div class="container text-center">
+            <h2 class="mb-4">Sobre Glow Studio</h2>
+            <p class="lead">En Glow Studio, nuestro objetivo es que cada cliente se sienta hermoso y renovado. Contamos con un equipo de profesionales apasionados y comprometidos que te ofrecen una experiencia personalizada en cada visita.</p>
+            <p class="mt-3">Ubicados en el corazón de la ciudad, nuestras instalaciones están diseñadas para ofrecerte un ambiente de calma y relajación, donde podrás disfrutar de nuestros servicios de peluquería, maquillaje, y mucho más.</p>
+            <a href="#reserva" class="btn btn-custom btn-lg mt-4">Reserva una Cita</a>
+        </div>
+    </section>
 
+    <!-- Sección de Servicios -->
+    <section id="servicios" class="services-section">
+        <div class="container text-center">
+            <h2 class="mb-5">Nuestros Servicios</h2>
+            <div class="row">
+                <!-- Servicio 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card card-service">
+                        <img src="https://i.pinimg.com/originals/3a/da/80/3ada805cfb2ac8e2909dfd442571a1d4.jpg" class="card-img-top" alt="Corte de Cabello">
+                        <div class="card-body">
+                            <h5 class="card-title">Corte de Cabello</h5>
+                            <p class="card-text">Cortes de estilo y tendencia que realzan tu belleza natural.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Servicio 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card card-service">
+                        <img src="https://i.pinimg.com/originals/50/57/05/50570558a6e4ce80f8e117c3d78ca13f.jpg" class="card-img-top" alt="Peinados">
+                        <div class="card-body">
+                            <h5 class="card-title">Peinados</h5>
+                            <p class="card-text">Peinados personalizados para cualquier ocasión especial.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Servicio 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card card-service">
+                        <img src=https://www.somosmamas.com.ar/wp-content/uploads/2020/09/maquillaje-facil-looks.jpg" class="card-img-top" alt="Maquillaje Profesional">
+                        <div class="card-body">
+                            <h5 class="card-title">Maquillaje Profesional</h5>
+                            <p class="card-text">Realza tu belleza con nuestro servicio de maquillaje de alta calidad.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Servicio 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card card-service">
+                        <img src="https://www.clara.es/medio/2023/06/22/unas-rosas-elegantes-con-flores_4f40ac6f_230622202839_1280x1600.jpg" class="card-img-top" alt="Maquillaje Profesional">
+                        <div class="card-body">
+                            <h5 class="card-title">Diseño de Uñas</h5>
+                            <p class="card-text">Dale estilo a tus manos para que luzcan hermosas.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Servicio 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card card-service">
+                        <img src="https://vailenespanol.com/wp-content/uploads/2021/07/d778417dd70bcc4eafef6504e9d0c107-768x1024.jpg" class="card-img-top" alt="Maquillaje Profesional">
+                        <div class="card-body">
+                            <h5 class="card-title">Tintes de Cabello </h5>
+                            <p class="card-text">Realza una nueva imagen donde luzcas brillante con los diferentes tipo de servicios en tinte que tenemos.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Servicio 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card card-service">
+                        <img src="https://th.bing.com/th/id/OIP.PgYk4BukXgMHt8z07kuPnwHaE8?rs=1&pid=ImgDetMain" class="card-img-top" alt="Maquillaje Profesional">
+                        <div class="card-body">
+                            <h5 class="card-title">Mesoterapia</h5>
+                            <p class="card-text">Te ayudamos a tonificar esa grasa acumulada.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Tres contenedores debajo de la segunda imagen -->
-  <div class="extra-containers">
-    <div class="extra-container">
-      <img src="https://th.bing.com/th/id/OIP.hF2gh0aOSDgPCrORX_w6CgAAAA?rs=1&pid=ImgDetMain" alt="Imagen Extra 1">
-      <h3>Diseño de uñas</h3>
-      <p>Tus manos son tu carta de presentación, y en Glow Studio nos aseguramos de que siempre luzcan perfectas. Ofrecemos una amplia variedad de servicios de diseño de uñas, desde manicuras clásicas hasta técnicas avanzadas como uñas acrílicas, gelish y decoraciones personalizadas. Nuestro equipo de expertos en diseño de uñas se mantiene al tanto de las últimas tendencias para ofrecerte estilos únicos y creativos que complementen tu personalidad. Ya sea que prefieras un diseño minimalista o algo más atrevido, estamos aquí para hacer realidad tu visión.</p>
-    </div>
-    <div class="extra-container">
-      <img src="https://vailenespanol.com/wp-content/uploads/2021/07/d778417dd70bcc4eafef6504e9d0c107-768x1024.jpg" alt="Imagen Extra 2">
-      <h3>Diseño de cabello</h3>
-      <p>En Glow Studio, sabemos que tu cabello es una expresión de tu estilo personal, y nuestro equipo de estilistas está comprometido a ofrecerte los mejores servicios de diseño de cabello. Nos especializamos en cortes, peinados y coloraciones que realzan la estructura y la textura de tu cabello. Utilizamos productos de alta gama y técnicas modernas para garantizar resultados duraderos y saludables, ya sea que busques un cambio de look completo o solo un retoque. Cada visita es una experiencia personalizada, donde nos enfocamos en resaltar lo mejor de ti.</p>
-    </div>
-    <div class="extra-container">
-      <img src="https://th.bing.com/th/id/OIP._t4uBxfy70eWImSoTXdECQHaHa?rs=1&pid=ImgDetMain" alt="Imagen Extra 3">
-      <h3>Mespterapia</h3>
-      <p>La Mesoterapia en Glow Studio es un tratamiento de rejuvenecimiento avanzado que ayuda a revitalizar tu piel desde el interior. A través de la aplicación de microinyecciones con vitaminas, minerales y otros nutrientes, logramos mejorar la elasticidad, la hidratación y el tono de tu piel. Este tratamiento es ideal para combatir el envejecimiento prematuro, reducir la apariencia de manchas y cicatrices, y lograr un aspecto fresco y juvenil. Todo el proceso es realizado por especialistas capacitados, garantizando tu seguridad y los mejores resultados para una piel radiante y saludable..</p>
-    </div>
-    <div class="extra-container">
-      <img src="https://i.pinimg.com/originals/d3/93/e5/d393e5c7d0fe6e7cb90cd7c98bdc1669.jpg" alt="Imagen Extra 1">
-      <h3>Maquillaje.</h3>
-      <p>En Glow Studio, el arte del maquillaje es una herramienta para resaltar tu belleza natural y permitirte brillar en cada ocasión. Nuestros maquilladores profesionales se especializan en todo tipo de estilos, desde maquillaje natural para el día a día hasta looks glamorosos para eventos especiales. Utilizamos productos de alta calidad que garantizan un acabado impecable y de larga duración, adaptándonos a tus rasgos y preferencias personales para que te sientas única y radiante.</p>
-    </div>
-    <div class="extra-container">
-      <img src="https://i.pinimg.com/originals/d3/93/e5/d393e5c7d0fe6e7cb90cd7c98bdc1669.jpg" alt="Imagen Extra 1">
-      <h3>Maquillaje.</h3>
-      <p>En Glow Studio, el arte del maquillaje es una herramienta para resaltar tu belleza natural y permitirte brillar en cada ocasión. Nuestros maquilladores profesionales se especializan en todo tipo de estilos, desde maquillaje natural para el día a día hasta looks glamorosos para eventos especiales. Utilizamos productos de alta calidad que garantizan un acabado impecable y de larga duración, adaptándonos a tus rasgos y preferencias personales para que te sientas única y radiante.</p>
-    </div>
-    <div class="extra-container">
-      <img src="https://i.pinimg.com/originals/d3/93/e5/d393e5c7d0fe6e7cb90cd7c98bdc1669.jpg" alt="Imagen Extra 1">
-      <h3>Maquillaje.</h3>
-      <p>En Glow Studio, el arte del maquillaje es una herramienta para resaltar tu belleza natural y permitirte brillar en cada ocasión. Nuestros maquilladores profesionales se especializan en todo tipo de estilos, desde maquillaje natural para el día a día hasta looks glamorosos para eventos especiales. Utilizamos productos de alta calidad que garantizan un acabado impecable y de larga duración, adaptándonos a tus rasgos y preferencias personales para que te sientas única y radiante.</p>
-    </div>
-  </div>
-
-  <!-- Sección Sobre Nosotros -->
-  <div class="about-section" id="about-us">
-    <h2>Sobre Nosotros</h2>
-    <p>En nuestro salón de belleza ofrecemos una experiencia única de relajación y embellecimiento...</p>
-    <div class="about-icons">
-      <i class="fas fa-cut"></i>
-      <i class="fas fa-spa"></i>
-      <i class="fas fa-paint-brush"></i>
-      <i class="fas fa-smile"></i>
-    </div>
-  </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-
 @endsection
