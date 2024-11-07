@@ -33,7 +33,11 @@ Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.
 
 Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
-  
+
+});
+
+Route::middleware(['auth','role:recepcionista'])->group(function () {
+    Route::get('/inicio_recepcionista', [RecepcionistaController::class, 'index'])->name('recepcionista.inicio');
 
 });
 Route::get('/welcome', [InicioController::class, 'index'])->name('welcome');
@@ -43,20 +47,30 @@ Route::get('/servicio', [ServiciosController::class, 'index'])->name('servicio')
     Route::get('/citas', [CitasController::class, 'index'])->name('citas');
     Route::post('/users/{id}/assign-role', [UserController::class, 'assignRole']);
     Route::get('/users/{id}/roles', [UserController::class, 'getUserRoles']);
+    Route::get('/paso1', function () { return view('cita1');});
+    Route::get('/paso2', function () { return view('cita2');});
+    use App\Http\Controllers\ServicioController;
+
+Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
+use App\Http\Controllers\FavoritosController;
+Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado');
+Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
+
+    
+    
+    
+
+
+
 
 
     Route::prefix('recepcionista')->group(function () {
-        Route::get('/', [RecepcionistaController::class, 'index'])->name('recepcionista.inicio');
         Route::get('/dashboard', [RecepcionistaController::class, 'index'])->name('recepcionista.dashboard');
         Route::get('/citas', [RecepcionistaController::class, 'citas'])->name('recepcionista.citas');
         Route::get('/clientes', [RecepcionistaController::class, 'clientes'])->name('recepcionista.clientes');
         Route::get('/servicios', [RecepcionistaController::class, 'servicios'])->name('recepcionista.servicios');
         Route::get('/perfil', [RecepcionistaController::class, 'perfil'])->name('recepcionista.perfil'); // Asegúrate de agregar esto
         
-
-
-    
-    
     });
     
 

@@ -61,7 +61,5 @@
     </div>
 </div>
 
-<footer class="text-center p-3 mt-5">
-    <p>© {{ date('Y') }} Tu Salón de Belleza. Todos los derechos reservados.</p>
-</footer>
+
 @endsection

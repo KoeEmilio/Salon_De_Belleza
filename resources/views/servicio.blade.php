@@ -6,7 +6,10 @@
 <style>
   body {
     font-family: Arial, sans-serif;
-    background-color: #ffb7c2 ; /* Color de fondo añadido */
+    background-color: #ffb7c2 ; 
+  }
+  .card-title{
+    color:#fe889f;
   }
   .divider {
       margin: 20px 0;
@@ -54,7 +57,7 @@
     z-index: 1;
   }
   .card:hover .description-overlay {
-    opacity: 1; /* Show the overlay on hover */
+    opacity: 1; 
   }
 </style>
 
@@ -314,7 +317,19 @@
           </div>
         </div>
       </div>
-
-    
 </div>
+<script>
+  document.querySelectorAll('.agregar-servicio').forEach((button, index) => {
+    button.addEventListener('click', () => {
+      const servicio = button.closest('.card').querySelector('.card-title').textContent.trim();
+      const servicios = JSON.parse(localStorage.getItem('serviciosAgregados')) || [];
+
+      servicios.push(servicio);
+      localStorage.setItem('serviciosAgregados', JSON.stringify(servicios));
+      
+      alert(`${servicio} se ha agregado a la lista de servicios`);
+    });
+  });
+</script>
+
 @endsection
