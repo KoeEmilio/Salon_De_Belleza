@@ -12,13 +12,12 @@ class PeopleData extends Model
     protected $table = 'people_data';
 
     protected $fillable = [
-        'name', 
-        'last_name', 
-        'age', 
-        'gender', 
-        'phone', 
-        'e_mail', 
-        'user_id'
+        'name',
+        'last_name',
+        'age',
+        'gender',
+        'phone',
+        'user_id',
     ];
 
     public function user()
@@ -36,4 +35,17 @@ class PeopleData extends Model
         ->join('appointment_service', 'appointments.id', '=', 'appointment_service.appointment_id')
         ->select('services.*'); 
 }
+public function employeeData()
+{
+    return $this->hasOne(EmployeeData::class, 'person_id');
+}
+public function appointments()
+{
+    return $this->hasMany(Appointment::class, 'owner_id'); // 'owner_id' es la clave foránea en appointments
+}
+  // Relación indirecta con los detalles de servicio (a través de las citas)
+  public function serviceDetails()
+  {
+      return $this->hasManyThrough(ServiceDetail::class, Appointment::class, 'owner_id', 'appointment_id');
+  }
 }

@@ -18,10 +18,6 @@ class User extends Authenticatable implements AuthenticatableContract
         'remember_token',
     ];
 
-    public function person()
-    {
-        return $this->hasOne(Person::class);
-    }
 
     public function roles()
     {
@@ -32,4 +28,8 @@ class User extends Authenticatable implements AuthenticatableContract
     {
         return $this->roles()->where('roles.rol', $role)->exists();
     }
+    public function peopleData()
+{
+    return $this->hasOne(PeopleData::class);
+}
 }

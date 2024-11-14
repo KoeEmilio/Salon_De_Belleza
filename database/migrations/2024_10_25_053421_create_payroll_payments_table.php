@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreatePayrollPaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,11 +15,10 @@ return new class extends Migration
     {
         Schema::create('payroll_payments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('payroll_id');
-            $table->foreign('payroll_id')->references('id')->on('payroll')->onDelete('cascade');
-            $table->date('payment_date'); // Fecha de pago
-            $table->decimal('payment_amount', 10, 2); // Monto del pago
-            $table->enum('payment_method', ['Transferencia', 'Efectivo', 'Cheque']); // Método de pago
+            $table->foreignId('payroll_id')->constrained('payroll')->onDelete('cascade');
+            $table->date('payment_date');
+            $table->decimal('payment_amount', 10, 2);
+            $table->enum('payment_method', ['Transferencia', 'Efectivo', 'Cheque']);
             $table->timestamps();
         });
     }
@@ -33,4 +32,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('payroll_payments');
     }
-};
+}

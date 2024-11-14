@@ -12,49 +12,55 @@ class Recepcionista_Cliente_Controller extends Controller
     public function index(Request $request)
     {
         $query = $request->input('query');
-    
-        // Obtener clientes paginados, 5 por página, filtrando por nombre si se proporciona una consulta
         $clientes = PeopleData::when($query, function($queryBuilder) use ($query) {
             return $queryBuilder->where('name', 'like', "%{$query}%")
                                  ->orWhere('last_name', 'like', "%{$query}%");
         })->paginate(5);
-    
-        return view('clientes_recepcionista', compact('clientes', 'query')); // Pasa la variable $clientes y $query a la vista
+
+        return view('clientes_recepcionista', compact('clientes', 'query'));
     }
 
     // Crear un nuevo cliente
     public function store(Request $request)
-{
-    // Validar y crear el cliente
-    $cliente = new PeopleData();
-    $cliente->name = $request->input('name');
-    $cliente->last_name = $request->input('last_name');
-    $cliente->phone = $request->input('phone');
-    // Agregar otros campos según sea necesario
-    $cliente->save();
+    {
+        // Validar la solicitud
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'e_mail' => 'required|email|unique:people_data,e_mail', // Cambia aquí según tu tabla
+            'phone' => 'required|string|max:15',
+            'gender' => 'required|string|max:1',
+            'age' => 'required|integer|min:0|max:120',
+            'user_id' => 'required|exists:users,id', // Asegúrate de validar el ID del usuario
+        ]);
 
-    return response()->json(['message' => 'Cliente registrado exitosamente.']);
-}
+        // Crear nuevo cliente
+        $cliente = PeopleData::create($validated);
 
-
+        return response()->json(['message' => 'Cliente agregado exitosamente.']);
+    }
     // Mostrar un cliente específico
     public function show($id)
-{
-    $cliente = PeopleData::findOrFail($id);
-    return view('detalles_cliente', compact('cliente'));
-}
+    {
+        $cliente = PeopleData::findOrFail($id);
+        return view('detalles_cliente', compact('cliente'));
+    }
+
+    // Crear un cliente
     public function create()
-{
-    return view('registrar_cliente');
-}
+    {
+        return view('agregar_clienterecepcionista');
+    }
 
     // Actualizar un cliente existente
     public function update(Request $request, $id)
-{
-    $this->validateClient($request); // Usa la misma validación
-    $cliente = PeopleData::create($request->all());
-    return response()->json($cliente, 201);
-}
+    {
+        $this->validateClient($request); // Validar los datos
+        $cliente = PeopleData::findOrFail($id); // Buscar cliente
+        $cliente->update($request->all()); // Actualizar cliente
+
+        return response()->json($cliente, 200); // Responder con el cliente actualizado
+    }
 
     // Eliminar un cliente
     public function destroy($id)
@@ -69,22 +75,24 @@ class Recepcionista_Cliente_Controller extends Controller
 
         return response()->json(['message' => 'Cliente eliminado con éxito']);
     }
+
     protected function validateClient(Request $request)
-{
-    return $request->validate([
-        'name' => 'required|string|max:15',
-        'last_name' => 'required|string|max:20',
-        'age' => 'required|integer|min:0',
-        'gender' => 'required|in:H,M',
-        'phone' => 'required|string|size:10',
-        'e_mail' => 'required|email|max:50',
-        'user_id' => 'nullable|integer|exists:users,id',
-    ]);
+    {
+        return $request->validate([
+            'name' => 'required|string|max:15',
+            'last_name' => 'required|string|max:20',
+            'age' => 'required|integer|min:0',
+            'gender' => 'required|in:H,M',
+            'phone' => 'required|string|size:10',
+            'e_mail' => 'required|email|max:50',
+            'user_id' => 'nullable|integer|exists:users,id',
+        ]);
+    }
+
+    public function historial($id)
+    {
+        $cliente = PeopleData::findOrFail($id);
+        $citas = Appointment::where('cliente_id', $id)->get();
+        return view('historial_cliente', compact('cliente', 'citas'));
+    }
 }
-public function historial($id)
-{
-    $cliente = PeopleData::findOrFail($id);
-    $citas = Appointment::where('cliente_id', $id)->get(); // Asegúrate de tener el modelo Cita
-    return view('historial_cliente', compact('cliente', 'citas'));
-}
-} 
