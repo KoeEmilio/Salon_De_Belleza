@@ -1,161 +1,147 @@
 @extends('layouts.app')
 
 @section('content')
-<title>Galeria de Trabajo</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<style>
-    body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f4f4f4;
-        color: #333;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Studio - Servicios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Colores personalizados */
+        :root {
+            --color-principal: #fe889f;
+            --color-secundario: #ffb7c2;
+            --color-acentuado: #faccd3;
+            --color-texto: #4d4d4d;
+        }
 
-    .container {
-        margin-top: 20px;
-    }
+        body {
+            background-color: var(--color-acentuado);
+            color: var(--color-texto);
+            scroll-behavior: smooth;
+        }
 
-    .gallery-item {
-        border: 1px solid #ddd;
-        padding: 10px;
-        margin-bottom: 15px;
-        background-color: #fff;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        position: relative; 
-    }
+        /* Estilo de la galería */
+        .gallery-section {
+            padding: 50px 0;
+            text-align: center;
+        }
 
-    .gallery-item img {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
+        .gallery-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--color-principal);
+        }
 
-    .gallery-item h3 {
-        margin-top: 10px;
-        font-size: 1.2em;
-    }
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
 
-    .gallery-item p {
-        margin-top: 5px;
-    }
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
 
-    .header {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .header h1 {
-        font-size: 3em;
-        color: #333;
-    }
-
-    .carousel {
-        display: none; 
-        position: absolute; 
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.9); 
-        z-index: 10; 
-    }
-
-    .gallery-item:hover .carousel {
-        display: block; 
-    }
-</style>
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>GALERIA DE TRABAJO</h1>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="gallery-item">
-                    <img src="https://www.cortesdepelotendencias.com/wp-content/uploads/2022/07/cortes-de-pelo-mujer-2023-para-caras-cuadradas.jpg" alt="Diseño de Color">
-                    <h3>Diseño de Color</h3>
-                    <p>Aquí puedes ver mi trabajo en diseño de color</p>
-                    <div class="carousel slide" id="carouselColor" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://www.hairstylery.com/wp-content/uploads/images/2-caramel-balayage-on-shiny-black-hair.jpg" class="d-block w-100" alt="Imagen 1">
+
+    <!-- Sección de Galería de Servicios -->
+    <section class="gallery-section" id="servicios">
+        <div class="container">
+            <h2>Nuestros Servicios</h2>
+            <div class="row g-4">
+                <!-- Servicio 1: Maquillaje -->
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <div id="carouselMaquillaje" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="https://example.com/maquillaje1.jpg" alt="Maquillaje 1">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://example.com/maquillaje2.jpg" alt="Maquillaje 2">
+                                </div>
+                                <!-- Añade más imágenes si es necesario -->
                             </div>
-                            <div class="carousel-item">
-                                <img src="https://th.bing.com/th/id/OIP.hF2gh0aOSDgPCrORX_w6CgAAAA?rs=1&pid=ImgDetMain" class="d-block w-100" alt="Imagen 2">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://via.placeholder.com/150/00FF00" class="d-block w-100" alt="Imagen 3">
-                            </div>
+                            <div class="carousel-caption">Maquillaje</div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselMaquillaje" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselMaquillaje" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            </button>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselColor" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselColor" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="gallery-item">
-                    <img src="https://www.cortesdepelotendencias.com/wp-content/uploads/2022/07/cortes-de-pelo-mujer-2023-para-caras-cuadradas.jpg" alt="Diseño de Tipografía">
-                    <h3>Diseño de Tipografía</h3>
-                    <p>Aquí puedes ver mi trabajo en diseño de tipografía</p>
-                    <div class="carousel slide" id="carouselTipografia" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://via.placeholder.com/150" class="d-block w-100" alt="Imagen 1">
+
+                <!-- Servicio 2: Peinado -->
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <div id="carouselPeinado" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="https://i.pinimg.com/originals/50/57/05/50570558a6e4ce80f8e117c3d78ca13f.jpg" alt="Peinado 1">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://hairstyles-galaxy.com/wp-content/uploads/2015/12/curly-braided-updo-2016.png" alt="Peinado 2">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://www.weddingforward.com/wp-content/uploads/2022/02/elegant-wedding-hairstyles-simple-half-up-on-long-hair-melissaclaremakeup-400x500.jpg" alt="Peinado 3">
+                                </div>
+                                <!-- Añade más imágenes si es necesario -->
                             </div>
-                            <div class="carousel-item">
-                                <img src="https://via.placeholder.com/150/FF0000" class="d-block w-100" alt="Imagen 2">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://via.placeholder.com/150/00FF00" class="d-block w-100" alt="Imagen 3">
-                            </div>
+                            <div class="carousel-caption">Peinado</div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselPeinado" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselPeinado" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            </button>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselTipografia" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselTipografia" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="gallery-item">
-                    <img src="https://www.cortesdepelotendencias.com/wp-content/uploads/2022/07/cortes-de-pelo-mujer-2023-para-caras-cuadradas.jpg" alt="Diseño de Ilustración">
-                    <h3>Diseño de Ilustración</h3>
-                    <p>Aquí puedes ver mi trabajo en diseño de ilustración</p>
-                    <div class="carousel slide" id="carouselIlustracion" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="https://via.placeholder.com/150" class="d-block w-100" alt="Imagen 1">
+
+                <!-- Añade más servicios según sea necesario, usando la misma estructura de carrusel -->
+                <!-- Servicio 3: Uñas -->
+                <div class="col-md-4">
+                    <div class="gallery-item">
+                        <div id="carouselUnas" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="https://example.com/unas1.jpg" alt="Uñas 1">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://example.com/unas2.jpg" alt="Uñas 2">
+                                </div>
+                                <!-- Añade más imágenes si es necesario -->
                             </div>
-                            <div class="carousel-item">
-                                <img src="https://via.placeholder.com/150/FF0000" class="d-block w-100" alt="Imagen 2">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="https://via.placeholder.com/150/00FF00" class="d-block w-100" alt="Imagen 3">
-                            </div>
+                            <div class="carousel-caption">Uñas</div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselUnas" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselUnas" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            </button>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselIlustracion" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselIlustracion" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
                     </div>
                 </div>
+                
+                <!-- Puedes continuar agregando más servicios como Diseño de Ceja, Corte de Dama, etc. -->
+
             </div>
         </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
 @endsection

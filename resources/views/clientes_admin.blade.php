@@ -54,10 +54,9 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #adadad;
             justify-content: space-evenly;
+            background-color: #adadad;
+            align-items: center;
         }
         .btn-custom {
             margin: 10px;
@@ -69,6 +68,7 @@
             background-color: #ffb7c2;
             color: #000000;
         }
+
         .btn-container {
             padding: 15px 25px;
             border: unset;
@@ -107,12 +107,15 @@
         .btn-container:hover::before {
         width: 100%;
         }
-
         .search {
             margin-top: 20px;
             padding: 10px;
             border-radius: 10px;
-            border: 1px solid #000000;
+            border: 2px solid black;
+        }
+
+        .search::placeholder(){
+            color: #ffb7c2 ;
         }
     </style>
 </head>
@@ -120,7 +123,7 @@
     <div class="contenedor">
         <nav class="navbar navbar-expand-lg navbar-light fondo_personalizado">
             <div class="navbar-center">
-                <h1>EMPLEADOS</h1>
+                <h1>USUARIOS</h1>
             </div>
             <div class="ml-auto">
                 <a href="{{ route('dashboard') }}" class="btn logout-button">
@@ -133,28 +136,19 @@
 
     <div class="principal">
         <div class="container">
-            <input class="search" style="width: 100%" type="text" placeholder="Busca a un empleado">
+            <input class="search" style="width: 100%" type="text" placeholder="Busca a un cliente">
             <table class="table table-borderless">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Correo</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col">Dirección</th>
-                        <th scope="col">Acciones</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Email</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($empleados as $empleado)
+                    @foreach($usuarios as $usuario)
                     <tr>
-                        <td>{{ $empleado->id }}</td>
-                        <td>{{ $empleado->person->name }}</td>
-                        <td>{{ $empleado->person->last_name }}</td>
-                        <td>{{ $empleado->person->e_mail }}</td>
-                        <td>{{ $empleado->person->phone }}</td>
-                        <td>{{ $empleado->address }}</td>
+                        <td>{{ $usuario->name }}</td>
+                        <td>{{ $usuario->email }}</td>
                     </tr>
                     @endforeach
                 </tbody>
