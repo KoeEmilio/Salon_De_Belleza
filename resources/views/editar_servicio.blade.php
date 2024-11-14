@@ -3,9 +3,9 @@
 @section('content')
 <div class="container my-5">
     <div class="text-center mb-4">
-        <h1 class="display-4 fw-bold text-danger">Editar Servicio</h1>
+        <h1 class="display-4 fw-bold text-danger"><i class="fas fa-pencil-alt"></i> Editar Servicio</h1>
         <p class="text-muted">Actualiza los detalles del servicio a continuación.</p>
-    </div>
+    </div> 
 
     <div class="card shadow-sm">
         <div class="card-header bg-danger text-white">
@@ -35,7 +35,7 @@
                     <label for="duration" class="form-label">Duración (mins)</label>
                     <input type="number" class="form-control" id="duration" name="duration" value="{{ $service->duration }}" required min="1">
                 </div>
-
+                
                 <div class="mb-3">
                     <label for="type_id" class="form-label">Tipo de Servicio</label>
                     <select class="form-control" id="type_id" name="type_id" required>
@@ -50,8 +50,12 @@
                 <input type="hidden" name="appointmentId" value="{{ $appointmentId }}">
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-danger px-5 py-2 shadow-sm">Actualizar Servicio</button>
-                    <a href="{{ route('ver_servicios', ['appointmentId' => $appointmentId]) }}" class="btn btn-secondary px-5 py-2">Cancelar</a>
+                    <button type="submit" class="btn btn-danger px-5 py-2 shadow-sm btn-animated"> 
+                        <i class="fas fa-save"></i> Actualizar Servicio
+                    </button>
+                    <a href="{{ route('ver_servicios', ['appointmentId' => $appointmentId]) }}" class="btn btn-secondary px-5 py-2 btn-animated">
+                        <i class="fas fa-times-circle"></i> Cancelar
+                    </a>
                 </div>
             </form>
         </div>
@@ -89,6 +93,12 @@
     }
     .btn {
         border-radius: 8px; /* Bordes redondeados en los botones */
+    }
+    .btn-animated {
+        transition: transform 0.2s ease-in-out; /* Efecto de transición para el zoom */
+    }
+    .btn-animated:hover {
+        transform: scale(1.05); /* Zoom al pasar el ratón */
     }
 </style>
 @endsection

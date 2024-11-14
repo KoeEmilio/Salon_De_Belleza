@@ -4,21 +4,19 @@
 <div class="container my-5">
     <div class="text-center mb-5">
         <h1 class="display-4 fw-bold text-danger">Gestión de Citas</h1>
-        <p class="text-muted">Administra y organiza las citas de manera eficiente.</p>
     </div>
 
-   
+    <!-- Formulario de búsqueda -->
     <div class="mb-4">
         <form action="{{ route('recepcionista.citas') }}" method="GET">
             <div class="input-group">
                 <input type="text" class="form-control" name="search" placeholder="Buscar por nombre o apellido" value="{{ request()->input('search') }}">
-                <button class="btn btn-danger" type="submit">Buscar</button>
+                <button class="btn btn-danger" type="submit"><i class="fas fa-search"></i> Buscar</button>
             </div>
         </form>
     </div>
 
-
-   
+    <!-- Tabla de citas -->
     <div class="card shadow-sm">
         <div class="card-header bg-danger text-white">
             <h3 class="my-0">Citas Programadas</h3>
@@ -43,21 +41,21 @@
                         <td>{{ $appointment->client->name }} {{ $appointment->client->last_name }}</td>
                         <td>
                             @if ($appointment->status == 'confirmada')
-                                <span class="badge bg-success">Confirmada</span>
+                                <span class="badge bg-success"><i class="fas fa-check-circle"></i> Confirmada</span>
                             @elseif ($appointment->status == 'pendiente')
-                                <span class="badge bg-warning text-dark">Pendiente</span>
+                                <span class="badge bg-warning text-dark"><i class="fas fa-clock"></i> Pendiente</span>
                             @else
-                                <span class="badge bg-danger">Cancelada</span>
+                                <span class="badge bg-danger"><i class="fas fa-times-circle"></i> Cancelada</span>
                             @endif
                         </td>
-                        <td>{{ ucfirst($appointment->payment_type) }}</td>
+                        <td><i class="fas fa-money-bill-wave"></i> {{ ucfirst($appointment->payment_type) }}</td>
                         <td>
-                            <a href="{{ route('recepcionista.citas.edit', $appointment->id) }}" class="btn btn-sm btn-outline-danger">Editar</a>
-                            <a href="{{ route('ver_servicios', ['appointmentId' => $appointment->id]) }}">Ver Servicios</a>
+                            <a href="{{ route('recepcionista.citas.edit', $appointment->id) }}" class="btn btn-sm btn-outline-danger me-2"><i class="fas fa-edit"></i> Editar</a>
+                            <a href="{{ route('ver_servicios', ['appointmentId' => $appointment->id]) }}" class="btn btn-sm btn-outline-secondary me-2"><i class="fas fa-eye"></i> Ver Servicios</a>
                             <form action="{{ route('recepcionista.citas.destroy', $appointment->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
                             </form>
                         </td>
                     </tr>
@@ -71,7 +69,8 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-center">
+    <!-- Paginación -->
+    <div class="d-flex justify-content-center mt-4">
         {{ $appointments->appends(['search' => $search])->links('pagination::bootstrap-5') }}
     </div>
 
