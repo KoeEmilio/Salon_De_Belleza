@@ -20,11 +20,7 @@ class Service extends Model
         return $this->belongsTo(TypeService::class, 'type_id');
     }
 
- // Relación con los detalles de servicio (un servicio puede tener varios detalles de servicio)
- public function serviceDetails()
- {
-     return $this->hasMany(ServiceDetail::class, 'service_id');
- }
+ 
 
     // Relación con el modelo Appointment a través de AppointmentService
     public function appointments()
@@ -32,11 +28,10 @@ class Service extends Model
         return $this->belongsToMany(Appointment::class, 'appointment_service', 'service_id', 'appointment_id');
     }
     public function appointment()
-{
+    {
     return $this->belongsTo(Appointment::class);
-}
+    }
 
-    // Relación opcional con el modelo PeopleData
     public function peopleData()
     {
         return $this->belongsTo(PeopleData::class, 'people_data_id'); // Asegúrate de usar la clave foránea correcta si es necesario
