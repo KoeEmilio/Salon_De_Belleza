@@ -43,11 +43,6 @@
         .texto-menu {
             color: black;
         }
-        .navbar {
-            width: 100%;
-            height: 100%;
-            color: white;
-        }
         .fondo_personalizado {
             background-color: #000000;
         }
@@ -146,8 +141,8 @@
 
     <div class="container  d-flex flex-column align-items-center" id="contenedor-botones">
         <div class="row menu flex-grow-1">
-            <a href="{{route('empleados')}}"></a>
             <div class="col-12 col-sm-3 d-flex justify-content-center" id="botones-nav-1">
+                <a style="width: 100%" href="{{route('clientes_admin')}}">
                     <div class="text-center">
                         <i class='bx bx-user custom-icon-size custom-icon-color-2'></i>
                     </div>
@@ -155,6 +150,7 @@
                 <h2 class="text-icon-1">Clientes</h2>
             </div>
             <div class="col-12 col-sm-3 d-flex justify-content-center" id="botones-nav-2">
+                <a style="width: 100%" href="{{route('servicios_admin')}}">
                     <div class="text-center">
                         <i class='bx bx-library custom-icon-size custom-icon-color-2'></i>
                     </div>
@@ -162,6 +158,7 @@
                 <h2 class="text-icon-2">Servicios</h2>
             </div>
             <div class="col-12 col-sm-3 d-flex justify-content-center" id="botones-nav-3">
+                <a style="width: 100%" href="{{route('empleados')}}">
                     <div class="text-center">
                         <i class='bx bx-group custom-icon-size custom-icon-color-2'></i>
                     </div>

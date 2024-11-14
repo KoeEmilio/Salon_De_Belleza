@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="container my-5">
-    <div class="text-center mb-4">
-        <h1 class="display-4 fw-bold text-danger">Agregar Servicio</h1>
+    <div class="text-center mb-4 animate__animated animate__fadeInDown">
+        <h1 class="display-4 fw-bold text-pink">Agregar Servicio</h1>
         <p class="text-muted">Completa el siguiente formulario para agregar un nuevo servicio a la cita.</p>
     </div>
 
-    <div class="card shadow-sm">
-        <div class="card-header bg-danger text-white">
+    <div class="card shadow-lg animate__animated animate__fadeInUp animate__delay-1s">
+        <div class="card-header bg-pink text-white">
             <h3 class="my-0">Detalles del Servicio</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('servicios.store', $appointmentId) }}" method="POST"> <!-- Añadir appointmentId aquí -->
+            <form action="{{ route('servicios.store', $appointmentId) }}" method="POST">
                 @csrf
 
                 <div class="mb-3">
@@ -46,8 +46,8 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-danger px-5 py-2 shadow-sm">Guardar Servicio</button>
-                    <a href="{{ route('ver_servicios', $appointmentId) }}" class="btn btn-secondary px-5 py-2">Cancelar</a> <!-- Añadir appointmentId aquí -->
+                    <button type="submit" class="btn btn-pink px-5 py-2 shadow-sm">Guardar Servicio</button>
+                    <a href="{{ route('ver_servicios', $appointmentId) }}" class="btn btn-secondary px-5 py-2">Cancelar</a>
                 </div>
             </form>
         </div>
@@ -55,23 +55,47 @@
 </div>
 
 <style>
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+
     body {
-        background-color: #f8f9fa; /* Color de fondo claro */
+        background-color: #f8f9fa;
     }
-    .btn-danger {
-        background-color: #dc3545; /* Color principal */
-        border-color: #dc3545; /* Color principal */
+    .text-pink {
+        color: #e91e63;
+    }
+    .bg-pink {
+        background-color: #e91e63;
+    }
+    .btn-pink {
+        background-color: #e91e63;
+        border-color: #e91e63;
+        color: white;
+        font-weight: bold;
+    }
+    .btn-pink:hover {
+        background-color: #d81b60;
     }
     .btn-secondary {
-        background-color: #6c757d; /* Color para el botón secundario */
-        border-color: #6c757d; /* Color borde botón secundario */
+        background-color: #6c757d;
+        border-color: #6c757d;
     }
     .btn-secondary:hover {
-        background-color: #5a6268; /* Color fondo al pasar el ratón */
-        color: white; /* Color texto al pasar el ratón */
+        background-color: #5a6268;
+        color: white;
     }
-    .card {
-        margin-top: 20px; /* Espacio superior para la tarjeta */
+    .form-control, .form-select {
+        border: 2px solid #e91e63;
+        transition: all 0.3s ease;
+    }
+    .form-control:hover, .form-select:hover {
+        box-shadow: 0 0 10px rgba(233, 30, 99, 0.3);
+    }
+    .form-control:focus, .form-select:focus {
+        border-color: #d81b60;
+        box-shadow: 0 0 10px rgba(233, 30, 99, 0.3);
+    }
+    .shadow-lg {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 </style>
 @endsection

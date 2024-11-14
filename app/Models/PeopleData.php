@@ -12,13 +12,12 @@ class PeopleData extends Model
     protected $table = 'people_data';
 
     protected $fillable = [
-        'name', 
-        'last_name', 
-        'age', 
-        'gender', 
-        'phone', 
-        'e_mail', 
-        'user_id'
+        'name',
+        'last_name',
+        'age',
+        'gender',
+        'phone',
+        'user_id',
     ];
 
     public function user()
@@ -27,7 +26,6 @@ class PeopleData extends Model
     }
     public function clientes()
 {
-    // Obtener todos los datos de personas con sus servicios
     $clientes = PeopleData::with(['services'])->get();
     return view('clientes_recepcionista', compact('clientes'));
 }
@@ -35,6 +33,19 @@ class PeopleData extends Model
 {
     return $this->hasManyThrough(Service::class, Appointment::class, 'people_data_id', 'id', 'id', 'service_id')
         ->join('appointment_service', 'appointments.id', '=', 'appointment_service.appointment_id')
-        ->select('services.*'); // Asegúrate de seleccionar las columnas correctas
+        ->select('services.*'); 
 }
+public function employeeData()
+{
+    return $this->hasOne(EmployeeData::class, 'person_id');
+}
+public function appointments()
+{
+    return $this->hasMany(Appointment::class, 'owner_id'); // 'owner_id' es la clave foránea en appointments
+}
+  // Relación indirecta con los detalles de servicio (a través de las citas)
+  public function serviceDetails()
+  {
+      return $this->hasManyThrough(ServiceDetail::class, Appointment::class, 'owner_id', 'appointment_id');
+  }
 }

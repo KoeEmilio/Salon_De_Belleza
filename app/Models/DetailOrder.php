@@ -9,14 +9,12 @@ class DetailOrder extends Model
     protected $table = 'detail_orders';
 
     protected $fillable = [
-        'order_id',
+     'order_id',
         'service_id',
         'description',
         'quantity',
         'unit_price',
         'total_price',
-        'total_amount',
-        'appointment_id'
     ];
 
     public function order()

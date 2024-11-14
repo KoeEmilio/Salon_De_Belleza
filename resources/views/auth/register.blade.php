@@ -1,52 +1,83 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registro de Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #fe889f, #ffb7c2 25%, #faccd3 75%, #ffffff);
+        }
+    </style>
+</head>
+<body class="h-screen flex items-center justify-center">
+<div class="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full">
+    <h2 class="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 mb-4">
+        Crea tu cuenta
+    </h2>
+
+    <form class="space-y-4" action="{{ route('register.person') }}" method="POST">
         @csrf
+        <div class="flex space-x-8">
+            <div class="w-1/2">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-900">Nombre</label>
+                    <input id="name" name="name" type="text" maxlength="15" required class="mt-1 block w-full rounded-md py-2 px-3 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-pink-500">
+                </div>
 
-        <!-- Name -->
+                <div>
+                    <label for="last_name" class="block text-sm font-medium text-gray-900">Apellido</label>
+                    <input id="last_name" name="last_name" type="text" maxlength="20" required class="mt-1 block w-full rounded-md py-2 px-3 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-pink-500">
+                </div>
+
+                <div>
+                    <label for="age" class="block text-sm font-medium text-gray-900">Edad</label>
+                    <input id="age" name="age" type="number" required class="mt-1 block w-full rounded-md py-2 px-3 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-pink-500">
+                </div>
+
+                <div>
+                    <label for="gender" class="block text-sm font-medium text-gray-900">Género</label>
+                    <select id="gender" name="gender" required class="mt-1 block w-full rounded-md py-2 px-3 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-pink-500">
+                        <option value="H">Hombre</option>
+                        <option value="M">Mujer</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-900">Teléfono</label>
+                    <input id="phone" name="phone" type="text" maxlength="10" required class="mt-1 block w-full rounded-md py-2 px-3 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-pink-500">
+                </div>
+            </div>
+
+            <div class="w-1/2">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-900">Correo Electrónico</label>
+                    <input id="email" name="email" type="email" required class="mt-1 block w-full rounded-md py-2 px-3 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-pink-500">
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-900">Contraseña</label>
+                    <input id="password" name="password" type="password" required class="mt-1 block w-full rounded-md py-2 px-3 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-pink-500">
+                </div>
+
+                <div>
+                    <label for="password_confirmation" class="block text-sm font-medium text-gray-900">Confirmar Contraseña</label>
+                    <input id="password_confirmation" name="password_confirmation" type="password" required class="mt-1 block w-full rounded-md py-2 px-3 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-pink-500">
+                </div>
+            </div>
+        </div>
+
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ml-4">
-                {{ __('Register') }}
-            </x-primary-button>
+            <button type="submit" class="flex w-full justify-center rounded-md bg-pink-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-pink-300 focus:outline focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">Regístrate</button>
         </div>
     </form>
-</x-guest-layout>
+
+    <p class="mt-4 text-center text-sm text-gray-500">
+        ¿Ya tienes cuenta?
+        <a href="{{ route('login') }}" class="font-semibold text-pink-400 hover:text-pink-500">Inicia sesión</a>
+    </p>
+</div>
+</body>
+</html>
