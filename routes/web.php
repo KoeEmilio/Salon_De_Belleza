@@ -16,6 +16,9 @@ use App\Http\Controllers\RecepcionistaController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServicioHomeController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +47,7 @@ Route::middleware(['auth','role:recepcionista'])->group(function () {
     Route::get('/inicio_recepcionista', [RecepcionistaController::class, 'index'])->name('recepcionista.inicio');
 
 });
+
 Route::get('/welcome', [InicioController::class, 'index'])->name('welcome');
 Route::get('/servicio', [ServicioHomeController::class, 'index'])->name('servicio');
     Route::get('/galeria', [GaleriaController::class, 'index'])->name('galeria');
@@ -57,6 +61,9 @@ Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.
 use App\Http\Controllers\FavoritosController;
 Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado');
 Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
+// web.php
+Route::get('/carga', function () { return view('carga');})->name('carga');
+Route::view('/paso1', 'cita1')->name('paso1');
 
     
     
