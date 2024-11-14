@@ -16,6 +16,8 @@ use App\Http\Controllers\RecepcionistaController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServicioHomeController;
+use App\Http\Controllers\FavoritosController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,6 +41,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/empleados', [DashboardController::class, 'empleados'])->name('empleados');
     Route::get('/servicios_admin', [DashboardController::class, 'servicios'])->name('servicios_admin');
     Route::get('/clientes_admin', [DashboardController::class, 'usuarios'])->name('clientes_admin');
+    Route::put('/update-user', [UserController::class, 'update'])->name('update.user');
     
 });
 
@@ -46,6 +49,7 @@ Route::middleware(['auth','role:recepcionista'])->group(function () {
     Route::get('/inicio_recepcionista', [RecepcionistaController::class, 'index'])->name('recepcionista.inicio');
 
 });
+Route::post('/register-person', [UserController::class, 'registerPerson'])->name('register.person');
 Route::get('/welcome', [InicioController::class, 'index'])->name('welcome');
 Route::get('/servicio', [ServicioHomeController::class, 'index'])->name('servicio');
     Route::get('/galeria', [GaleriaController::class, 'index'])->name('galeria');
@@ -56,7 +60,6 @@ Route::get('/servicio', [ServicioHomeController::class, 'index'])->name('servici
     Route::get('/paso1', function () { return view('cita1');});
     Route::get('/paso2', function () { return view('cita2');});
 Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
-use App\Http\Controllers\FavoritosController;
 Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado');
 Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
 

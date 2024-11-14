@@ -19,23 +19,21 @@ class DashboardController extends Controller
     }
 
     public function empleados(){
-        $empleados = Employee::with('person')->get();
+        $empleados = Employee::with('person')->paginate(5);
         return view('empleados', compact('empleados'));
 }
     public function servicios(){
-        $servicios = Service::with('typeService')->get();
+        $servicios = Service::with('typeService')->paginate(5);
         return view('servicios_admin', compact('servicios'));
     }
 
     public function usuarios(){
 
-        $usuarios = DB::select('
-            SELECT users.id, users.name, users.email
-            FROM users
-            JOIN user_rol ON users.id = user_rol.user
-        ');
+        $usuarios = DB::table('users')
+        ->select('users.id','users.name', 'users.email')
+        ->paginate(5); 
 
-        return view('clientes_admin', compact('usuarios'));
+    return view('clientes_admin', compact('usuarios'));
     }
 
 }
