@@ -8,6 +8,6 @@ class FavoritosController extends Controller
 {
     public function index()
     {
-        return view('agregado');
+        return view('agregado'); 
     }
 }

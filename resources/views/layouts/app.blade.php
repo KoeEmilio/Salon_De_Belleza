@@ -129,7 +129,7 @@
         .footer {
     background-color: black;
     color: white;
-    padding: 2rem 0;
+    padding: 8.1rem 0;
 }
 
 .footer .titulo h1 {
@@ -162,7 +162,7 @@
             <div class="container">
                 <!-- Logo -->
                 <a class="navbar-brand" href="{{ route('dashboard') }}">
-                    <img src="/logo.png" alt="Logo">
+                    <img src="/AH1.png" alt="Logo">
                 </a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -187,12 +187,19 @@
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('citas') ? 'active' : '' }}" href="{{ route('citas') }}">Citas</a>
                         </li>
+                        <form method="POST" action="{{ route('logout') }}" class="ml-auto">
+                @csrf
+                <button type="submit" class="btn logout-button">
+                    <i class='bx bx-log-out custom-icon-size custom-icon-color'></i>
+                    <span class="custom-color-text">Logout</span>
+                </button>
+            </form>
                     </ul>
 
                     <!-- Icono de corazón -->
               
-             
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-balloon-heart-fill" viewBox="0 0 16 16">
+              <button class="btn-heart" aria-label="Favoritos" onclick="window.location.href='{{ route('agregado') }}'">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" class="bi bi-balloon-heart-fill" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M8.49 10.92C19.412 3.382 11.28-2.387 8 .986 4.719-2.387-3.413 3.382 7.51 10.92l-.234.468a.25.25 0 1 0 .448.224l.04-.08c.009.17.024.315.051.45.068.344.208.622.448 1.102l.013.028c.212.422.182.85.05 1.246-.135.402-.366.751-.534 1.003a.25.25 0 0 0 .416.278l.004-.007c.166-.248.431-.646.588-1.115.16-.479.212-1.051-.076-1.629-.258-.515-.365-.732-.419-1.004a2 2 0 0 1-.037-.289l.008.017a.25.25 0 1 0 .448-.224l-.235-.468ZM6.726 1.269c-1.167-.61-2.8-.142-3.454 1.135-.237.463-.36 1.08-.202 1.85.055.27.467.197.527-.071.285-1.256 1.177-2.462 2.989-2.528.234-.008.348-.278.14-.386"/>
     </svg>
 </button>
@@ -212,15 +219,14 @@
         </main>
         <br>
 <br>
-<br>
-<br>
+
         <!-- Footer -->
-        <footer class="footer" >
         <footer class="footer">
-    <div class="container text-center">
-        <div class="titulo mb-4">
-            <h1> Glow Studio</h1>
-        </div>
+  <div class="container d-flex flex-column align-items-start">
+    <!-- Título principal alineado a la izquierda -->
+    <div class="titulo mb-4">
+      <h1 class="display-4" style="font-weight: bold;">Glow Studio</h1>
+    </div>
         <!-- Redes Sociales -->
         <div class="parent">
   <div class="child child-1">
@@ -267,9 +273,13 @@
         ></path>
       </svg>
     </button>
+    
   </div>
-</div>
-
+  <div>
+      <h5>Encuéntranos aquí:</h5>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.5198005883517!2d-103.41203772477517!3d25.587638177461706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x868fda61208a9159%3A0x8297d1b2f4a3236d!2sC.%20Lolo%20de%20M%C3%A9ndez%2065%2C%20Villa%20Florida%2C%2027105%20Torre%C3%B3n%2C%20Coah.!5e0!3m2!1ses-419!2smx!4v1730944164816!5m2!1ses-419!2smx"width="600" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+ 
     </div>
 </footer>
         </footer>

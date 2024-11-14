@@ -83,15 +83,15 @@
 
 
         .fixed-background {
-    background-image: url('https://st4prdbebeautiful4s4ci.blob.core.windows.net/www-bebeautiful-in/how-to-take-care-of-coloured-hair_10.jpg'); /* Usa una imagen de alta resolución */
+    background-image: url('https://colorhaircolor.b-cdn.net/wp-content/uploads/2023/12/pink-hair-color-27.jpg'); /* Usa una imagen de alta resolución */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* Mantiene la imagen fija al hacer scroll */
-    filter: brightness(0.9) contrast(1.1); /* Opcional: Mejora el contraste y brillo */
-    height: 600px; /* Ajusta la altura según tu preferencia */
+    background-attachment: fixed; 
+    filter: brightness(0.9) contrast(1.1); 
+    height: 600px; 
     width: 100%;
-    image-rendering: -webkit-optimize-contrast; /* Mejora el renderizado en navegadores webkit */
+    image-rendering: -webkit-optimize-contrast; 
 }
 
 

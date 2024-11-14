@@ -6,7 +6,7 @@
 <style>
   body {
     font-family: Arial, sans-serif;
-    background-color: #ffb7c2 ; 
+    background-color: #ffb7c2 ; /* Color de fondo añadido */
   }
   .card-title{
     color:#fe889f;
@@ -57,7 +57,7 @@
     z-index: 1;
   }
   .card:hover .description-overlay {
-    opacity: 1; 
+    opacity: 1; /* Show the overlay on hover */
   }
 </style>
 
@@ -78,7 +78,9 @@
         </div>
         <div class="card-body text-center">
           <h5 class="card-title">CORTES</h5>
+          <h5 class="card-title">$200</h5>
           <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
+         
         </div>
       </div>
     </div>
@@ -91,6 +93,7 @@
         </div>
         <div class="card-body text-center">
           <h5 class="card-title">BALAYAGE</h5>
+          <h5 class="card-title">$200</h5>
           <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
         </div>
       </div>
@@ -330,6 +333,15 @@
       alert(`${servicio} se ha agregado a la lista de servicios`);
     });
   });
+
+
+   // Función para ajustar la cantidad del servicio
+   function adjustQuantity(id, amount) {
+    const element = document.getElementById(id);
+    let currentValue = parseInt(element.innerText);
+    currentValue = Math.min(10, Math.max(1, currentValue + amount)); // Limitar entre 1 y 10
+    element.innerText = currentValue;
+  }
 </script>
 
 @endsection
