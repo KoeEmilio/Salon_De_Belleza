@@ -41,49 +41,38 @@ class RecepcionistaController extends Controller
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'client_name' => 'required|string',
-        'last_name' => 'required|string',
-        'age' => 'required|integer|min:0',
-        'phone' => 'required|string|max:15',
-        'appointment_day' => 'required|date',
-        'appointment_time' => 'required|date_format:H:i',
-        'status' => 'required|in:pendiente,cancelada,confirmada',
-        'payment_type' => 'required|in:efectivo,transferencia',
+    {
+        // Validar los datos del formulario
+        $validated = $request->validate([
+            'client_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'age' => 'required|integer',
+            'phone' => 'required|string|max:15',
+            'appointment_day' => 'required|date',
+            'appointment_time' => 'required|date_format:H:i',
+            'status' => 'required|string',
+            'payment_type' => 'required|string',
+            'owner_id' => 'required|integer',  // Validar que se reciba un owner_id
+        ]);
 
-    ]);
-
-    // Verificar si el cliente ya existe
-    $client = PeopleData::where('name', $request->client_name)
-                        ->where('last_name', $request->last_name)
-                        ->first();
-
-    // Si el cliente no existe, crearlo
-    if (!$client) {
-        $client = PeopleData::create([
-            'name' => $request->client_name,
+        // Crear la cita en la base de datos
+        Appointment::create([
+            'client_name' => $request->client_name,
             'last_name' => $request->last_name,
             'age' => $request->age,
             'phone' => $request->phone,
+            'appointment_day' => $request->appointment_day,
+            'appointment_time' => $request->appointment_time,
+            'status' => $request->status,
+            'payment_type' => $request->payment_type,
+            'owner_id' => $request->owner_id,  // Guardar el owner_id recibido
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
+
+        // Redirigir a la lista de citas con un mensaje de éxito
+        return redirect()->route('recepcionista.citas')->with('success', 'Cita agregada exitosamente');
     }
-    
-    // Crear la cita
-    $appointment = Appointment::create([
-        'client_id' => $client->id,
-        'sign_up_date' => now(),
-        'appointment_day' => $request->appointment_day,
-        'appointment_time' => $request->appointment_time,
-        'status' => $request->status,
-        'payment_type' => $request->payment_type,
-    ]);
-
-    // Asociar los servicios seleccionados a la cita
-    $appointment->services()->attach($request->services);
-
-    return redirect()->route('recepcionista.citas')->with('success', 'Cita guardada con éxito');
-}
 
     public function edit($id)
     {

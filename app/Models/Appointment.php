@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ServiceDetail;
 
 class Appointment extends Model
 {
     protected $table = 'appointments';
 
     protected $fillable = [
-     'sign_up_date',
+        'sign_up_date',
         'appointment_day',
         'appointment_time',
         'owner_id',

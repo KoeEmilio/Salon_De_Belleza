@@ -15,9 +15,9 @@
             <input type="text" class="form-control" id="last_name" name="last_name" required>
         </div>
         <div class="mb-3">
-            <label for="e_mail" class="form-label">Correo Electrónico</label>
-            <input type="email" class="form-control" id="e_mail" name="e_mail" required>
-        </div>
+            <label for="email" class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+       </div>
         <div class="mb-3">
             <label for="phone" class="form-label">Número de Contacto</label>
             <input type="text" class="form-control" id="phone" name="phone" required>

@@ -20,7 +20,7 @@
         <thead class="table-dark" style="background-color: #000; color: white;">
             <tr>
                 <th>Nombre</th>
-                <th>Correo</th>
+                <th>Edad</th>
                 <th>Número de Contacto</th>
                 <th>Acciones</th>
             </tr>
@@ -29,11 +29,12 @@
             @foreach($clientes as $cliente)
                 <tr>
                     <td>{{ $cliente->name }} {{ $cliente->last_name }}</td>
-                    <td>{{ $cliente->e_mail }}</td>
+                    <td>{{ $cliente->age }}</td>
                     <td>{{ $cliente->phone }}</td>
                     <td>
                         <a href="{{ route('clientes.show', $cliente->id) }}" class="btn btn-info">Ver Detalles</a>
-                        <a href="{{ route('clientes.historial_citas', $cliente->id) }}" class="btn btn-warning">Historial de Citas</a>                    </td>
+                        <a href="{{ route('clientes.historial_citas', $cliente->id) }}" class="btn btn-warning">Historial de Citas</a>                    
+                    </td>
                 </tr>
             @endforeach
         </tbody>
@@ -44,61 +45,4 @@
         {{ $clientes->links('pagination::bootstrap-5') }}
     </div>
 </div>
-
-@section('scripts')
-<script>
-    function verDetalles(id) {
-        fetch(`/clientes/${id}`)
-            .then(response => response.json())
-            .then(data => {
-                const contenido = `
-                    <h5>${data.name} ${data.last_name}</h5>
-                    <p><strong>Número de contacto:</strong> ${data.phone}</p>
-                    <p><strong>Correo electrónico:</strong> ${data.e_mail}</p>
-                    <p><strong>Género:</strong> ${data.gender === 'H' ? 'Hombre' : 'Mujer'}</p>
-                    <p><strong>Edad:</strong> ${data.age} años</p>
-                `;
-                alert(contenido); // Mostrar detalles en un alert o puedes usar un método diferente
-            })
-            .catch(error => console.error('Error:', error));
-    }
-
-    function eliminarCliente(id) {
-        if (confirm("¿Estás seguro de que quieres eliminar este cliente?")) {
-            fetch(`/clientes/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-                location.reload(); // Recargar la página para actualizar la lista
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    }
-</script>
 @endsection
-
-<style>
-    body {
-        font-family: 'Roboto', sans-serif; /* Cambia a otra fuente si prefieres */
-        background-color: #f8f9fa; /* Color de fondo claro para el cuerpo */
-    }
-
-    .table th, .table td {
-        text-align: center; /* Centrar el texto en las celdas */
-    }
-
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: #ffeef8; /* Color rosa claro para filas impares */
-    }
-
-    .table-hover tbody tr:hover {
-        background-color: #f1c7d4; /* Color rosa más claro al pasar el ratón */
-    }
-</style>
-@endsection  
