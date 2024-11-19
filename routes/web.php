@@ -42,16 +42,21 @@ Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit')
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/citas', [ClientePerfilController::class, 'citas'])->name('cliente.citas');
+    Route::get('/perfil', [ClientePerfilController::class, 'DatosCliente'])->name('cliente.perfil');
+});
+
 Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/empleados', [DashboardController::class, 'empleados'])->name('empleados');
     Route::get('/servicios_admin', [DashboardController::class, 'servicios'])->name('servicios_admin');
     Route::get('/clientes_admin', [DashboardController::class, 'usuarios'])->name('clientes_admin');
-    Route::put('/update-user', [UserController::class, 'update'])->name('update.user');
-    
+    Route::get('/usuarios/{id}/edit', [DashboardController::class, 'FomrmEditarUsuario'])->name('usuarios.edit');
+    Route::put('/usuarios/{id}', [DashboardController::class, 'Actualizardatos'])->name('update.user');
+    Route::put('/user/{id}/toggle-status', [DashboardController::class, 'toggleStatus'])->name('toggle.status');
 });
 
-// Rutas para recepcionista
 Route::middleware(['auth', 'role:recepcionista'])->group(function () {
     Route::get('/inicio_recepcionista', [RecepcionistaController::class, 'index'])->name('recepcionista.inicio');
 });
@@ -60,12 +65,13 @@ Route::get('/welcome', [InicioController::class, 'index'])->name('welcome');
 Route::get('/servicio', [ServicioHomeController::class, 'index'])->name('servicio');
 Route::get('/galeria', [GaleriaController::class, 'index'])->name('galeria');
 Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto');
-Route::get('/citas', [CitasController::class, 'index'])->name('citas');
 Route::get('/paso1', function () { return view('cita1');});
 Route::get('/paso2', function () { return view('cita2');});
 Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
 Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado');
 Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
+Route::get('/carga', function () { return view('carga');})->name('carga');
+Route::view('/paso1', 'cita1')->name('paso1');
 
 // Rutas para usuarios
 Route::post('/users/{id}/assign-role', [UserController::class, 'assignRole']);

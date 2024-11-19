@@ -184,9 +184,6 @@
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('contacto') ? 'active' : '' }}" href="{{ route('contacto') }}">Contacto</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('citas') ? 'active' : '' }}" href="{{ route('citas') }}">Citas</a>
-                        </li>
                         <form method="POST" action="{{ route('logout') }}" class="ml-auto">
                 @csrf
                 <button type="submit" class="btn logout-button">

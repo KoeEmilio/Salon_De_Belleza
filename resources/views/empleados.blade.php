@@ -291,10 +291,10 @@ td, th {
                     <tbody>
                       @foreach($empleados as $empleado)
                       <tr>
-                          <td>{{ $empleado->person->name }}</td>
-                          <td>{{ $empleado->person->last_name }}</td>
-                          <td>{{ $empleado->person->e_mail }}</td>
-                          <td>{{ $empleado->person->phone }}</td>
+                          <td>{{ $empleado->peopleData->name }}</td>
+                          <td>{{ $empleado->peopleData->last_name }}</td>
+                          <td>{{ $empleado->peopleData->e_mail }}</td>
+                          <td>{{ $empleado->peopleData->phone }}</td>
                           <td>{{ $empleado->address }}</td>
                             <td>
                               <div class="button-container">

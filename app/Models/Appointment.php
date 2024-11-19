@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ServiceDetail;
 
 class Appointment extends Model
 {
     protected $table = 'appointments';
 
     protected $fillable = [
-     'sign_up_date',
+        'sign_up_date',
         'appointment_day',
         'appointment_time',
         'owner_id',
@@ -23,10 +24,10 @@ class Appointment extends Model
     }
 
        // Relación con los detalles de servicio (una cita puede tener varios detalles de servicio)
-       public function serviceDetails()
-       {
-           return $this->hasMany(ServiceDetail::class, 'appointment_id');
-       }
+        public function serviceDetails()
+        {
+            return $this->hasMany(ServiceDetail::class, 'appointment_id');
+        }
 
     public function services()
     {
