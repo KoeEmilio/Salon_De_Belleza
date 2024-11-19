@@ -2,20 +2,23 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    protected $table = 'appointments';
+    use HasFactory;
 
     protected $fillable = [
-     'sign_up_date',
+        'sign_up_date',
         'appointment_day',
         'appointment_time',
         'owner_id',
         'status',
         'payment_type',
     ];
+
+
 
     public function owner()
     {

@@ -51,7 +51,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     
 });
 
-// Rutas para recepcionista
+// Rutas para Cliente
 Route::middleware(['auth', 'role:recepcionista'])->group(function () {
     Route::get('/inicio_recepcionista', [RecepcionistaController::class, 'index'])->name('recepcionista.inicio');
 });
@@ -66,6 +66,14 @@ Route::get('/paso2', function () { return view('cita2');});
 Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
 Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado');
 Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
+Route::get('/carga', function () { return view('carga');})->name('carga');
+Route::view('/paso1', 'cita1')->name('paso1');
+
+Route::post('/guardar-fecha', [AppointmentController::class, 'guardarFecha'])->name('guardar.fecha');
+Route::post('/appointments/guardar', [AppointmentController::class, 'guardarFecha'])->name('appointments.guardar');
+Route::post('/guardar-fecha-hora', [AppointmentController::class, 'guardarFechaHora'])->name('guardar.fecha.hora');
+Route::post('/guardar-fecha-hora', [AppoinmentController::class, 'store']);
+Route::post('/ruta/guardar-fecha-hora', [AppointmentController::class, 'store']);
 
 // Rutas para usuarios
 Route::post('/users/{id}/assign-role', [UserController::class, 'assignRole']);
