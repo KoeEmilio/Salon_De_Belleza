@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ServiceDetail;
 
 class Appointment extends Model
 {
-    protected $table = 'appointments';
+    use HasFactory;
 
     protected $fillable = [
         'sign_up_date',
@@ -17,6 +18,8 @@ class Appointment extends Model
         'status',
         'payment_type',
     ];
+
+
 
     public function owner()
     {

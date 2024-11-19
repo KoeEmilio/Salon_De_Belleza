@@ -73,6 +73,12 @@ Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->na
 Route::get('/carga', function () { return view('carga');})->name('carga');
 Route::view('/paso1', 'cita1')->name('paso1');
 
+Route::post('/guardar-fecha', [AppointmentController::class, 'guardarFecha'])->name('guardar.fecha');
+Route::post('/appointments/guardar', [AppointmentController::class, 'guardarFecha'])->name('appointments.guardar');
+Route::post('/guardar-fecha-hora', [AppointmentController::class, 'guardarFechaHora'])->name('guardar.fecha.hora');
+Route::post('/guardar-fecha-hora', [AppoinmentController::class, 'store']);
+Route::post('/ruta/guardar-fecha-hora', [AppointmentController::class, 'store']);
+
 // Rutas para usuarios
 Route::post('/users/{id}/assign-role', [UserController::class, 'assignRole']);
 Route::get('/users/{id}/roles', [UserController::class, 'getUserRoles']);

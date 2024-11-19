@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\PeopleData;
+use App\Models\User; // Si vas a usar el modelo de usuarios
 use Illuminate\Http\Request;
 
 class Recepcionista_Cliente_Controller extends Controller
@@ -20,25 +21,44 @@ class Recepcionista_Cliente_Controller extends Controller
         return view('clientes_recepcionista', compact('clientes', 'query'));
     }
 
-    // Crear un nuevo cliente
     public function store(Request $request)
-    {
-        // Validar la solicitud
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'e_mail' => 'required|email|unique:people_data,e_mail', // Cambia aquí según tu tabla
-            'phone' => 'required|string|max:15',
-            'gender' => 'required|string|max:1',
-            'age' => 'required|integer|min:0|max:120',
-            'user_id' => 'required|exists:users,id', // Asegúrate de validar el ID del usuario
-        ]);
+{
+    // Validar los datos
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|string|min:8|confirmed',
+        'phone' => 'required|string|max:15',
+        'gender' => 'required|string|max:1',
+        'age' => 'required|integer|min:0|max:120',
+    ]);
 
-        // Crear nuevo cliente
-        $cliente = PeopleData::create($validated);
+    // Crear el usuario (User)
+    $user = User::create([
+        'name' => $validated['name'],
+        'email' => $validated['email'],
+        'password' => bcrypt($validated['password']),
+    ]);
 
-        return response()->json(['message' => 'Cliente agregado exitosamente.']);
-    }
+    // Crear el cliente (PeopleData)
+    $cliente = PeopleData::create([
+        'name' => $validated['name'],
+        'last_name' => $validated['last_name'],
+        'age' => $validated['age'],
+        'gender' => $validated['gender'],
+        'phone' => $validated['phone'],
+        'user_id' => $user->id,  // Relacionamos el cliente con el usuario
+    ]);
+
+    // Redirigir con un mensaje de éxito
+    return redirect()->route('clientes.index')->with('message', 'Cliente agregado exitosamente.');
+}
+
+
+    
+ 
+
     // Mostrar un cliente específico
     public function show($id)
     {

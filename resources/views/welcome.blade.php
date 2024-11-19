@@ -48,17 +48,9 @@
             animation: fadeInUp 1.5s;
         }
 
-        .btn-custom {
-            background-color: var(--color-secundario);
-            color: #fff;
-            border: none;
-            transition: transform 0.3s ease;
-        }
+   
 
-        .btn-custom:hover {
-            transform: scale(1.1);
-            background-color: var(--color-principal);
-        }
+      
 
        
         .services-section {
@@ -126,7 +118,6 @@
         <div class="container text-center">
             <h1>Bienvenidos a Glow Studio</h1>
             <p>Donde la belleza y el estilo se encuentran</p>
-            <a href="#servicios" class="btn btn-custom btn-lg mt-4">Descubre Nuestros Servicios</a>
         </div>
     </section>
 
@@ -136,9 +127,15 @@
         <section class="about-section" id="about">
         <div class="container text-center">
             <h2 class="mb-4">Sobre Glow Studio</h2>
-            <p class="lead">En Glow Studio, nuestro objetivo es que cada cliente se sienta hermoso y renovado. Contamos con un equipo de profesionales apasionados y comprometidos que te ofrecen una experiencia personalizada en cada visita.</p>
-            <p class="mt-3">Ubicados en el corazón de la ciudad, nuestras instalaciones están diseñadas para ofrecerte un ambiente de calma y relajación, donde podrás disfrutar de nuestros servicios de peluquería, maquillaje, y mucho más.</p>
-            <a href="#reserva" class="btn btn-custom btn-lg mt-4">Reserva una Cita</a>
+            <p class="lead">
+Glow Studio: Donde la Belleza Encuentra su Brillo ✨
+
+En Glow Studio, creemos que la belleza no es solo una apariencia, sino una experiencia que transforma. Nos especializamos en realzar lo mejor de ti, ofreciendo servicios de alta calidad diseñados para destacar tu estilo y personalidad. <br>  <br>
+          Desde cortes de cabello modernos hasta coloraciones vibrantes, maquillaje profesional y tratamientos exclusivos, nuestro equipo de expertos está comprometido a brindarte una atención personalizada en un ambiente cálido y relajante. <br> <br>
+          Ubicados en el corazón de la ciudad, en Glow Studio combinamos tendencias internacionales con técnicas innovadoras para garantizar resultados que te harán sentir segura, radiante y única. Nuestro compromiso es ayudarte a brillar, porque tu confianza es nuestra mayor inspiración.
+
+¡Ven a Glow Studio y descubre cómo iluminar tu belleza desde el interior! 💖</p>
+           
         </div>
     </section>
 
@@ -170,7 +167,7 @@
                 <!-- Servicio 3 -->
                 <div class="col-md-4 mb-4">
                     <div class="card card-service">
-                        <img src=https://www.somosmamas.com.ar/wp-content/uploads/2020/09/maquillaje-facil-looks.jpg" class="card-img-top" alt="Maquillaje Profesional">
+                        <img src="https://www.somosmamas.com.ar/wp-content/uploads/2020/09/maquillaje-facil-looks.jpg" class="card-img-top" alt="Maquillaje Profesional">
                         <div class="card-body">
                             <h5 class="card-title">Maquillaje Profesional</h5>
                             <p class="card-text">Realza tu belleza con nuestro servicio de maquillaje de alta calidad.</p>
