@@ -7,22 +7,19 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
+    
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 
-    <!-- Custom Styles -->
+
     <style>
-/* From Uiverse.io by javierBarroso */ 
+ 
 .parent {
   width: 100%;
   height: 100%;
@@ -51,7 +48,6 @@
   background-position:
     -100px 100px,
     -100px 100px;
-  /*transform: rotate3d(0.5, 1, 0, 30deg);*/
   transform: perspective(180px) rotateX(60deg) translateY(2px);
 }
 
@@ -83,9 +79,6 @@
   transform: translate3d(0px, 20px, 30px) perspective(80px) rotateX(-60deg)
     translateY(2px) translateZ(10px);
 }
-
-
-
         body, .min-h-screen {
             display: flex;
             flex-direction: column;
@@ -157,10 +150,10 @@
 </head>
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
-        <!-- Navigation -->
+     
         <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container">
-                <!-- Logo -->
+           
                 <a class="navbar-brand" href="{{ route('dashboard') }}">
                     <img src="/AH1.png" alt="Logo">
                 </a>
@@ -170,7 +163,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <!-- Menú centrado -->
+            
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('welcome') ? 'active' : '' }}" href="{{ route('welcome') }}">Inicio</a>
@@ -196,14 +189,12 @@
             </form>
                     </ul>
 
-                    <!-- Icono de corazón -->
               
               <button class="btn-heart" aria-label="Favoritos" onclick="window.location.href='{{ route('agregado') }}'">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" class="bi bi-balloon-heart-fill" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M8.49 10.92C19.412 3.382 11.28-2.387 8 .986 4.719-2.387-3.413 3.382 7.51 10.92l-.234.468a.25.25 0 1 0 .448.224l.04-.08c.009.17.024.315.051.45.068.344.208.622.448 1.102l.013.028c.212.422.182.85.05 1.246-.135.402-.366.751-.534 1.003a.25.25 0 0 0 .416.278l.004-.007c.166-.248.431-.646.588-1.115.16-.479.212-1.051-.076-1.629-.258-.515-.365-.732-.419-1.004a2 2 0 0 1-.037-.289l.008.017a.25.25 0 1 0 .448-.224l-.235-.468ZM6.726 1.269c-1.167-.61-2.8-.142-3.454 1.135-.237.463-.36 1.08-.202 1.85.055.27.467.197.527-.071.285-1.256 1.177-2.462 2.989-2.528.234-.008.348-.278.14-.386"/>
     </svg>
 </button>
-                    <!-- Icono de usuario -->
                     <a href="{{ route('login') }}" class="ml-3">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" width="30" height="30">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/>
@@ -213,21 +204,20 @@
             </div>
         </nav>
 
-        <!-- Page Content -->
         <main>
             @yield('content')
         </main>
         <br>
 <br>
 
-        <!-- Footer -->
+     
         <footer class="footer">
   <div class="container d-flex flex-column align-items-start">
-    <!-- Título principal alineado a la izquierda -->
+
     <div class="titulo mb-4">
       <h1 class="display-4" style="font-weight: bold;">Glow Studio</h1>
     </div>
-        <!-- Redes Sociales -->
+        
         <div class="parent">
   <div class="child child-1">
     <button class="button btn-1">
@@ -285,16 +275,17 @@
         </footer>
     </div>
 
-    <!-- Bootstrap JS -->
+  
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Script para el botón de corazón -->
+
     <script>
         document.getElementById('heartBtn').addEventListener('click', function() {
             this.classList.toggle('favorito'); 
         });
     </script>
 </body>
-</html>
+</html> 
+

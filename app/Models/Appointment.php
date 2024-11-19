@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ServiceDetail;
+use Illuminate\Support\Carbon;
 
 class Appointment extends Model
 {
@@ -14,28 +15,38 @@ class Appointment extends Model
         'appointment_day',
         'appointment_time',
         'owner_id',
-        'status',
+        'status', 
         'payment_type',
     ];
 
-    public function owner()
+    protected static function boot()
     {
-        return $this->belongsTo(PeopleData::class, 'owner_id');
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (is_null($model->sign_up_date)) {
+                $model->sign_up_date = Carbon::now();
+            }
+        });
     }
 
-       // Relación con los detalles de servicio (una cita puede tener varios detalles de servicio)
-       public function serviceDetails()
-       {
-           return $this->hasMany(ServiceDetail::class, 'appointment_id');
-       }
+    public function owner()
+    {
+        return $this->belongsTo(PeopleData::class, 'owner_id');  
+    }
+
+    public function serviceDetails()
+    {
+        return $this->hasMany(ServiceDetail::class, 'appointment_id');
+    }
 
     public function services()
     {
-        return $this->belongsToMany(Service::class, 'appointment_service', 'appointment_id', 'service_id');
+        return $this->belongsToMany(Service::class, 'appointment_id', 'service_id');
     }
-        // Relación muchos a muchos con Order a través de la tabla intermedia 'orders_appointments'
-        public function orders()
-        {
-            return $this->belongsToMany(Order::class, 'orders_appointments', 'appointment_id', 'order_id');
-        }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'orders_appointments', 'appointment_id', 'order_id');
+    }
 }

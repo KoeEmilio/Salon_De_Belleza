@@ -1,105 +1,162 @@
 @extends('layouts.recepcionista')
 
 @section('content')
-<div class="container my-5">
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold text-danger">Gestión de Citas</h1>
-    </div>
+<div class="container mt-5">
+    <h1 class="text-center text-pink mb-4 animate__animated animate__fadeInDown">Gestión de Citas</h1>
 
-    <!-- Formulario de búsqueda -->
-    <div class="mb-4">
-        <form action="{{ route('recepcionista.citas') }}" method="GET">
-            <div class="input-group">
-                <input type="text" class="form-control" name="search" placeholder="Buscar por nombre o apellido" value="{{ request()->input('search') }}">
-                <button class="btn btn-danger" type="submit"><i class="fas fa-search"></i> Buscar</button>
-            </div>
+    @if(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    <!-- Barra de búsqueda -->
+    <div class="mb-4 d-flex justify-content-between align-items-center">
+        <div>
+            <a href="{{ route('citas.create') }}" class="btn btn-outline-secondary mb-4">
+                <i class="fas fa-plus-circle"></i> Agregar Nueva Cita
+            </a>
+        </div>
+        <form action="{{ route('citas.index') }}" method="GET" class="d-flex">
+            <input type="text" name="search" class="form-control me-2" placeholder="Buscar por cliente o fecha" value="{{ request()->get('search') }}">
+            <button class="btn btn-pink" type="submit">
+                <i class="fas fa-search"></i> Buscar
+            </button>
         </form>
     </div>
 
-    <!-- Tabla de citas -->
-    <div class="card shadow-sm">
-        <div class="card-header bg-danger text-white">
-            <h3 class="my-0">Citas Programadas</h3>
-        </div>
-        <div class="card-body p-0">
-            <table class="table table-hover table-striped m-0">
-                <thead class="table-light">
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Hora</th>
-                        <th>Cliente</th>
-                        <th>Estado</th>
-                        <th>Método de Pago</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($appointments as $appointment)
-                    <tr>
-                        <td>{{ \Carbon\Carbon::parse($appointment->appointment_day)->format('d/m/Y') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('H:i') }}</td>
-                        <td>{{ $appointment->client->name }} {{ $appointment->client->last_name }}</td>
-                        <td>
-                            @if ($appointment->status == 'confirmada')
-                                <span class="badge bg-success"><i class="fas fa-check-circle"></i> Confirmada</span>
-                            @elseif ($appointment->status == 'pendiente')
-                                <span class="badge bg-warning text-dark"><i class="fas fa-clock"></i> Pendiente</span>
-                            @else
-                                <span class="badge bg-danger"><i class="fas fa-times-circle"></i> Cancelada</span>
-                            @endif
-                        </td>
-                        <td><i class="fas fa-money-bill-wave"></i> {{ ucfirst($appointment->payment_type) }}</td>
-                        <td>
-                            <a href="{{ route('recepcionista.citas.edit', $appointment->id) }}" class="btn btn-sm btn-outline-danger me-2"><i class="fas fa-edit"></i> Editar</a>
-                            <a href="{{ route('ver_servicios', ['appointmentId' => $appointment->id]) }}" class="btn btn-sm btn-outline-secondary me-2"><i class="fas fa-eye"></i> Ver Servicios</a>
-                            <form action="{{ route('recepcionista.citas.destroy', $appointment->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="6" class="text-center">No hay citas programadas.</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <!-- Tabla de Citas -->
+    <table class="table table-bordered table-striped">
+        <thead class="bg-pink text-white">
+            <tr>
+                <th>Fecha Registro</th>
+                <th>Fecha Cita</th>
+                <th>Hora Cita</th>
+                <th>Cliente</th>
+                <th>Estado</th>
+                <th>Tipo de Pago</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($citas as $cita)
+                <tr>
+                    <td>{{ $cita->sign_up_date }}</td>
+                    <td>{{ $cita->appointment_day }}</td>
+                    <td>{{ $cita->appointment_time }}</td>
+                    <td>{{ $cita->owner ? $cita->owner->name : 'Desconocido' }}</td>
+                    <td>{{ $cita->status }}</td>
+                    <td>{{ $cita->payment_type }}</td>
+                    <td>
+                        <a href="{{ route('citas.edit', $cita->id) }}" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <a href="{{ route('services.index', ['client_id' => $cita->owner->id]) }}" class="btn btn-info">
+                            <i class="fas fa-eye"></i> Ver Servicios
+                        </a>
+                        <form action="{{ route('citas.destroy', $cita->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i> Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 
-    <!-- Paginación -->
-    <div class="d-flex justify-content-center mt-4">
-        {{ $appointments->appends(['search' => $search])->links('pagination::bootstrap-5') }}
-    </div>
+   <!-- Paginación de Bootstrap -->
+   <div class="d-flex justify-content-center mt-4">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <!-- Botón "Anterior" -->
+            @if ($citas->onFirstPage())
+                <li class="page-item disabled">
+                    <span class="page-link">Anterior</span>
+                </li>
+            @else
+                <li class="page-item">
+                    <a class="page-link" href="{{ $citas->previousPageUrl() }}" aria-label="Previous">
+                        Anterior
+                    </a>
+                </li>
+            @endif
 
-    <!-- Botón para agregar nueva cita -->
-    <div class="text-center mt-5">
-        <a href="{{ route('recepcionista.citas.create') }}" class="btn btn-lg btn-danger px-5 py-3 shadow-sm">
-            <i class="fas fa-plus-circle"></i> Agregar Nueva Cita
-        </a>
-    </div>
+            <!-- Números de página -->
+            @for ($i = 1; $i <= $citas->lastPage(); $i++)
+                <li class="page-item {{ ($citas->currentPage() == $i) ? 'active' : '' }}">
+                    <a class="page-link" href="{{ $citas->url($i) }}">{{ $i }}</a>
+                </li>
+            @endfor
+
+            <!-- Botón "Siguiente" -->
+            @if ($citas->hasMorePages())
+                <li class="page-item">
+                    <a class="page-link" href="{{ $citas->nextPageUrl() }}" aria-label="Next">
+                        Siguiente
+                    </a>
+                </li>
+            @else
+                <li class="page-item disabled">
+                    <span class="page-link">Siguiente</span>
+                </li>
+            @endif
+        </ul>
+    </nav>
+</div>
 </div>
 
 <style>
-    body {
-        background-color: #f8f9fa; /* Color de fondo claro */
+    .btn-outline-secondary {
+        color: #6c757d;
+        border-color: #6c757d;
     }
-    .btn-danger {
-        background-color: #dc3545; /* Color principal */
-        border-color: #dc3545; /* Color principal */
+    .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        color: white;
     }
-    .btn-outline-danger {
-        color: #dc3545; /* Color texto botón */
-        border-color: #dc3545; /* Color borde botón */
-    }
-    .btn-outline-danger:hover {
-        background-color: #dc3545; /* Color fondo al pasar el ratón */
-        color: white; /* Color texto al pasar el ratón */
-    }
+
     .table th, .table td {
-        vertical-align: middle; /* Alinear verticalmente */
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table th {
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #fff;
+        background-color: #F06292;
+    }
+
+    .table td {
+        font-size: 1rem;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #F06292;
+        border-color: #F06292;
+        color: white;
+    }
+
+    .pagination .page-link {
+        color: #F06292;
+        border: 1px solid #F06292;
+        font-size: 1rem;
+    }
+
+    .pagination .page-link:hover {
+        background-color: #f8c8d1;
+        color: #F06292;
+    }
+
+    .pagination .page-item {
+        margin: 0 2px;
     }
 </style>
 @endsection
