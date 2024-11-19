@@ -9,6 +9,9 @@
     <form action="{{ route('recepcionista.citas.store') }}" method="POST" class="bg-light p-4 rounded shadow-lg animate__animated animate__fadeInUp">
         @csrf
 
+        <!-- Campo oculto para enviar el owner_id -->
+        <input type="hidden" name="owner_id" value="{{ auth()->user()->id }}">
+
         <div class="mb-3 input-group">
             <span class="input-group-text bg-pink text-white"><i class="fas fa-user"></i></span>
             <input type="text" id="client_name" name="client_name" class="form-control" placeholder="Nombre del Cliente" required>

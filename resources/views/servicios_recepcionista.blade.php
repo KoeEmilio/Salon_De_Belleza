@@ -28,11 +28,11 @@
         <tbody>
             @forelse($servicios as $servicio)
                 <tr>
-                    <td>{{ $servicio->service }}</td>
+                    <td>{{ $servicio->service_name }}</td>
                     <td>${{ number_format($servicio->price, 2) }}</td>
                     <td>{{ $servicio->duration }}</td>
                     <td>{{ $servicio->description }}</td>
-                    <td>{{ $servicio->type_service }}</td>
+                    <td>{{ $servicio->typeService->type }}</td> <!-- Acceder al tipo de servicio -->
                     <td>{{ $servicio->estado ? 'Activo' : 'Inactivo' }}</td>
                 </tr>
             @empty
