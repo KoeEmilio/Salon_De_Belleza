@@ -69,4 +69,13 @@ class DashboardController extends Controller
         $usuario = User::with('peopleData')->findOrFail($id);
         return view('Editar_cliente', compact('usuario'));
     }
+
+    public function toggleStatus($id)
+{
+    $usuario = User::findOrFail($id);
+    $usuario->is_active = !$usuario->is_active; // Cambiar el estado
+    $usuario->save();
+
+    return redirect()->back()->with('status', 'Estado actualizado correctamente');
+}
 }
