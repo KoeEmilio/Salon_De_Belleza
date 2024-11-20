@@ -12,4 +12,5 @@ class serviciohomeController extends Controller
         
         return view('servicio'); 
     }
+    
 }
