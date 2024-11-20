@@ -1,36 +1,48 @@
 @extends('layouts.recepcionista')
 
 @section('content')
+
+<div class="container-fluid content">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-lg-8 col-md-10 col-sm-12">
+            <div class="welcome-card">
+                <h1 class="display-4 font-weight-bold">Bienvenido, Recepcionista</h1>
+                <p class="lead">¡Gestiona tu salón de belleza de manera eficiente y efectiva!</p>
+                <h2>Información del Recepcionista</h2>
+
+                <p>Nombre: <strong>{{ $recepcionista->name }}</strong></p>
+                <p>Correo: <strong>{{ $recepcionista->email }}</strong></p>
+                <p>Fecha de Ingreso: <strong>{{ now()->format('Y-m-d') }}</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
 <style>
-   
-    /* Estilos para el contenido */
     .content {
-        padding:3%;
-        position: relative; /* Para colocar contenido encima del video */
-        color:  #ff77a7; /* Color del texto principal */
+        padding: 3%;
+        position: relative;
+        color: #ff77a7;
         text-align: center;
-        z-index: 1; /* Asegura que el contenido esté en frente del video */
+        z-index: 1;
     }
 
     .welcome-card {
-        background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente */
-        border: 2px solid #ff77a7; /* Borde rosa */
-        border-radius: 15px; /* Bordes redondeados */
-        padding: 30px; /* Espaciado interno */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra */
-        transition: transform 0.3s; /* Efecto de elevación al pasar el mouse */
-        margin: 0 auto; /* Centrar la tarjeta */
-        max-width: 600px; /* Ancho máximo de la tarjeta */
-        clip-path: circle(0%); /* Inicialmente el círculo es 0% */
-        animation: 2.5s cubic-bezier(.25, 1, .30, 1) circle-in-hesitate both; /* Aplicar la animación */
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 2px solid #ff77a7;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s;
+        margin: 0 auto;
+        max-width: 600px;
+        clip-path: circle(0%);
+        animation: 2.5s cubic-bezier(.25, 1, .30, 1) circle-in-hesitate both;
     }
 
     .welcome-card:hover {
-        transform: translateY(-5px); /* Elevar tarjeta al pasar el mouse */
+        transform: translateY(-5px);
     }
 
-    
-    /* Animación para el círculo */
     @keyframes circle-in-hesitate {
         0% {
             clip-path: circle(0%);
@@ -43,25 +55,39 @@
         }
     }
 
+    @media (max-width: 768px) {
+        .welcome-card {
+            padding: 20px;
+            max-width: 100%; 
+            margin: 10px;
+        }
+
+        .content {
+            padding: 5%;
+        }
+
+        h1.display-4 {
+            font-size: 1.8rem; 
+        }
+
+        p.lead {
+            font-size: 1rem; 
+        }
+    }
+
+    @media (max-width: 576px) {
+        .welcome-card {
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        h1.display-4 {
+            font-size: 1.5rem;
+        }
+
+        p.lead {
+            font-size: 0.9rem;
+        }
+    }
 </style>
-
-
-<!-- Contenido principal -->
-<div class="container-fluid content">
-    <div class="row justify-content-center align-items-center h-100">
-        <div class="col-md-8">
-            <div class="welcome-card" transition-style="in:circle:hesitate">
-                <h1 class="display-4 font-weight-bold">Bienvenido, Recepcionista</h1>
-                <p class="lead">¡Gestiona tu salón de belleza de manera eficiente y efectiva!</p>
-                <h2>Información del Recepcionista</h2>
-                
-                <p>Nombre: <strong>{{ $recepcionista->name}}</strong></p>
-                <p>Correo: <strong>{{ $recepcionista->email }}</strong></p>
-                <p>Fecha de Ingreso: <strong>{{ now()->format('Y-m-d') }}</strong></p>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 @endsection

@@ -21,24 +21,22 @@
 
         <div class="mb-3 input-group">
             <span class="input-group-text bg-pink text-white"><i class="fas fa-user"></i></span>
-            <input type="text" id="client_name" name="client_name" class="form-control" placeholder="Nombre del Cliente" value="{{ $cita->owner->name ?? '' }}" required>
+            <input type="text" id="client_name" name="client_name" class="form-control" placeholder="Nombre del Cliente" value="{{ old('client_name', $cita->owner->first_name) }}" required>
         </div>
 
         <div class="mb-3 input-group">
             <span class="input-group-text bg-pink text-white"><i class="fas fa-user-tag"></i></span>
-            <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Apellido del Cliente" value="{{ $cita->owner->last_name ?? '' }}" required>
+            <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Apellido del Cliente" value="{{ old('last_name', $cita->owner->last_name) }}" required>
         </div>
-
-        
 
         <div class="mb-3 input-group">
             <span class="input-group-text bg-pink text-white"><i class="fas fa-calendar-alt"></i></span>
-            <input type="date" id="appointment_day" name="appointment_day" class="form-control" value="{{ $cita->appointment_day }}" required>
+            <input type="date" id="appointment_day" name="appointment_day" class="form-control" value="{{ old('appointment_day', $cita->appointment_day) }}" required>
         </div>
 
         <div class="mb-3 input-group">
             <span class="input-group-text bg-pink text-white"><i class="fas fa-clock"></i></span>
-            <input type="time" id="appointment_time" name="appointment_time" class="form-control" value="{{ $cita->appointment_time }}" required>
+            <input type="time" id="appointment_time" name="appointment_time" class="form-control" value="{{ old('appointment_time', $cita->appointment_time) }}" required>
         </div>
 
         <div class="mb-3 input-group">

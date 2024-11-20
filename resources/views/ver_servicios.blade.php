@@ -6,7 +6,7 @@
         <h1 class="text-pink animate__animated animate__fadeInDown">
             Servicios de 
             @if(isset($client))
-                <span class="font-weight-bold">{{ $client->name }} {{ $client->last_name }}</span>
+                <span class="font-weight-bold">{{ $client->first_name }} {{ $client->last_name }}</span>
             @else
                 <span class="font-weight-bold">Cliente no identificado</span>
             @endif

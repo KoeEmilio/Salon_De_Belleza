@@ -4,8 +4,8 @@
 <div class="container mt-5">
     <h1 class="display-4 text-center" style="color: #F06292;">Gestión de Servicios</h1>
 
-    <!-- Barra de búsqueda y botón de agregar nueva cita -->
     <div class="mb-4 d-flex justify-content-between align-items-center">
+
         <form action="{{ route('servicios_recepcionista') }}" method="GET" class="d-flex">
             <input type="text" name="search" class="form-control me-2" placeholder="Buscar servicio..." value="{{ request()->get('search') }}">
             <button class="btn btn-pink" type="submit">
@@ -14,41 +14,42 @@
         </form>
     </div>
 
-    <!-- Tabla de servicios -->
-    <table class="table table-striped table-hover table-bordered" style="border-color: #F48FB1; border-radius: 10px;">
-        <thead class="thead-dark" style="background-color: #F8BBD0; color: white;">
-            <tr>
-                <th>Nombre del Servicio <i class="fas fa-cogs"></i></th>
-                <th>Precio <i class="fas fa-dollar-sign"></i></th>
-                <th>Duración <i class="fas fa-clock"></i></th>
-                <th>Descripción <i class="fas fa-info-circle"></i></th>
-                <th>Tipo <i class="fas fa-tags"></i></th>
-                <th>Estado <i class="fas fa-check-circle"></i></th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($servicios as $servicio)
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered" style="border-color: #F48FB1; border-radius: 10px;">
+            <thead class="thead-dark" style="background-color: #F8BBD0; color: white;">
                 <tr>
-                    <td>{{ $servicio->service_name }}</td>
-                    <td>${{ number_format($servicio->price, 2) }}</td>
-                    <td>{{ $servicio->duration }}</td>
-                    <td>{{ $servicio->description }}</td>
-                    <td>{{ $servicio->typeService->type }}</td> <!-- Acceder al tipo de servicio -->
-                    <td>{{ $servicio->estado ? 'Activo' : 'Inactivo' }}</td>
+                    <th>Nombre del Servicio <i class="fas fa-cogs"></i></th>
+                    <th>Precio <i class="fas fa-dollar-sign"></i></th>
+                    <th>Duración <i class="fas fa-clock"></i></th>
+                    <th>Descripción <i class="fas fa-info-circle"></i></th>
+                    <th>Tipo <i class="fas fa-tags"></i></th>
+                    <th>Estado <i class="fas fa-check-circle"></i></th>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="6" class="text-center">No se encontraron servicios.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @forelse($servicios as $servicio)
+                    <tr>
+                        <td>{{ $servicio->service_name }}</td>
+                        <td>${{ number_format($servicio->price, 2) }}</td>
+                        <td>{{ $servicio->duration }}</td>
+                        <td>{{ $servicio->description }}</td>
+                        <td>{{ $servicio->typeService->type }}</td> <!-- Acceder al tipo de servicio -->
+                        <td>{{ $servicio->estado ? 'Activo' : 'Inactivo' }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center">No se encontraron servicios.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 
-    <!-- Paginación de Bootstrap -->
+
     <div class="d-flex justify-content-center mt-4">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <!-- Páginas anteriores -->
+
                 @if ($servicios->onFirstPage())
                     <li class="page-item disabled">
                         <span class="page-link">Anterior</span>
@@ -61,14 +62,12 @@
                     </li>
                 @endif
 
-                <!-- Páginas numeradas -->
                 @foreach ($servicios->getUrlRange(1, $servicios->lastPage()) as $page => $url)
                     <li class="page-item {{ $page == $servicios->currentPage() ? 'active' : '' }}">
                         <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                     </li>
                 @endforeach
 
-                <!-- Páginas siguientes -->
                 @if ($servicios->hasMorePages())
                     <li class="page-item">
                         <a class="page-link" href="{{ $servicios->nextPageUrl() }}" aria-label="Next">
@@ -87,7 +86,7 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #F3E5F5; /* Fondo suave rosa */
+            background-color: #F3E5F5; 
         }
 
         .table th, .table td {
@@ -97,15 +96,15 @@
         }
 
         .table-striped tbody tr:nth-of-type(odd) {
-            background-color: #FDEBEB; /* Rosa suave para filas impares */
+            background-color: #FDEBEB; 
         }
 
         .table-hover tbody tr:hover {
-            background-color: #F8D9DA; /* Rosa aún más suave al pasar el ratón */
+            background-color: #F8D9DA; 
         }
 
         .table th {
-            background-color: #F8BBD0; /* Rosa suave para el encabezado */
+            background-color: #F8BBD0; 
             color: white;
             font-weight: bold;
         }
@@ -134,4 +133,4 @@
             color: #F06292;
         }
     </style>
-@endsection  
+@endsection

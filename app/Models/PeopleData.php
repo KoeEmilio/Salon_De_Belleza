@@ -11,7 +11,7 @@ class PeopleData extends Model
     protected $table = 'people_data'; // Definir el nombre de la tabla
 
     protected $fillable = [
-        'name',
+        'first_name',
         'last_name',
         'age',
         'gender',

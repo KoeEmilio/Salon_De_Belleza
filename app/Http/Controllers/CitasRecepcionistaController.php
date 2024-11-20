@@ -10,23 +10,24 @@ class CitasRecepcionistaController extends Controller
 {
     
     public function index(Request $request)
-{
-    // Obtener el valor de búsqueda
-    $search = $request->get('search');
-
-    // Obtener las citas con paginación y búsqueda
-    $citas = Appointment::with('owner')
-        ->when($search, function($query, $search) {
-            return $query->where('appointment_day', 'like', "%$search%")
-                         ->orWhereHas('owner', function ($query) use ($search) {
-                             $query->where('name', 'like', "%$search%");
-                         });
-        })
-        ->paginate(5); // Paginación de 5 elementos por página
-
-    // Pasar las citas a la vista
-    return view('citas_recepcionista', compact('citas'));
-}
+    {
+        // Obtener el valor de búsqueda
+        $search = $request->get('search');
+    
+        // Obtener las citas con paginación y búsqueda
+        $citas = Appointment::with('owner')
+            ->when($search, function($query, $search) {
+                return $query->where('appointment_day', 'like', "%$search%")  // Búsqueda por fecha de cita
+                             ->orWhereHas('owner', function ($query) use ($search) {
+                                 $query->where('first_name', 'like', "%$search%")  // Búsqueda por primer nombre del cliente
+                                       ->orWhere('last_name', 'like', "%$search%");  // Búsqueda por apellido del cliente
+                             });
+            })
+            ->paginate(5); // Paginación de 5 elementos por página
+    
+        // Pasar las citas a la vista
+        return view('citas_recepcionista', compact('citas'));
+    }
 
     public function create()
     {
@@ -50,7 +51,7 @@ class CitasRecepcionistaController extends Controller
     
 
         $client = PeopleData::create([
-            'name' => $request->client_name,
+            'first_name' => $request->client_name,
             'last_name' => $request->last_name,
             'phone' => $request->phone,
             'age' => $request->age ?? null,  
@@ -83,30 +84,38 @@ class CitasRecepcionistaController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-      
-        $request->validate([
-            'appointment_day' => 'required|date',
-            'appointment_time' => 'required|date_format:H:i',
-            'client_name' => 'required|string',
-            'status' => 'required|string',
-            'payment_type' => 'required|string',
-        ]);
+{
+    $request->validate([
+        'appointment_day' => 'required|date',
+        'appointment_time' => 'required|date_format:H:i',
+        'client_name' => 'required|string',
+        'last_name' => 'required|string',
+        'status' => 'required|string',
+        'payment_type' => 'required|string',
+    ]);
 
-    
-        $cita = Appointment::findOrFail($id);
+    // Obtener la cita
+    $cita = Appointment::findOrFail($id);
 
-       
-        $cita->update([
-            'appointment_day' => $request->input('appointment_day'),
-            'appointment_time' => $request->input('appointment_time'),
-            'status' => $request->input('status'),
-            'payment_type' => $request->input('payment_type'),
-        ]);
+    // Actualizar los datos del cliente asociado a la cita
+    $client = $cita->owner;
+    $client->update([
+        'first_name' => $request->input('client_name'),
+        'last_name' => $request->input('last_name'),
+    ]);
 
-       
-        return redirect()->route('citas.index')->with('success', 'Cita actualizada exitosamente');
-    }
+    // Actualizar los datos de la cita
+    $cita->update([
+        'appointment_day' => $request->input('appointment_day'),
+        'appointment_time' => $request->input('appointment_time'),
+        'status' => $request->input('status'),
+        'payment_type' => $request->input('payment_type'),
+    ]);
+
+    // Redirigir con un mensaje de éxito
+    return redirect()->route('citas.index')->with('success', 'Cita actualizada exitosamente');
+}
+
 
   
     public function destroy($id)

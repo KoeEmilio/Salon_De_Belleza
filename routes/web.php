@@ -48,6 +48,11 @@ Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit')
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/citas', [ClientePerfilController::class, 'citas'])->name('cliente.citas');
+    Route::get('/perfil', [ClientePerfilController::class, 'DatosCliente'])->name('cliente.perfil');
+});
+
 Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/empleados', [DashboardController::class, 'empleados'])->name('empleados');
@@ -61,26 +66,9 @@ Route::middleware(['auth','role:admin'])->group(function () {
 Route::get('/turnos', [EmpleadoAdminController::class, 'turnos'])->name('turnos');
 Route::get('/trabajos', [EmpleadoAdminController::class, 'trabajos'])->name('trabajos');
 
-Route::get('/', [NominasController::class, 'index'])->name('nominas.index');
-Route::get('/{id}', [NominasController::class, 'show'])->name('nominas.show');
-Route::get('/markPaid/{id}', [NominasController::class, 'markAsPaid'])->name('nominas.markPaid');
 
-Route::get('/', [TurnosController::class, 'index'])->name('turnos.index');
-Route::get('/create', [TurnosController::class, 'create'])->name('turnos.create');
-Route::post('/store', [TurnosController::class, 'store'])->name('turnos.store');
-Route::get('/edit/{id}', [TurnosController::class, 'edit'])->name('turnos.edit');
-Route::put('/update/{id}', [TurnosController::class, 'update'])->name('turnos.update');
-Route::delete('/delete/{id}', [TurnosController::class, 'destroy'])->name('turnos.delete');
-
-Route::get('/', [TrabajosController::class, 'index'])->name('trabajos.index');
-    Route::get('/create', [TrabajosController::class, 'create'])->name('trabajos.create');
-    Route::post('/store', [TrabajosController::class, 'store'])->name('trabajos.store');
-    Route::get('/edit/{id}', [TrabajosController::class, 'edit'])->name('trabajos.edit');
-    Route::put('/update/{id}', [TrabajosController::class, 'update'])->name('trabajos.update');
-    Route::delete('/delete/{id}', [TrabajosController::class, 'destroy'])->name('trabajos.delete');
 });
 
-// Rutas para recepcionista
 Route::middleware(['auth', 'role:recepcionista'])->group(function () {
     Route::get('/inicio_recepcionista', [RecepcionistaController::class, 'index'])->name('recepcionista.inicio');
 });
@@ -89,7 +77,6 @@ Route::get('/welcome', [InicioController::class, 'index'])->name('welcome');
 Route::get('/servicio', [ServicioHomeController::class, 'index'])->name('servicio');
 Route::get('/galeria', [GaleriaController::class, 'index'])->name('galeria');
 Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto');
-Route::get('/citas', [CitasController::class, 'index'])->name('citas');
 Route::get('/paso1', function () { return view('cita1');});
 Route::get('/paso2', function () { return view('cita2');});
 Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
@@ -97,6 +84,13 @@ Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado')
 Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
 Route::get('/carga', function () { return view('carga');})->name('carga');
 Route::view('/paso1', 'cita1')->name('paso1');
+
+Route::post('/guardar-fecha', [AppointmentController::class, 'guardarFecha'])->name('guardar.fecha');
+Route::post('/appointments/guardar', [AppointmentController::class, 'guardarFecha'])->name('appointments.guardar');
+Route::post('/guardar-fecha-hora', [AppointmentController::class, 'guardarFechaHora'])->name('guardar.fecha.hora');
+Route::post('/guardar-fecha-hora', [AppointmentController::class, 'store']);
+Route::post('/ruta/guardar-fecha-hora', [AppointmentController::class, 'store']);
+
 // Rutas para usuarios
 Route::post('/users/{id}/assign-role', [UserController::class, 'assignRole']);
 Route::get('/users/{id}/roles', [UserController::class, 'getUserRoles']);

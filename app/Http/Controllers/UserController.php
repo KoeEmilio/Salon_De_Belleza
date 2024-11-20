@@ -34,7 +34,7 @@ class UserController extends Controller
 {
 
     DB::statement('CALL RegisterPerson(?, ?, ?, ?, ?, ?, ?, ?)', [
-        $request->input('name'),
+        $request->input('first_name'),
         $request->input('last_name'),
         $request->input('age'),
         $request->input('gender'),

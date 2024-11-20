@@ -3,10 +3,12 @@
 @section('content')
 <title>Servicios</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 <style>
   body {
     font-family: Arial, sans-serif;
-    background-color: #ffb7c2 ; /* Color de fondo añadido */
+    background-color: #faccd3; 
   }
   .card-title{
     color:#fe889f;
@@ -57,9 +59,28 @@
     z-index: 1;
   }
   .card:hover .description-overlay {
-    opacity: 1; /* Show the overlay on hover */
+    opacity: 1; 
   }
 </style>
+<!-- Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="confirmationModalLabel">Servicio Agregado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <i class="bi bi-check-circle-fill text-success" style="font-size: 2rem;"></i>
+        <p class="mt-3">¡El servicio ha sido agregado exitosamente a tu lista!</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <div class="container">
   <div class="text-center">
@@ -79,7 +100,7 @@
         <div class="card-body text-center">
           <h5 class="card-title">CORTES</h5>
           <h5 class="card-title">$200</h5>
-          <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
+          <button class="btn btn-outline-dark agregar-servicio" data-bs-toggle="modal" data-bs-target="#confirmationModal">+ Agregar servicio</button>
          
         </div>
       </div>
@@ -107,6 +128,7 @@
         </div>
         <div class="card-body text-center">
           <h5 class="card-title">BABYLIGHTS</h5>
+          <h5 class="card-title">$200</h5>
           <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
         </div>
       </div>
@@ -122,6 +144,7 @@
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">TINTE GLOBAL</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -134,6 +157,7 @@
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">MECHAS TRADICIONALES</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -146,13 +170,14 @@
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">ALACIADO PERMANENTE</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Divisor -->
+    
     <div class="divider"></div>
 
     <!-- Tercera fila -->
@@ -165,6 +190,7 @@
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">MAQUILLAJE</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -177,6 +203,7 @@
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">PEINADOS</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -189,6 +216,7 @@
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">DISEÑO DE UÑAS</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -205,6 +233,7 @@
         </div>
           <div class="card-body text-center">
             <h5 class="card-title">DISEÑO DE CEJA</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -218,6 +247,7 @@
         </div>
           <div class="card-body text-center">
             <h5 class="card-title">PAQUETE DE XV</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -231,6 +261,7 @@
         </div>
           <div class="card-body text-center">
             <h5 class="card-title">PAQUETE DE NOVIA</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -250,6 +281,7 @@
         </div>
           <div class="card-body text-center">
             <h5 class="card-title">ABDOMEN</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -263,6 +295,7 @@
         </div>
           <div class="card-body text-center">
             <h5 class="card-title">CADERAS</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -276,6 +309,7 @@
         </div>
           <div class="card-body text-center">
             <h5 class="card-title">BRAZOS</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -290,6 +324,7 @@
         </div>
           <div class="card-body text-center">
             <h5 class="card-title">ROSTRO</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -303,6 +338,7 @@
         </div>
           <div class="card-body text-center">
             <h5 class="card-title">CUELLO</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -316,6 +352,7 @@
         </div>
           <div class="card-body text-center">
             <h5 class="card-title">GLUTEOS</h5>
+            <h5 class="card-title">$200</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -335,13 +372,7 @@
   });
 
 
-   // Función para ajustar la cantidad del servicio
-   function adjustQuantity(id, amount) {
-    const element = document.getElementById(id);
-    let currentValue = parseInt(element.innerText);
-    currentValue = Math.min(10, Math.max(1, currentValue + amount)); // Limitar entre 1 y 10
-    element.innerText = currentValue;
-  }
+   
 </script>
 
 @endsection
