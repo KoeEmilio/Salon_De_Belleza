@@ -9,23 +9,24 @@ class AppointmentController extends Controller
 {
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'appointment_day' => 'required|date',
-            'appointment_time' => 'required|date_format:H:i',
-            'owner_id' => 'nullable|exists:people_data,id',
-            'payment_type' => 'nullable|in:efectivo,transferencia',
-            'status' => 'nullable|in:pendiente,cancelada,confirmada',
+        $request->validate([
+            'appointment_day' => 'required|date', // Asegúrate de que sea una fecha válida
+            'appointment_time' => 'required|date_format:H:i', // Asegúrate de que sea una hora válida
         ]);
-
+    
+        // Si pasa la validación, guarda la cita
         $appointment = Appointment::create([
-            'sign_up_date' => now(),
-            'appointment_day' => $validatedData['appointment_day'],
-            'appointment_time' => $validatedData['appointment_time'],
-            'owner_id' => $validatedData['owner_id'] ?? null,
-            'payment_type' => $validatedData['payment_type'] ?? 'efectivo',
-            'status' => $validatedData['status'] ?? 'pendiente',
+            'appointment_day' => $request->appointment_day,
+            'appointment_time' => $request->appointment_time,
+            'owner_id' => $request->owner_id, // Opcional
+            'payment_type' => $request->payment_type, // Opcional
         ]);
-
-        return response()->json(['success' => true, 'appointment' => $appointment]);
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'Cita guardada correctamente',
+            'appointment' => $appointment,
+        ]);
     }
+    
 }

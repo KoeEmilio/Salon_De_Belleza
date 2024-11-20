@@ -51,14 +51,7 @@
         color: #ff5c8a;
         margin-right: 10px;
     }
-    .btn-primary {
-        background-color: #fe889f;
-        border: none;
-        font-size: 1rem;
-    }
-    .btn-primary:hover {
-        background-color: #ff5c8a;
-    }
+    
     .card {
         background-color: #fff8fa;
         border: 2px solid #ff5c8a;
@@ -106,6 +99,74 @@
     opacity: 0.5;
 }
 
+/* Botón de continuar */
+.c-button {
+  color: #000;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  padding: 0.9em 1.6em;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  z-index: 1;
+}
+
+.c-button--gooey {
+  color: #ffb7c2;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: 4px solid #ffb7c2;
+  border-radius: 0;
+  position: relative;
+  transition: all 700ms ease;
+}
+
+.c-button--gooey .c-button__blobs {
+  height: 100%;
+  filter: url(#goo);
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: -3px;
+  right: -1px;
+  z-index: -1;
+}
+
+.c-button--gooey .c-button__blobs div {
+  background-color: #ffb7c2;
+  width: 34%;
+  height: 100%;
+  border-radius: 100%;
+  position: absolute;
+  transform: scale(1.4) translateY(125%) translateZ(0);
+  transition: all 700ms ease;
+}
+
+.c-button--gooey .c-button__blobs div:nth-child(1) {
+  left: -5%;
+}
+
+.c-button--gooey .c-button__blobs div:nth-child(2) {
+  left: 30%;
+  transition-delay: 60ms;
+}
+
+.c-button--gooey .c-button__blobs div:nth-child(3) {
+  left: 66%;
+  transition-delay: 25ms;
+}
+
+.c-button--gooey:hover {
+  color: #fff;
+}
+
+.c-button--gooey:hover .c-button__blobs div {
+  transform: scale(1.4) translateY(0) translateZ(0);
+}
+
 </style>
 
 <div class="container mt-5">
@@ -148,8 +209,11 @@
                     <option value="3">María</option>
                 </select>
             </div>
-            <div class="card p-3 mb-4">
-                <h5>Selecciona una Hora</h5>
+            <form action="/guardar-fecha-hora" method="POST">
+            @csrf
+            <label for="appointment_time">Selecciona la hora:</label>
+    <input type="time" id="appointment_time" name="appointment_time" required>
+    
                 <select class="form-select">
                     <option selected>Selecciona una hora</option>
                     <option value="10:00">10:00 AM</option>
@@ -158,7 +222,24 @@
                     <option value="13:00">1:00 PM</option>
                 </select>
             </div>
-            <button type="button" class="btn btn-primary w-100">Continuar</button>
+        <!-- Boton de continuar -->
+      
+<button class="c-button c-button--gooey"> Continuar
+  <div class="c-button__blobs">
+  <div></div>
+  <div></div>
+  <div></div>
+  </div>
+</button>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: block; height: 0; width: 0;">
+  <defs>
+    <filter id="goo">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"></feColorMatrix>
+      <feBlend in="SourceGraphic" in2="goo"></feBlend>
+    </filter>
+  </defs>
+</svg>
         </div>
 
         <!-- Panel Derecho: Calendario -->
@@ -171,7 +252,10 @@
                         <button class="btn btn-sm btn-light" id="next-month">&gt;</button>
                     </div>
                 </div>
+                <label for="appointment_day">Selecciona la fecha:</label>
+                <input type="date" id="appointment_day" name="appointment_day" required>
                 <div class="weekdays">
+               
                     <div>Lunes</div>
                     <div>Martes</div>
                     <div>Miércoles</div>
@@ -185,6 +269,7 @@
         </div>
     </div>
 </div>
+</form>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -197,7 +282,7 @@
     const year = date.getFullYear();
     const firstDay = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const today = new Date(); // Fecha actual
+    const today = new Date();
 
     document.getElementById('current-month').innerText = `${monthNames[month]} ${year}`;
     const calendarDays = document.getElementById('calendar-days');
@@ -216,7 +301,7 @@
 
         const currentDate = new Date(year, month, day);
 
-        // Deshabilitar días anteriores a hoy
+       
         if (currentDate < today.setHours(0, 0, 0, 0)) {
             dayElem.classList.add('disabled');
         } else {
@@ -229,7 +314,7 @@
             });
         }
 
-        // Marcar el día actual
+        
         if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
             dayElem.classList.add('active');
         }
@@ -261,36 +346,40 @@
         }
 
         // Evento al hacer clic en "Continuar"
-        const continueButton = document.querySelector('.btn-primary');
-        if (continueButton) {
-            continueButton.addEventListener('click', () => {
-                if (selectedDate && selectedTime) {
-                    console.log(`Enviando fecha: ${selectedDate} y hora: ${selectedTime}`);
-                    
-                    fetch('/guardar-fecha-hora', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({ appointment_day: selectedDate, appointment_time: selectedTime })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Fecha y hora guardadas correctamente en la base de datos');
-                        } else {
-                            alert('Error al guardar la fecha y hora');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error en la solicitud:', error);
-                    });
+        const continueButton = document.querySelector('.c-button'); // Asegúrate de que esta clase esté en el botón
+if (continueButton) {
+    continueButton.addEventListener('click', () => {
+        if (selectedDate && selectedTime) {
+            console.log(`Enviando fecha: ${selectedDate} y hora: ${selectedTime}`);
+
+            fetch('/guardar-fecha-hora', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ 
+                    appointment_day: selectedDate, 
+                    appointment_time: selectedTime 
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
                 } else {
-                    alert('Por favor, selecciona una fecha y una hora.');
+                    alert('Error al guardar la fecha y hora');
                 }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud:', error);
             });
+        } else {
+            alert('Por favor, selecciona una fecha y una hora.');
         }
+    });
+}
+
 
         // Cargar y mostrar servicios guardados en localStorage
         const serviciosLista = document.querySelector('.list-group');

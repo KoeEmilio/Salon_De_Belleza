@@ -59,21 +59,26 @@ Route::post('/register-person', [UserController::class, 'registerPerson'])->name
 Route::get('/welcome', [InicioController::class, 'index'])->name('welcome');
 Route::get('/servicio', [ServicioHomeController::class, 'index'])->name('servicio');
 Route::get('/galeria', [GaleriaController::class, 'index'])->name('galeria');
+
+
 Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto');
 Route::get('/citas', [CitasController::class, 'index'])->name('citas');
 Route::get('/paso1', function () { return view('cita1');});
 Route::get('/paso2', function () { return view('cita2');});
+
+Route::get('/paso3', function () { return view('cita3');
+});
+
+
 Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
 Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado');
 Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
 Route::get('/carga', function () { return view('carga');})->name('carga');
 Route::view('/paso1', 'cita1')->name('paso1');
 
-Route::post('/guardar-fecha', [AppointmentController::class, 'guardarFecha'])->name('guardar.fecha');
-Route::post('/appointments/guardar', [AppointmentController::class, 'guardarFecha'])->name('appointments.guardar');
-Route::post('/guardar-fecha-hora', [AppointmentController::class, 'guardarFechaHora'])->name('guardar.fecha.hora');
-Route::post('/guardar-fecha-hora', [AppoinmentController::class, 'store']);
-Route::post('/ruta/guardar-fecha-hora', [AppointmentController::class, 'store']);
+Route::post('/guardar-fecha-hora', [AppointmentController::class, 'store'])->name('appointment.store');
+Route::post('/guardar-fecha-hora', [AppointmentController::class, 'store']);
+
 
 // Rutas para usuarios
 Route::post('/users/{id}/assign-role', [UserController::class, 'assignRole']);
