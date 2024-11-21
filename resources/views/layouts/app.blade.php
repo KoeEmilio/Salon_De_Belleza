@@ -401,6 +401,10 @@
             <ul>
                 <li><a href="{{ route('login') }}">Iniciar Sesión</a></li>
                 <li><a href="{{ route('register') }}">Registrarse</a></li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                <button class="btn-container">Cerrar Sesión</button>
+                </form>
             </ul>
         </nav>
     </label>

@@ -18,11 +18,8 @@ class DashboardController extends Controller
         return view('inicio_admin', compact('user')); 
     }
 
-    public function empleados() {
-        // Obtener todos los usuarios y sus datos asociados
-        $empleados = User::with('roles') // Asegúrate de cargar los roles asociados
-            ->paginate(5); // Paginación de 5 usuarios por página
-    
+    public function empleados(){
+        $empleados = EmployeeData::with('people_data')->paginate(5);
         return view('empleados', compact('empleados'));
     }
     
@@ -52,6 +49,7 @@ class DashboardController extends Controller
         return view('clientes_admin', compact('usuarios'));
     }
 
+
     public function Actualizardatos(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -73,7 +71,7 @@ class DashboardController extends Controller
     public function FomrmEditarUsuario($id)
     {
         $usuario = User::with('peopleData')->findOrFail($id);
-        return view('Editar_cliente', compact('usuario'));
+        return view('Edit_cliente', compact('usuario'));
     }
 
     public function toggleStatus($id)
@@ -84,4 +82,5 @@ class DashboardController extends Controller
 
     return redirect()->back()->with('status', 'Estado actualizado correctamente');
 }
+
 }

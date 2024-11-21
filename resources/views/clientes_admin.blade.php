@@ -295,14 +295,16 @@ input:checked + .slider:before {
                                         </svg>
                                     </button>
                                 </a>
-                                    <form action="{{ route('toggle.status', $usuario->id) }}" method="POST" id="form-{{ $usuario->id }}" class="d-inline">
-                                        @csrf
-                                        @method('PUT')
-                                        <label class="switch">
-                                            <input type="checkbox" id="switch-{{ $usuario->id }}" class="user-switch" data-user-id="{{ $usuario->id }}" {{ $usuario->is_active ? 'checked' : '' }}>
-                                            <span class="slider"></span>
-                                        </label>
-                                    </form>
+                                <form action="{{ route('toggle.status', $usuario->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('PUT')
+                                    <label class="switch">
+                                        <input type="checkbox" id="switch-{{ $usuario->id }}" 
+                                               {{ $usuario->is_active ? 'checked' : '' }} 
+                                               onchange="this.form.submit();">
+                                        <span class="slider"></span>
+                                    </label>
+                                </form>
                                 </div>
                                 </td>
                             </tr>
@@ -325,7 +327,7 @@ input:checked + .slider:before {
             switchElement.addEventListener('change', function () {
                 const userId = this.dataset.userId;
                 
-                const form = document.getElementById(`form-${userId}`);
+                const form = document.getElementById(form-${userId});
                 
                 if (form) {
                     form.submit();
