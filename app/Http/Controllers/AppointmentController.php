@@ -5,28 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 
-class AppointmentController extends Controller
-{
-    public function store(Request $request)
+
+    
+    class AppointmentController extends Controller
     {
-        $request->validate([
-            'appointment_day' => 'required|date', // Asegúrate de que sea una fecha válida
-            'appointment_time' => 'required|date_format:H:i', // Asegúrate de que sea una hora válida
-        ]);
+        public function store(Request $request)
+        {
+            // Valida los datos del formulario
+            $request->validate([
+                'service' => 'required',
+                'date' => 'required|date',
+                'time' => 'required',
+            ]);
     
-        // Si pasa la validación, guarda la cita
-        $appointment = Appointment::create([
-            'appointment_day' => $request->appointment_day,
-            'appointment_time' => $request->appointment_time,
-            'owner_id' => $request->owner_id, // Opcional
-            'payment_type' => $request->payment_type, // Opcional
-        ]);
+            // Guarda la cita en la base de datos
+            // Asumiendo que tienes un modelo Appointment
+            \App\Models\Appointment::create([
+                'service_id' => $request->input('service'),
+                'date' => $request->input('date'),
+                'time' => $request->input('time'),
+            ]);
     
-        return response()->json([
-            'success' => true,
-            'message' => 'Cita guardada correctamente',
-            'appointment' => $appointment,
-        ]);
+            // Redirige con un mensaje de éxito
+            return redirect()->back()->with('success', 'Cita creada exitosamente.');
+        }
     }
     
-}
+    
+

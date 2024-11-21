@@ -10,131 +10,208 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Custom Styles -->
     <style>
+        /* Ajustes globales */
         body {
-            background-color: #f9f9f9; 
+            background-color: #f9f9f9;
         }
+
+        /* Navbar */
         nav.navbar {
-            font-size: 1.2rem;
-            padding: 1rem;
-            background-color: black; /* Rosa claro */
-            border-bottom: 2px solid #ff69b4; /* Rosa fuerte */
-        }
-        nav.navbar a.nav-link {
-            color: #fff; /* Texto blanco */
-            margin: 0 15px;
-            transition: color 0.6s ease, transform 0.3s ease; /* Transición suave para el color y tamaño */
-        }
-        nav.navbar a.nav-link.active {
-            color: #fff; /* Mantener blanco cuando está activo */
-            font-weight: bold; /* Hacer el texto activo en negrita */
-            border-bottom: 2px solid #ff69b4; /* Línea debajo del enlace activo */
-        }
-        nav.navbar a.nav-link:hover {
-            color: #ff69b4; /* Cambia el color a rosa fuerte al pasar el ratón */
-            text-shadow: 0 0 10px #ff69b4; /* Efecto de brillo */
-            transform: scale(1.1); /* Aumenta ligeramente el tamaño */
-        }
-        .navbar-brand img {
-            height: 60px; /* Tamaño del logo */
-        }
-        footer {
-            background-color: black; /* Fondo negro */
-            color: #fff; /* Texto blanco en el pie de página */
-            padding: 2rem 0; /* Espaciado vertical */
-            margin-top: 2rem; /* Margen superior */
-        }
-        footer h5 {
-            color: #ff69b4; /* Títulos en rosa fuerte */
-        }
-        footer a {
-            color: #fff; /* Enlaces en blanco */
-            transition: color 0.3s ease; /* Efecto de transición */
-        }
-        footer a:hover {
-            color: #ff69b4; /* Cambiar color en hover */
-        }
-        .footer-icon {
-            margin: 0 15px; /* Espaciado horizontal entre íconos */
-        }
-        .btn-logout {
-            display: flex; /* Para centrar el ícono y el texto */
-            align-items: center; /* Centrar verticalmente */
-            background-color: #ff69b4; /* Rosa fuerte */
-            color: white;
-            border: none;
-            padding: 10px 20px;
             font-size: 1rem;
-            border-radius: 30px; /* Bordes redondeados */
-            transition: background-color 0.3s ease; /* Transición suave para el fondo */
-            text-decoration: none; /* Sin subrayado */
+            padding: 0.5rem;
+            background-color: black;
+            border-bottom: 2px solid #ff69b4;
         }
-        .btn-logout i {
-            margin-right: 18px; /* Espacio entre el ícono y el texto */
+
+        nav.navbar a.nav-link {
+            color: #fff;
+            margin: 0 10px;
+            transition: color 0.6s ease, transform 0.3s ease;
         }
-        .btn-logout:hover {
-            background-color: #ff1493; /* Rosa más intenso al pasar el ratón */
-        } 
+
+        nav.navbar a.nav-link.active {
+            color: #fff;
+            font-weight: bold;
+            border-bottom: 2px solid #ff69b4;
+        }
+
+        nav.navbar a.nav-link:hover {
+            color: #ff69b4;
+            text-shadow: 0 0 10px #ff69b4;
+            transform: scale(1.1);
+        }
+
+        .navbar-brand img {
+            height: 50px;
+        }
+
+        /* Loader */
+        .dots-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+        }
+
+        .dot {
+            height: 16px;
+            width: 16px;
+            margin-right: 8px;
+            border-radius: 50%;
+            background-color: #ff69b4;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .dot:last-child {
+            margin-right: 0;
+        }
+
+        .dot:nth-child(1) {
+            animation-delay: -0.3s;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: -0.1s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: 0.1s;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                background-color: #ff69b4;
+                box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7);
+            }
+
+            50% {
+                transform: scale(1.2);
+                background-color: #ff1493;
+                box-shadow: 0 0 0 10px rgba(255, 105, 180, 0);
+            }
+
+            100% {
+                transform: scale(0.8);
+                background-color: #ff69b4;
+                box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7);
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: black;
+            color: #fff;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        footer h5 {
+            color: #ff69b4;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: #fff;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #ff69b4;
+            text-shadow: 0 0 10px #ff69b4;
+        }
+
+        .footer-icon {
+            margin: 0 15px;
+            color: #ff69b4;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-icon:hover {
+            transform: scale(1.2);
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            nav.navbar a.nav-link {
+                font-size: 0.9rem;
+                margin: 0 5px;
+            }
+
+            .navbar-brand img {
+                height: 40px;
+            }
+
+            .dot {
+                height: 12px;
+                width: 12px;
+                margin-right: 5px;
+            }
+        }
     </style>
 </head>
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg sticky-top">
-            <div class="container">
-                <a class="navbar-brand" href="{{ route('recepcionista.inicio') }}">
-                    <img src="/logo.png" alt="Logo">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-        
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('recepcionista.dashboard') ? 'active' : '' }}" href="{{ route('recepcionista.dashboard') }}">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('recepcionista.citas') ? 'active' : '' }}" href="{{ route('recepcionista.citas') }}">Citas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('recepcionista.clientes') ? 'active' : '' }}" href="{{ route('clientes.index') }}">Clientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('recepcionista.servicios') ? 'active' : '' }}" href="{{ route('servicios_recepcionista') }}">Servicios</a>
-                        </li>
-                    </ul>
-        
-                    <!-- Botón de Cerrar Sesión -->
-                    <a href="{{ route('logout') }}" class="nav-link" style="color:white;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="fas fa-sign-out-alt"></i> 
-                    </a>
-        
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Page Heading -->
-        @if (isset($header))
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-        @endif
-
-        <!-- Page Content -->
-        <main>
-            @yield('content')
-        </main>
-
-       
-        
+<body>
+    <!-- Loader -->
+    <div id="loader" class="dots-container" style="display: none;">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
     </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand">
+                <img src="/AH1.png" alt="Logo">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars" style="color: #ff69b4"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('recepcionista.dashboard') ? 'active' : '' }}" href="{{ route('recepcionista.dashboard') }}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('citas.index') ? 'active' : '' }}" href="{{ route('citas.index') }}">Citas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('recepcionista.clientes') ? 'active' : '' }}" href="{{ route('clientes.index') }}">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('recepcionista.servicios') ? 'active' : '' }}" href="{{ route('servicios_recepcionista') }}">Servicios</a>
+                    </li>
+                </ul>
+
+                <!-- Logout -->
+                <a href="{{ route('logout') }}" class="nav-link" style="color:white;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <main>
+        @yield('content')
+    </main>
 
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
