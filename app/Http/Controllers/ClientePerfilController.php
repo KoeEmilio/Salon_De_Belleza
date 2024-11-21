@@ -48,34 +48,14 @@ class ClientePerfilController extends Controller
     }
 
     public function DatosCLiente()
-    {
-        $userId = Auth::id();
+{
+    $cliente = PeopleData::where('user_id', Auth::id())->first();
 
-        $cliente = DB::table('people_data')
-            ->where('user_id', $userId)
-            ->select(
-                'people_data.first_name',
-                'people_data.last_name',
-                'people_data.age',
-                'people_data.gender',
-                'people_data.phone'
-            )
-            ->first();
+    
 
-        return view('PerfilCliente', compact('cliente'));
-    }
+    return view('PerfilCliente', compact('cliente'));
+}
+    
 
-    public function NombreUsuario()
-    {
-        $userId = Auth::id();
-
-        $usuario = DB::table('people_data')
-            ->where('user_id', $userId)
-            ->select(
-                'people_data.first_name',
-            )
-            ->first();
-
-        return view('layouts.PerfilUsuario', compact('usuario'));
-    }
+    
 }

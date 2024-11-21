@@ -7,14 +7,14 @@
     </h1>
     
     <div class="mb-3">
-        <a href="{{ route('clientes.index') }}" class="btn btn-outline-dark" style="background-color: #D5006D; color: white;">
+        <a href="{{ route('clientes.index') }}" class="btn btn-primary" style="background-color: #D5006D;">
             <i class="fas fa-arrow-left"></i> Regresar
         </a>
     </div>
 
     <!-- Mostrar las citas -->
     <table class="table table-bordered table-striped table-hover">
-        <thead class="table-dark" style="background-color: #D5006D; color: white;">
+        <thead class="table-dark" style="background-color: #000; color: white;">
             <tr>
                 <th>Día de la Cita</th>
                 <th>Hora de la Cita</th>
@@ -53,12 +53,12 @@
 
 <style>
     body {
-        font-family: 'Roboto', sans-serif; /* Cambiar a fuente más moderna */
-        background-color: #fef2f7; /* Rosa suave de fondo */
+        font-family: 'Roboto', sans-serif; /* Cambia a otra fuente si prefieres */
+        background-color: #f8f9fa; /* Color de fondo claro para el cuerpo */
     }
 
     .table th, .table td {
-        text-align: center; /* Centrar texto en celdas */
+        text-align: center; /* Centrar el texto en las celdas */
     }
 
     .table-striped tbody tr:nth-of-type(odd) {
@@ -83,20 +83,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-    }
-
-    /* Estilo personalizado para las filas de la tabla */
-    .table-hover tbody tr {
-        transition: background-color 0.3s ease;
-    }
-
-    .table-dark th {
-        background-color: #D5006D !important; /* Rosa suave para el encabezado */
-    }
-
-    /* Iconos */
-    .fas {
-        color: white;
     }
 </style>
 @endsection

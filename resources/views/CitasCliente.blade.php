@@ -93,7 +93,7 @@
                             <td>{{ $cita->sign_up_date }}</td>
                             <td>{{ $cita->appointment_day }}</td>
                             <td>{{ $cita->appointment_time}}</td>
-                            <td>{{ $cita->name}}</td>
+                            <td>{{ $cita->first_name}}</td>
                             <td>{{ $cita->status}}</td>
                             <td>{{ $cita->payment_type}}</td>
                         </tr>

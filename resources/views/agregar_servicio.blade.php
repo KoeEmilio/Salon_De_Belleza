@@ -1,107 +1,101 @@
 @extends('layouts.recepcionista')
 
 @section('content')
-<div class="container mt-5">
-    <h2 class="text-center mb-4" style="color: #d81b60;">Crear un nuevo servicio</h2>
-    
-    <form action="{{ route('services.store') }}" method="POST">
-        @csrf
-        <!-- Nombre del servicio -->
-        <div class="form-group">
-            <label for="service_name" style="color: #d81b60;">Servicio</label>
-            <input type="text" class="form-control" id="service_name" name="service_name" placeholder="Buscar servicio..." required>
-            <div id="service_suggestions" class="list-group mt-2" style="display:none;"></div>
-        </div>
-    
-        <!-- Precio del servicio -->
-        <div class="form-group">
-            <label for="price" style="color: #d81b60;">Precio del servicio</label>
-            <input type="number" class="form-control" name="price" id="price" step="0.01" required readonly style="background-color: #fce4ec;">
-        </div>
-    
-        <!-- Descripción del servicio -->
-        <div class="form-group">
-            <label for="description" style="color: #d81b60;">Descripción</label>
-            <textarea class="form-control" name="description" id="description" readonly style="background-color: #fce4ec;"></textarea>
-        </div>
-    
-        <!-- Duración del servicio -->
-        <div class="form-group">
-            <label for="duration" style="color: #d81b60;">Duración (minutos)</label>
-            <input type="number" class="form-control" name="duration" id="duration" required readonly style="background-color: #fce4ec;">
-        </div>
-    
-        <!-- Tipo de cabello -->
-        <div class="form-group">
-            <label for="hair_type" style="color: #d81b60;">Tipo de cabello</label>
-            <select class="form-control" name="hair_type" id="hair_type" required>
-                <option value="">Seleccione un tipo de cabello</option>
-                @foreach ($hairTypes as $hairType)
-                    <option value="{{ $hairType->id }}" data-price="{{ $hairType->price }}">
-                        {{ $hairType->type }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-    
-        <!-- Precio extra por tipo de cabello -->
-        <div class="form-group">
-            <label for="unit_price" style="color: #d81b60;">Precio extra por tipo de cabello</label>
-            <input type="number" class="form-control" name="unit_price" id="unit_price" step="0.01" required readonly style="background-color: #fce4ec;">
-        </div>
-    
-        <!-- client_id oculto -->
-        <input type="hidden" name="client_id" value="{{ $clientId }}">
-    
-        <button type="submit" class="btn btn-success" style="background-color: #d81b60; border-color: #d81b60;">Guardar servicio</button>
-        <div class="text-center mt-4">
-            <a href="javascript:history.back()" class="btn btn-outline-secondary mb-4">
-    <i class="fas fa-arrow-left"></i> Regresar
-</a>
+<div class="container my-5">
+    <div class="text-center mb-4 animate__animated animate__fadeInDown">
+        <h1 class="display-4 fw-bold text-pink">Agregar Servicio</h1>
+        <p class="text-muted">Completa el siguiente formulario para agregar un nuevo servicio a la cita.</p>
+    </div>
 
+    <div class="card shadow-lg animate__animated animate__fadeInUp animate__delay-1s">
+        <div class="card-header bg-pink text-white">
+            <h3 class="my-0">Detalles del Servicio</h3>
         </div>
-    </form>
+        <div class="card-body">
+            <form action="{{ route('servicios.store', $appointmentId) }}" method="POST">
+                @csrf
+
+                <div class="mb-3">
+                    <label for="service" class="form-label">Nombre del Servicio</label>
+                    <input type="text" class="form-control" id="service" name="service" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="price" class="form-label">Precio</label>
+                    <input type="number" class="form-control" id="price" name="price" required min="0" step="0.01">
+                </div>
+
+                <div class="mb-3">
+                    <label for="duration" class="form-label">Duración (mins)</label>
+                    <input type="number" class="form-control" id="duration" name="duration" required min="1">
+                </div>
+
+                <div class="mb-3">
+                    <label for="type_id" class="form-label">Tipo de Servicio</label>
+                    <select class="form-control" id="type_id" name="type_id" required>
+                        <option value="">Selecciona un tipo de servicio</option>
+                        @foreach($serviceTypes as $type)
+                            <option value="{{ $type->id }}">{{ $type->type }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-pink px-5 py-2 shadow-sm">Guardar Servicio</button>
+                    <a href="{{ route('ver_servicios', $appointmentId) }}" class="btn btn-secondary px-5 py-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
-<script>
-    // Filtrado de servicios en tiempo real
-    document.getElementById('service_name').addEventListener('input', function() {
-        var input = this.value.toLowerCase();
-        var suggestions = document.getElementById('service_suggestions');
-        suggestions.innerHTML = ''; // Limpiar sugerencias anteriores
-        suggestions.style.display = 'none'; // Ocultar el contenedor de sugerencias
+<style>
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
 
-        // Filtrar servicios según el texto ingresado
-        var filteredServices = @json($services).filter(function(service) {
-            return service.service_name.toLowerCase().includes(input);
-        });
-
-        // Mostrar las sugerencias si hay alguna
-        if (filteredServices.length > 0) {
-            filteredServices.forEach(function(service) {
-                var suggestionItem = document.createElement('div');
-                suggestionItem.className = 'list-group-item list-group-item-action';
-                suggestionItem.innerHTML = service.service_name;
-                suggestionItem.setAttribute('data-price', service.price);
-                suggestionItem.setAttribute('data-description', service.description);
-                suggestionItem.setAttribute('data-duration', service.duration);
-                suggestionItem.addEventListener('click', function() {
-                    document.getElementById('service_name').value = service.service_name;
-                    document.getElementById('price').value = service.price;
-                    document.getElementById('description').value = service.description;
-                    document.getElementById('duration').value = service.duration;
-                    suggestions.style.display = 'none'; // Ocultar las sugerencias al seleccionar una
-                });
-                suggestions.appendChild(suggestionItem);
-            });
-            suggestions.style.display = 'block'; // Mostrar el contenedor de sugerencias
-        }
-    });
-
-    // Evento cuando cambia el tipo de cabello seleccionado
-    document.getElementById('hair_type').addEventListener('change', function() {
-        var selectedOption = this.options[this.selectedIndex];
-        document.getElementById('unit_price').value = selectedOption.getAttribute('data-price');
-    });
-</script>
+    body {
+        background-color: #f8f9fa;
+    }
+    .text-pink {
+        color: #e91e63;
+    }
+    .bg-pink {
+        background-color: #e91e63;
+    }
+    .btn-pink {
+        background-color: #e91e63;
+        border-color: #e91e63;
+        color: white;
+        font-weight: bold;
+    }
+    .btn-pink:hover {
+        background-color: #d81b60;
+    }
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        color: white;
+    }
+    .form-control, .form-select {
+        border: 2px solid #e91e63;
+        transition: all 0.3s ease;
+    }
+    .form-control:hover, .form-select:hover {
+        box-shadow: 0 0 10px rgba(233, 30, 99, 0.3);
+    }
+    .form-control:focus, .form-select:focus {
+        border-color: #d81b60;
+        box-shadow: 0 0 10px rgba(233, 30, 99, 0.3);
+    }
+    .shadow-lg {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+</style>
 @endsection

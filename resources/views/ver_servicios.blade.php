@@ -1,169 +1,101 @@
 @extends('layouts.recepcionista')
 
 @section('content')
-<div class="container mt-5">
+<div class="container my-5">
     <div class="text-center mb-4">
-        <h1 class="text-pink animate__animated animate__fadeInDown">
-            Servicios de 
-            @if(isset($client))
-                <span class="font-weight-bold">{{ $client->first_name }} {{ $client->last_name }}</span>
-            @else
-                <span class="font-weight-bold">Cliente no identificado</span>
-            @endif
-        </h1>
-        <p class="text-muted">Aquí puedes ver todos los servicios registrados para este cliente.</p>
+        <h1 class="display-4 fw-bold text-danger"><i class="fas fa-concierge-bell"></i> Servicios de {{ $appointment->client->name }}</h1>
+        <p class="text-muted">Administra los servicios relacionados con la cita de manera eficiente.</p>
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            <strong>Éxito!</strong> {{ session('success') }}
+    <div class="card shadow-sm">
+        <div class="card-header bg-danger text-white">
+            <h3 class="my-0"><i class="fas fa-calendar-check"></i> Servicios Asignados</h3>
         </div>
-    @endif
-    @if(session('info'))
-        <div class="alert alert-info">
-            <strong>Información:</strong> {{ session('info') }}
+        <div class="card-body">
+            <table class="table table-hover table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th><i class="fas fa-file-signature"></i> Nombre del Servicio</th>
+                        <th><i class="fas fa-align-left"></i> Descripción</th>
+                        <th><i class="fas fa-dollar-sign"></i> Precio</th>
+                        <th><i class="fas fa-clock"></i> Duración (mins)</th>
+                        <th><i class="fas fa-cogs"></i> Tipo de Servicio</th>
+                        <th><i class="fas fa-tasks"></i> Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($services as $service)
+                        <tr>
+                            <td>{{ $service->service }}</td>
+                            <td>{{ $service->description }}</td>
+                            <td>${{ number_format($service->price, 2) }}</td>
+                            <td>{{ $service->duration }}</td>
+                            <td>{{ $service->typeService->type }}</td>
+                            <td>
+                                <a href="{{ route('servicios.edit', ['id' => $service->id, 'appointmentId' => $appointment->id]) }}" class="btn btn-sm btn-outline-danger"> 
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <form action="{{ route('servicios.destroy', $service->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este servicio?');">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center">No hay servicios agregados.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
-    @endif
+    </div>
 
-    <!-- Botón para agregar servicio -->
-    <div class="text-center mt-4">
-        <a href="{{ route('services.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Agregar Servicio
+    <!-- Botón para agregar nuevo servicio -->
+    <div class="text-center mt-5">
+        <a href="{{ route('servicios.create', ['appointmentId' => $appointment->id]) }}" class="btn btn-lg btn-danger px-5 py-3 shadow-sm btn-animated">
+            <i class="fas fa-plus-circle"></i> Agregar Servicio
         </a>
     </div>
 
-    <div class="table-responsive mt-4">
-        <table class="table table-bordered table-striped shadow-sm rounded">
-            <thead class="bg-pink text-white">
-                <tr>
-                    <th>Servicio</th>
-                    <th>Precio del Servicio</th> 
-                    <th>Descripción</th>
-                    <th>Tipo de Pelo</th> 
-                    <th>Precio por Tipo de Pelo</th>
-                    <th>Duración</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($services as $service)
-                    <tr>
-                        <td class="align-middle">{{ $service['service_name'] }}</td>
-                        <td class="align-middle">${{ number_format($service['price'], 2) }}</td>
-                        <td class="align-middle">{{ $service['description'] ?? 'N/A' }}</td>
-                        <td class="align-middle">{{ $service['type_of_hair'] ?? 'N/A' }}</td>
-                        <td class="align-middle">${{ number_format($service['unit_price'], 2) }}</td>                     
-                        <td class="align-middle">{{ $service['duration'] ?? 'N/A' }} min</td>
-                        <td class="align-middle">
-                            <a href="{{ route('services.edit', $loop->index) }}" class="btn btn-warning btn-sm">
-                                Editar
-                            </a>
-                            <form action="{{ route('services.destroy', $service->id) }}" method="POST" style="display: inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="7" class="text-center text-muted">
-                            <i class="fas fa-info-circle"></i> No hay servicios registrados para este cliente.
-                        </td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-
+    <!-- Botón para regresar a la gestión de citas -->
     <div class="text-center mt-4">
-        <a href="{{ route('citas.index') }}" class="btn btn-outline-secondary mb-4">
-            <i class="fas fa-arrow-left"></i> Regresar
+        <a href="{{ route('recepcionista.citas') }}" class="btn btn-outline-danger btn-animated">
+            <i class="fas fa-arrow-left"></i> Regresar a Gestión de Citas
         </a>
     </div>
 </div>
 
-<style scoped>
-    h1 {
-        font-size: 2.5rem;
-        font-family: 'Arial', sans-serif;
-        color: #d81b60;
-        font-weight: bold;
+<style>
+    body {
+        background-color: #f8f9fa; /* Color de fondo claro */
     }
-
-    p.text-muted {
-        font-size: 1.2rem;
-        color: #757575;
-    }
-
-    table {
-        width: 100%;
-        margin-top: 20px;
-        border-radius: 8px;
-    }
-
-    th {
-        background-color: #f48fb1;
-        color: #fff;
-        font-size: 1.1rem;
-        padding: 12px;
-        text-align: center;
-    }
-
-    td {
-        font-size: 1rem;
-        color: #333;
-        padding: 10px;
-        text-align: center;
-    }
-
-    tr:hover {
-        background-color: #f5f5f5;
-    }
-
-    .btn-info {
-        background-color: #2196F3;
-        color: white;
-        border-radius: 5px;
-    }
-
-    .btn-warning {
-        background-color: #FF9800;
-        color: white;
-        border-radius: 5px;
-    }
-
     .btn-danger {
-        background-color: #f44336;
-        color: white;
-        border-radius: 5px;
+        background-color: #dc3545; /* Color principal */
+        border-color: #dc3545; /* Color principal */
     }
-
-    .btn-outline-secondary {
-        border-color: #ccc;
-        color: #555;
-        padding: 10px 30px;
-        font-size: 1rem;
-        border-radius: 5px;
+    .btn-outline-danger {
+        color: #dc3545; /* Color texto botón */
+        border-color: #dc3545; /* Color borde botón */
     }
-
-    table {
-        animation: fadeIn 1s ease-in-out;
+    .btn-outline-danger:hover {
+        background-color: #dc3545; /* Color fondo al pasar el ratón */
+        color: white; /* Color texto al pasar el ratón */
     }
-
-    h1 {
-        animation: fadeInDown 1s ease-in-out;
+    .table th, .table td {
+        vertical-align: middle; /* Alinear verticalmente */
     }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+    .card {
+        margin-top: 20px; /* Espacio superior para la tarjeta */
     }
-
-    @keyframes fadeInDown {
-        from { transform: translateY(-50px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
+    .btn-animated {
+        transition: transform 0.2s ease-in-out; /* Efecto de transición para el zoom */
+    }
+    .btn-animated:hover {
+        transform: scale(1.05); /* Zoom al pasar el ratón */
     }
 </style>
-
 @endsection

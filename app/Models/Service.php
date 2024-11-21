@@ -19,16 +19,13 @@ class Service extends Model
     {
         return $this->belongsTo(TypeService::class, 'type_id');
     }
-    public function type()
-    {
-        return $this->belongsTo(TypeService::class, 'type_id');
-    }
+
  
 
     // Relación con el modelo Appointment a través de AppointmentService
     public function appointments()
     {
-        return $this->belongsToMany(Appointment::class, 'service_id', 'appointment_id');
+        return $this->belongsToMany(Appointment::class, 'appointment_service', 'service_id', 'appointment_id');
     }
     public function appointment()
     {

@@ -24,7 +24,7 @@
             <div class="w-1/2">
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-900">Nombre</label>
-                    <input id="name" name="first_name" type="text" maxlength="15" required class="mt-1 block w-full rounded-md py-2 px-3 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-pink-500">
+                    <input id="name" name="name" type="text" maxlength="15" required class="mt-1 block w-full rounded-md py-2 px-3 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-pink-500">
                 </div>
 
                 <div>
@@ -52,10 +52,6 @@
             </div>
 
             <div class="w-1/2">
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-900">Nombre de Usuario</label>
-                    <input id="username" name="name" type="text" maxlength="15" required class="mt-1 block w-full rounded-md py-2 px-3 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-pink-500">
-                </div>
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-900">Correo Electrónico</label>
                     <input id="email" name="email" type="email" required class="mt-1 block w-full rounded-md py-2 px-3 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-pink-500">

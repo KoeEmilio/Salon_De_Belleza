@@ -23,7 +23,7 @@ class Recepcionista_Cliente_Controller extends Controller
 
     public function store(Request $request)
 {
-    // Validación de los datos del cliente
+    // Validar los datos
     $validated = $request->validate([
         'name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',
@@ -51,17 +51,20 @@ class Recepcionista_Cliente_Controller extends Controller
         'user_id' => $user->id,  // Relacionamos el cliente con el usuario
     ]);
 
-    // Redirigir con mensaje de éxito
+    // Redirigir con un mensaje de éxito
     return redirect()->route('clientes.index')->with('message', 'Cliente agregado exitosamente.');
 }
 
 
+    
+ 
+
     // Mostrar un cliente específico
     public function show($id)
-{
-    $cliente = User::findOrFail($id);
-    return view('detalle_cliente', compact('cliente'));
-}
+    {
+        $cliente = PeopleData::findOrFail($id);
+        return view('detalles_cliente', compact('cliente'));
+    }
 
     // Crear un cliente
     public function create()
@@ -101,7 +104,7 @@ class Recepcionista_Cliente_Controller extends Controller
             'age' => 'required|integer|min:0',
             'gender' => 'required|in:H,M',
             'phone' => 'required|string|size:10',
-            'email' => 'required|email|max:50',
+            'e_mail' => 'required|email|max:50',
             'user_id' => 'nullable|integer|exists:users,id',
         ]);
     }
