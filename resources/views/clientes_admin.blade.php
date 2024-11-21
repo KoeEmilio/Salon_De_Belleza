@@ -234,13 +234,16 @@ input:focus + .slider {
 input:checked + .slider:before {
  transform: translateX(1.9em);
 }
+
+
+
     </style>
 </head>
 <body>
     <div class="contenedor">
         <nav class="navbar navbar-expand-lg navbar-light fondo_personalizado">
             <div class="d-flex align-items-center">
-                <a href="{{ route('dashboard') }}" class="btn logout-button">
+                <a href="{{ route('dashboard') }}" class="btn logout-button flex-shrink-0 mb-2 mb-sm-0">
                     <i class='bx bxs-home custom-icon-size custom-icon-color'></i>
                     <span class="custom-color-text">Inicio</span>
                 </a>
@@ -261,29 +264,47 @@ input:checked + .slider:before {
                     <table class="table table-hover table-striped m-0">
                         <thead class="table-light">
                             <tr>
-                                <th scope="col">Nombre</th>
+                                <th scope="col">Usuario</th>
                                 <th scope="col">Correo</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Edad</th>
+                                <th scope="col">Genero</th>
+                                <th scope="col">Telefono</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($usuarios as $usuario)
                             <tr>
-                                <td class="user-name">{{ $usuario->name }}</td>
-                                <td class="user-email">{{ $usuario->email }}</td>
+                                <td>{{$usuario->name }}</td>
+                                <td>{{$usuario->email }}</td>
+                                <td>{{$usuario->name }}</td>
+                                <td>{{$usuario->last_name}}</td>
+                                <td>{{$usuario->age}}</td>
+                                <td>{{$usuario->gender}}</td>
+                                <td>{{$usuario->phone}}</td>
                                 <td>
                                   <div class="button-container">
-                                    <button class="editBtn">
+                                    <a href="{{ route('usuarios.edit', $usuario->id) }}">
+                                    <button class="editBtn" data-bs-toggle="modal" data-bs-target="#editUserModal" data-user-id="{{ $usuario->id }}" data-user-name="{{ $usuario->name }}" data-user-email="{{ $usuario->email }}">
                                         <svg height="1em" viewBox="0 0 512 512">
-                                          <path
-                                            d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"
-                                          ></path>
+                                            <path
+                                              d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"
+                                            ></path>
                                         </svg>
-                                      </button>
-                                      <label class="switch">
-                                        <input type="checkbox" id="switch-{{ $usuario->id }}" class="user-switch" data-user-id="{{ $usuario->id }}" checked>
+                                    </button>
+                                </a>
+                                <form action="{{ route('toggle.status', $usuario->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('PUT')
+                                    <label class="switch">
+                                        <input type="checkbox" id="switch-{{ $usuario->id }}" 
+                                               {{ $usuario->is_active ? 'checked' : '' }} 
+                                               onchange="this.form.submit();">
                                         <span class="slider"></span>
-                                      </label>
+                                    </label>
+                                </form>
                                 </div>
                                 </td>
                             </tr>
@@ -298,83 +319,25 @@ input:checked + .slider:before {
       
         </div>
     </div>
-
-    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="editUserModalLabel">Editar Usuario</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <!-- Formulario de edición -->
-                  <form id="editUserForm" method="POST" action="{{ route('update.user') }}">
-                      @csrf
-                      @method('PUT')
-                      <input type="hidden" id="userId" name="userId">
-                      <div class="mb-3">
-                          <label for="name" class="form-label">Nombre</label>
-                          <input type="text" class="form-control" id="name" name="name" required>
-                      </div>
-                      <div class="mb-3">
-                          <label for="email" class="form-label">Correo</label>
-                          <input type="email" class="form-control" id="email" name="email" required>
-                      </div>
-                      <div class="mb-3">
-                          <label for="password" class="form-label">Contraseña</label>
-                          <input type="password" class="form-control" id="password" name="password">
-                      </div>
-                      <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                  </form>
-              </div>
-          </div>
-      </div>
-  </div>
-
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-    const switches = document.querySelectorAll('.user-switch');
-
-    switches.forEach(switchElement => {
-        const userId = switchElement.getAttribute('data-user-id');
-
-        const isSwitchOn = localStorage.getItem(`switchState-${userId}`);
+        const switches = document.querySelectorAll('.user-switch');
         
-        if (isSwitchOn === null) {
-            switchElement.checked = true;
-            localStorage.setItem(`switchState-${userId}`, 'true');
-        } else {
-            switchElement.checked = (isSwitchOn === 'true');
-        }
-
-        switchElement.addEventListener('change', function () {
-            localStorage.setItem(`switchState-${userId}`, switchElement.checked);
+        switches.forEach(function (switchElement) {
+            switchElement.addEventListener('change', function () {
+                const userId = this.dataset.userId;
+                
+                const form = document.getElementById(form-${userId});
+                
+                if (form) {
+                    form.submit();
+                }
+            });
         });
     });
-
-    const editButtons = document.querySelectorAll('.editBtn');
-
-editButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        // Obtener los datos del usuario desde la fila
-        const row = button.closest('tr');
-        const userId = row.querySelector('.user-id').textContent;
-        const userName = row.querySelector('.user-name').textContent;
-        const userEmail = row.querySelector('.user-email').textContent;
-
-        // Llenar el formulario con los datos
-        document.getElementById('userId').value = userId;
-        document.getElementById('name').value = userName;
-        document.getElementById('email').value = userEmail;
-
-        // Mostrar el modal
-        var myModal = new bootstrap.Modal(document.getElementById('editUserModal'));
-        myModal.show();
-    });
-});
-});
-
-
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
 </body>
 </html>

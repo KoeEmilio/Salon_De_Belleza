@@ -49,6 +49,9 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/empleados', [DashboardController::class, 'empleados'])->name('empleados');
     Route::get('/servicios_admin', [DashboardController::class, 'servicios'])->name('servicios_admin');
     Route::get('/clientes_admin', [DashboardController::class, 'usuarios'])->name('clientes_admin');
+    Route::get('/usuario/{id}/edit', [DashboardController::class, 'FomrmEditarUsuario'])->name('usuarios.edit');
+    Route::put('/usuario/{id}', [DashboardController::class, 'ActualizarUsuario'])->name('usuarios.update');
+    Route::put('/estado/{id}', [DashboardController::class, 'toggleStatus'])->name('toggle.status');
     Route::put('/update-user', [UserController::class, 'update'])->name('update.user');
     
 });
