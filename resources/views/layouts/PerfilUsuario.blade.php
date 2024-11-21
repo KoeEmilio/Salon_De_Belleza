@@ -119,7 +119,7 @@
 <body>
     <section class="layout">
         <div class="sidebar">
-            <button class="btn-container">Mis Citas</button>
+            <button class="btn-container">Mis Cita</button>
             <button class="btn-container">Perfil</button>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

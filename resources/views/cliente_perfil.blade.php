@@ -6,7 +6,7 @@
         <!-- Header del perfil -->
         <div class="card mb-4 shadow-sm">
             <div class="card-header text-white" style="background-color: #333;">
-                <h4 class="my-0 font-weight-normal">Perfil del Cliente</h4>
+                <h4 class="my-0 font-weight-normal">Perfil del Client</h4>
             </div>
             <div class="card-body">
                 <div class="row">

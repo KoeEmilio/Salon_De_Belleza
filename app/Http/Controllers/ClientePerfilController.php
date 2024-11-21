@@ -38,7 +38,7 @@ class ClientePerfilController extends Controller
             'appointments.sign_up_date',
             'appointments.appointment_day',
             'appointments.appointment_time',
-            'people_data.name',
+            'people_data.first_name',
             'appointments.status',
             'appointments.payment_type'
         )
@@ -54,7 +54,7 @@ class ClientePerfilController extends Controller
         $cliente = DB::table('people_data')
             ->where('user_id', $userId)
             ->select(
-                'people_data.name',
+                'people_data.first_name',
                 'people_data.last_name',
                 'people_data.age',
                 'people_data.gender',
@@ -72,7 +72,7 @@ class ClientePerfilController extends Controller
         $usuario = DB::table('people_data')
             ->where('user_id', $userId)
             ->select(
-                'people_data.name',
+                'people_data.first_name',
             )
             ->first();
 
