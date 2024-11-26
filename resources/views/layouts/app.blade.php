@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Glow Studio</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -18,6 +18,19 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Favicon básico -->
+<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+
+<!-- Iconos adicionales para compatibilidad -->
+<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+
+<!-- Icono para Apple dispositivos -->
+<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+
+<!-- Archivo de configuración para navegadores avanzados -->
+<link rel="manifest" href="{{ asset('manifest.json') }}">
 
 
     <!-- Custom Styles -->
@@ -408,14 +421,23 @@
         <nav class="popup-window">
             <legend>Quick Start</legend>
             <ul>
-                <li><a href="{{ route('login') }}">Iniciar Sesión</a></li>
-                <li><a href="{{ route('register') }}">Registrarse</a></li>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                <button class="btn-container">Cerrar Sesión</button>
-                </form>
+                @guest
+                    <!-- Usuario no autenticado -->
+                    <li><a href="{{ route('login') }}">Iniciar Sesión</a></li>
+                    <li><a href="{{ route('register') }}">Registrarse</a></li>
+                @else
+                    <!-- Usuario autenticado -->
+                    @if(auth()->user()->hasRole('admin'))
+                        <li><a href="{{ route('dashboard') }}">Inicio Admin</a></li>
+                    @elseif(auth()->user()->hasRole('recepcionista'))
+                        <li><a href="{{ route('recepcionista.inicio') }}">Inicio Recepcionista</a></li>
+                    @elseif(auth()->user()->hasRole('cliente'))
+                        <li><a href="{{ route('cliente.perfil') }}">Mi Perfil</a></li>
+                    @endif
+                @endguest
             </ul>
         </nav>
+        
     </label>
 </div>
 

@@ -53,7 +53,8 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::put('/usuario/{id}', [DashboardController::class, 'ActualizarUsuario'])->name('usuarios.update');
     Route::put('/estado/{id}', [DashboardController::class, 'toggleStatus'])->name('toggle.status');
     Route::put('/update-user', [UserController::class, 'update'])->name('update.user');
-    
+    Route::get('/addservice', [ServiciosController::class, 'addservice'])->name('addservice');
+    Route::post('/register-service', [ServiciosController::class, 'registerServiceAndType'])->name('register.service');
 });
 
 // Rutas para Cliente

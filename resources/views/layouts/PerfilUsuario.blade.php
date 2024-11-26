@@ -119,8 +119,12 @@
 <body>
     <section class="layout">
         <div class="sidebar">
+            <a href="{{route('cliente.citas')}}">
             <button class="btn-container">Mis Cita</button>
+            </a>
+            <a href="{{route('cliente.perfil')}}">
             <button class="btn-container">Perfil</button>
+            </a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
             <button class="btn-container">Cerrar Sesión</button>

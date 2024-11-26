@@ -22,6 +22,9 @@ class RoleMiddleware
         else if (auth()->user()->hasRole('recepcionista')) {
             return $next($request);
         }
+        else if (auth()->user()->hasRole('cliente')) {
+            return $next($request);
+        }
         return redirect()->route('welcome');
     }
 }
