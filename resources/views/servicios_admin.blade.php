@@ -235,7 +235,10 @@
     <div class="principal">
         <div class="container">
           <div class="container-2" id="menuDropdown">
+            <a href="{{route('addservice')}}">
             <button class="btn-container">Agregar Servicio</button>
+          </a>
+          <button class="btn-container">Estadistica</button>
         </div>  
             <div class="card shadow-sm">
                 <div class="card-header">
@@ -256,7 +259,7 @@
                         <tbody>
                             @foreach($servicios as $servicio)
                             <tr>
-                                <td>{{ $servicio->service }}</td>
+                                <td>{{ $servicio->service_name }}</td>
                                 <td>{{ $servicio->price }}</td>
                                 <td>{{ $servicio->description }}</td>
                                 <td>{{ $servicio->duration }}</td>
