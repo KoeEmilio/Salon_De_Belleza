@@ -3,70 +3,120 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-use App\Models\Role; 
-use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
     public function run()
     {
-        
-        $adminRole = Role::where('rol', 'admin')->first();
-
-        if ($adminRole) {
-            $this->createUser('Emilio', 'emilio@gmail.com', $adminRole); 
-            $this->createUser('Daniel', 'daniel@gmail.com', $adminRole); 
-        } else {
-            echo "El rol 'admin' no existe. Asegúrate de que esté creado en la base de datos.\n";
-        }
-
-        
-        $employeeRole = Role::where('rol', 'empleado')->first();
-        $receptionistRole = Role::where('rol', 'recepcionista')->first();
-        $clientRole=Role::where('rol','cliente')->first();
-
-        if ($employeeRole) {
-            $this->createUser('Carlos', 'carlos@gmail.com', $employeeRole);
-            $this->createUser('Laura', 'laura@gmail.com', $employeeRole);
-            $this->createUser('Pedro', 'pedro@gmail.com', $employeeRole);
-        } else {
-            echo "El rol 'empleado' no existe. Asegúrate de que esté creado en la base de datos.\n";
-        }
-
-       
-        if ($receptionistRole) {
-            $this->createUser('Ana', 'ana@gmail.com', $receptionistRole); 
-            $this->createUser('Luis', 'luis@gmail.com', $receptionistRole); 
-        } else {
-            echo "El rol 'recepcionista' no existe. Asegúrate de que esté creado en la base de datos.\n";
-        }
-
-        if ($clientRole) {
-            $this->createUser('Mariana', 'mariana@gmail.com', $clientRole);
-            $this->createUser('Danna', 'danna@gmail.com', $clientRole);
-            $this->createUser('Ricardo', 'ricardo@gmail.com', $clientRole);
-        } else {
-            echo "El rol 'cliente' no existe. Asegúrate de que esté creado en la base de datos.\n";
-        }
-    }
-
-    private function createUser($name, $email, $role = null)
-    {
-        // Crear el usuario, asegurándose de que no se duplique por correo
-        $user = User::firstOrCreate(
-            ['email' => $email],
+        // Crear usuarios con datos reales
+        $users = [
+            // Admin
             [
-                'name' => $name,
-                'password' => Hash::make('1234'), // Contraseña por defecto
-                'remember_token' => Str::random(10), // Token de recuerdo
-            ]
-        );
+                'name' => 'Carlos Torres',
+                'email' => 'carlos.torres@example.com',
+                'password' => Hash::make('admin123'), // Contraseña segura
+                'rol' => 'admin',
+            ],
+            // Empleados
+            [
+                'name' => 'María López',
+                'email' => 'maria.lopez@example.com',
+                'password' => Hash::make('empleado123'),
+                'rol' => 'empleado',
+            ],
+            [
+                'name' => 'Juan Pérez',
+                'email' => 'juan.perez@example.com',
+                'password' => Hash::make('empleado123'),
+                'rol' => 'empleado',
+            ],
+            [
+                'name' => 'Sofía Martínez',
+                'email' => 'sofia.martinez@example.com',
+                'password' => Hash::make('empleado123'),
+                'rol' => 'empleado',
+            ],
+            [
+                'name' => 'Luis Ramírez',
+                'email' => 'luis.ramirez@example.com',
+                'password' => Hash::make('empleado123'),
+                'rol' => 'empleado',
+            ],
+            [
+                'name' => 'Ana Gómez',
+                'email' => 'ana.gomez@example.com',
+                'password' => Hash::make('empleado123'),
+                'rol' => 'empleado',
+            ],
+            [
+                'name' => 'Diego Fernández',
+                'email' => 'diego.fernandez@example.com',
+                'password' => Hash::make('empleado123'),
+                'rol' => 'empleado',
+            ],
+            // Recepcionistas
+            [
+                'name' => 'Laura Sánchez',
+                'email' => 'laura.sanchez@example.com',
+                'password' => Hash::make('recepcionista123'),
+                'rol' => 'recepcionista',
+            ],
+            [
+                'name' => 'Jorge Herrera',
+                'email' => 'jorge.herrera@example.com',
+                'password' => Hash::make('recepcionista123'),
+                'rol' => 'recepcionista',
+            ],
+            // Clientes
+            [
+                'name' => 'Gabriela Cruz',
+                'email' => 'gabriela.cruz@example.com',
+                'password' => Hash::make('cliente123'),
+                'rol' => 'cliente',
+            ],
+            [
+                'name' => 'Roberto Castillo',
+                'email' => 'roberto.castillo@example.com',
+                'password' => Hash::make('cliente123'),
+                'rol' => 'cliente',
+            ],
+            [
+                'name' => 'Isabel Ortega',
+                'email' => 'isabel.ortega@example.com',
+                'password' => Hash::make('cliente123'),
+                'rol' => 'cliente',
+            ],
+            [
+                'name' => 'Pedro Gutiérrez',
+                'email' => 'pedro.gutierrez@example.com',
+                'password' => Hash::make('cliente123'),
+                'rol' => 'cliente',
+            ],
+        ];
 
-        // Asignar el rol al usuario si se proporciona
-        if ($role) {
-            $user->roles()->attach($role->id);
+        // Insertar usuarios y asignar roles
+        foreach ($users as $user) {
+            // Crear el usuario
+            $userId = DB::table('users')->insertGetId([
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'password' => $user['password'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            // Obtener el rol correspondiente
+            $roleId = DB::table('roles')->where('rol', $user['rol'])->value('id');
+
+            // Asignar el rol al usuario en la tabla pivote
+            DB::table('user_rol')->insert([
+                'user' => $userId,
+                'rol' => $roleId,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }
     }
 }

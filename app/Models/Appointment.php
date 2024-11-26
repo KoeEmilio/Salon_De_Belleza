@@ -34,7 +34,8 @@ class Appointment extends Model
     // Relación con los servicios
     public function services()
     {
-        return $this->belongsToMany(Service::class, 'appointment_id', 'service_id');
+        return $this->belongsToMany(Service::class, 'service_details', 'appointment_id', 'service_id')
+            ->withPivot(['quantity', 'unit_price', 'total_price']);
     }
 
     // Relación con las órdenes

@@ -25,20 +25,20 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Validación del correo electrónico
         $request->validate([
             'email' => ['required', 'email'],
         ]);
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
+        // Intentar enviar el enlace para restablecer la contraseña
         $status = Password::sendResetLink(
             $request->only('email')
         );
 
+        // Verificar el resultado del envío del enlace
         return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
+                    ? back()->with('status', __($status)) // Enviar mensaje de éxito
+                    : back()->withInput($request->only('email')) // Enviar mensaje de error
                             ->withErrors(['email' => __($status)]);
     }
 }
