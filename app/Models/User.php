@@ -1,15 +1,19 @@
 <?php
+
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Auth\Passwords\CanResetPassword; // Asegúrate de incluir este trait
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Role;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements AuthenticatableContract
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable, CanResetPassword; // Agrega CanResetPassword aquí
 
+    /**
+     * Los atributos que son asignables.
+     */
     protected $fillable = [
         'name',
         'email',
@@ -17,19 +21,25 @@ class User extends Authenticatable implements AuthenticatableContract
         'remember_token',
     ];
 
-    // Relación con Roles a través de la tabla intermedia 'user_rol'
+    /**
+     * Relación con roles.
+     */
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_rol', 'user', 'rol');
     }
 
-    // Verificar si un usuario tiene un rol específico
+    /**
+     * Verificar si un usuario tiene un rol específico.
+     */
     public function hasRole($role)
     {
         return $this->roles()->where('roles.rol', $role)->exists();
     }
 
-    // Relación con el modelo PeopleData
+    /**
+     * Relación con PeopleData.
+     */
     public function peopleData()
     {
         return $this->hasOne(PeopleData::class);

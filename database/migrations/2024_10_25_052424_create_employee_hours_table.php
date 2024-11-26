@@ -15,7 +15,7 @@ class CreateEmployeeHoursTable extends Migration
             $table->date('date_worked');
             $table->time('start_time');
             $table->time('end_time');
-            $table->decimal('hours_worked', 5, 2)->nullable();  // Sin el cálculo directo
+            $table->decimal('hours_worked', 5, 2)->nullable();  
             $table->decimal('overtime_hours', 5, 2)->default(0);
             $table->timestamps();
         });

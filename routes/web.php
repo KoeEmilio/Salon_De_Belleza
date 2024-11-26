@@ -21,14 +21,19 @@ use App\Http\Controllers\RecepcionistaController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServicioHomeController;
-
-
-
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ConfirmPasswordController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\FavoritosController;
+use App\Http\Controllers\NominaController;
 use App\Http\Controllers\NominasController;
 use App\Http\Controllers\RecepcionistaServiciosController;
 use App\Http\Controllers\TrabajosController;
 use App\Http\Controllers\TurnosController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +47,17 @@ use App\Http\Controllers\TurnosController;
 */
 Route::get('/', function () {
     return view('welcome');
+    Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
+Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
+
+Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
+Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.update');
+
+
+Route::get('password/reset/{token}', [PasswordController::class, 'showResetForm'])->name('password.reset');
+
+
+
 });
 
 // Rutas de perfil
@@ -67,7 +83,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::post('/register-service', [ServiciosController::class, 'registerServiceAndType'])->name('register.service');
 
 
-    Route::get('/nominas', [EmpleadoAdminController::class, 'nominas'])->name('nominas');
+    Route::get('/nominas', [NominaController::class, 'index'])->name('nominas');
 Route::get('/turnos', [EmpleadoAdminController::class, 'turnos'])->name('turnos');
 Route::get('/trabajos', [EmpleadoAdminController::class, 'trabajos'])->name('trabajos');
 

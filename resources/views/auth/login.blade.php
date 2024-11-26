@@ -46,7 +46,11 @@
         <div class="escritura" style="animation-delay: 4s;">
             <h1 class="text-2xl font-semibold text-gray-600">SALON & MAKEUP</h1>
         </div>
-        <i class="fas fa-spa text-pink-400 text-6xl mt-4"></i>
+        <a href="{{ url('/') }}">
+            <div>
+                <img src="/AH2.png" alt="cont" class="img-fluid" style="max-width: 100%; height: auto;">
+            </div>
+        </a>
     </div>
 
     <h2 class="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 mb-4 mt-4">
@@ -73,6 +77,10 @@
     <p class="mt-4 text-center text-sm text-gray-500">
         ¿No eres miembro?
         <a href="{{ route('register') }}" class="font-semibold leading-6 text-pink-400-600 hover:text-pink-500">Regístrate</a>
+        <p class="mt-4 text-center text-sm text-gray-500">
+            ¿Olvidaste tu contraseña?
+            <a href="{{ route('password.request') }}" class="font-semibold leading-6 text-pink-400-600 hover:text-pink-500">Haz clic aquí</a>
+        </p>
     </p>
 </div>
 </body>
