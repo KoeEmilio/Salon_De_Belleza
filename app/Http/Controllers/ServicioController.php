@@ -41,30 +41,7 @@ class ServicioController extends Controller
         return view('agregar_servicio', compact('serviceTypes', 'appointmentId'));
     }
 
-    // Guardar un nuevo servicio
-    public function store(Request $request, $appointmentId)
-    {
-        // Validación
-        $request->validate([
-            'service' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric',
-            'duration' => 'required|integer',
-            'type_id' => 'required|exists:type_service,id',
-        ]);
-
-        // Crear servicio
-        $service = Service::create($request->all());
-
-        // Asociar el servicio a la cita mediante AppointmentService
-        AppointmentService::create([
-            'appointment_id' => $appointmentId,
-            'service_id' => $service->id,
-        ]);
-
-        // Redirigir a la vista que muestra los servicios de la cita
-        return redirect()->route('ver_servicios', $appointmentId)->with('success', 'Servicio agregado exitosamente.');
-    }
+    
 
     // Formulario para editar un servicio existente
     public function edit($id, $appointmentId)
@@ -84,15 +61,5 @@ public function update(Request $request, $id, $appointmentId)
     return redirect()->route('ver_servicios', ['appointmentId' => $appointmentId])->with('success', 'Servicio actualizado correctamente.');
 }
 
-    // Eliminar un servicio
-    public function destroy($id)
-    {
-        $appointmentService = AppointmentService::where('service_id', $id)->firstOrFail(); // Obtiene la relación antes de eliminar
-        $appointmentId = $appointmentService->appointment_id;
-
-        $appointmentService->delete(); // Eliminar la relación de AppointmentService
-
-        // Redirigir a la vista de servicios de la cita
-        return redirect()->route('ver_servicios', $appointmentId)->with('success', 'Servicio eliminado exitosamente.');
-    }
+    
 }

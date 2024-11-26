@@ -209,11 +209,8 @@
                     <option value="3">María</option>
                 </select>
             </div>
-            <form action="/guardar-fecha-hora" method="POST">
-            @csrf
-            <label for="appointment_time">Selecciona la hora:</label>
-    <input type="time" id="appointment_time" name="appointment_time" required>
-    
+            <div class="card p-3 mb-4">
+                <h5>Selecciona una Hora</h5>
                 <select class="form-select">
                     <option selected>Selecciona una hora</option>
                     <option value="10:00">10:00 AM</option>
@@ -252,10 +249,7 @@
                         <button class="btn btn-sm btn-light" id="next-month">&gt;</button>
                     </div>
                 </div>
-                <label for="appointment_day">Selecciona la fecha:</label>
-                <input type="date" id="appointment_day" name="appointment_day" required>
                 <div class="weekdays">
-               
                     <div>Lunes</div>
                     <div>Martes</div>
                     <div>Miércoles</div>
@@ -269,7 +263,6 @@
         </div>
     </div>
 </div>
-</form>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -346,40 +339,36 @@
         }
 
         // Evento al hacer clic en "Continuar"
-        const continueButton = document.querySelector('.c-button'); // Asegúrate de que esta clase esté en el botón
-if (continueButton) {
-    continueButton.addEventListener('click', () => {
-        if (selectedDate && selectedTime) {
-            console.log(`Enviando fecha: ${selectedDate} y hora: ${selectedTime}`);
-
-            fetch('/guardar-fecha-hora', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ 
-                    appointment_day: selectedDate, 
-                    appointment_time: selectedTime 
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
+        const continueButton = document.querySelector('.btn-primary');
+        if (continueButton) {
+            continueButton.addEventListener('click', () => {
+                if (selectedDate && selectedTime) {
+                    console.log(`Enviando fecha: ${selectedDate} y hora: ${selectedTime}`);
+                    
+                    fetch('/guardar-fecha-hora', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ appointment_day: selectedDate, appointment_time: selectedTime })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Fecha y hora guardadas correctamente en la base de datos');
+                        } else {
+                            alert('Error al guardar la fecha y hora');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error en la solicitud:', error);
+                    });
                 } else {
-                    alert('Error al guardar la fecha y hora');
+                    alert('Por favor, selecciona una fecha y una hora.');
                 }
-            })
-            .catch(error => {
-                console.error('Error en la solicitud:', error);
             });
-        } else {
-            alert('Por favor, selecciona una fecha y una hora.');
         }
-    });
-}
-
 
         // Cargar y mostrar servicios guardados en localStorage
         const serviciosLista = document.querySelector('.list-group');

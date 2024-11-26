@@ -21,7 +21,10 @@ class DashboardController extends Controller
     public function empleados(){
         $empleados = EmployeeData::with('people_data')->paginate(5);
         return view('empleados', compact('empleados'));
-}
+    }
+    
+    
+    
     public function servicios(){
         $servicios = Service::with('typeService')->paginate(5);
         return view('servicios_admin', compact('servicios'));
@@ -45,6 +48,7 @@ class DashboardController extends Controller
 
         return view('clientes_admin', compact('usuarios'));
     }
+
 
     public function Actualizardatos(Request $request, $id)
     {
