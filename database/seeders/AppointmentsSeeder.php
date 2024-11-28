@@ -9,41 +9,30 @@ class AppointmentsSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('appointments')->insert([
-            // Cita del padre
-            [
-                'sign_up_date' => now(),
-                'appointment_day' => '2024-12-01',
-                'appointment_time' => '10:00:00',
-                'owner_id' => 1, // ID del padre
-                'status' => 'pendiente',
-                'payment_type' => 'efectivo',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            // Cita de la hija 1 (registrada bajo el padre)
-            [
-                'sign_up_date' => now(),
-                'appointment_day' => '2024-12-01',
-                'appointment_time' => '11:00:00',
-                'owner_id' => 1, // ID del padre
-                'status' => 'pendiente',
-                'payment_type' => 'transferencia',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            // Cita de la hija 2 (registrada bajo el padre)
-            [
-                'sign_up_date' => now(),
-                'appointment_day' => '2024-12-01',
-                'appointment_time' => '12:00:00',
-                'owner_id' => 1, // ID del padre
-                'status' => 'pendiente',
-                'payment_type' => 'efectivo',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+        // Citas de las 10 personas
+        for ($i = 1; $i <= 10; $i++) {
+            DB::table('appointments')->insert([
+                [
+                    'sign_up_date' => now(),
+                    'appointment_day' => '2024-12-01',
+                    'appointment_time' => '10:00:00',
+                    'owner_id' => $i, // Asignamos una cita a cada persona
+                    'status' => 'pendiente',
+                    'payment_type' => 'efectivo',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'sign_up_date' => now(),
+                    'appointment_day' => '2024-12-01',
+                    'appointment_time' => '11:00:00',
+                    'owner_id' => $i, // Cita de la misma persona
+                    'status' => 'pendiente',
+                    'payment_type' => 'transferencia',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+            ]);
+        }
     }
 }
-
