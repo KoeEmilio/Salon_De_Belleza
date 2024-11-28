@@ -173,7 +173,6 @@ class ComposerStaticInit103cabcdf2f7cefd377f94b3329b4c31
         'B' => 
         array (
             'Brick\\Math\\' => 11,
-            'Barryvdh\\DomPDF\\' => 16,
         ),
         'A' => 
         array (
@@ -543,10 +542,6 @@ class ComposerStaticInit103cabcdf2f7cefd377f94b3329b4c31
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
-        'Barryvdh\\DomPDF\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src',
-        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -622,7 +617,7 @@ class ComposerStaticInit103cabcdf2f7cefd377f94b3329b4c31
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
-        'App\\Mail\\PasswordResetMail' => __DIR__ . '/../..' . '/app/Mail/PasswordResetMail.php',
+        'App\\Mail\\ResetPassword' => __DIR__ . '/../..' . '/app/Mail/ResetPassword.php',
         'App\\Models\\Appointment' => __DIR__ . '/../..' . '/app/Models/Appointment.php',
         'App\\Models\\BonusTax' => __DIR__ . '/../..' . '/app/Models/BonusTax.php',
         'App\\Models\\DetailOrder' => __DIR__ . '/../..' . '/app/Models/DetailOrder.php',
@@ -651,9 +646,6 @@ class ComposerStaticInit103cabcdf2f7cefd377f94b3329b4c31
         'App\\View\\Components\\AppLayout' => __DIR__ . '/../..' . '/app/View/Components/AppLayout.php',
         'App\\View\\Components\\GuestLayout' => __DIR__ . '/../..' . '/app/View/Components/GuestLayout.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
-        'Barryvdh\\DomPDF\\Facade\\Pdf' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/Facade/Pdf.php',
-        'Barryvdh\\DomPDF\\PDF' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/PDF.php',
-        'Barryvdh\\DomPDF\\ServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/ServiceProvider.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
         'Brick\\Math\\BigNumber' => __DIR__ . '/..' . '/brick/math/src/BigNumber.php',
