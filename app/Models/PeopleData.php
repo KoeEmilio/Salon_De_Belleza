@@ -28,7 +28,7 @@ class PeopleData extends Model
     // Relación con el modelo Service a través de la tabla 'appointment_service'
     public function services()
     {
-        return $this->belongsToMany(Service::class, 'appointment_service', 'appointment_id', 'service_id');
+        return $this->belongsToMany(Service::class, 'appointment_service', 'appointment_id', 'service_id','client_id','id');
     }
 
     // Relación con el modelo EmployeeData

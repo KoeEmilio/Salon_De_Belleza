@@ -42,7 +42,7 @@ class ClientePerfilController extends Controller
             'appointments.status',
             'appointments.payment_type'
         )
-        ->paginate(5);
+        ->paginate(4);
 
     return view('CitasCliente', compact('citas'));
     }
@@ -50,7 +50,6 @@ class ClientePerfilController extends Controller
     public function DatosCLiente()
 {
     $cliente = PeopleData::where('user_id', Auth::id())->first();
-
     
 
     return view('PerfilCliente', compact('cliente'));

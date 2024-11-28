@@ -22,4 +22,8 @@ class HairType extends Model
       {
           return $this->hasMany(ServiceDetail::class, 'hair_type_id');
       }
+      public function services()
+    {
+        return $this->belongsToMany(Service::class, 'service_details', 'hair_type_id', 'service_id');
+    }
 }

@@ -19,22 +19,24 @@ class Service extends Model
     {
         return $this->belongsTo(TypeService::class, 'type_id');
     }
-    public function type()
-    {
-        return $this->belongsTo(TypeService::class, 'type_id');
-    }
- 
 
-    // Relación con el modelo Appointment a través de AppointmentService
     public function appointments()
     {
-        return $this->belongsToMany(Appointment::class, 'service_id', 'appointment_id');
-    }
-    public function appointment()
-    {
-    return $this->belongsTo(Appointment::class);
+        return $this->belongsToMany(Appointment::class, 'service_details', 'service_id', 'appointment_id')
+            ->withPivot(['quantity', 'unit_price', 'total_price']);
     }
 
+
+    public function hairType()
+    {
+        return $this->belongsToMany(HairType::class, 'service_details', 'service_id', 'hair_type_id')
+            ->withPivot(['quantity', 'unit_price', 'total_price']);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(PeopleData::class, 'client_id');
+    }
     public function peopleData()
     {
         return $this->belongsTo(PeopleData::class, 'people_data_id'); // Asegúrate de usar la clave foránea correcta si es necesario

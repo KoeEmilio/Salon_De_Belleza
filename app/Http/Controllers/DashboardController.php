@@ -17,9 +17,11 @@ class DashboardController extends Controller
 
         return view('inicio_admin', compact('user')); 
     }
-
-    public function empleados(){
-        $empleados = EmployeeData::with('people_data')->paginate(5);
+    public function empleados() {
+        $empleados = User::whereHas('roles', function ($query) {
+            $query->whereIn('roles.rol', ['empleado', 'recepcionista']);  
+        })->paginate(5);  
+    
         return view('empleados', compact('empleados'));
     }
     

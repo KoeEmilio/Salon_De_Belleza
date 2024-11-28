@@ -44,14 +44,12 @@
         }
         .principal {
             height: calc(100vh - 105px);
-            width: 100vw;
             display: flex;
             padding-top: 60px;
         }
         .container {
             height: 100%;
             flex-grow: 1;
-            overflow-y: auto;
         }
         .container-2 {
             height: 100%;
@@ -61,51 +59,22 @@
             justify-content: center;
             align-items: center;
         }
-        .button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: rgb(20, 20, 20);
-  border: none;
-  font-weight: 600;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
-  cursor: pointer;
-  transition-duration: 0.3s;
-  overflow: hidden;
-  position: relative;
-  gap: 2px;
-}
+        .card-header {
+            background-color: #000000;
+            color: #ffb7c2;
+            text-align: center;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .table-container {
+            overflow-x: auto; /* Scroll horizontal */
+        }
 
-.svgIcon {
-  width: 12px;
-  transition-duration: 0.3s;
-}
-
-.svgIcon path {
-  fill: white;
-}
-
-.button:hover {
-  transition-duration: 0.3s;
-  background-color: #ffb7c2;
-  align-items: center;
-  gap: 0;
-}
-
-.bin-top {
-  transform-origin: bottom right;
-}
-.button:hover .bin-top {
-  transition-duration: 0.5s;
-  transform: rotate(160deg);
-}
-
-    
-.editBtn {
+        .editBtn {
   width: 50px;
   height: 50px;
   border-radius: 20px;
@@ -167,17 +136,7 @@
   width: 40px; 
   height: 40px; 
 }
-        .card-header {
-            background-color: #000000;
-            color: #ffb7c2;
-            text-align: center;
-        }
-        .table-hover tbody tr:hover {
-            background-color: #f5f5f5;
-        }
-        .table th, .table td {
-            vertical-align: middle;
-        }
+
 .switch {
  --secondary-container: #fad9de;
  --primary: #ffb7c2;
@@ -234,9 +193,73 @@ input:focus + .slider {
 input:checked + .slider:before {
  transform: translateX(1.9em);
 }
+        
+        /* Media Queries */
+        @media (max-width: 768px) {
+            nav {
+                flex-wrap: wrap;
+                padding: 0.5rem;
+            }
 
+            .navbar-center {
+                justify-content: center;
+                flex-wrap: wrap;
+                margin: 0 auto;
+            }
 
+            .navbar-center h1 {
+                font-size: 18px;
+                text-align: center;
+            }
 
+            .logout-button {
+                font-size: 12px;
+                flex-direction: row;
+                gap: 5px;
+            }
+
+            .principal {
+                padding-top: 20px;
+                flex-direction: column;
+            }
+
+            .table-container {
+                width: 100%;
+            }
+
+            table {
+                font-size: 14px;
+                width: 100%;
+            }
+
+            thead {
+                display: none; /* Ocultar encabezados */
+            }
+
+            tbody tr {
+                display: block;
+                margin-bottom: 1rem;
+            }
+
+            tbody tr td {
+                display: flex;
+                justify-content: space-between;
+                padding: 0.5rem;
+                border-bottom: 1px solid #ddd;
+            }
+
+            tbody tr td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                flex: 1;
+            }
+
+            .button-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -260,7 +283,7 @@ input:checked + .slider:before {
                 <div class="card-header">
                     <h3 class="my-0">Lista de Clientes</h3>
                 </div>
-                <div class="card-body p-0">
+                <div class="card-body p-0 table-container">
                     <table class="table table-hover table-striped m-0">
                         <thead class="table-light">
                             <tr>
@@ -277,36 +300,36 @@ input:checked + .slider:before {
                         <tbody>
                             @foreach($usuarios as $usuario)
                             <tr>
-                                <td>{{$usuario->name }}</td>
-                                <td>{{$usuario->email }}</td>
-                                <td>{{$usuario->name }}</td>
-                                <td>{{$usuario->last_name}}</td>
-                                <td>{{$usuario->age}}</td>
-                                <td>{{$usuario->gender}}</td>
-                                <td>{{$usuario->phone}}</td>
+                                <td data-label="Usuario">{{$usuario->name }}</td>
+                                <td data-label="Correo">{{$usuario->email }}</td>
+                                <td data-label="Nombre">{{$usuario->name }}</td>
+                                <td data-label="Apellido">{{$usuario->last_name}}</td>
+                                <td data-label="Edad">{{$usuario->age}}</td>
+                                <td data-label="Género">{{$usuario->gender}}</td>
+                                <td data-label="Teléfono">{{$usuario->phone}}</td>
                                 <td>
-                                  <div class="button-container">
-                                    <a href="{{ route('usuarios.edit', $usuario->id) }}">
-                                    <button class="editBtn" data-bs-toggle="modal" data-bs-target="#editUserModal" data-user-id="{{ $usuario->id }}" data-user-name="{{ $usuario->name }}" data-user-email="{{ $usuario->email }}">
-                                        <svg height="1em" viewBox="0 0 512 512">
-                                            <path
-                                              d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"
-                                            ></path>
-                                        </svg>
-                                    </button>
-                                </a>
-                                <form action="{{ route('toggle.status', $usuario->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('PUT')
-                                    <label class="switch">
-                                        <input type="checkbox" id="switch-{{ $usuario->id }}" 
-                                               {{ $usuario->is_active ? 'checked' : '' }} 
-                                               onchange="this.form.submit();">
-                                        <span class="slider"></span>
-                                    </label>
-                                </form>
-                                </div>
-                                </td>
+                                    <div class="button-container">
+                                      <a href="{{ route('usuarios.edit', $usuario->id) }}">
+                                      <button class="editBtn" data-bs-toggle="modal" data-bs-target="#editUserModal" data-user-id="{{ $usuario->id }}" data-user-name="{{ $usuario->name }}" data-user-email="{{ $usuario->email }}">
+                                          <svg height="1em" viewBox="0 0 512 512">
+                                              <path
+                                                d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"
+                                              ></path>
+                                          </svg>
+                                      </button>
+                                  </a>
+                                  <form action="{{ route('toggle.status', $usuario->id) }}" method="POST" class="d-inline">
+                                      @csrf
+                                      @method('PUT')
+                                      <label class="switch">
+                                          <input type="checkbox" id="switch-{{ $usuario->id }}" 
+                                                 {{ $usuario->is_active ? 'checked' : '' }} 
+                                                 onchange="this.form.submit();">
+                                          <span class="slider"></span>
+                                      </label>
+                                  </form>
+                                  </div>
+                                  </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -314,30 +337,9 @@ input:checked + .slider:before {
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-4">
-              {{ $usuarios -> links('pagination::bootstrap-5') }}
-          </div>
-      
+                {{ $usuarios->links('pagination::bootstrap-5') }}
+            </div>
         </div>
     </div>
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const switches = document.querySelectorAll('.user-switch');
-        
-        switches.forEach(function (switchElement) {
-            switchElement.addEventListener('change', function () {
-                const userId = this.dataset.userId;
-                
-                const form = document.getElementById(form-${userId});
-                
-                if (form) {
-                    form.submit();
-                }
-            });
-        });
-    });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
 </body>
 </html>

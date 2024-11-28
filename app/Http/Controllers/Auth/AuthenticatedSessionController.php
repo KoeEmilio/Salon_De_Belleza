@@ -36,6 +36,9 @@ class AuthenticatedSessionController extends Controller
         } elseif ($user->hasRole('recepcionista')) {
             return redirect()->route('recepcionista.inicio');
         }
+        elseif ($user->hasRole('cliente')) {
+            return redirect()->route('welcome');
+        }
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
