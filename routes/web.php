@@ -21,7 +21,7 @@ use App\Http\Controllers\RecepcionistaController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServicioHomeController;
-
+use App\Http\Controllers\HorasController;
 
 
 use App\Http\Controllers\FavoritosController;
@@ -29,7 +29,7 @@ use App\Http\Controllers\NominasController;
 use App\Http\Controllers\RecepcionistaServiciosController;
 use App\Http\Controllers\TrabajosController;
 use App\Http\Controllers\TurnosController;
-use App\Http\Controllers\VerDetalleClienteController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -86,7 +86,7 @@ Route::get('/galeria', [GaleriaController::class, 'index'])->name('galeria');
 Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto');
 Route::get('/paso1', function () { return view('cita1');});
 Route::get('/paso2', function () { return view('cita2');});
-
+Route::get('/paso3', function () { return view('cita3');});
 Route::post('/appointments/store', [AppointmentController::class, 'store'])->name('appointments.store');
 
 
@@ -97,8 +97,18 @@ Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->na
 Route::get('/carga', function () { return view('carga');})->name('carga');
 Route::view('/paso1', 'cita1')->name('paso1');
 
-Route::post('/guardar-fecha-hora', [AppointmentController::class, 'store'])->name('appointment.store');
-Route::post('/guardar-fecha-hora', [AppointmentController::class, 'store']);
+
+Route::get('/paso2', [CitasController::class, 'showCita2'])->name('cita2');
+
+// Guardar cita
+Route::post('/guardar-cita', [AppointmentController::class, 'store'])->name('appointment.store');
+Route::post('/guardar-cita', [AppointmentController::class, 'store'])->name('guardar.cita');
+// web.php (Ruta)
+Route::post('/guardar-cita', [CitasController::class, 'guardarCita']);
+Route::post('/guardar-cita', [AppointmentController::class, 'guardarCita'])->name('guardarCita');
+Route::post('/guardar-cita', [AppointmentController::class, 'store']);
+// Obtener horas disponibles
+
 
 
 // Rutas para usuarios

@@ -216,7 +216,7 @@
 }
 
 .btn-heart:hover {
-    color: #ff6b81; /* Cambia al color deseado */
+    color: #ff6b81; 
     transform: scale(1.1);
 }
 
@@ -274,7 +274,7 @@
     transform: translateY(0);
 }
 
-/* Estilo del contenido del menú */
+
 .popup-window legend {
     font-size: 14px;
     font-weight: bold;
@@ -467,7 +467,7 @@
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.519800588352!2d-103.41203772477516!3d25.587638177461702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x868fda61208a9159%3A0x8297d1b2f4a3236d!2sC.%20Lolo%20de%20M%C3%A9ndez%2065%2C%20Villa%20Florida%2C%2027105%20Torre%C3%B3n%2C%20Coah.!5e0!3m2!1ses-419!2smx!4v1732033520322!5m2!1ses-419!2smx"   allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </p>
 
-        <!-- Copyright -->
+      
         <p class="mt-3 mb-0" style="font-size: 0.9rem; color: #faccd3;">
             © 2024 Glow Studio. Todos los derechos reservados.
         </p>

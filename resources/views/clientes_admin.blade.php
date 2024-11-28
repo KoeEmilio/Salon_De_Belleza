@@ -158,14 +158,14 @@
 
 .button-container {
   display: flex;
-  gap: 8px; /* Space between buttons */
+  gap: 8px; 
   align-items: center;
 }
 
 .button,
 .editBtn {
-  width: 40px; /* Adjusted size */
-  height: 40px; /* Adjusted size */
+  width: 40px; 
+  height: 40px; 
 }
         .card-header {
             background-color: #000000;

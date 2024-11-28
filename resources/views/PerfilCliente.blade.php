@@ -14,13 +14,13 @@
         }
 
         .card {
-            height: auto; /* Adaptable al contenido */
+            height: auto; 
             width: 100%; 
             max-width: 800px; 
-            margin: 20px auto; /* Centrado horizontalmente */
+            margin: 20px auto; 
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: relative; /* Contenedor relativo para botones absolutos */
+            position: relative;
         }
 
         .content-center {
@@ -28,14 +28,14 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: auto; /* Ajusta dinámicamente según el contenido */
+            height: auto; 
             padding: 20px;
             width: 100%;
         }
 
         .card-b {
             margin-top: 5px;
-            padding: 20px; /* Espacio interno para mejor legibilidad */
+            padding: 20px; 
         }
 
         .editBtn {
@@ -50,14 +50,14 @@
             box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.123);
             cursor: pointer;
             position: absolute;
-            right: 20px; /* Anclado dentro del contenedor */
+            right: 20px; 
             top: 15px;
             transition: all 0.3s;
             overflow: hidden;
             z-index: 2;
         }
 
-        /* Hover effect */
+        
         .editBtn::before {
             content: "";
             width: 200%;
@@ -91,10 +91,10 @@
             transform: rotate(-15deg) translateX(5px);
         }
 
-        /* Responsiveness */
+      
         @media (max-width: 768px) {
             .card {
-                max-width: 100%; /* Ocupa el 100% del ancho en pantallas pequeñas */
+                max-width: 100%; 
             }
 
             .editBtn {
@@ -104,7 +104,7 @@
             }
 
             .card-b {
-                padding: 10px; /* Reduce el padding interno */
+                padding: 10px; 
             }
         }
 
@@ -116,7 +116,7 @@
             .editBtn {
                 width: 30px;
                 height: 30px;
-                right: 10px; /* Ajusta posición en dispositivos más pequeños */
+                right: 10px;
                 top: 10px;
             }
 
