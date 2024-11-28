@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Appointment;
+use Illuminate\Support\Facades\Log;
 
 class AppointmentController extends Controller
 {
@@ -10,7 +11,7 @@ class AppointmentController extends Controller
     {
         try {
             // Registrar datos recibidos en los logs para depuración
-            \Log::info('Datos recibidos:', $request->all());
+            Log::info('Datos recibidos para la cita:', $request->all());
 
             // Validar los datos
             $validated = $request->validate([
@@ -22,6 +23,9 @@ class AppointmentController extends Controller
                 'services.*' => 'string|max:255', // Validar cada servicio individualmente
             ]);
 
+            // Log de la validación exitosa
+            Log::info('Datos validados correctamente.', $validated);
+
             // Crear la cita
             $appointment = Appointment::create([
                 'appointment_day' => $validated['appointment_day'],
@@ -31,10 +35,13 @@ class AppointmentController extends Controller
                 'status' => 'pendiente',
             ]);
 
-            // Opcional: Manejar servicios si es necesario (esto depende de tu base de datos)
+            // Log de la cita creada
+            Log::info('Cita creada con éxito.', ['appointment_id' => $appointment->id]);
+
+            // Opcional: Manejar servicios si es necesario
             if (isset($validated['services'])) {
-                // Guardar servicios asociados, si existe una tabla relacionada
-                // Esto es opcional y requiere definir una relación en tu modelo
+                // Aquí agregarías la lógica para almacenar los servicios si es necesario
+                Log::info('Servicios asociados a la cita:', $validated['services']);
             }
 
             return response()->json([
@@ -44,15 +51,21 @@ class AppointmentController extends Controller
             ], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Capturamos errores de validación
+            Log::error('Error de validación:', [
+                'errors' => $e->errors(), // Detalles de los errores de validación
+                'request_data' => $request->all(),
+            ]);
             return response()->json([
                 'success' => false,
                 'message' => 'Error de validación.',
-                'errors' => $e->errors(), // Detalles de los errores de validación
+                'errors' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
-            \Log::error('Error al agendar la cita:', [
+            // Capturamos cualquier otro tipo de error
+            Log::error('Error inesperado al agendar la cita:', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
+                'request_data' => $request->all(),
             ]);
             return response()->json([
                 'success' => false,

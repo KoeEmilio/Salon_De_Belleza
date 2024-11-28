@@ -116,6 +116,13 @@ Route::middleware(['auth', 'role:recepcionista'])->group(function () {
 Route::middleware(['auth', 'role:cliente'])->group(function () {
     Route::get('/carga', function () { return view('carga');})->name('carga');
     Route::view('/paso1', 'cita1')->name('paso1');
+    Route::post('/guardar-cita', [AppointmentController::class, 'store'])->name('appointment.store');
+    Route::post('/guardar-cita', [AppointmentController::class, 'store'])->name('guardar.cita');
+    // web.php (Ruta)
+    Route::post('/guardar-cita', [CitasController::class, 'guardarCita']);
+    Route::post('/guardar-cita', [AppointmentController::class, 'guardarCita'])->name('guardarCita');
+    Route::post('/guardar-cita', [AppointmentController::class, 'store']);
+    
     
 });
 Route::post('/passwordmail', [UserController::class, 'passwordmail'])->name('passwordmail');
@@ -136,9 +143,6 @@ Route::post('/appointments/store', [AppointmentController::class, 'store'])->nam
 Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
 Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado');
 Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
-
-Route::post('/guardar-fecha-hora', [AppointmentController::class, 'store'])->name('appointment.store');
-Route::post('/guardar-fecha-hora', [AppointmentController::class, 'store']);
 
 
 // Rutas para usuarios
