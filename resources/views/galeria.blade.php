@@ -414,9 +414,7 @@
                                 <div class="carousel-item">
                                     <img src="https://clinicaesteticaoviedo.es/wp-content/uploads/2020/09/lipolysis-of-adipose-tissue-in-the-abdominal-regio-3BHUB23-min-scaled.jpg" alt="Uñas 2">
                                 </div>
-                                <div class="carousel-item">
-                                    <img src="https://th.bing.com/th/id/OIP.valGV7hPPTOlpQa-HHRsIQAAAA?rs=1&pid=ImgDetMain" alt="Uñas 2">
-                                </div>
+                               
                                 <!-- Añade más imágenes si es necesario -->
                             </div>
                             <div class="carousel-caption">Mesoterapia</div>

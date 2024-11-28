@@ -4,19 +4,20 @@
 <title>Servicios</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 <style>
   body {
     font-family: Arial, sans-serif;
     background-color: #faccd3; 
   }
-  .card-title{
-    color:#fe889f;
+  .card-title {
+    color: #fe889f;
   }
   .divider {
-      margin: 20px 0;
-      border-top: 5px solid black;
-    }
+    margin: 20px 0;
+    border-top: 5px solid black;
+  }
   .servicio-titulo {
     font-size: 40px;
     margin-bottom: 10px;
@@ -61,26 +62,30 @@
   .card:hover .description-overlay {
     opacity: 1; 
   }
-</style>
-<!-- Modal -->
-<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header bg-success text-white">
-        <h5 class="modal-title" id="confirmationModalLabel">Servicio Agregado</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body text-center">
-        <i class="bi bi-check-circle-fill text-success" style="font-size: 2rem;"></i>
-        <p class="mt-3">¡El servicio ha sido agregado exitosamente a tu lista!</p>
-      </div>
-      <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
+  #mensajeAlerta {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #ffb7c2;
+    color: #000;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(-20px);
+  }
+
+  #mensajeAlerta.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
 
 <div class="container">
   <div class="text-center">
@@ -90,30 +95,33 @@
   </div>
   <div class="divider"></div>
 
+  <!-- Primera fila -->
+  
+
+<div class="text-center">
+<h1 class="servicio-titulo">TINTES</h1>
   <div class="row">
     <div class="col-md-4">
       <div class="card">
         <img src="https://www.cortesdepelotendencias.com/wp-content/uploads/2022/07/cortes-de-pelo-mujer-2023-para-caras-cuadradas.jpg" class="card-img-top" alt="Corte de Cabello">
         <div class="description-overlay">
           <p>Corte de cabello profesional para todo tipo de rostro.<br>
-            (El presio puede variar dependiendo de la cantidad de cabello.)
+            (El precio puede variar dependiendo de la cantidad de cabello.)
           </p>
         </div>
         <div class="card-body text-center">
           <h5 class="card-title">CORTES</h5>
           <h5 class="card-title">$150</h5>
           <button class="btn btn-outline-dark agregar-servicio" data-bs-toggle="modal" data-bs-target="#confirmationModal">+ Agregar servicio</button>
-         
         </div>
       </div>
     </div>
-
     <div class="col-md-4">
       <div class="card">
         <img src="https://www.hairstylery.com/wp-content/uploads/images/2-caramel-balayage-on-shiny-black-hair.jpg" class="card-img-top" alt="Balayage">
         <div class="description-overlay">
           <p>Técnica de balayage para un look natural y brillante.<br>
-          (El presio puede variar dependiendo de la cantidad de cabello.)</p>
+          (El precio puede variar dependiendo de la cantidad de cabello.)</p>
         </div>
         <div class="card-body text-center">
           <h5 class="card-title">BALAYAGE</h5>
@@ -122,15 +130,12 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-4">
       <div class="card">
         <img src="https://th.bing.com/th/id/R.16e9603ac3d99e1c57e6eb84676b55db?rik=TXvb%2fmouMzYtNA&pid=ImgRaw&r=0" class="card-img-top" alt="Babylights">
         <div class="description-overlay">
-          <p>Babylights para un brillo sutil y juvenil en tu cabello.
-          <br>
-          (El presio puede variar dependiendo de la cantidad de cabello.)
-          </p>
+          <p>Babylights para un brillo sutil y juvenil en tu cabello.<br>
+          (El precio puede variar dependiendo de la cantidad de cabello.)</p>
         </div>
         <div class="card-body text-center">
           <h5 class="card-title">BABYLIGHTS</h5>
@@ -139,10 +144,11 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Segunda fila -->
-    <div class="row">
-      <div class="col-md-4">
+  <!-- Segunda fila -->
+  <div class="row">
+  <div class="col-md-4">
         <div class="card">
           <img src="https://cdn.shopify.com/s/files/1/0692/4484/6401/files/Disenosintitulo_11_68a159ae-1a21-4e54-a635-9b55fb0d640b.png?v=1686702556&width=900" class="card-img-top" alt="Tinte Global">
           <div class="description-overlay">
@@ -157,8 +163,8 @@
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
-      </div>
-      <div class="col-md-4">
+  </div>
+  <div class="col-md-4">
         <div class="card">
           <img src="https://i.pinimg.com/736x/06/19/63/061963f192d606683acbd3a9f5c2eeba.jpg" class="card-img-top" alt="Mechas Tradicionales">
           <div class="description-overlay">
@@ -172,6 +178,7 @@
           </div>
         </div>
       </div>
+
       <div class="col-md-4">
         <div class="card">
           <img src="https://hair.montibello.com/wp-content/uploads/2022/09/ALISADO-PERMANENTE-CON-QUERATINA-PASO-A-PASO-scaled.jpg" class="card-img-top" alt="Alaciado Permanente">
@@ -190,24 +197,53 @@
       </div>
     </div>
 
-    
-    <div class="divider"></div>
-
-    <!-- Tercera fila -->
-    <div class="row">
+  <div class="divider"></div>
+   <!-- Tercera fila -->
+   <div class="row">
       <div class="col-md-4">
         <div class="card">
-          <img src="https://i.pinimg.com/736x/6c/99/fe/6c99fe9b0bf9df224d07fac21501f4cc.jpg" class="card-img-top" alt="Maquillaje">
+          <img src="https://i.pinimg.com/736x/fa/47/57/fa4757a7aed07aea2f3c933d56ec3380.jpg" class="card-img-top" alt="Maquillaje">
           <div class="description-overlay">
             <p>Maquillaje profesional para cualquier ocasión.<br> (El precio puede variar dependiendo del tipo de maquillaje)</p>
           </div>
           <div class="card-body text-center">
-            <h5 class="card-title">MAQUILLAJE</h5>
+            <h5 class="card-title">MAQUILLAJE DE DIA</h5>
             <h5 class="card-title">$1,000</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
       </div>
+      
+      
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://cursosdemaquillajegratis.com/wp-content/uploads/2020/01/700591285768639576.jpg" class="card-img-top" alt="Maquillaje">
+          <div class="description-overlay">
+            <p>Maquillaje profesional para cualquier ocasión.<br> (El precio puede variar dependiendo del tipo de maquillaje)</p>
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">MAQUILLAJE DE NOCHE</h5>
+            <h5 class="card-title">$1,000</h5>
+            <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://i.pinimg.com/736x/83/c6/f0/83c6f011ade63d1ed1adc316a61d8c10.jpg" class="card-img-top" alt="Maquillaje">
+          <div class="description-overlay">
+            <p>Maquillaje profesional para cualquier ocasión.<br> (El precio puede variar dependiendo del tipo de maquillaje)</p>
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">MAQUILLAJE NARURAL</h5>
+            <h5 class="card-title">$1,000</h5>
+            <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
+          </div>
+        </div>
+      </div>
+ 
+
       <div class="col-md-4">
         <div class="card">
           <img src="https://estaticos-cdn.prensaiberica.es/clip/4a24f383-e1a9-46eb-8237-5d76abdfff82_woman-libre-1200_default_0.jpg" class="card-img-top" alt="Peinados">
@@ -234,28 +270,8 @@
           </div>
         </div>
       </div>
-    </div>
-   
-    <!--Cuarta fila -->
-  <div class="row">
       <div class="col-md-4">
-        <div class="card">
-          <img src="https://th.bing.com/th/id/OIP.F2uEKBcrcqnseFPBj1XoVgHaEj?rs=1&pid=ImgDetMain" class="card-img-top" alt="Corte de Cabello">
-          <div class="description-overlay">
-          <p>El diseño de cejas es un proceso estético que busca dar forma y definir las cejas para realzar la expresión facial y armonizar las características del rostro. Este procedimiento puede variar en técnica y estilo, dependiendo de las preferencias personales y la forma del rostro de cada individuo.
-            <br> (El presio de puede variar dependiendo del diseño de ceja)
-          </p>
-        </div>
-          <div class="card-body text-center">
-            <h5 class="card-title">DISEÑO DE CEJA</h5>
-            <h5 class="card-title">$1,000</h5>
-            <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-4">
-        <div class="card">
+      <div class="card">
           <img src="https://th.bing.com/th/id/OIP.X_PGaGfAMBUoUjDbtFkDnQAAAA?rs=1&pid=ImgDetMain" class="card-img-top" alt="Corte de Cabello">
           <div class="description-overlay">
           <p>Incluye los siguientes servicios: <br>-Prueba de maquillaje <br>-Prueba de peinado <br>-Maquillaje para el dia del evento<br>-Peinado para el dia del evento  <br>-Facial hidratante.
@@ -268,7 +284,6 @@
           </div>
         </div>
       </div>
-     
       <div class="col-md-4">
         <div class="card">
           <img src="https://marielenamakeup.com/wp-content/uploads/2023/02/Maquillaje-de-Novia-Elegante.jpg" class="card-img-top" alt="Corte de Cabello">
@@ -283,6 +298,42 @@
           </div>
         </div>
       </div>
+     
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://beautifuleyespremium.com/wp-content/uploads/2022/03/cejashenna.jpg" class="card-img-top" alt="Corte de Cabello">
+          <div class="description-overlay">
+          <p>Si lo tuyo no son los servicios permanentes, no te preocupes, ¡tenemos los servicios perfectos! La henna es un producto vegetal, por lo que su beneficio reside en que este pigmento natural colorea el pelo de las cejas y proporciona sombra a la piel con suavidad y sin dañarlo. Su duración es de 2 semanas en el pelo y 6 en la piel. Por otra parte, el tinte está indicado para personas que deseen dar color a sus cejas además de lograr una mayor definición. Este servicio tiene un duración aproximada de 4 semanas.
+          </p>
+        </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">HENNA Y TINTE</h5>
+            <h5 class="card-title">$1,000</h5>
+            <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://th.bing.com/th/id/OIP.YwxIZkKhBYzmJZme4mp3GwHaHa?rs=1&pid=ImgDetMain" class="card-img-top" alt="Corte de Cabello">
+          <div class="description-overlay">
+          <p>El novedoso Brow Lifting o Lifting de Cejas, es una técnica que permite elevar y redireccionar el pelo de la ceja creando un efecto de aumento de la densidad y un vello ordenado. Este servicio puede durar entre 5 y 8 semanas.
+          
+          </p>
+        </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">LIFTING DE CEJA</h5>
+            <h5 class="card-title">$1,000</h5>
+            <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
+          </div>
+        </div>
+      </div>
+
+      </div>
+
+
+
 
       <div class="divider"></div>
 
@@ -374,22 +425,33 @@
           </div>
         </div>
       </div>
+    
 </div>
+
 <script>
   document.querySelectorAll('.agregar-servicio').forEach((button, index) => {
-    button.addEventListener('click', () => {
-      const servicio = button.closest('.card').querySelector('.card-title').textContent.trim();
-      const servicios = JSON.parse(localStorage.getItem('serviciosAgregados')) || [];
+  button.addEventListener('click', () => {
+    const servicio = button.closest('.card').querySelector('.card-title').textContent.trim();
+    const servicios = JSON.parse(localStorage.getItem('serviciosAgregados')) || [];
 
-      servicios.push(servicio);
-      localStorage.setItem('serviciosAgregados', JSON.stringify(servicios));
-      
-      alert(`${servicio} se ha agregado a la lista de servicios`);
+    servicios.push(servicio);
+    localStorage.setItem('serviciosAgregados', JSON.stringify(servicios));
+
+    // Usar SweetAlert2 para mostrar el mensaje
+    Swal.fire({
+      title: '¡Servicio agregado!',
+      text: `${servicio} se ha agregado a 🩷`,
+      icon: 'success',
+      background: '#faccd3', // Fondo rosa claro
+      color: '#000',         // Texto negro
+      confirmButtonColor: '#fe889f', // Botón de confirmación rosa oscuro
+      confirmButtonText: 'Aceptar'
     });
   });
-
-
-   
+});
+  
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @endsection

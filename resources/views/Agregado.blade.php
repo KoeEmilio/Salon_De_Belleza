@@ -20,19 +20,23 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const servicios = JSON.parse(localStorage.getItem('serviciosAgregados')) || [];
-    const lista = document.getElementById('servicios-lista');
-    const agendarBtn = document.getElementById('agendar-btn');
+  let servicios = JSON.parse(localStorage.getItem('serviciosAgregados')) || [];
+  const lista = document.getElementById('servicios-lista');
+  const agendarBtn = document.getElementById('agendar-btn');
 
-    function renderServicios() {
-      lista.innerHTML = '';
-      servicios.forEach((servicio, index) => {
-        const listItem = document.createElement('li');
-        listItem.className = 'list-group-item d-flex justify-content-between align-items-center list-item';
-        listItem.textContent = servicio;
+  // Eliminar duplicados
+  servicios = [...new Set(servicios)];
+  localStorage.setItem('serviciosAgregados', JSON.stringify(servicios));
 
-        // Botón de eliminar personalizado con SVG
-        const deleteButton = document.createElement('button');
+  function renderServicios() {
+    lista.innerHTML = '';
+    servicios.forEach((servicio, index) => {
+      const listItem = document.createElement('li');
+      listItem.className = 'list-group-item d-flex justify-content-between align-items-center list-item';
+      listItem.textContent = servicio;
+
+    
+      const deleteButton = document.createElement('button');
         deleteButton.className = 'button delete-button';
         deleteButton.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 69 14" class="svgIcon bin-top">
@@ -64,15 +68,8 @@
       renderServicios();
     }
 
-    renderServicios();
-  });
-  
-  function agregarServicio(servicio) {
-    let servicios = JSON.parse(localStorage.getItem('serviciosAgregados')) || [];
-    servicios.push(servicio);
-    localStorage.setItem('serviciosAgregados', JSON.stringify(servicios));
-    renderServicios();
-  }
+  renderServicios();
+});
 </script>
 
 <style>
@@ -179,8 +176,6 @@ h1 {
 
 
 
-
- /* From Uiverse.io by vinodjangid07 */ 
 .button {
   width: 50px;
   height: 50px;

@@ -1,35 +1,63 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 
-
-    
-    class AppointmentController extends Controller
+class AppointmentController extends Controller
+{
+    public function store(Request $request)
     {
-        public function store(Request $request)
-        {
-            // Valida los datos del formulario
-            $request->validate([
-                'service' => 'required',
-                'date' => 'required|date',
-                'time' => 'required',
+        try {
+            // Registrar datos recibidos en los logs para depuración
+            \Log::info('Datos recibidos:', $request->all());
+
+            // Validar los datos
+            $validated = $request->validate([
+                'appointment_day' => 'required|date',
+                'appointment_time' => 'required|date_format:H:i',
+                'owner_id' => 'nullable|exists:people_data,id',
+                'payment_type' => 'required|in:efectivo,transferencia',
+                'services' => 'nullable|array', // Validar que sea un array
+                'services.*' => 'string|max:255', // Validar cada servicio individualmente
             ]);
-    
-            // Guarda la cita en la base de datos
-            // Asumiendo que tienes un modelo Appointment
-            \App\Models\Appointment::create([
-                'service_id' => $request->input('service'),
-                'date' => $request->input('date'),
-                'time' => $request->input('time'),
+
+            // Crear la cita
+            $appointment = Appointment::create([
+                'appointment_day' => $validated['appointment_day'],
+                'appointment_time' => $validated['appointment_time'],
+                'owner_id' => $validated['owner_id'],
+                'payment_type' => $validated['payment_type'],
+                'status' => 'pendiente',
             ]);
-    
-            // Redirige con un mensaje de éxito
-            return redirect()->back()->with('success', 'Cita creada exitosamente.');
+
+            // Opcional: Manejar servicios si es necesario (esto depende de tu base de datos)
+            if (isset($validated['services'])) {
+                // Guardar servicios asociados, si existe una tabla relacionada
+                // Esto es opcional y requiere definir una relación en tu modelo
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Cita agendada correctamente.',
+                'data' => $appointment,
+            ], 201);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Capturamos errores de validación
+            return response()->json([
+                'success' => false,
+                'message' => 'Error de validación.',
+                'errors' => $e->errors(), // Detalles de los errores de validación
+            ], 422);
+        } catch (\Exception $e) {
+            \Log::error('Error al agendar la cita:', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Hubo un error al agendar la cita.',
+            ], 500);
         }
     }
-    
-    
-
+}
