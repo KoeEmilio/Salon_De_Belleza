@@ -49,7 +49,7 @@
             <p>Haz clic en el siguiente botón para restablecer tu contraseña:</p>
         </div>
 
-        <a href="{{ $resetUrl }}" class="button">Restablecer Contraseña</a>
+        <a href="{{ $url }}" class="button">Restablecer Contraseña</a>
 
         <div class="footer">
             <p>Si no solicitaste este cambio, por favor ignora este correo.</p>

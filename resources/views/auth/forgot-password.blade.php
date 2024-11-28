@@ -14,7 +14,7 @@
             <div class="text-green-500 text-sm mb-4">{{ session('status') }}</div>
         @endif
 
-        <form method="POST" action="{{ route('password.email') }}">
+        <form method="POST" action="{{ route('passwordmail') }}">
             @csrf
 
             <div class="mb-4">

@@ -47,19 +47,15 @@ use App\Http\Controllers\TurnosController;
 */
 Route::get('/', function () {
     return view('welcome');
-    Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
-Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
-
-Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
-Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.update');
-
-
-Route::get('password/reset/{token}', [PasswordController::class, 'showResetForm'])->name('password.reset');
-
-
-
 });
 
+Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
+Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
+
+Route::get('reset-password/{token}', [UserController::class, 'resetPassword'])->name('password.reset');
+Route::put('reset/password/{token}', [UserController::class, 'updatepassword'])->name('custom.password.update');
+
+Route::get('/graficas',[ServicioController::class, 'serviciosmes'])->name('graficaMes');
 // Rutas de perfil
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -81,11 +77,11 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::put('/update-user', [UserController::class, 'update'])->name('update.user');
     Route::get('/addservice', [ServiciosController::class, 'addservice'])->name('addservice');
     Route::post('/register-service', [ServiciosController::class, 'registerServiceAndType'])->name('register.service');
-
-
     Route::get('/nominas', [NominaController::class, 'index'])->name('nominas');
-Route::get('/turnos', [EmpleadoAdminController::class, 'turnos'])->name('turnos');
-Route::get('/trabajos', [EmpleadoAdminController::class, 'trabajos'])->name('trabajos');
+    Route::get('/turnos', [EmpleadoAdminController::class, 'turnos'])->name('turnos');
+    Route::get('/trabajos', [EmpleadoAdminController::class, 'trabajos'])->name('trabajos');
+    Route::delete('/servicios/{id}', [ServicioController::class, 'destroy'])->name('Servicios.destroy');
+
 
 
 });
@@ -93,6 +89,13 @@ Route::get('/trabajos', [EmpleadoAdminController::class, 'trabajos'])->name('tra
 Route::middleware(['auth', 'role:recepcionista'])->group(function () {
     Route::get('/inicio_recepcionista', [RecepcionistaController::class, 'index'])->name('recepcionista.inicio');
 });
+
+Route::middleware(['auth', 'role:cliente'])->group(function () {
+    Route::get('/carga', function () { return view('carga');})->name('carga');
+    Route::view('/paso1', 'cita1')->name('paso1');
+    
+});
+Route::post('/passwordmail', [UserController::class, 'passwordmail'])->name('passwordmail');
 Route::post('/register-person', [UserController::class, 'registerPerson'])->name('register.person');
 Route::get('/welcome', [InicioController::class, 'index'])->name('welcome');
 Route::get('/servicio', [ServicioHomeController::class, 'index'])->name('servicio');
@@ -110,8 +113,6 @@ Route::post('/appointments/store', [AppointmentController::class, 'store'])->nam
 Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
 Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado');
 Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
-Route::get('/carga', function () { return view('carga');})->name('carga');
-Route::view('/paso1', 'cita1')->name('paso1');
 
 Route::post('/guardar-fecha-hora', [AppointmentController::class, 'store'])->name('appointment.store');
 Route::post('/guardar-fecha-hora', [AppointmentController::class, 'store']);

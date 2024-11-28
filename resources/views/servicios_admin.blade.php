@@ -238,7 +238,9 @@
             <a href="{{route('addservice')}}">
             <button class="btn-container">Agregar Servicio</button>
           </a>
+          <a href="{{route('graficaMes')}}">
           <button class="btn-container">Estadistica</button>
+        </a>
         </div>  
             <div class="card shadow-sm">
                 <div class="card-header">
@@ -273,7 +275,9 @@
                                           ></path>
                                         </svg>
                                       </button>
-                                      
+                                      <form action="{{ route('Servicios.destroy', $servicio->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este servicio?');">
+                                        @csrf
+                                        @method('DELETE')
                                   <button class="button">
                                       <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -313,6 +317,7 @@
                                         </defs>
                                       </svg>
                                     </button>
+                                  </form>
                                 </div>
                                 </td>
                             </tr>

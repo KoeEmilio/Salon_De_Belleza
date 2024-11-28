@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Mail\ResetPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -65,4 +68,30 @@ public function update(Request $request)
 
     return redirect()->route('dashboard')->with('success', 'Usuario actualizado con éxito');
 }
+
+public function resetPassword($token) {
+    
+    return view('auth.reset-password', ['token' => $token]);
+}
+
+
+
+    public function passwordmail() {
+        $usuario = User::where('email', request('email'))->first();
+    
+        if ($usuario) {
+            $signedUrl = URL::signedRoute('password.reset', ['token' => $usuario->id], now()->addMinutes(30));
+            Mail::to($usuario->email)->send(new ResetPassword($usuario, $signedUrl));
+        }
+    
+        return redirect()->route('login')->with('success', 'Se ha enviado un correo para restablecer la contraseña');
+    }
+    
+    public function updatepassword(Request $request, $token){
+        $usuario = User::where('id', $token)->firstOrFail();
+        $usuario->password = Hash::make($request->password);
+        $usuario->save();
+
+        return redirect()->route('login')->with('success', 'Contraseña actualizada correctamente');
+    }
 }

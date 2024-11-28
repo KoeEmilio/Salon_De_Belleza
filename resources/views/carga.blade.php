@@ -115,8 +115,7 @@
   <script>
     // Redirigir automáticamente después de 7 segundos
     setTimeout(() => {
-      window.location.href = "{{ route('paso1') }}"; // Cambia 'agregado' por la ruta a donde quieras redirigir.
-    }, 4000);
+      window.location.href = "/paso1";    }, 4000);
   </script>
 </body>
 </html>
