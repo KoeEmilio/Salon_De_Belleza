@@ -296,7 +296,7 @@
                                           ></path>
                                         </svg>
                                       </button>
-                                      <form action="{{ route('Servicios.destroy', $servicio->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este servicio?');">
+                                      <form action="{{ route('servicios.delete', $servicio->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este servicio?')">
                                         @csrf
                                         @method('DELETE')
                                   <button class="button">

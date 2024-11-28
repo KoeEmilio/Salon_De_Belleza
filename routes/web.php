@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AgregarClienteRecepcionistaController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\CitasController;
 use App\Http\Controllers\CitasRecepcionistaController;
 use App\Http\Controllers\ClientePerfilController;
@@ -74,7 +75,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::put('/update-user', [UserController::class, 'update'])->name('update.user');
     Route::get('/addservice', [ServiciosController::class, 'addservice'])->name('addservice');
     Route::post('/register-service', [ServiciosController::class, 'registerServiceAndType'])->name('register.service');
-
+    Route::get('/graficas',[ServicioController::class, 'serviciosmes'])->name('graficaMes');
 
 Route::get('nominas/{empleado_id}', [NominaController::class, 'index'])->name('nominas.index');
 Route::get('nominas/create/{empleado_id}', [NominaController::class, 'create'])->name('nominas.create');
@@ -102,7 +103,7 @@ Route::get('/trabajos/{employee_id}', [TrabajosController::class, 'index'])
     Route::get('/nominas', [NominaController::class, 'index'])->name('nominas');
     Route::get('/turnos', [EmpleadoAdminController::class, 'turnos'])->name('turnos');
     Route::get('/trabajos', [EmpleadoAdminController::class, 'trabajos'])->name('trabajos');
-    Route::delete('/servicios/{id}', [ServicioController::class, 'destroy'])->name('Servicios.destroy');
+    Route::delete('/servicios/{id}', [ServiciosController::class, 'delete'])->name('servicios.delete');
 
 
 

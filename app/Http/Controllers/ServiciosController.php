@@ -76,4 +76,5 @@ class ServiciosController extends Controller
 
     return redirect()->route('servicios_admin')->with('success', 'Servicio registrado con éxito');
 }
+
 }
