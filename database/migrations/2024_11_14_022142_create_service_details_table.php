@@ -33,8 +33,7 @@ class CreateServiceDetailsTable extends Migration
             $table->unsignedBigInteger('order_id')->nullable();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('set null');
             $table->index('order_id'); // Índice para consultas rápidas
-            
-            // Timestamps
+
             $table->timestamps(); 
         });
     }

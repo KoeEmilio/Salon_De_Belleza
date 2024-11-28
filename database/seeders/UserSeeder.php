@@ -14,9 +14,9 @@ class UserSeeder extends Seeder
         $users = [
             // Admin
             [
-                'name' => 'Carlos Torres',
-                'email' => 'carlos.torres@example.com',
-                'password' => Hash::make('admin123'), // Contraseña segura
+                'name' => 'Daniel Garcia',
+                'email' => 'daniel@gmail.com',
+                'password' => Hash::make('1234'), // Contraseña segura
                 'rol' => 'admin',
             ],
             // Empleados
@@ -58,9 +58,9 @@ class UserSeeder extends Seeder
             ],
             // Recepcionistas
             [
-                'name' => 'Laura Sánchez',
-                'email' => 'laura.sanchez@example.com',
-                'password' => Hash::make('recepcionista123'),
+                'name' => 'Ximena Martinez',
+                'email' => 'ximena@gmail.com',
+                'password' => Hash::make('1234'),
                 'rol' => 'recepcionista',
             ],
             [

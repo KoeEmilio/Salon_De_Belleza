@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
+    <!-- Encabezado -->
     <div class="text-center mb-4">
         <h1 class="text-pink animate__animated animate__fadeInDown">
             Servicios de 
@@ -16,6 +17,14 @@
         <p class="text-muted">Aquí puedes ver todos los servicios registrados para este cliente.</p>
     </div>
 
+    <!-- Botón para agregar servicio -->
+    <div class="text-center mb-4">
+        <a href="{{ route('services.create') }}" class="btn btn-primary">
+            <i class="fas fa-plus-circle"></i> Agregar Servicio
+        </a>
+    </div>
+
+    <!-- Mensajes de sesión -->
     @if(session('success'))
         <div class="alert alert-success">
             <strong>Éxito!</strong> {{ session('success') }}
@@ -27,11 +36,10 @@
         </div>
     @endif
 
-  
-
+    <!-- Tabla de servicios -->
     <div class="table-responsive mt-4">
         <table class="table table-bordered table-striped shadow-sm rounded">
-            <thead style="color: pink" class="bg-dark text-pink">   
+            <thead class="bg-dark text-pink">
                 <tr>
                     <th>Servicio</th>
                     <th>Precio Base</th>
@@ -44,7 +52,7 @@
                 </tr>
             </thead>
             <tbody class="bg-black text-pink">
-                @forelse($client->services as $service) <!-- Relación con los servicios del cliente -->
+                @forelse($client->services as $service)
                     <tr>
                         <td class="align-middle">{{ $service->service_name }}</td>
                         <td class="align-middle">${{ number_format($service->price, 2) }}</td>
@@ -55,12 +63,14 @@
                         <td class="align-middle">{{ $service->duration ?? 'N/A' }} min</td>
                         <td class="align-middle">
                             <a href="{{ route('services.edit', $service->id) }}" class="btn btn-warning btn-sm">
-                                Editar
+                                <i class="fas fa-edit"></i> Editar
                             </a>
                             <form action="{{ route('services.destroy', $service->id) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este servicio?')">Eliminar</button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este servicio?')">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </button>
                             </form>
                         </td>
                     </tr>
@@ -75,6 +85,7 @@
         </table>
     </div>
 
+    <!-- Botón para regresar -->
     <div class="text-center mt-4">
         <a href="{{ route('citas.index') }}" class="btn btn-outline-secondary mb-4">
             <i class="fas fa-arrow-left"></i> Regresar

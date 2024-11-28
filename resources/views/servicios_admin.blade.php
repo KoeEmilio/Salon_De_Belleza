@@ -215,6 +215,27 @@
         .table th, .table td {
             vertical-align: middle;
         }
+        .pagination {
+            justify-content: center;
+        }
+        .custom-color-text {
+            color: #ffb7c2;
+        }
+        .custom-icon-size {
+            font-size: 48px;
+        }
+        .custom-icon-color {
+            color: #ffb7c2;
+        }
+        .pagination .page-link {
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #ffb7c2;
+            border-color: #ffb7c2;
+        }
     </style>
 </head>
 <body>
@@ -322,7 +343,42 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-4">
-              {{ $servicios -> links('pagination::bootstrap-5') }}
+              <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                      <!-- Páginas anteriores -->
+                      @if ($servicios->onFirstPage())
+                      <li class="page-item disabled">
+                          <span class="page-link">Anterior</span>
+                      </li>
+                      @else
+                      <li class="page-item">
+                          <a class="page-link" href="{{ $servicios->previousPageUrl() }}" aria-label="Previous">
+                              <i class="fas fa-arrow-left"></i> Anterior
+                          </a>
+                      </li>
+                      @endif
+
+                      <!-- Páginas numeradas -->
+                      @foreach ($servicios->getUrlRange(1, $servicios->lastPage()) as $page => $url)
+                      <li class="page-item {{ $page == $servicios->currentPage() ? 'active' : '' }}">
+                          <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                      </li>
+                      @endforeach
+
+                      <!-- Páginas siguientes -->
+                      @if ($servicios->hasMorePages())
+                      <li class="page-item">
+                          <a class="page-link" href="{{ $servicios->nextPageUrl() }}" aria-label="Next">
+                              Siguiente <i class="fas fa-arrow-right"></i>
+                          </a>
+                      </li>
+                      @else
+                      <li class="page-item disabled">
+                          <span class="page-link">Siguiente</span>
+                      </li>
+                      @endif
+                  </ul>
+              </nav>
           </div>
       
         </div>

@@ -1,148 +1,68 @@
+<!-- turnos.blade.php -->
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Turnos</title>
-    <!-- Estilos de Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome para los iconos -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" rel="stylesheet">
-
-    <!-- Estilos personalizados -->
+    <title>Turnos de {{ $empleado->name}}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7fc;
+            background-color: #f4f4f4;
         }
+
         .container {
-            margin-top: 50px;
-        }
-        /* Barra superior */
-        .navbar {
-            background-color: #000000; /* Fondo negro */
-            color: #FF66B2; /* Rosa suave */
-            padding: 20px; /* Aumento el padding para hacer la barra más grande */
-        }
-        .navbar h1 {
-            color: #FF66B2; /* Título en rosa suave */
-            margin: 0;
-            text-align: center; /* Centrado del título */
-            font-size: 2rem; /* Tamaño de fuente más grande */
-        }
-        table {
-            margin-top: 22px;
-            width: 100%;
-            display: table;
-            border-collapse: collapse;
-            background-color: #000000; /* Fondo de la tabla negro */
-        }
-        th, td {
-            text-align: center;
-            padding: 10px;
-            border: 1px solid #ddd;
-            color: #FF66B2; /* Letras rosas */
-        }
-        th {
-            background-color: #343a40;
-        }
-        td {
-            background-color: #000000;
-        }
-        tr:nth-child(even) {
-            background-color: #222222; /* Fondo ligeramente más claro para las filas pares */
-        }
-        .action-buttons a {
-            text-decoration: none;
-            margin: 5px;
-            padding: 5px 15px;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-        }
-        .action-buttons a:hover {
-            background-color: #0056b3;
-        }
-        .action-buttons a i {
-            margin-right: 8px; /* Espacio entre el ícono y el texto */
-        }
-        .message {
-            background-color: #dff0d8;
-            color: #3c763d;
-            padding: 15px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .back-button {
             margin-top: 20px;
         }
-        @media (max-width: 768px) {
-            .navbar h1 {
-                font-size: 1.5rem;
-            }
-            table {
-                font-size: 0.875rem;
-            }
-            .action-buttons a {
-                font-size: 0.75rem;
-                padding: 4px 12px;
-            }
+
+        .card-header {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: #f5f5f5;
         }
     </style>
 </head>
+
 <body>
-
-<!-- Barra superior -->
-<div class="navbar navbar-expand-md text-center">
-    <h1>Lista de Turnos</h1>
-</div>
-
-<div class="container">
-    <!-- Botón para ir atrás -->
-    <div class="back-button text-center">
-        <a href="javascript:history.back()" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Volver Atrás
-        </a>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3>Turnos de {{ $empleado->name}} </h3>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Día</th>
+                            <th>Turno</th>
+                            <th>Hora de Entrada</th>
+                            <th>Hora de Salida</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($turnos as $turno)
+                            <tr>
+                                <td>{{ $turno->day }}</td>
+                                <td>{{ $turno->shift->shift }}</td>
+                                <td>{{ $turno->shift->entry_time }}</td>
+                                <td>{{ $turno->shift->exit_time }}</td>
+                                <td>
+                                    <a href="{{ route('turnos.editar', ['turno_id' => $turno->id]) }}" class="btn btn-warning">Editar</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+             
+            </div>
+        </div>
     </div>
-    
-    <!-- Tabla de turnos -->
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th><i class="fas fa-clock"></i> Turno</th>
-                    <th><i class="fas fa-clock"></i> Hora de Entrada</th>
-                    <th><i class="fas fa-clock"></i> Hora de Salida</th>
-                    <th><i class="fas fa-cogs"></i> Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($shifts as $shift)
-                    <tr>
-                        <td>{{ $shift->shift }}</td>
-                        <td>{{ $shift->entry_time }}</td>
-                        <td>{{ $shift->exit_time }}</td>
-                        <td class="action-buttons">
-                            <a href="{{ route('turnos.edit', $shift->id) }}" class="btn btn-info">
-                                <i class="fas fa-edit"></i> Editar
-                            </a>
-                            <form action="{{ route('turnos.delete', $shift->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este turno?');">
-                                    <i class="fas fa-trash-alt"></i> Eliminar
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<!-- Scripts de Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
+
 </html>

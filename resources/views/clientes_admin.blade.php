@@ -193,6 +193,27 @@ input:focus + .slider {
 input:checked + .slider:before {
  transform: translateX(1.9em);
 }
+.pagination {
+            justify-content: center;
+        }
+        .custom-color-text {
+            color: #ffb7c2;
+        }
+        .custom-icon-size {
+            font-size: 48px;
+        }
+        .custom-icon-color {
+            color: #ffb7c2;
+        }
+        .pagination .page-link {
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #ffb7c2;
+            border-color: #ffb7c2;
+        }
         
         /* Media Queries */
         @media (max-width: 768px) {
@@ -337,7 +358,42 @@ input:checked + .slider:before {
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-4">
-                {{ $usuarios->links('pagination::bootstrap-5') }}
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <!-- Páginas anteriores -->
+                        @if ($usuarios->onFirstPage())
+                        <li class="page-item disabled">
+                            <span class="page-link">Anterior</span>
+                        </li>
+                        @else
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $usuarios->previousPageUrl() }}" aria-label="Previous">
+                                <i class="fas fa-arrow-left"></i> Anterior
+                            </a>
+                        </li>
+                        @endif
+  
+                        <!-- Páginas numeradas -->
+                        @foreach ($usuarios->getUrlRange(1, $usuarios->lastPage()) as $page => $url)
+                        <li class="page-item {{ $page == $usuarios->currentPage() ? 'active' : '' }}">
+                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                        </li>
+                        @endforeach
+  
+                        <!-- Páginas siguientes -->
+                        @if ($usuarios->hasMorePages())
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $usuarios->nextPageUrl() }}" aria-label="Next">
+                                Siguiente <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </li>
+                        @else
+                        <li class="page-item disabled">
+                            <span class="page-link">Siguiente</span>
+                        </li>
+                        @endif
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

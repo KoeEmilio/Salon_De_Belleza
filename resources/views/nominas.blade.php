@@ -3,164 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Nóminas</title>
-    <!-- Estilos de Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome para los iconos -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" rel="stylesheet">
-
-    <!-- Estilos personalizados -->
+    <title>Nóminas de {{ $empleado->name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         body {
+            background-color: #f8f9fa;
             font-family: Arial, sans-serif;
-            background-color: #f4f7fc;
         }
+
         .container {
-            margin-top: 50px;
-        }
-        /* Barra superior */
-        .navbar {
-            background-color: #000000; /* Fondo negro */
-            color: #FF66B2; /* Rosa suave */
-            padding: 20px; /* Aumento el padding para hacer la barra más grande */
-        }
-        .navbar h1 {
-            color: #FF66B2; /* Título en rosa suave */
-            margin: 0;
-            text-align: center; /* Centrado del título */
-            font-size: 2rem; /* Tamaño de fuente más grande */
-        }
-        table {
-            margin-top: 22px;
-            width: 100%;
-            display: table;
-            border-collapse: collapse;
-            background-color: #000000; /* Fondo de la tabla negro */
-        }
-        th, td {
-            text-align: center;
-            padding: 10px;
-            border: 1px solid #ddd;
-            color: #FF66B2; /* Letras rosas */
-        }
-        th {
-            background-color: #343a40;
-        }
-        td {
-            background-color: #000000;
-        }
-        tr:nth-child(even) {
-            background-color: #222222; /* Fondo ligeramente más claro para las filas pares */
-        }
-        .action-buttons a {
-            text-decoration: none;
-            margin: 5px;
-            padding: 5px 15px;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-        }
-        .action-buttons a:hover {
-            background-color: #0056b3;
-        }
-        .action-buttons a i {
-            margin-right: 8px; /* Espacio entre el ícono y el texto */
-        }
-        .message {
-            background-color: #dff0d8;
-            color: #3c763d;
-            padding: 15px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .back-button {
             margin-top: 20px;
         }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th {
+            background-color: #000;
+            color: #ff69b4; /* Texto rosa */
+            text-align: center;
+        }
+
+        .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .btn {
+            border-radius: 5px;
+        }
+
+        .btn-back {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        /* Responsividad */
         @media (max-width: 768px) {
-            .navbar h1 {
+            .table-responsive {
+                overflow-x: auto;
+            }
+
+            .btn {
+                margin: 5px 0;
+                width: 100%;
+            }
+
+            .card-text {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
                 font-size: 1.5rem;
+                text-align: center;
             }
-            table {
-                font-size: 0.875rem;
+
+            .card-title {
+                font-size: 1rem;
             }
-            .action-buttons a {
-                font-size: 0.75rem;
-                padding: 4px 12px;
+
+            .card-text {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-
-<!-- Barra superior -->
-<div class="navbar navbar-expand-md text-center">
-    <h1>Lista de Nóminas</h1>
-</div>
-
 <div class="container">
-    <!-- Botón para ir atrás -->
-    <div class="back-button text-center">
-        <a href="javascript:history.back()" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Volver Atrás
+    <a href="{{ route('empleados', ['empleado_id' => $empleado->id]) }}" class="btn btn-secondary btn-sm back-btn">Regresar</a>
+
+    <h1 class="mb-4 text-center">Nóminas de {{ $empleado->name }}</h1>
+
+
+    <!-- Botón de Crear Nómina -->
+    <div class="text-center mb-4">
+        <a href="{{ route('nominas.create', ['empleado_id' => $empleado->id]) }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Crear Nómina para {{ $empleado->name }}
         </a>
     </div>
-    
-    <!-- Verificación si no hay datos -->
-    <div >
-        @if($payrolls->isEmpty())
-        @endif
+    <div class="text-center mb-4">
+        <a href="{{ route('nominas.export', ['empleado_id' => $empleado->id]) }}" class="btn btn-success">
+            <i class="fas fa-file-pdf"></i> Exportar Nóminas a PDF
+        </a>
     </div>
-    
-    <!-- Tabla visible siempre, aunque no haya datos -->
+
+    <!-- Tabla de Nóminas -->
     <div class="table-responsive">
-        <table class="table table-striped table-bordered">
+        <table class="table table-bordered table-striped">
             <thead>
-                <tr>
-                    <th><i class="fas fa-user"></i> Empleado</th>
-                    <th><i class="fas fa-calendar-alt"></i> Periodo</th>
-                    <th><i class="fas fa-clock"></i> Horas Trabajadas</th>
-                    <th><i class="fas fa-clock"></i> Horas Extras</th>
-                    <th><i class="fas fa-gift"></i> Bonificaciones</th>
-                    <th><i class="fas fa-percent"></i> Impuestos</th>
-                    <th><i class="fas fa-dollar-sign"></i> Salario Neto</th>
-                    <th><i class="fas fa-check-circle"></i> Estado de Pago</th>
-                    <th><i class="fas fa-cogs"></i> Acciones</th>
-                </tr>
+            <tr>
+                <th>Periodo</th>
+                <th>Horas Trabajadas</th>
+                <th>Horas Extras</th>
+                <th>Bonos</th>
+                <th>Impuestos</th>
+                <th>Salario Neto</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
             </thead>
             <tbody>
-                @forelse ($payrolls as $payroll)
-                    <tr>
-                        <td>{{ $payroll->employee->person->name }} {{ $payroll->employee->person->last_name }}</td>
-                        <td>{{ $payroll->period_start }} - {{ $payroll->period_end }}</td>
-                        <td>{{ $payroll->total_hours_worked }}</td>
-                        <td>{{ $payroll->overtime_hours }}</td>
-                        <td>{{ $payroll->bonuses }}</td>
-                        <td>{{ $payroll->tax }}</td>
-                        <td>{{ $payroll->net_salary }}</td>
-                        <td>{{ $payroll->payment_status }}</td>
-                        <td class="action-buttons">
-                            @if($payroll->payment_status === 'Pendiente')
-                                <a href="{{ route('nominas.markPaid', $payroll->id) }}" class="btn btn-success">
-                                    <i class="fas fa-check-circle"></i> Marcar como Pagado
-                                </a>
-                            @endif
-                            <a href="{{ route('nominas.show', $payroll->id) }}" class="btn btn-info">
-                                <i class="fas fa-eye"></i> Ver Detalles
+            @forelse ($nominas as $index => $nomina)
+                <tr>
+                    <td>{{ $nomina->period_start }} - {{ $nomina->period_end }}</td>
+                    <td>{{ $nomina->total_hours_worked }} horas</td>
+                    <td>{{ $nomina->overtime_hours }} horas</td>
+                    <td>${{ number_format($nomina->bonuses, 2) }} MXN</td>
+                    <td>${{ number_format($nomina->tax, 2) }} MXN</td>
+                    <td>${{ number_format($nomina->net_salary, 2) }} MXN</td>
+                    <td>
+                        <span class="badge {{ $nomina->payment_status == 'Pagado' ? 'bg-success' : 'bg-warning' }}">
+                            {{ $nomina->payment_status }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center flex-wrap">
+                            <a href="{{ route('nominas.show', ['empleado_id' => $empleado->id, 'nomina_id' => $nomina->id]) }}"
+                               class="btn btn-info btn-sm m-1">
+                                <i class="fas fa-eye"></i> Detalles
                             </a>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="9" class="text-center" style="color: #FF66B2;">No hay registros de nómina disponibles.</td>
-                    </tr>
-                @endforelse
+                            <a href="{{ route('nominas.edit', ['empleado_id' => $empleado->id, 'nomina_id' => $nomina->id]) }}"
+                               class="btn btn-warning btn-sm m-1">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            <form action="{{ route('nominas.destroy', $nomina->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm m-1">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="9" class="text-center">No hay nóminas registradas para este empleado.</td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
     </div>
 </div>
 
-<!-- Scripts de Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

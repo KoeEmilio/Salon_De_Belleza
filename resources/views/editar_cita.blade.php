@@ -18,6 +18,7 @@
 
         <!-- Campo oculto para enviar el owner_id -->
         <input type="hidden" name="owner_id" value="{{ auth()->user()->id }}">
+        <input type="hidden" name="cita_id" value="{{ $cita->id }}"> <!-- ID de la cita -->
 
         <div class="mb-3 input-group">
             <span class="input-group-text bg-pink text-white"><i class="fas fa-user"></i></span>

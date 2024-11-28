@@ -83,9 +83,29 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::post('/register-service', [ServiciosController::class, 'registerServiceAndType'])->name('register.service');
 
 
-    Route::get('/nominas', [NominaController::class, 'index'])->name('nominas');
-Route::get('/turnos', [EmpleadoAdminController::class, 'turnos'])->name('turnos');
-Route::get('/trabajos', [EmpleadoAdminController::class, 'trabajos'])->name('trabajos');
+Route::get('nominas/{empleado_id}', [NominaController::class, 'index'])->name('nominas.index');
+Route::get('nominas/create/{empleado_id}', [NominaController::class, 'create'])->name('nominas.create');
+Route::post('nominas/{empleado_id}/store', [NominaController::class, 'store'])->name('nominas.store');
+Route::get('/nominas/{empleado_id}/{nomina_id}', [NominaController::class, 'show'])->name('nominas.show');
+Route::get('nominas/{empleado_id}/{nomina_id}/edit', [NominaController::class, 'edit'])->name('nominas.edit');
+Route::put('nominas/{empleado_id}/{nomina_id}', [NominaController::class, 'update'])->name('nominas.update');
+Route::delete('nominas/{nomina_id}', [NominaController::class, 'destroy'])->name('nominas.destroy');
+
+
+
+Route::get('/nominas/export/{empleado_id}', [NominaController::class, 'export'])->name('nominas.export');
+
+
+    
+
+Route::get('/turnos/{employee_id}', [TurnosController::class, 'index'])->name('turnos.index');
+Route::get('/turnos/{turno_id}/editar', [TurnosController::class, 'edit'])->name('turnos.editar');
+Route::put('/turnos/{id}', [TurnosController::class, 'update'])->name('turnos.update');
+
+
+Route::get('/trabajos/{employee_id}', [TrabajosController::class, 'index'])
+    ->name('trabajos.index');
+
 
 
 });
@@ -141,12 +161,27 @@ Route::prefix('recepcionista')->group(function () {
     }); 
 
     Route::prefix('servicios')->group(function () {
-        Route::get('/servicios/{appointmentId}', [ServicioController::class, 'index'])->name('ver_servicios');
-        Route::get('servicios/create/{appointmentId}', [ServicioController::class, 'create'])->name('servicios.create');
-        Route::post('servicios/store/{appointmentId}', [ServicioController::class, 'store'])->name('servicios.store');
-        Route::get('{id}/edit/{appointmentId}', [ServicioController::class, 'edit'])->name('servicios.edit');
-        Route::put('{id}/{appointmentId}', [ServicioController::class, 'update'])->name('servicios.update');
-        Route::delete('{id}', [ServicioController::class, 'destroy'])->name('servicios.destroy');
+        
+
+        // Rutas para los servicios asociados a una cita
+        Route::prefix('servi')->group(function () {
+// Mostrar servicios asociados a una cita
+Route::get('/citas/{appointmentId}/servicios', [ServicioController::class, 'index'])->name('servi.index');
+
+// Crear un servicio para una cita específica
+Route::get('/citas/{appointmentId}/servicios/create', [ServicioController::class, 'create'])->name('servi.create');
+
+// Guardar el servicio asociado a una cita
+Route::post('/citas/{appointmentId}/servicios', [ServicioController::class, 'store'])->name('servi.store');
+
+// Eliminar un servicio de una cita
+Route::delete('/citas/{appointmentId}/servicios/{serviceId}', [ServicioController::class, 'destroy'])->name('servi.destroy');
+
+
+
+
+        });
+        
     });
 
     Route::prefix('clientes')->group(function () {
