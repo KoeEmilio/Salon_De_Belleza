@@ -113,7 +113,7 @@
 </head>
 <body>
 
-    <!-- Sección Hero -->
+   
     <section class="hero d-flex align-items-center">
         <div class="container text-center">
             <h1>Bienvenidos a Glow Studio</h1>
@@ -123,7 +123,7 @@
 
     <section class="fixed-background"></section>
 
-        <!-- Sección Sobre Nosotros -->
+      
         <section class="about-section" id="about">
         <div class="container text-center">
             <h2 class="mb-4">Sobre Glow Studio</h2>
@@ -139,7 +139,7 @@ En Glow Studio, creemos que la belleza no es solo una apariencia, sino una exper
         </div>
     </section>
 
-    <!-- Sección de Servicios -->
+ 
     <section id="servicios" class="services-section">
         <div class="container text-center">
             <h2 class="mb-5">Nuestros Servicios</h2>
@@ -154,7 +154,7 @@ En Glow Studio, creemos que la belleza no es solo una apariencia, sino una exper
                         </div>
                     </div>
                 </div>
-                <!-- Servicio 2 -->
+              
                 <div class="col-md-4 mb-4">
                     <div class="card card-service">
                         <img src="https://i.pinimg.com/originals/50/57/05/50570558a6e4ce80f8e117c3d78ca13f.jpg" class="card-img-top" alt="Peinados">
@@ -164,7 +164,7 @@ En Glow Studio, creemos que la belleza no es solo una apariencia, sino una exper
                         </div>
                     </div>
                 </div>
-                <!-- Servicio 3 -->
+             
                 <div class="col-md-4 mb-4">
                     <div class="card card-service">
                         <img src="https://www.somosmamas.com.ar/wp-content/uploads/2020/09/maquillaje-facil-looks.jpg" class="card-img-top" alt="Maquillaje Profesional">
@@ -174,7 +174,7 @@ En Glow Studio, creemos que la belleza no es solo una apariencia, sino una exper
                         </div>
                     </div>
                 </div>
-                <!-- Servicio 3 -->
+              
                 <div class="col-md-4 mb-4">
                     <div class="card card-service">
                         <img src="https://www.clara.es/medio/2023/06/22/unas-rosas-elegantes-con-flores_4f40ac6f_230622202839_1280x1600.jpg" class="card-img-top" alt="Maquillaje Profesional">
@@ -184,7 +184,7 @@ En Glow Studio, creemos que la belleza no es solo una apariencia, sino una exper
                         </div>
                     </div>
                 </div>
-                <!-- Servicio 3 -->
+                
                 <div class="col-md-4 mb-4">
                     <div class="card card-service">
                         <img src="https://vailenespanol.com/wp-content/uploads/2021/07/d778417dd70bcc4eafef6504e9d0c107-768x1024.jpg" class="card-img-top" alt="Maquillaje Profesional">
@@ -194,7 +194,7 @@ En Glow Studio, creemos que la belleza no es solo una apariencia, sino una exper
                         </div>
                     </div>
                 </div>
-                <!-- Servicio 3 -->
+               
                 <div class="col-md-4 mb-4">
                     <div class="card card-service">
                         <img src="https://th.bing.com/th/id/OIP.PgYk4BukXgMHt8z07kuPnwHaE8?rs=1&pid=ImgDetMain" class="card-img-top" alt="Maquillaje Profesional">

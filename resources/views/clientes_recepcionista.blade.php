@@ -20,11 +20,11 @@
     </div>
 
     <table class="table table-bordered table-striped">
-        <thead class="table-light" style="background-color: #F8BBD0; color: #fff;">
+        <thead class="table-dark" style="background-color: #000000; color: #F06292;">
             <tr>
-                <th>Nombre</th>
-                <th>Edad</th>
-                <th>Número de Contacto</th>
+                <th><i class="fas fa-user"></i> Nombre</th>
+                <th><i class="fas fa-calendar-alt"></i> Edad</th>
+                <th><i class="fas fa-phone"></i> Número de Contacto</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -35,11 +35,11 @@
                     <td>{{ $cliente->age }}</td>
                     <td>{{ $cliente->phone }}</td>
                     <td>
-                        <a href="{{ route('clientes.show', $cliente->id) }}" class="btn btn-info">
-                            <i class="fas fa-eye"></i> Ver Detalles
+                        <a href="{{ route('clientes.show', $cliente->id) }}" class="btn btn-dark text-pink">
+                            <i class="fas fa-eye" style="color: #F06292;"></i> Ver Detalles
                         </a>
-                        <a href="{{ route('clientes.historial_citas', $cliente->id) }}" class="btn btn-warning">
-                            <i class="fas fa-calendar-alt"></i> Historial de Citas
+                        <a href="{{ route('clientes.historial_citas', $cliente->id) }}" class="btn btn-dark text-pink">
+                            <i class="fas fa-calendar-alt" style="color: #F06292;"></i> Historial de Citas
                         </a>                    
                     </td>
                 </tr>
@@ -109,8 +109,8 @@
         font-size: 1.1rem;
     }
 
-    .table-light {
-        background-color: #F8BBD0; /* Rosa claro para encabezado */
+    .table-dark {
+        background-color: #000000; /* Fondo negro para encabezado */
     }
 
     .pagination .page-item.active .page-link {
@@ -119,6 +119,19 @@
     }
 
     .pagination .page-link {
+        color: #F06292;
+    }
+
+    .btn-dark {
+        background-color: #000000;
+        color: white;
+    }
+
+    .btn-dark:hover {
+        background-color: #333333;
+    }
+
+    .text-pink {
         color: #F06292;
     }
 

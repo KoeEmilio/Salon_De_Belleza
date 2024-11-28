@@ -13,26 +13,26 @@
             overflow-x: hidden;
         }
 
-        .fondo_personalizado {
-            background-color: #212121;
+        /* Barra superior */
+        .navbar {
+            background-color: black;
+            height: 80px;
         }
 
         .navbar-center {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-        }
-
-        .custom-color-text {
             color: #ffb7c2;
         }
 
-        .custom-icon-size {
-            font-size: 48px;
+        .navbar-center h1 {
+            font-size: 36px;
+            font-weight: bold;
         }
 
-        .custom-icon-color {
-            color: #ffb7c2;
+        .ml-auto {
+            margin-left: auto;
         }
 
         .logout-button {
@@ -42,14 +42,12 @@
             color: white;
         }
 
-        nav h1 {
-            color: #ffb7c2;
-        }
-
+        /* Estilos del contenido principal */
         .principal {
-            height: calc(100vh - 56px);
+            height: calc(100vh - 80px);
             display: flex;
             overflow: hidden;
+            padding-top: 20px;
         }
 
         .container {
@@ -57,6 +55,18 @@
             width: 100%;
             padding: 20px;
             overflow-y: auto;
+        }
+
+        /* Estilo de la tarjeta */
+        .card {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: black;
+            color: #ffb7c2;
+            text-align: center;
+            padding: 15px;
         }
 
         .table {
@@ -68,18 +78,14 @@
         th {
             padding: 10px;
             text-align: center;
-        }
-
-        .card-header {
-            background-color: #000000;
-            color: #ffb7c2;
-            text-align: center;
+            word-wrap: break-word;
         }
 
         .table-hover tbody tr:hover {
             background-color: #f5f5f5;
         }
 
+        /* Botones personalizados */
         .btn-custom {
             background-color: #000000;
             color: #ffb7c2;
@@ -87,6 +93,9 @@
             padding: 10px 20px;
             border-radius: 5px;
             transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .btn-custom:hover {
@@ -94,29 +103,38 @@
             color: #000000;
         }
 
-        .btn-container {
-            padding: 12px 25px;
-            border-radius: 15px;
-            background: #212121;
-            color: #e8e8e8;
-            font-weight: bold;
-            transition: all 250ms;
-            box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+        /* Contenedor de botones */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
         }
 
-        .btn-container:hover {
-            background: #ffb7c2;
-            color: #212121;
+        .action-buttons a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
         }
 
-        .btn-container + .btn-container {
-            margin-left: 10px;
+        .action-buttons .btn-custom {
+            padding: 10px 20px;
+            font-size: 16px;
         }
 
+        /* Paginación */
         .pagination {
             justify-content: center;
         }
-
+        .custom-color-text {
+            color: #ffb7c2;
+        }
+        .custom-icon-size {
+            font-size: 48px;
+        }
+        .custom-icon-color {
+            color: #ffb7c2;
+        }
         .pagination .page-link {
             border-radius: 50%;
             margin: 0 5px;
@@ -127,20 +145,23 @@
             border-color: #ffb7c2;
         }
 
-        /* Eliminar barra que sale al lado de la tabla */
-        .table-container {
-            overflow-x: hidden;
+        /* Responsividad */
+        @media (max-width: 1024px) {
+            .navbar-center h1 {
+                font-size: 28px;
+            }
+
+            .table th, 
+            .table td {
+                font-size: 14px;
+            }
+
+            .btn-custom {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
         }
 
-        /* Ajustar los botones de acción para que no estén amontonados */
-        .action-buttons {
-            display: flex;
-            gap: 15px; /* Espaciado entre botones */
-            justify-content: flex-start;
-            flex-wrap: wrap; /* Asegura que los botones no se desborden si no hay suficiente espacio */
-        }
-
-        /* Agregar responsividad */
         @media (max-width: 768px) {
             .navbar-center {
                 position: static;
@@ -149,43 +170,44 @@
                 width: 100%;
             }
 
-            .table td,
-            .table th {
-                font-size: 14px;
-                padding: 8px;
+            .table th, 
+            .table td {
+                font-size: 12px;
+                padding: 5px;
+            }
+
+            .btn-custom {
+                padding: 6px 10px;
+                font-size: 12px;
             }
 
             .action-buttons {
                 flex-direction: column;
-                align-items: center;
+                align-items: stretch;
                 gap: 10px;
             }
 
-            .pagination {
+            .pagination .page-link {
                 font-size: 12px;
-            }
-
-            .card-header h3 {
-                font-size: 18px;
             }
         }
 
         @media (max-width: 576px) {
-            .btn-container {
-                padding: 10px 20px;
-                font-size: 14px;
-            }
-
             .navbar-center h1 {
                 font-size: 20px;
+            }
+
+            .container {
+                padding: 10px;
             }
 
             .principal {
                 height: auto;
             }
 
-            .container {
-                padding: 10px;
+            .btn-custom {
+                padding: 5px 10px;
+                font-size: 10px;
             }
         }
     </style>
@@ -194,11 +216,11 @@
 <body>
     <div class="contenedor">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light fondo_personalizado">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="navbar-center">
                 <h1>EMPLEADOS</h1>
             </div>
-            <div class="ml-auto">
+            <div class="d-flex align-items-center">
                 <a href="{{ route('dashboard') }}" class="btn logout-button">
                     <i class='bx bxs-home custom-icon-size custom-icon-color'></i>
                     <span class="custom-color-text">Inicio</span>
@@ -215,11 +237,10 @@
                     <h3 class="my-0">Lista de Trabajadores</h3>
                 </div>
                 <div class="card-body p-0">
-                    <div class="table-container">
+                    <div class="table-responsive">
                         <table class="table table-hover table-striped m-0">
                             <thead class="table-light">
                                 <tr>
-                                    <th><i class="bx bx-id-card"></i> ID</th>
                                     <th><i class="bx bx-user"></i> Nombre</th>
                                     <th><i class="bx bx-envelope"></i> Email</th>
                                     <th><i class="bx bx-shield"></i> Roles</th>
@@ -229,7 +250,6 @@
                             <tbody>
                                 @forelse($empleados as $empleado)
                                 <tr>
-                                    <td>{{ $empleado->id }}</td>
                                     <td>{{ $empleado->name }}</td>
                                     <td>{{ $empleado->email }}</td>
                                     <td>
@@ -239,9 +259,12 @@
                                     </td>
                                     <td>
                                         <div class="action-buttons">
-                                            <a href="{{ route('nominas') }}" class="btn-container">Nominas</a>
-                                            <a href="{{ route('turnos') }}" class="btn-container">Turnos</a>
-                                            <a href="{{ route('trabajos') }}" class="btn-container">Trabajos</a>
+                                            <a href="{{ route('nominas.index', ['empleado_id' => $empleado->id]) }}" class="btn-custom">
+                                                <i class='bx bx-wallet'></i> Nóminas
+                                            </a>
+                                            <a href="{{ route('turnos.index', ['employee_id' => $empleado->id]) }}" class="btn-custom">
+                                                <i class='bx bx-calendar'></i> Ver turnos
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>

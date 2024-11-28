@@ -1,94 +1,111 @@
-    @extends('layouts.recepcionista')
+@extends('layouts.recepcionista')
 
-    @section('content')
-    <div class="container mt-5">
-        <h1 class="text-center text-pink mb-4 animate__animated animate__fadeInDown">Agregar Cita</h1>
+@section('content')
+<div class="container mt-5">
+    <!-- Título pegado directamente encima de la tabla -->
+    <h1 class="text-center text-pink mb-4 animate__animated animate__fadeInDown">Agregar Cita</h1>
 
-        <a href="{{ route('citas.index') }}" class="btn btn-outline-secondary mb-4">
-            <i class="fas fa-arrow-left"></i> Regresar
-        </a>
+    <a href="{{ route('citas.index') }}" class="btn btn-outline-secondary mb-4">
+        <i class="fas fa-arrow-left"></i> Regresar
+    </a>
 
-        <form action="{{ route('citas.store') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="client_name">Nombre del Cliente</label>
-                <input type="text" class="form-control" id="client_name" name="client_name" required>
-            </div>
-            <div class="form-group">
-                <label for="last_name">Apellido del Cliente</label>
-                <input type="text" class="form-control" id="last_name" name="last_name" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Teléfono</label>
-                <input type="text" class="form-control" id="phone" name="phone" required>
-            </div>
-            <div class="form-group">
-                <label for="age">Edad (Opcional)</label>
-                <input type="number" class="form-control" id="age" name="age">
-            </div>
-            <div class="form-group">
-                <label for="appointment_day">Fecha de la Cita</label>
-                <input type="date" class="form-control" id="appointment_day" name="appointment_day" required>
-            </div>
-            <div class="form-group">
-                <label for="appointment_time">Hora de la Cita</label>
-                <input type="time" class="form-control" id="appointment_time" name="appointment_time" required>
-            </div>
-            <div class="form-group">
-                <label for="status">Estado de la Cita</label>
-                <select class="form-control" id="status" name="status" required>
-                    <option value="Pendiente">Pendiente</option>
-                    <option value="Confirmada">Confirmada</option>
-                    <option value="Cancelada">Cancelada</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="payment_type">Tipo de Pago</label>
-                <select class="form-control" id="payment_type" name="payment_type" required>
-                    <option value="Efectivo">Efectivo</option>
-                    <option value="Tarjeta">Tarjeta</option>
-                    <option value="Transferencia">Transferencia</option>
-                </select>
-            </div>
-        
-            <button type="submit" class="btn btn-primary">Agregar Cita</button>
-        </form>
-        
-    </div>
+    <form id="citaForm" action="{{ route('citas.store') }}" method="POST">
+        @csrf
 
-    <style>
-        @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
-        body {
-            background-color: #f8f9fa;
-        }
-        .text-pink {
-            color: #e91e63;
-        }
-        .bg-pink {
-            background-color: #e91e63;
-        }
-        .btn-pink {
-            background-color: #e91e63;
-            border-color: #e91e63;
-            color: white;
-            font-weight: bold;
-        }
-        .btn-pink:hover {
-            background-color: #d81b60;
-        }
-        .form-control, .form-select {
-            border: 2px solid #e91e63;
-            transition: all 0.3s ease;
-        }
-        .form-control:hover, .form-select:hover {
-            box-shadow: 0 0 10px rgba(233, 30, 99, 0.3);
-        }
-        .form-control:focus, .form-select:focus {
-            border-color: #d81b60;
-            box-shadow: 0 0 10px rgba(233, 30, 99, 0.3);
-        }
-        .shadow-lg {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-    </style>
-    @endsection
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td><i class="fas fa-user"></i> Nombre del Cliente</td>
+                        <td>
+                            <input type="text" id="client_name" name="client_name" class="form-control" required pattern="^[a-zA-Z\s]+$" title="Solo letras y espacios" placeholder="Ingresa el nombre del cliente" value="{{ old('client_name') }}">
+                            @error('client_name')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><i class="fas fa-user"></i> Apellido del Cliente</td>
+                        <td>
+                            <input type="text" id="last_name" name="last_name" class="form-control" required pattern="^[a-zA-Z\s]+$" title="Solo letras y espacios" placeholder="Ingresa el apellido del cliente" value="{{ old('last_name') }}">
+                            @error('last_name')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><i class="fas fa-phone"></i> Teléfono</td>
+                        <td>
+                            <input type="text" id="phone" name="phone" class="form-control" required pattern="^\d{10}$" title="El teléfono debe contener exactamente 10 dígitos" placeholder="Ingresa el teléfono del cliente" value="{{ old('phone') }}">
+                            @error('phone')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><i class="fas fa-birthday-cake"></i> Edad</td>
+                        <td>
+                            <input type="number" id="age" name="age" class="form-control" min="18" max="120" required placeholder="Ingresa la edad" value="{{ old('age') }}">
+                            @error('age')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><i class="fas fa-calendar-alt"></i> Fecha de Cita</td>
+                        <td>
+                            <input type="date" id="appointment_day" name="appointment_day" class="form-control" required min="{{ date('Y-m-d') }}" value="{{ old('appointment_day') }}">
+                            @error('appointment_day')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><i class="fas fa-clock"></i> Hora de Cita</td>
+                        <td>
+                            <input type="time" id="appointment_time" name="appointment_time" class="form-control" required value="{{ old('appointment_time') }}">
+                            @error('appointment_time')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><i class="fas fa-cogs"></i> Estado</td>
+                        <td>
+                            <select id="status" name="status" class="form-control" required>
+                                <option value="Pendiente" {{ old('status') == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
+                                <option value="Confirmada" {{ old('status') == 'Confirmada' ? 'selected' : '' }}>Confirmada</option>
+                                <option value="Cancelada" {{ old('status') == 'Cancelada' ? 'selected' : '' }}>Cancelada</option>
+                            </select>
+                            @error('status')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><i class="fas fa-money-bill-wave"></i> Tipo de Pago</td>
+                        <td>
+                            <select id="payment_type" name="payment_type" class="form-control" required>
+                                <option value="Efectivo" {{ old('payment_type') == 'Efectivo' ? 'selected' : '' }}>Efectivo</option>
+                                <option value="Transferencia" {{ old('payment_type') == 'Transferencia' ? 'selected' : '' }}>Transferencia</option>
+                            </select>
+                            @error('payment_type')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Agregar Cita</button>
+    </form>
+</div>
+@endsection

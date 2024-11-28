@@ -26,15 +26,15 @@
     <!-- Tabla de Citas -->
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
-            <thead class="bg-pink text-white">
+            <thead class="bg-black text-pink">
                 <tr>
-                    <th>Fecha Registro</th>
-                    <th>Fecha Cita</th>
-                    <th>Hora Cita</th>
-                    <th>Cliente</th>
-                    <th>Estado</th>
-                    <th>Tipo de Pago</th>
-                    <th>Acciones</th>
+                    <th><i class="fas fa-calendar-alt"></i> Fecha Registro</th>
+                    <th><i class="fas fa-calendar-day"></i> Fecha Cita</th>
+                    <th><i class="fas fa-clock"></i> Hora Cita</th>
+                    <th><i class="fas fa-user"></i> Cliente</th>
+                    <th><i class="fas fa-info-circle"></i> Estado</th>
+                    <th><i class="fas fa-credit-card"></i> Tipo de Pago</th>
+                    <th><i class="fas fa-cogs"></i> Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,72 +47,78 @@
                         <td>{{ $cita->status }}</td>
                         <td>{{ $cita->payment_type }}</td>
                         <td>
-                            <a href="{{ route('citas.edit', $cita->id) }}" class="btn btn-warning">
-                                <i class="fas fa-edit"></i> Editar
+                            <!-- Botón de Editar -->
+                            <a href="{{ route('citas.edit', $cita->id) }}" class="edit-button me-4">
+                                <svg class="edit-svgIcon" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+                                    <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                </svg>
                             </a>
-                            <a href="{{ route('services.index', ['client_id' => $cita->owner->id]) }}" class="btn btn-info">
-                                <i class="fas fa-eye"></i> Ver Servicios
+                        
+                            <!-- Botón de Ver Servicios -->
+                            <a href="{{ route('services.index', ['client_id' => $cita->owner->id]) }}" class="ms-4">
+                                <i class="fas fa-eye text-dark"></i>
                             </a>
-                            <form action="{{ route('citas.destroy', $cita->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="fas fa-trash-alt"></i> Eliminar
-                                </button>
-                            </form>
                         </td>
+                        
+                        
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
 
-   <!-- Paginación de Bootstrap -->
-   <div class="d-flex justify-content-center mt-4">
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <!-- Botón "Anterior" -->
-            @if ($citas->onFirstPage())
-                <li class="page-item disabled">
-                    <span class="page-link">Anterior</span>
-                </li>
-            @else
-                <li class="page-item">
-                    <a class="page-link" href="{{ $citas->previousPageUrl() }}" aria-label="Previous">
-                        Anterior
-                    </a>
-                </li>
-            @endif
+    <!-- Paginación -->
+    <div class="d-flex justify-content-center mt-4">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                @if ($citas->onFirstPage())
+                    <li class="page-item disabled">
+                        <span class="page-link">Anterior</span>
+                    </li>
+                @else
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $citas->previousPageUrl() }}" aria-label="Previous">
+                            Anterior
+                        </a>
+                    </li>
+                @endif
 
-            <!-- Números de página -->
-            @for ($i = 1; $i <= $citas->lastPage(); $i++)
-                <li class="page-item {{ ($citas->currentPage() == $i) ? 'active' : '' }}">
-                    <a class="page-link" href="{{ $citas->url($i) }}">{{ $i }}</a>
-                </li>
-            @endfor
+                @for ($i = 1; $i <= $citas->lastPage(); $i++)
+                    <li class="page-item {{ ($citas->currentPage() == $i) ? 'active' : '' }}">
+                        <a class="page-link" href="{{ $citas->url($i) }}">{{ $i }}</a>
+                    </li>
+                @endfor
 
-            <!-- Botón "Siguiente" -->
-            @if ($citas->hasMorePages())
-                <li class="page-item">
-                    <a class="page-link" href="{{ $citas->nextPageUrl() }}" aria-label="Next">
-                        Siguiente
-                    </a>
-                </li>
-            @else
-                <li class="page-item disabled">
-                    <span class="page-link">Siguiente</span>
-                </li>
-            @endif
-        </ul>
-    </nav>
-</div>
+                @if ($citas->hasMorePages())
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $citas->nextPageUrl() }}" aria-label="Next">
+                            Siguiente
+                        </a>
+                    </li>
+                @else
+                    <li class="page-item disabled">
+                        <span class="page-link">Siguiente</span>
+                    </li>
+                @endif
+            </ul>
+        </nav>
+    </div>
 </div>
 
 <style>
+    .bg-black {
+        background-color: black !important;
+    }
+
+    .text-pink {
+        color: #F06292 !important;
+    }
+
     .btn-outline-secondary {
         color: #6c757d;
         border-color: #6c757d;
     }
+
     .btn-outline-secondary:hover {
         background-color: #6c757d;
         color: white;
@@ -123,21 +129,8 @@
         vertical-align: middle;
     }
 
-    .table th {
-        font-weight: bold;
-        font-size: 1.1rem;
-        color: #fff;
-        background-color: #F06292;
-    }
-
     .table td {
         font-size: 1rem;
-    }
-
-    .pagination {
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     .pagination .page-item.active .page-link {
@@ -156,45 +149,8 @@
         background-color: #f8c8d1;
         color: #F06292;
     }
-
-    .pagination .page-item {
-        margin: 0 2px;
-    }
-
-    /* Estilo responsive */
-    @media (max-width: 767px) {
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        .table th, .table td {
-            font-size: 0.9rem;
-            padding: 0.5rem;
-        }
-
-        .pagination {
-            font-size: 0.9rem;
-        }
-
-        .btn-outline-secondary {
-            font-size: 0.9rem;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .table th, .table td {
-            font-size: 0.8rem;
-            padding: 0.5rem;
-        }
-
-        .btn {
-            font-size: 0.8rem;
-            padding: 0.3rem 0.5rem;
-        }
-
-        .pagination .page-link {
-            font-size: 0.8rem;
-        }
-    }
+    .fas.fa-eye {
+    font-size: 1.2rem; /* Tamaño del ícono */
+}
 </style>
 @endsection

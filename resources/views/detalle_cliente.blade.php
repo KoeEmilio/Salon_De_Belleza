@@ -2,18 +2,31 @@
 
 @section('content')
 <div class="container mt-5">
-    <h1 class="mb-4 text-center" style="color: #D5006D;">Detalles del Cliente</h1>
+    <!-- Título de la página -->
+    <h1 class="mb-4 text-center" style="color: pink;">Detalles del Cliente</h1>
 
+    <!-- Card para detalles del cliente -->
     <div class="card shadow-lg border-0 rounded-3">
         <div class="card-body text-center">
-            <h5 class="card-title text-dark" style="font-weight: 600; font-size: 1.75rem;">{{ $cliente->name }} {{ $cliente->last_name }}</h5>
-            <p><strong><i class="fas fa-phone"></i> Número de contacto:</strong> {{ $cliente->phone }}</p>
-            <p><strong><i class="fas fa-envelope"></i> Correo electrónico:</strong> {{ $cliente->user->email ?? 'Correo no disponible' }}</p>
-            <p><strong><i class="fas fa-venus-mars"></i> Género:</strong> {{ $cliente->gender === 'H' ? 'Hombre' : 'Mujer' }}</p>
-            <p><strong><i class="fas fa-calendar-alt"></i> Edad:</strong> {{ $cliente->age }} años</p>
+            <h5 class="card-title text-dark" style="font-weight: 600; font-size: 2rem; color: pink;">{{ $cliente->first_name }} {{ $cliente->last_name }}</h5>
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <p><strong><i class="fas fa-phone-alt" style="color: pink;"></i> Número de contacto:</strong> {{ $cliente->phone }}</p>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <p><strong><i class="fas fa-envelope" style="color: pink;"></i> Correo electrónico:</strong> {{ $cliente->user->email ?? 'Correo no disponible' }}</p>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <p><strong><i class="fas fa-venus-mars" style="color: pink;"></i> Género:</strong> {{ $cliente->gender === 'H' ? 'Hombre' : 'Mujer' }}</p>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <p><strong><i class="fas fa-birthday-cake" style="color: pink;"></i> Edad:</strong> {{ $cliente->age }} años</p>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Botón para regresar a la lista de clientes -->
     <div class="mt-4 text-center">
         <a href="{{ route('clientes.index') }}" class="btn btn-pink btn-lg">
             <i class="fas fa-arrow-left"></i> Regresar a la Lista de Clientes
@@ -33,6 +46,7 @@
 @endsection
 
 <style>
+    /* Fondo de la página */
     body {
         background-color: #f0f4f8; /* Fondo suave y claro */
         font-family: 'Roboto', sans-serif; /* Tipografía moderna */
@@ -56,7 +70,7 @@
 
     .card-title {
         color: #333; /* Color del título */
-        font-size: 1.75rem; /* Título más grande */
+        font-size: 2rem; /* Título más grande */
         font-weight: 600;
         margin-bottom: 20px;
     }
@@ -71,7 +85,7 @@
         background-color: #D5006D;
         border-color: #D5006D;
         font-size: 1.1rem;
-        padding: 10px 30px;
+        padding: 12px 30px;
         border-radius: 25px;
         font-weight: 500;
     }
@@ -94,6 +108,16 @@
     /* Añadir un margen superior a los elementos de la página */
     .container {
         margin-top: 50px;
+    }
+
+    /* Estilo para los iconos dentro de las columnas */
+    .fa {
+        color: #D5006D;
+        font-size: 1.4rem;
+    }
+
+    .row {
+        margin-top: 20px;
     }
 </style>
 

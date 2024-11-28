@@ -58,9 +58,9 @@ class UserSeeder extends Seeder
             ],
             // Recepcionistas
             [
-                'name' => 'Laura Sánchez',
-                'email' => 'laura.sanchez@example.com',
-                'password' => Hash::make('recepcionista123'),
+                'name' => 'Ximena Martinez',
+                'email' => 'ximena@gmail.com',
+                'password' => Hash::make('1234'),
                 'rol' => 'recepcionista',
             ],
             [
