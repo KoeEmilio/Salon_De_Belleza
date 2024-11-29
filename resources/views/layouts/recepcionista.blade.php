@@ -186,7 +186,7 @@
                         <a class="nav-link {{ request()->routeIs('recepcionista.dashboard') ? 'active' : '' }}" href="{{ route('recepcionista.dashboard') }}">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('citas.index') ? 'active' : '' }}" href="{{ route('citas.index') }}">Citas</a>
+                        <a class="nav-link {{ request()->routeIs('appointment.index') ? 'active' : '' }}" href="{{ route('appointment.index') }}">Citas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('recepcionista.clientes') ? 'active' : '' }}" href="{{ route('clientes.index') }}">Clientes</a>

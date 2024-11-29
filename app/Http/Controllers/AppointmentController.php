@@ -3,14 +3,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Appointment;
+use Illuminate\Support\Facades\Log;
 
 class AppointmentController extends Controller
 {
     public function store(Request $request)
     {
         try {
-            // Registrar datos recibidos en los logs para depuración
-            \Log::info('Datos recibidos:', $request->all());
+        
+            Log::info('Datos recibidos:', $request->all());
 
             // Validar los datos
             $validated = $request->validate([
@@ -50,7 +51,7 @@ class AppointmentController extends Controller
                 'errors' => $e->errors(), // Detalles de los errores de validación
             ], 422);
         } catch (\Exception $e) {
-            \Log::error('Error al agendar la cita:', [
+            Log::error('Error al agendar la cita:', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
             ]);

@@ -2,143 +2,144 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Log;
+use App\Models\Appointment;
 use App\Models\Service;
+use App\Models\ServiceDetail;
 use App\Models\HairType;
-use App\Models\PeopleData;
 use Illuminate\Http\Request;
 
 class RecepcionistaServiciosController extends Controller
 {
-    public function index(Request $request)
+    // Mostrar los servicios y detalles de una cita
+    public function index($appointmentId)
     {
-        // Recupera el client_id de la entrada o la sesión
-        $clientId = $request->input('client_id') ?? session('clientId');
+        $cita = Appointment::with('services', 'serviceDetails')->findOrFail($appointmentId);
+        $allServices = Service::all();
 
-        // Verifica si el client_id es válido
-        if (!$clientId) {
-            return redirect()->route('services.index')->with('error', 'Cliente no especificado.');
-        }
-
-        $client = PeopleData::find($clientId);
-
-        // Verifica si el cliente existe
-        if (!$client) {
-            return redirect()->route('services.index')->with('error', 'Cliente no encontrado.');
-        }
-
-        // Almacena el client_id en la sesión
-        session(['clientId' => $clientId]);
-
-        // Recupera los servicios del cliente (paginados si es necesario)
-        $services = $client->services()->paginate(10);
-
-        return view('ver_servicios', compact('services', 'client'));
+        return view('ver_servicios', compact('cita', 'allServices'));
     }
 
-    public function create()
+    // Crear un nuevo servicio para una cita específica
+    public function create($appointmentId)
     {
-        // Obtiene todos los servicios y tipos de cabello
-        $services = Service::select('id', 'service_name', 'price', 'description', 'duration')->get();
+        // Buscar la cita por ID
+        $cita = Appointment::findOrFail($appointmentId);
+    
+        $services = Service::all();
         $hairTypes = HairType::all();
-        $clientId = session('clientId');
-
-        return view('agregar_servicio', compact('services', 'hairTypes', 'clientId'));
+    
+        // Devolver la vista con los servicios, tipos de cabello y la cita
+        return view('agregar_servicio', compact('cita', 'services', 'hairTypes', 'appointmentId'));
     }
 
-    public function store(Request $request)
+    // Almacenar un nuevo servicio en la base de datos
+    public function store(Request $request, $appointmentId)
+{
+    // Validación de los datos
+    $validatedData = $request->validate([
+        'service_id' => 'required|exists:services,id',
+        'hair_type_id' => 'required|exists:hair_type,id',
+        'quantity' => 'required|integer|min:1',
+        'unit_price' => 'required|numeric|min:0',
+    ]);
+
+    // Obtener el precio adicional del tipo de cabello seleccionado
+    $hairType = HairType::find($validatedData['hair_type_id']);
+    $hair_extra_price = $hairType->price;
+
+    // Calcular el total manualmente, aunque si 'total_price' es calculado por la base de datos, esto no es necesario
+    $unit_price = $validatedData['unit_price'];
+    $total_price = ($unit_price + $hair_extra_price) * $validatedData['quantity'];
+
+    // Crear un nuevo registro en service_details
+    $serviceDetail = new ServiceDetail();
+    $serviceDetail->service_id = $validatedData['service_id'];
+    $serviceDetail->hair_type_id = $validatedData['hair_type_id'];
+    $serviceDetail->quantity = $validatedData['quantity'];
+    $serviceDetail->unit_price = $unit_price;
+    // No establecer 'total_price' si la columna es generada en la base de datos
+    // $serviceDetail->total_price = $total_price; 
+
+    // Asociar la cita al detalle del servicio
+    $serviceDetail->appointment_id = $appointmentId;
+
+    // Guardar en la base de datos
+    $serviceDetail->save();
+
+    // Redirigir o mostrar mensaje de éxito
+    return redirect()->route('service.index', $appointmentId)->with('success', 'Servicio agregado correctamente');
+}
+    // Mostrar los detalles de una cita específica
+    public function showAppointment($id)
     {
-        // Validación de los datos recibidos
-        $request->validate([
-            'service_name' => 'required|exists:services,id',
-            'price' => 'required|numeric|min:0',
-            'description' => 'nullable|string',
-            'duration' => 'required|integer|min:1',
-            'hair_type' => 'nullable|exists:hair_type,id',
-            'unit_price' => 'nullable|numeric|min:0',
-            'client_id' => 'required|exists:people_data,id',
-        ]);
-
-        try {
-            // Obtenemos el servicio base desde la base de datos
-            $baseService = Service::findOrFail($request->service_id);
-
-            // Creamos un nuevo servicio para el cliente
-            $service = new Service();
-            $service->service_name = $baseService->service_name;  // Nombre del servicio base
-            $service->price = $request->price;  // Precio del servicio
-            $service->description = $request->description ?? $baseService->description;  // Descripción
-            $service->type_of_hair = $request->hair_type;  // Tipo de cabello
-            $service->unit_price = $request->unit_price;  // Precio unitario
-            $service->duration = $request->duration;  // Duración
-            $service->client_id = $request->client_id;  // Cliente asociado
-
-            // Guardamos el servicio en la base de datos
-            if ($service->save()) {
-                return redirect()->route('services.index', ['client_id' => $request->client_id])
-                    ->with('success', 'Servicio creado con éxito.');
-            } else {
-                return redirect()->back()->with('error', 'Hubo un problema al guardar el servicio.');
-            }
-        } catch (\Exception $e) {
-            // Manejo de errores en caso de fallos
-            Log::error('Ocurrió un error al guardar el servicio', ['error' => $e->getMessage()]);
-            return redirect()->back()->with('error', 'Ocurrió un error al procesar la solicitud. Por favor, intente nuevamente.');
+        // Obtener la cita con el ID correspondiente
+        $appointment = Appointment::find($id);
+    
+        if (!$appointment) {
+            // Manejar si no se encuentra la cita
+            return redirect()->route('appointment.index')->with('error', 'Cita no encontrada');
         }
+    
+        // Pasar la cita (o el ID de la cita) a la vista
+        return view('service.create', ['appointmentId' => $appointment->id]);
     }
 
-    public function edit($id)
+    // Editar un servicio existente
+    public function edit($serviceDetailId)
     {
-        // Obtiene el servicio por su ID y los tipos de cabello
-        $service = Service::findOrFail($id);
-        $hairTypes = HairType::all();
+        // Buscar el detalle del servicio
+        $serviceDetail = ServiceDetail::findOrFail($serviceDetailId);
+        $hairTypes = HairType::all(); // Obtener todos los tipos de cabello
+        $cita = $serviceDetail->appointment;
+        $services = Service::all();
 
-        return view('editar_servicio', compact('service', 'hairTypes'));
+        return view('editar_servicio', compact('serviceDetail', 'cita', 'services', 'hairTypes'));
     }
 
-    public function update(Request $request, $id)
+    // Actualizar un servicio
+    public function update(Request $request, $serviceDetailId)
+{
+    // Buscar el detalle del servicio
+    $serviceDetail = ServiceDetail::findOrFail($serviceDetailId);
+
+    // Validación de los datos
+    $validatedData = $request->validate([
+        'quantity' => 'required|integer|min:1',
+        'unit_price' => 'required|numeric|min:0',
+        'hair_type_id' => 'required|exists:hair_type,id',
+    ]);
+
+    // Obtener el precio adicional del tipo de cabello seleccionado
+    $hairType = HairType::find($validatedData['hair_type_id']);
+    $hair_extra_price = $hairType->price;
+
+    // Calcular el total (aunque no deberías insertar esto si `total_price` es calculado)
+    $unit_price = $validatedData['unit_price'];
+    $total_price = ($unit_price + $hair_extra_price) * $validatedData['quantity'];
+
+    // Actualizar los datos del servicio
+    $serviceDetail->quantity = $validatedData['quantity'];
+    $serviceDetail->unit_price = $unit_price;
+    // No actualizar la columna total_price porque es generada automáticamente
+    $serviceDetail->hair_type_id = $validatedData['hair_type_id'];
+
+    // Guardar los cambios
+    $serviceDetail->save();
+
+    return redirect()->route('service.index', $serviceDetail->appointment_id)->with('success', 'Servicio actualizado correctamente');
+}
+
+
+    // Eliminar un servicio
+    public function destroy($serviceDetailId)
     {
-        // Validación de los datos de entrada
-        $request->validate([
-            'service_name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'description' => 'nullable|string',
-            'type_of_hair' => 'required|exists:hair_types,id',
-            'unit_price' => 'required|numeric|min:0',
-            'duration' => 'required|integer|min:1',
-        ]);
+        // Buscar el detalle del servicio
+        $serviceDetail = ServiceDetail::findOrFail($serviceDetailId);
+        
+        // Eliminar el detalle de servicio
+        $serviceDetail->delete();
 
-        try {
-            // Actualiza el servicio con los datos proporcionados
-            $service = Service::findOrFail($id);
-            $service->service_name = $request->service_name;
-            $service->price = $request->price;
-            $service->description = $request->description;
-            $service->type_of_hair = $request->type_of_hair;
-            $service->unit_price = $request->unit_price;
-            $service->duration = $request->duration;
-            $service->save();
-
-            return redirect()->route('services.index')->with('success', 'Servicio actualizado con éxito.');
-        } catch (\Exception $e) {
-            // Manejo de errores en caso de fallos
-            Log::error('Ocurrió un error al actualizar el servicio', ['error' => $e->getMessage()]);
-            return redirect()->back()->with('error', 'Ocurrió un error al procesar la solicitud. Por favor, intente nuevamente.');
-        }
-    }
-
-    public function destroy($id)
-    {
-        try {
-            // Encuentra el servicio por su ID y lo elimina
-            $service = Service::findOrFail($id);
-            $service->delete();
-
-            return redirect()->route('services.index')->with('success', 'Servicio eliminado con éxito.');
-        } catch (\Exception $e) {
-            // Manejo de errores al intentar eliminar el servicio
-            Log::error('Error al eliminar el servicio', ['error' => $e->getMessage()]);
-            return redirect()->route('services.index')->with('error', 'Ocurrió un error al eliminar el servicio.');
-        }
+        // Redirigir con mensaje de éxito
+        return redirect()->route('service.index', $serviceDetail->appointment_id)->with('success', 'Servicio eliminado correctamente');
     }
 }
