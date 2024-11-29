@@ -121,10 +121,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Manejar el clic en "Agendar Cita"
     document.getElementById("agendarCitaBtn").addEventListener("click", async () => {
+    const ownerId = "{{ auth()->id() }}";
     const bodyData = {
         appointment_day: selectedDate,
         appointment_time: selectedTime,
-        owner_id: null, // Puedes reemplazarlo si el ID del usuario está disponible
+        owner_id: ownerId, // Puedes reemplazarlo si el ID del usuario está disponible
         services: serviciosSeleccionados,
         payment_type: selectedPayment,
     };

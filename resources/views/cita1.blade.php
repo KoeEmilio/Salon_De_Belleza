@@ -167,25 +167,7 @@
         <!-- Los servicios se cargarán aquí -->
     </ul>
 </div>
-                
-
-            <div id="tipo-cabello" class="mt-4" style="display: none;">
-                <h6>Selecciona tu tipo de cabello</h6>
-                <form>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="tipoCabello" id="liso" value="liso">
-                        <label class="form-check-label" for="liso">Liso</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="tipoCabello" id="ondulado" value="ondulado">
-                        <label class="form-check-label" for="ondulado">Ondulado</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="tipoCabello" id="rizado" value="rizado">
-                        <label class="form-check-label" for="rizado">Rizado</label>
-                    </div>
-                </form>
-            </div>
+            
             <div class="card p-3 mb-4">
     <h5>Tipo de Pago</h5>
     <select class="form-select" id="employeeSelect">

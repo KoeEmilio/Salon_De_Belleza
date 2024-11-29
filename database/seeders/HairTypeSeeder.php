@@ -11,29 +11,53 @@ class HairTypeSeeder extends Seeder
     {
         DB::table('hair_type')->insert([
             [
-                'type' => 'Lacio',
+                'type' => 'Lacio Largo',
                 'price' => 50.00, 
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'type' => 'Ondulado',
+                'type' => 'Lacio Corto',
                 'price' => 60.00, 
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'type' => 'Rizado',
-                'price' => 70.00, 
+                'type' => 'Chino Largo',
+                'price' => 50.00, 
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'type' => 'No aplica',
-                'price' => 0.00, // O el valor que prefieras
+                'type' => 'Chino Corto',
+                'price' => 60.00, 
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+            ],
+            [
+                'type' => 'Ondulado Largo',
+                'price' => 50.00, 
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'type' => 'Ondulado Corto',
+                'price' => 60.00, 
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'type' => 'Crespo Largo',
+                'price' => 50.00, 
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'type' => 'Crespo Corto',
+                'price' => 60.00, 
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }
