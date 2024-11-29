@@ -10,23 +10,19 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         try {
-            // Registrar datos recibidos en los logs para depuración
             Log::info('Datos recibidos para la cita:', $request->all());
 
-            // Validar los datos
             $validated = $request->validate([
                 'appointment_day' => 'required|date',
                 'appointment_time' => 'required|date_format:H:i',
                 'owner_id' => 'nullable|exists:people_data,id',
                 'payment_type' => 'required|in:efectivo,transferencia',
-                'services' => 'nullable|array', // Validar que sea un array
-                'services.*' => 'string|max:255', // Validar cada servicio individualmente
+                'services' => 'nullable|array',
+                'services.*' => 'string|max:255',
             ]);
 
-            // Log de la validación exitosa
             Log::info('Datos validados correctamente.', $validated);
 
-            // Crear la cita
             $appointment = Appointment::create([
                 'appointment_day' => $validated['appointment_day'],
                 'appointment_time' => $validated['appointment_time'],
@@ -35,14 +31,14 @@ class AppointmentController extends Controller
                 'status' => 'pendiente',
             ]);
 
-            // Log de la cita creada
             Log::info('Cita creada con éxito.', ['appointment_id' => $appointment->id]);
 
-            // Opcional: Manejar servicios si es necesario
             if (isset($validated['services'])) {
-                // Aquí agregarías la lógica para almacenar los servicios si es necesario
                 Log::info('Servicios asociados a la cita:', $validated['services']);
             }
+
+            // Agregando el mensaje flash
+            session()->flash('success', '¡La confirmación se ha enviado al correo!');
 
             return response()->json([
                 'success' => true,
@@ -50,9 +46,8 @@ class AppointmentController extends Controller
                 'data' => $appointment,
             ], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
-            // Capturamos errores de validación
             Log::error('Error de validación:', [
-                'errors' => $e->errors(), // Detalles de los errores de validación
+                'errors' => $e->errors(),
                 'request_data' => $request->all(),
             ]);
             return response()->json([
@@ -61,7 +56,6 @@ class AppointmentController extends Controller
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
-            // Capturamos cualquier otro tipo de error
             Log::error('Error inesperado al agendar la cita:', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),

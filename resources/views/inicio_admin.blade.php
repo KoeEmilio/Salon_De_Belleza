@@ -7,20 +7,34 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
-
-        body{
-            background-color: #CFCFCF;
-        }
-        .text-center {
-            text-align: center;
+        body {
+            background-color: #f8f8f8;
         }
 
-        .menu {
+        .fondo_personalizado {
+            background-color: #000000;
+            padding: 15px 0;
+        }
+
+        .custom-color-text {
+            color: #fe889f;
+        }
+
+        .custom-icon-size {
+            font-size: 30px;
+        }
+
+        .custom-icon-color {
+            color:#ffe3e8;
+        }
+
+        .logout-button {
             display: flex;
-            justify-content: space-evenly;
+            flex-direction: column;
             align-items: center;
-            width: 100%;
+            color: white;
         }
+
         .menu-button {
             display: flex;
             flex-direction: column;
@@ -28,143 +42,98 @@
             align-items: center;
             height: 250px;
             width: 250px;
-            border: 2px solid black;
-            border-radius: 30px;
+            border: 4px solid transparent; /* Elimina el borde visible */
+            border-radius: 20px;
+            background-color:black;
             color: white;
             text-decoration: none;
-            background-color: #1a1a1a;
+            transition: all 0.3s ease;
         }
-        .text-decoration-none {
-            text-decoration: none;
+
+        .menu-button:hover {
+            background-color: #fe889f;
+            transform: translateY(-8px);
+            color: black;
+            border-color: transparent; /* Asegura que no haya borde */
         }
-        .my-4 {
-            margin: 1rem 0;
+
+        .menu-button h2 {
+            margin-top: 20px;
+            color: #fe889f;
+            transition: color 0.3s ease;
         }
-        .texto-menu {
+
+        .menu-button:hover h2 {
             color: black;
         }
-        .fondo_personalizado {
-            background-color: #000000;
-        }
-        .navbar-center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
-        .custom-color-text {
-            color:  #ffb7c2;
-        }
-        .custom-icon-size {
-            font-size: 48px;
-        }
-        .custom-icon-color {
-            color: #ffb7c2;
-        }
-        
-        .custom-icon-color-2 {
-            color: #ffb7c2;
+
+        /* Media queries */
+        @media (max-width: 767.98px) {
+            .menu-button {
+                height: 200px;
+                width: 200px;
+            }
+
+            .menu-button h2 {
+                font-size: 24px;
+            }
+
+            .custom-icon-size {
+                font-size: 46px;
+            }
         }
 
-        .text-center {
-            margin-top: 50px;
-            text-align: center;
-        }
+        @media (max-width: 575.98px) {
+            .menu-button {
+                height: 150px;
+                width: 150px;
+            }
 
-        .text-center i{
-            font-size: 120px;
-        }
-        .logout-button {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: white;
-        }
-        #botones-nav-1, #botones-nav-2, #botones-nav-3 {
-            height: 250px;
-            width: 250px;
-            background-color: black;
-            border: black solid 5px;
-            border-radius: 30px;
-            margin-left: 5px;
-        }
-        #contenedor-botones {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 12%;
-        }
-        nav h1 {
-            margin-left: 40%;
-        }
+            .menu-button h2 {
+                font-size: 14px;
+            }
 
-        #botones-nav-1:hover, #botones-nav-2:hover, #botones-nav-3:hover {
-            background-color: rgb(43, 42, 42);
-            transform: translateY(-5px);
-
+            .custom-icon-size {
+                font-size: 28px;
+            }
         }
-
-        .text-icon-1, .text-icon-2, .text-icon-3 {
-            display: block;
-            color: black;
-            margin-top: 10px;
-            position: absolute;
-        }
-
-        .text-icon-1 {
-            margin-top: 250px;
-    
-        }
-
-        .text-icon-2 {
-            margin-top: 250px;
-        }
-
-        .text-icon-3 {
-            margin-top: 250px;
-        }
-        
     </style>
 </head>
 <body>
     <div class="contenedor">
-        <nav class="navbar navbar-expand-lg navbar-light fondo_personalizado justify-content-center">
-            <h1 style="color: #ffb7c2">Bienvenido {{$user->name}}</h1>
-            <form method="POST" action="{{ route('logout') }}" class="ml-auto">
-                @csrf
-                <button type="submit" class="btn logout-button">
-                    <i class='bx bx-log-out custom-icon-size custom-icon-color'></i>
-                    <span class="custom-color-text">Logout</span>
-                </button>
-            </form>
+        <nav class="navbar navbar-expand-lg navbar-light fondo_personalizado">
+            <div class="container d-flex justify-content-between align-items-center">
+                <h1 class="custom-color-text">Bienvenido {{$user->name}}</h1>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn logout-button">
+                        <i class='bx bx-log-out custom-icon-size custom-icon-color'></i>
+                        <span class="custom-color-text">Salir</span>
+                    </button>
+                </form>
+            </div>
         </nav>
     </div>
 
-    <div class="container  d-flex flex-column align-items-center" id="contenedor-botones">
-        <div class="row menu flex-grow-1">
-            <div class="col-12 col-sm-3 d-flex justify-content-center" id="botones-nav-1">
-                <a style="width: 100%" href="{{route('clientes_admin')}}">
-                    <div class="text-center">
-                        <i class='bx bx-user custom-icon-size custom-icon-color-2'></i>
-                    </div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-4">
+                <a href="{{ route('clientes_admin') }}" class="menu-button">
+                    <i class='bx bx-user custom-icon-size custom-icon-color'></i>
+                    <h2>Clientes</h2>
                 </a>
-                <h2 class="text-icon-1">Clientes</h2>
             </div>
-            <div class="col-12 col-sm-3 d-flex justify-content-center" id="botones-nav-2">
-                <a style="width: 100%" href="{{route('servicios_admin')}}">
-                    <div class="text-center">
-                        <i class='bx bx-library custom-icon-size custom-icon-color-2'></i>
-                    </div>
+            <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-4">
+                <a href="{{ route('servicios_admin') }}" class="menu-button">
+                    <i class='bx bx-library custom-icon-size custom-icon-color'></i>
+                    <h2>Servicios</h2>
                 </a>
-                <h2 class="text-icon-2">Servicios</h2>
             </div>
-            <div class="col-12 col-sm-3 d-flex justify-content-center" id="botones-nav-3">
-                <a style="width: 100%" href="{{route('empleados')}}">
-                    <div class="text-center">
-                        <i class='bx bx-group custom-icon-size custom-icon-color-2'></i>
-                    </div>
+            <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-4">
+                <a href="{{ route('empleados') }}" class="menu-button">
+                    <i class='bx bx-group custom-icon-size custom-icon-color'></i>
+                    <h2>Empleados</h2>
                 </a>
-                <h2 class="text-icon-3">Empleados</h2>
-
             </div>
         </div>
     </div>
@@ -173,4 +142,4 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html> 
+</html>
