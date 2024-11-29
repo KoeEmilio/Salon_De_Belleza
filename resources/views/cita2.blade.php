@@ -121,28 +121,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Manejar el clic en "Agendar Cita"
     document.getElementById("agendarCitaBtn").addEventListener("click", async () => {
-        const bodyData = {
-            appointment_day: selectedDate,
-            appointment_time: selectedTime,
-            owner_id: null, // Puedes reemplazarlo si el ID del usuario está disponible
-            services: serviciosSeleccionados,
-            payment_type: selectedPayment,
-        };
+    const ownerId = "{{ auth()->id() }}";
+    const bodyData = {
+        appointment_day: selectedDate,
+        appointment_time: selectedTime,
+        owner_id: ownerId, // Puedes reemplazarlo si el ID del usuario está disponible
+        services: serviciosSeleccionados,
+        payment_type: selectedPayment,
+    };
 
-        console.log("Cita a agendar:", bodyData);
+    console.log("Cita a agendar:", bodyData);
 
+    try {
+        const response = await fetch("/guardar-cita", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+            body: JSON.stringify(bodyData),
+        });
+
+        const text = await response.text(); // Obtener la respuesta como texto
+        console.log("Respuesta del servidor:", text);
+
+        // Intentar parsear la respuesta como JSON
         try {
-            const response = await fetch("/guardar-cita", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                },
-                body: JSON.stringify(bodyData),
-            });
-
-            const data = await response.json();
-
+            const data = JSON.parse(text); // Intentamos parsear la respuesta como JSON
             if (data.success) {
                 alert(data.message);
                 window.location.href = "/paso3"; // Redirigir a la página de confirmación
@@ -158,10 +163,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert(errorMessage);
             }
         } catch (error) {
-            console.error("Error al guardar la cita:", error);
-            alert("Hubo un error al agendar la cita. Intenta más tarde.");
+            console.error("Error al parsear la respuesta como JSON:", error);
+            alert("Hubo un error al procesar la respuesta del servidor. La respuesta no es válida.");
         }
-    });
+
+    } catch (error) {
+        console.error("Error al guardar la cita:", error);
+        alert("Hubo un error al agendar la cita. Intenta más tarde.");
+    }
+});
+
 });
 </script>
 

@@ -10,20 +10,19 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         try {
-        
-            Log::info('Datos recibidos:', $request->all());
+            Log::info('Datos recibidos para la cita:', $request->all());
 
-            // Validar los datos
             $validated = $request->validate([
                 'appointment_day' => 'required|date',
                 'appointment_time' => 'required|date_format:H:i',
                 'owner_id' => 'nullable|exists:people_data,id',
                 'payment_type' => 'required|in:efectivo,transferencia',
-                'services' => 'nullable|array', // Validar que sea un array
-                'services.*' => 'string|max:255', // Validar cada servicio individualmente
+                'services' => 'nullable|array',
+                'services.*' => 'string|max:255',
             ]);
 
-            // Crear la cita
+            Log::info('Datos validados correctamente.', $validated);
+
             $appointment = Appointment::create([
                 'appointment_day' => $validated['appointment_day'],
                 'appointment_time' => $validated['appointment_time'],
@@ -32,11 +31,14 @@ class AppointmentController extends Controller
                 'status' => 'pendiente',
             ]);
 
-            // Opcional: Manejar servicios si es necesario (esto depende de tu base de datos)
+            Log::info('Cita creada con éxito.', ['appointment_id' => $appointment->id]);
+
             if (isset($validated['services'])) {
-                // Guardar servicios asociados, si existe una tabla relacionada
-                // Esto es opcional y requiere definir una relación en tu modelo
+                Log::info('Servicios asociados a la cita:', $validated['services']);
             }
+
+            // Agregando el mensaje flash
+            session()->flash('success', '¡La confirmación se ha enviado al correo!');
 
             return response()->json([
                 'success' => true,
@@ -44,16 +46,20 @@ class AppointmentController extends Controller
                 'data' => $appointment,
             ], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
-            // Capturamos errores de validación
+            Log::error('Error de validación:', [
+                'errors' => $e->errors(),
+                'request_data' => $request->all(),
+            ]);
             return response()->json([
                 'success' => false,
                 'message' => 'Error de validación.',
-                'errors' => $e->errors(), // Detalles de los errores de validación
+                'errors' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
-            Log::error('Error al agendar la cita:', [
+            Log::error('Error inesperado al agendar la cita:', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
+                'request_data' => $request->all(),
             ]);
             return response()->json([
                 'success' => false,

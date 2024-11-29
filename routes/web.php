@@ -107,21 +107,14 @@ Route::middleware(['auth', 'role:recepcionista'])->group(function () {
 Route::middleware(['auth', 'role:cliente'])->group(function () {
     Route::get('/carga', function () { return view('carga');})->name('carga');
     Route::view('/paso1', 'cita1')->name('paso1');
-    Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto');
+    Route::post('/guardar-cita', [AppointmentController::class, 'store'])->name('appointment.store');
+    Route::post('/guardar-cita', [AppointmentController::class, 'store'])->name('guardar.cita');
+    // web.php (Ruta)
+    Route::post('/guardar-cita', [CitasController::class, 'guardarCita']);
+    Route::post('/guardar-cita', [AppointmentController::class, 'guardarCita'])->name('guardarCita');
+    Route::post('/guardar-cita', [AppointmentController::class, 'store']);
     
-Route::get('/paso1', function () { return view('cita1');});
-Route::get('/paso2', function () { return view('cita2');});
-Route::get('/paso3', function () { return view('cita3');});
-
-
-Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
-Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado');
-Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
-
-Route::post('/appointments/store', [AppointmentController::class, 'store'])->name('appointments.store');
-
-Route::post('/guardar-cita', [AppointmentController::class, 'store']);
-// Obtener horas disponibles
+    
 });
 Route::post('/passwordmail', [UserController::class, 'passwordmail'])->name('passwordmail');
 Route::post('/register-person', [UserController::class, 'registerPerson'])->name('register.person');
@@ -130,11 +123,17 @@ Route::get('/servicio', [ServicioHomeController::class, 'index'])->name('servici
 Route::get('/galeria', [GaleriaController::class, 'index'])->name('galeria');
 
 
+Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto');
+Route::get('/paso1', function () { return view('cita1');});
+Route::get('/paso2', function () { return view('cita2');});
+Route::get('/paso3', function () { return view('cita3');});
+Route::post('/appointments/store', [AppointmentController::class, 'store'])->name('appointments.store');
 
 
 
-
-
+Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
+Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado');
+Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
 
 
 // Rutas para usuarios

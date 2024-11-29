@@ -99,7 +99,7 @@
   
 
 <div class="text-center">
-<h1 class="servicio-titulo">TINTES</h1>
+<h1 class="servicio-titulo">COLORIMETRIA</h1>
   <div class="row">
     <div class="col-md-4">
       <div class="card">
@@ -440,11 +440,11 @@
     // Usar SweetAlert2 para mostrar el mensaje
     Swal.fire({
       title: '¡Servicio agregado!',
-      text: `${servicio} se ha agregado a 🩷`,
+      text: `${servicio} se ha agregado a 🩷(El precio puede variar dependiendo de la cantidad de cabello.)` ,
       icon: 'success',
-      background: '#faccd3', // Fondo rosa claro
-      color: '#000',         // Texto negro
-      confirmButtonColor: '#fe889f', // Botón de confirmación rosa oscuro
+      background: '#faccd3', 
+      color: '#000',         
+      confirmButtonColor: '#fe889f',
       confirmButtonText: 'Aceptar'
     });
   });
