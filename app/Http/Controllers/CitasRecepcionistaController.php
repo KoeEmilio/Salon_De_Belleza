@@ -2,107 +2,126 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Appointment;
-use App\Models\PeopleData;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+use App\Models\PeopleData; // Modelo de clientes
+use App\Models\Appointment; // Modelo de citas
+use App\Models\Service; // Modelo de servicios
+use App\Models\ServiceDetail; // Modelo de detalles de servicios
 
 class CitasRecepcionistaController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * Mostrar la vista principal con citas y datos necesarios.
+     */
+    public function index()
     {
-        $search = $request->get('search');
-    
-        $citas = Appointment::with('owner')
-            ->when($search, function($query, $search) {
-                return $query->where('appointment_day', 'like', "%$search%")
-                             ->orWhereHas('owner', function ($query) use ($search) {
-                                 $query->where('first_name', 'like', "%$search%")
-                                       ->orWhere('last_name', 'like', "%$search%");
-                             });
-            })
-            ->paginate(5);
-    
-        return view('citas_recepcionista', compact('citas'));
+        $clientes = PeopleData::all();
+        $servicios = Service::all(); 
+        $citas = Appointment::with(['owner', 'services'])->get();
+
+        return view('citas_recepcionista', compact('clientes', 'servicios', 'citas'));
     }
 
-    public function create()
-    {
-        return view('agregar_cita');
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'client_name' => 'required|regex:/^[a-zA-Z\s]+$/',
-            'last_name' => 'required|regex:/^[a-zA-Z\s]+$/',
-            'phone' => 'required|regex:/^\d{10}$/',
-            'age' => 'required|integer|min:18|max:120',
-            'appointment_day' => 'required|date|after_or_equal:today',
-            'appointment_time' => 'required|date_format:H:i',
-            'status' => 'required|in:Pendiente,Confirmada,Cancelada',
-            'payment_type' => 'required|in:Efectivo,Transferencia',
-        ]);
-    
-        $client = PeopleData::create([
-            'first_name' => $request->client_name,
-            'last_name' => $request->last_name,
-            'phone' => $request->phone,
-            'age' => $request->age,
-            'user_id' => $request->user_id ?? auth()->id(),
-        ]);
-    
-        $appointment = Appointment::create([
-            'owner_id' => $client->id,
-            'appointment_day' => $request->appointment_day,
-            'appointment_time' => $request->appointment_time,
-            'status' => $request->status,
-            'payment_type' => $request->payment_type,
-            'sign_up_date' => now(),
-        ]);
-    
-        return redirect()->route('citas.index')->with('success', 'Cita agregada exitosamente.');
-    }
-
-    public function edit($id)
-    {
-        $cita = Appointment::findOrFail($id);
-        
-        return view('editar_cita', compact('cita'));
-    }
-
-    public function update(Request $request, $id)
+   
+public function create()
 {
-    // Validación de los datos de la cita
+    $clientes = PeopleData::all();  // Obtener todos los clientes
+    return view('agregar_cita', compact('clientes'));
+}
+
+public function store(Request $request)
+{
+    // Validar los datos
     $request->validate([
-        'appointment_day' => 'required|date|after_or_equal:today', // Asegura que la cita sea para hoy o después
-        'appointment_time' => 'required|date_format:H:i', // Asegura que la hora de la cita sea después de la hora actual
-        'client_name' => 'required|regex:/^[a-zA-Z\s]+$/',
-        'last_name' => 'required|regex:/^[a-zA-Z\s]+$/',
-        'status' => 'required|string|in:pendiente,confirmada,cancelada', // Validar que el estado esté dentro de las opciones
-        'payment_type' => 'required|string|in:efectivo,transferencia', // Validar que el tipo de pago esté dentro de las opciones
+        'name' => 'required|string|max:15',
+        'last_name' => 'required|string|max:20',
+        'age' => 'required|integer',
+        'gender' => 'required|in:H,M',
+        'phone' => 'required|string|size:10',
+        'appointment_day' => 'required|date',
+        'appointment_time' => 'required|date_format:H:i',
+        'status' => 'required|in:pendiente,confirmada,cancelada',
+        'payment_type' => 'required|in:efectivo,transferencia',
     ]);
 
-    // Buscar la cita existente por su ID
+    // Crear un nuevo cliente en la tabla people_data
+    $cliente = PeopleData::create([
+        'first_name' => $request->name,
+        'last_name' => $request->last_name,
+        'age' => $request->age,
+        'gender' => $request->gender,
+        'phone' => $request->phone,
+        'user_id' => auth()->id(), // Suponiendo que tienes un campo user_id
+    ]);
+
+    // Crear la cita
+    $cita = Appointment::create([
+        'owner_id' => $cliente->id, // Asociar la cita con el cliente recién creado
+        'appointment_day' => $request->appointment_day,
+        'appointment_time' => $request->appointment_time,
+        'status' => $request->status,
+        'payment_type' => $request->payment_type,
+        'sign_up_date' => now(), // Fecha de registro de la cita
+    ]);
+
+    // Redirigir con éxito
+    return redirect()->route('appointment.index')->with('success', 'Cita creada con éxito');
+}
+
+public function showServices($id)
+{
+    // Buscar la cita por ID
+    $cita = Appointment::with('services')->findOrFail($id);
+
+    // Retornar la vista con la cita y sus servicios
+    return view('ver_servicios', compact('cita'));
+}
+
+public function edit($id)
+{
+    $cita = Appointment::findOrFail($id);
+    $clientes = PeopleData::all();  // Obtener todos los clientes
+    return view('editar_cita', compact('cita', 'clientes'));
+}
+
+public function update(Request $request, $id)
+{
+    // Validar los datos
+    $request->validate([
+        'name' => 'required|string|max:15',
+        'last_name' => 'required|string|max:20',
+        'age' => 'required|integer',
+        'gender' => 'required|in:H,M',
+        'phone' => 'required|string|size:10',
+        'appointment_day' => 'required|date',
+        'appointment_time' => 'required|date_format:H:i',
+        'status' => 'required|in:pendiente,confirmada,cancelada',
+        'payment_type' => 'required|in:efectivo,transferencia',
+    ]);
+
+    // Buscar la cita
     $cita = Appointment::findOrFail($id);
 
-    // Actualizar los datos del cliente (owner)
-    $client = $cita->owner; // Accede al propietario de la cita (persona asociada)
-    $client->update([
-        'first_name' => $request->input('client_name'),
-        'last_name' => $request->input('last_name'),
+    // Actualizar los datos del cliente
+    $cliente = $cita->owner; // Obtener el propietario de la cita
+    $cliente->update([
+        'first_name' => $request->name,
+        'last_name' => $request->last_name,
+        'age' => $request->age,
+        'gender' => $request->gender,
+        'phone' => $request->phone,
     ]);
 
-    // Actualizar los datos de la cita
+    // Actualizar la cita
     $cita->update([
-        'appointment_day' => $request->input('appointment_day'),
-        'appointment_time' => $request->input('appointment_time'),
-        'status' => $request->input('status'),
-        'payment_type' => $request->input('payment_type'),
+        'appointment_day' => $request->appointment_day,
+        'appointment_time' => $request->appointment_time,
+        'status' => $request->status,
+        'payment_type' => $request->payment_type,
     ]);
 
-    // Redirigir con mensaje de éxito
-    return redirect()->route('citas.index')->with('success', 'Cita actualizada con éxito');
+    // Redirigir con éxito
+    return redirect()->route('appointment.index')->with('success', 'Cita actualizada con éxito');
 }
 
 }

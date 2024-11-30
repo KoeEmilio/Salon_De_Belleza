@@ -16,31 +16,33 @@ class ServiceDetail extends Model
         'hair_type_id',
         'quantity',
         'unit_price',
+ 
         'appointment_id',
         'order_id',
     ];
 
-    // Relación con el modelo Service (Un detalle de servicio pertenece a un servicio)
     public function service()
     {
         return $this->belongsTo(Service::class, 'service_id');
     }
 
-    // Relación con el modelo HairType (Un detalle de servicio tiene un tipo de cabello)
     public function hairType()
     {
         return $this->belongsTo(HairType::class, 'hair_type_id');
     }
 
-    // Relación con el modelo Appointment (Un detalle de servicio puede tener una cita asociada)
     public function appointment()
     {
         return $this->belongsTo(Appointment::class, 'appointment_id');
     }
 
-    // Relación con el modelo Order (Un detalle de servicio puede tener un pedido asociado)
     public function order()
     {
         return $this->belongsTo(Order::class, 'order_id');
     }
+    public function getTotalPriceAttribute()
+    {
+        return ($this->unit_price + $this->hairType->price) * $this->quantity;
+    }
+
 }

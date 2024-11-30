@@ -139,7 +139,7 @@
     }
 </style>
 <div class="container mt-5">
-    <!-- Pasos -->
+  
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="text-center step">
             <div class="step-circle bg-active">1</div>
@@ -157,14 +157,14 @@
         </div>
     </div>
     
-    <!-- Contenido Principal -->
+   
     <div class="row">
-        <!-- Columna de Servicios -->
+
         <div class="col-12 col-md-4">
         <div class="card p-3 mb-4">
     <h5>Servicios Seleccionados</h5>
     <ul id="servicios-seleccionados" class="list-group mb-3">
-        <!-- Los servicios se cargarán aquí -->
+        
     </ul>
 </div>
             
@@ -178,10 +178,10 @@
 </div>
 </div>
 
-        <!-- Columna del Calendario -->
+       
         <div class="col-12 col-md-8">
             <div class="card p-4">
-                <!-- Calendario -->
+              
                 <div class="calendar-container">
                     <div class="calendar-header d-flex justify-content-between align-items-center mb-3">
                         <h5 id="current-month"></h5>
@@ -200,11 +200,11 @@
                         <div>Dom</div>
                     </div>
                     <div class="days" id="calendar-days">
-                        <!-- Los días se cargarán aquí con JavaScript -->
+                        
                     </div>
                 </div>
 
-                <!-- Selección de Hora -->
+              
                 <div class="mt-4">
                     <h5>Selecciona una Hora</h5>
                     <select class="form-select" id="timeSelect">

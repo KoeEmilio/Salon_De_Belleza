@@ -84,17 +84,8 @@ Route::get('/nominas/{empleado_id}/{nomina_id}', [NominaController::class, 'show
 Route::get('nominas/{empleado_id}/{nomina_id}/edit', [NominaController::class, 'edit'])->name('nominas.edit');
 Route::put('nominas/{empleado_id}/{nomina_id}', [NominaController::class, 'update'])->name('nominas.update');
 Route::delete('nominas/{nomina_id}', [NominaController::class, 'destroy'])->name('nominas.destroy');
-
-
-
 Route::get('/nominas/export/{empleado_id}', [NominaController::class, 'export'])->name('nominas.export');
 
-
-    
-
-Route::get('/turnos/{employee_id}', [TurnosController::class, 'index'])->name('turnos.index');
-Route::get('/turnos/{turno_id}/editar', [TurnosController::class, 'edit'])->name('turnos.editar');
-Route::put('/turnos/{id}', [TurnosController::class, 'update'])->name('turnos.update');
 
 
 Route::get('/trabajos/{employee_id}', [TrabajosController::class, 'index'])
@@ -102,7 +93,7 @@ Route::get('/trabajos/{employee_id}', [TrabajosController::class, 'index'])
 
     Route::get('/nominas', [NominaController::class, 'index'])->name('nominas');
     Route::get('/turnos', [EmpleadoAdminController::class, 'turnos'])->name('turnos');
-    Route::get('/trabajos', [EmpleadoAdminController::class, 'trabajos'])->name('trabajos');
+    
     Route::delete('/servicios/{id}', [ServiciosController::class, 'delete'])->name('servicios.delete');
 
 
@@ -157,12 +148,21 @@ Route::prefix('recepcionista')->group(function () {
     Route::get('/servicios', [RecepcionistaController::class, 'servicios'])->name('recepcionista.servicios');
 
     // Rutas para citas
-    Route::get('/', [CitasRecepcionistaController::class, 'index'])->name('citas.index');
-    Route::post('/', [CitasRecepcionistaController::class, 'store'])->name('citas.store');
-    Route::delete('{id}', [CitasRecepcionistaController::class, 'destroy'])->name('citas.destroy');
-    Route::get('citas/{id}/edit', [CitasRecepcionistaController::class, 'edit'])->name('citas.edit');
-    Route::put('citas/{id}', [CitasRecepcionistaController::class, 'update'])->name('citas.update');
-    Route::get('citas/create', [CitasRecepcionistaController::class, 'create'])->name('citas.create');
+    Route::get('/recepcionista/citas', [CitasRecepcionistaController::class, 'index'])->name('appointment.index');
+Route::get('/recepcionista/citas/{id}/editar', [CitasRecepcionistaController::class, 'edit'])->name('appointment.edit');
+Route::put('/recepcionista/citas/{id}', [CitasRecepcionistaController::class, 'update'])->name('appointment.update');
+Route::get('appointments/create', [CitasRecepcionistaController::class, 'create'])->name('appointment.create');
+Route::post('appointments', [CitasRecepcionistaController::class, 'store'])->name('appointment.store');
+
+
+// servicios a citas
+Route::get('recepcionista/appointment/{appointmentId}/services', [RecepcionistaServiciosController::class, 'index'])->name('service.index');
+Route::get('recepcionista/appointment/{appointmentId}/services/create', [RecepcionistaServiciosController::class, 'create'])->name('service.create');
+Route::post('recepcionista/appointment/{appointmentId}/services', [RecepcionistaServiciosController::class, 'store'])->name('service.store');
+Route::get('recepcionista/service/{serviceDetailId}/edit', [RecepcionistaServiciosController::class, 'edit'])->name('service.edit');
+Route::put('recepcionista/service/{serviceDetailId}', [RecepcionistaServiciosController::class, 'update'])->name('service.update');
+
+Route::get('/', [ServiciosController::class, 'index'])->name('servicios_recepcionista');
 
     Route::prefix('citas')->group(function () {
         Route::get('{id}/servicios', [ServicioController::class, 'index'])->name('recepcionista.citas.servicios');
@@ -202,20 +202,8 @@ Route::delete('/citas/{appointmentId}/servicios/{serviceId}', [ServicioControlle
         Route::delete('/{id}', [Recepcionista_Cliente_Controller::class, 'destroy'])->name('clientes.destroy');
     });
 
-    // Rutas para servicios
-    Route::prefix('servicios')->group(function () {
-        Route::get('/', [ServiciosController::class, 'index'])->name('servicios_recepcionista');
-    Route::get('services', [RecepcionistaServiciosController::class, 'index'])->name('services.index');
-    Route::get('services/create', [RecepcionistaServiciosController::class, 'create'])->name('services.create');
-    Route::post('services', [RecepcionistaServiciosController::class, 'store'])->name('services.store');
-        Route::get('/services/data/{id}', [RecepcionistaServiciosController::class, 'getServiceData'])->name('services.data');
-        Route::get('/servicios/{service}/editar', [RecepcionistaServiciosController::class, 'edit'])->name('services.edit');
-        Route::put('/servicios/{service}', [RecepcionistaServiciosController::class, 'update'])->name('services.update');
-        Route::delete('/recepcionista/servicios/{index}', [RecepcionistaServiciosController::class, 'destroy'])->name('services.destroy');
-        Route::get('/citas/{appointmentId}/servicios', [RecepcionistaServiciosController::class, 'showServices'])->name('servicios.show');
 
 
-    });
 
     Route::get('/clientes/{id}', [VerDetalleClienteController::class, 'show'])->name('clientes.show');
     Route::get('/clientes/{cliente}/historial-citas', [HistorialCitaClienteController::class, 'index'])->name('clientes.historial_citas');
