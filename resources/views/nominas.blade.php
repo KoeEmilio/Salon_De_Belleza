@@ -82,6 +82,28 @@
 
     <h1 class="mb-4 text-center">Nóminas de {{ $empleado->name }}</h1>
 
+    <!-- Formulario de Filtros -->
+    <form method="GET" action="{{ route('nominas.index', ['empleado_id' => $empleado->id]) }}" class="mb-4">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="period_start" class="form-label">Periodo (Inicio)</label>
+                <input type="date" id="period_start" name="period_start" class="form-control" value="{{ request()->get('period_start') }}">
+            </div>
+            <div class="col-md-4">
+                <label for="period_end" class="form-label">Periodo (Fin)</label>
+                <input type="date" id="period_end" name="period_end" class="form-control" value="{{ request()->get('period_end') }}">
+            </div>
+            <div class="col-md-4">
+                <label for="payment_status" class="form-label">Estado de Pago</label>
+                <select id="payment_status" name="payment_status" class="form-control">
+                    <option value="">Todos</option>
+                    <option value="Pagado" {{ request()->get('payment_status') == 'Pagado' ? 'selected' : '' }}>Pagado</option>
+                    <option value="Pendiente" {{ request()->get('payment_status') == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Filtrar</button>
+    </form>
 
     <!-- Botón de Crear Nómina -->
     <div class="text-center mb-4">
@@ -89,11 +111,7 @@
             <i class="fas fa-plus"></i> Crear Nómina para {{ $empleado->name }}
         </a>
     </div>
-    <div class="text-center mb-4">
-        <a href="{{ route('nominas.export', ['empleado_id' => $empleado->id]) }}" class="btn btn-success">
-            <i class="fas fa-file-pdf"></i> Exportar Nóminas a PDF
-        </a>
-    </div>
+
 
     <!-- Tabla de Nóminas -->
     <div class="table-responsive">
@@ -106,12 +124,17 @@
                 <th>Bonos</th>
                 <th>Impuestos</th>
                 <th>Salario Neto</th>
+                <th>Pago Total</th>
                 <th>Estado</th>
-                <th>Acciones</th>
+                <th>Detalles de la Nomina</th>
             </tr>
             </thead>
             <tbody>
             @forelse ($nominas as $index => $nomina)
+                @php
+                    // Obtener el total de los pagos adicionales de la tabla payroll_payments
+                    $totalPayments = $nomina->payrollPayments->sum('payment_amount');
+                @endphp
                 <tr>
                     <td>{{ $nomina->period_start }} - {{ $nomina->period_end }}</td>
                     <td>{{ $nomina->total_hours_worked }} horas</td>
@@ -119,6 +142,7 @@
                     <td>${{ number_format($nomina->bonuses, 2) }} MXN</td>
                     <td>${{ number_format($nomina->tax, 2) }} MXN</td>
                     <td>${{ number_format($nomina->net_salary, 2) }} MXN</td>
+                    <td>${{ number_format($totalPayments, 2) }} MXN</td>
                     <td>
                         <span class="badge {{ $nomina->payment_status == 'Pagado' ? 'bg-success' : 'bg-warning' }}">
                             {{ $nomina->payment_status }}
@@ -126,21 +150,19 @@
                     </td>
                     <td>
                         <div class="d-flex justify-content-center flex-wrap">
-                            <a href="{{ route('nominas.show', ['empleado_id' => $empleado->id, 'nomina_id' => $nomina->id]) }}"
-                               class="btn btn-info btn-sm m-1">
-                                <i class="fas fa-eye"></i> Detalles
+                            <!-- Botón para ver bonos e impuestos -->
+                            <a href="{{ route('bonos.impuestos', ['employee_id' => $empleado->id, 'nomina_id' => $nomina->id]) }}" 
+                                class="btn btn-warning btn-sm m-1 d-flex align-items-center justify-content-center">
+                                 <i class="fas fa-gift me-2"></i> Ver Bonos/Impuestos
+                             </a>
+                             
+                             
+                             
+                            <!-- Botón para ver horas trabajadas -->
+                            <a href="{{ route('horas_trabajadas.index', ['nomina_id' => $nomina->id]) }}" class="btn btn-secondary btn-sm m-1 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-clock me-2"></i> Horas Trabajadas 
                             </a>
-                            <a href="{{ route('nominas.edit', ['empleado_id' => $empleado->id, 'nomina_id' => $nomina->id]) }}"
-                               class="btn btn-warning btn-sm m-1">
-                                <i class="fas fa-edit"></i> Editar
-                            </a>
-                            <form action="{{ route('nominas.destroy', $nomina->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm m-1">
-                                    <i class="fas fa-trash"></i> Eliminar
-                                </button>
-                            </form>
+                            
                         </div>
                     </td>
                 </tr>
