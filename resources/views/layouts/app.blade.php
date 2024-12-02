@@ -237,62 +237,53 @@
     position: relative;
 }
 
-/* Estilos generales */
+/* Estilos base */
 .btn-user-menu {
     position: relative;
     display: inline-block;
 }
 
-.burger {
+.popup input {
+    display: none;
+}
+
+.popup .burger {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
-    background-color: #fe889f;
-    border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 30px;
+    height: 30px;
 }
 
-.burger:hover {
-    transform: scale(1.1);
-    background-color: #ffb7c2;
-}
-
-.popup input[type="checkbox"] {
-    display: none;
+.popup .burger svg {
+    width: 100%;
+    height: 100%;
+    fill: #fff; /* Blanco para el icono */
 }
 
 .popup-window {
     position: absolute;
     top: 50px;
     right: 0;
-    background: #ffffff;
-    border: 1px solid #faccd3;
+    background-color: #fff; /* Fondo blanco para el menú */
+    padding: 20px;
     border-radius: 8px;
-    padding: 10px;
-    width: 150px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    border: 2px solid #f06292; /* Rosa suave */
+    width: 200px; /* Ajustamos el ancho del contenedor */
 }
 
-.popup input[type="checkbox"]:checked ~ .popup-window {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+.popup input:checked ~ .popup-window {
+    display: block;
 }
-
 
 .popup-window legend {
-    font-size: 14px;
     font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
+    color: #f06292; /* Rosa */
+    font-size: 20px;
+    margin-bottom: 15px; /* Agregamos un poco de margen abajo */
 }
 
 .popup-window ul {
@@ -301,21 +292,76 @@
     margin: 0;
 }
 
-.popup-window ul li {
-    margin-bottom: 10px;
+.popup-window li {
+    margin: 10px 0;
 }
 
-.popup-window ul li a {
+.popup-window li a {
+    color: #333; /* Texto negro */
     text-decoration: none;
-    color: #fe889f;
-    font-size: 14px;
-    display: block;
-    transition: color 0.2s ease;
+    font-size: 18px;
+    display: block; /* Hacer que los enlaces ocupen todo el ancho */
+    padding: 10px; /* Añadimos espacio alrededor de los enlaces */
+    border-radius: 5px; /* Bordes redondeados para los enlaces */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.popup-window ul li a:hover {
-    color: #ffb7c2;
+.popup-window li a:hover {
+    background-color: #f06292; /* Fondo rosa en hover */
+    color: #fff; /* Texto blanco al pasar el ratón */
 }
+
+/* Estilos para el contenedor de "Iniciar Sesión" y "Registrarse" */
+.popup-window .guest-links li a {
+    font-weight: bold;
+    color: #f06292; /* Rosa para los enlaces de invitado */
+    background-color: #fff; /* Fondo blanco para destacar */
+    border: 2px solid #f06292; /* Borde rosa */
+    margin-top: 5px;
+    text-align: center; /* Centrar el texto */
+    transition: all 0.3s ease;
+}
+
+.popup-window .guest-links li a:hover {
+    background-color: #f06292; /* Rosa */
+    color: #fff; /* Texto blanco */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .popup .burger {
+        width: 40px;
+        height: 40px;
+    }
+
+    .popup .burger svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .popup-window {
+        right: 0;
+        top: 0;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 15px;
+    }
+
+    .popup-window legend {
+        font-size: 18px;
+        color: #f06292; /* Rosa */
+    }
+
+    .popup-window li a {
+        font-size: 16px;
+        color: #333; /* Texto negro */
+    }
+
+    .popup-window .guest-links li a {
+        font-size: 16px; /* Tamaño de fuente más pequeño en móviles */
+    }
+}
+
 
 .footer {
     background-color: black;
@@ -401,7 +447,7 @@
 </button>
 
             <!-- Icono de usuario -->
-<div class="btn-user-menu">
+            <div class="btn-user-menu">
     <label class="popup">
         <input type="checkbox" />
         <div tabindex="0" class="burger">
@@ -413,11 +459,9 @@
             <legend>Quick Start</legend>
             <ul>
                 @guest
-                    <!-- Usuario no autenticado -->
                     <li><a href="{{ route('login') }}">Iniciar Sesión</a></li>
                     <li><a href="{{ route('register') }}">Registrarse</a></li>
                 @else
-                    <!-- Usuario autenticado -->
                     @if(auth()->user()->hasRole('admin'))
                         <li><a href="{{ route('dashboard') }}">Inicio Admin</a></li>
                     @elseif(auth()->user()->hasRole('recepcionista'))
@@ -428,9 +472,9 @@
                 @endguest
             </ul>
         </nav>
-        
     </label>
 </div>
+
 
 
 

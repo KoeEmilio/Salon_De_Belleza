@@ -218,12 +218,9 @@
 
         }
 
-       
-
-        
-        }
-
     </style>
+
+
 @endpush
 
 @section('body')
@@ -256,9 +253,14 @@
                             <td data-label="Estado de la cita">{{ $cita->status}}</td>
                             <td data-label="Forma de pago">{{ $cita->payment_type}}</td>
                             <td data-label="Acciones">
-                                <button class="cancel-button">
-                                    <span>Cancelar</span>
-                                </button>
+                            <td data-label="Acciones">
+
+    <button class="cancel-button" data-id="{{ $cita->id }}">
+        <span>Cancelar</span>
+    </button>
+</td>
+
+                               
                             </td>
                         </tr>
                         @endforeach
@@ -271,4 +273,5 @@
         {{ $citas->links('pagination::bootstrap-5') }}
     </div>
 </div>
+
 @endsection
