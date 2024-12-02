@@ -77,10 +77,12 @@
     <p class="mt-4 text-center text-sm text-gray-500">
         ¿No eres miembro?
         <a href="{{ route('register') }}" class="font-semibold leading-6 text-pink-400-600 hover:text-pink-500">Regístrate</a>
-        <p class="mt-4 text-center text-sm text-gray-500">
-            ¿Olvidaste tu contraseña?
-            <a href="{{ route('password.request') }}" class="font-semibold leading-6 text-pink-400-600 hover:text-pink-500">Haz clic aquí</a>
-        </p>
+    </p>
+
+    <!-- Enlace para restablecer la contraseña -->
+    <p class="mt-4 text-center text-sm text-gray-500">
+        ¿Olvidaste tu contraseña?
+        <a href="{{ route('password.request') }}" class="font-semibold leading-6 text-pink-400-600 hover:text-pink-500">Haz clic aquí</a>
     </p>
 </div>
 </body>

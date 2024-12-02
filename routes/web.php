@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\AgregarClienteRecepcionistaController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\Auth\CustomResetPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\BonosImpuestosController;
 use App\Http\Controllers\CitasController;
 use App\Http\Controllers\CitasRecepcionistaController;
 use App\Http\Controllers\ClientePerfilController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\VerDetalleClienteController;
 
 use App\Http\Controllers\ContactoController;
@@ -16,6 +19,7 @@ use App\Http\Controllers\ServiciosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmpleadoAdminController;
+use App\Http\Controllers\EmployeeHourController;
 use App\Http\Controllers\HistorialCitaClienteController;
 use App\Http\Controllers\Recepcionista_Cliente_Controller;
 use App\Http\Controllers\RecepcionistaController;
@@ -26,13 +30,16 @@ use App\Http\Controllers\HorasController;
 
 
 use App\Http\Controllers\FavoritosController;
+use App\Http\Controllers\HorasTrabajadasController;
 use App\Http\Controllers\NominaController;
 use App\Http\Controllers\NominasController;
 use App\Http\Controllers\RecepcionistaServiciosController;
 use App\Http\Controllers\TrabajosController;
 use App\Http\Controllers\TurnosController;
-
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,11 +54,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
-Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
 
-Route::get('reset-password/{token}', [UserController::class, 'resetPassword'])->name('password.reset');
-Route::put('reset/password/{token}', [UserController::class, 'updatepassword'])->name('custom.password.update');
+Route::post('/enviar-mensaje', [ContactController::class, 'sendMessage']);
 
 Route::get('/graficas',[ServicioController::class, 'serviciosmes'])->name('graficaMes');
 // Rutas de perfil
@@ -87,15 +91,32 @@ Route::delete('nominas/{nomina_id}', [NominaController::class, 'destroy'])->name
 Route::get('/nominas/export/{empleado_id}', [NominaController::class, 'export'])->name('nominas.export');
 
 
-
-Route::get('/trabajos/{employee_id}', [TrabajosController::class, 'index'])
-    ->name('trabajos.index');
-
+Route::get('/turnos/{employee_id}', [TurnosController::class, 'index'])->name('turnos.index');
+Route::get('/turnos/create/{employee_id}', [TurnosController::class, 'create'])->name('turnos.create');
+Route::post('/turnos', [TurnosController::class, 'store'])->name('turnos.store');
+Route::get('/turnos/editar/{id}', [TurnosController::class, 'edit'])->name('turnos.edit');
+Route::put('/turnos/actualizar/{id}', [TurnosController::class, 'update'])->name('turnos.update');
+Route::delete('/turnos/eliminar/{id}', [TurnosController::class, 'destroy'])->name('turnos.destroy');
     Route::get('/nominas', [NominaController::class, 'index'])->name('nominas');
-    Route::get('/turnos', [EmpleadoAdminController::class, 'turnos'])->name('turnos');
+
     
     Route::delete('/servicios/{id}', [ServiciosController::class, 'delete'])->name('servicios.delete');
 
+// routes/web.php
+Route::get('/empleados/{employee_id}/nomina/{nomina_id}/bonos-impuestos', [BonosImpuestosController::class, 'index'])->name('bonos.impuestos');
+Route::get('/empleados/{employee_id}/nomina/{nomina_id}/crear', [BonosImpuestosController::class, 'create'])->name('bonos.impuestos.create');
+Route::post('/empleados/{employee_id}/nomina/{nomina_id}/bonos-impuestos', [BonosImpuestosController::class, 'store'])->name('bonos.impuestos.store');
+Route::get('/bonos-impuestos/{employee_id}/nomina/{nomina_id}/{id}/editar', [BonosImpuestosController::class, 'edit'])->name('bonos.impuestos.edit');
+Route::put('/bonos-impuestos/{employee_id}/nomina/{nomina_id}/{id}', [BonosImpuestosController::class, 'update'])->name('bonos.impuestos.update');
+Route::delete('/bonos-impuestos/{employee_id}/nomina/{nomina_id}/{id}', [BonosImpuestosController::class, 'destroy'])->name('bonos.impuestos.destroy');
+
+
+Route::get('/horas-trabajadas/{nomina_id}', [HorasTrabajadasController::class, 'index'])->name('horas_trabajadas.index');
+Route::get('horas_trabajadas/edit/{nomina_id}/{empleado_id}/{id}', [HorasTrabajadasController::class, 'edit'])->name('horas_trabajadas.edit');
+Route::put('/horas_trabajadas/update/{nomina_id}/{empleado_id}/{id}', [HorasTrabajadasController::class, 'update'])->name('horas_trabajadas.update');
+Route::get('horas_trabajadas/create/{nomina_id}/{empleado_id}', [HorasTrabajadasController::class, 'create'])->name('horas_trabajadas.create');
+Route::post('horas_trabajadas/store', [HorasTrabajadasController::class, 'store'])->name('horas_trabajadas.store');
+Route::delete('/horas_trabajadas/{nomina_id}/{empleado_id}/{id}', [HorasTrabajadasController::class, 'destroy'])->name('horas_trabajadas.destroy');
 
 
 });

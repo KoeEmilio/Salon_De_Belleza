@@ -1,77 +1,87 @@
 <?php
 
-// TurnosController.php
 namespace App\Http\Controllers;
-use Carbon\Carbon;
 
 use App\Models\EmployeeShift;
 use App\Models\Shift;
-use App\Models\User;
-use App\Models\EmployeeData;
 use Illuminate\Http\Request;
-use App\Models\EmployeeHour;
+use App\Models\EmployeeData;
 
 class TurnosController extends Controller
 {
-    // Método para ver los turnos de un empleado específico
+    // Mostrar los turnos de un empleado
     public function index($employee_id)
-{
-    // Verificamos que el empleado exista
-    $empleado = EmployeeData::findOrFail($employee_id);
-    $empleado = User::findOrFail($employee_id); // Aquí debes asegurarte que sea el empleado correcto
+    {
+        // Obtener los turnos asignados al empleado
+        $turnos = EmployeeShift::with('shift') // Cargar el turno asociado
+            ->where('employee_id', $employee_id) // Filtrar por el empleado
+            ->get();
 
-    // Obtener los turnos del empleado
-    $turnos = EmployeeShift::where('employee_id', $employee_id)
-                           ->with('shift')
-                           ->get();
+        // Retornar la vista con los datos
+        return view('turnos', compact('turnos', 'employee_id'));
+    }
 
-    // Pasamos los turnos a la vista
-    return view('turnos', compact('turnos', 'empleado'));
-}
+    // Crear un nuevo turno
+    public function create($employee_id)
+    {
+        // Obtener los turnos disponibles (mañana y tarde)
+        $shifts = Shift::all();
+        return view('agregar_turnos', ['employee_id' => $employee_id, 'shifts' => $shifts]);
+    }
+
+    // Guardar un nuevo turno
+    public function store(Request $request)
+    {
+        // Validar los datos del formulario
+        $validated = $request->validate([
+            'day' => 'required|string|max:15',
+            'shift_id' => 'required|exists:shifts,id',
+        ]);
+
+        dd($validated);
+        // Crear el registro en `employee_shift`
+        EmployeeShift::create([
+            'employee_id' => $request->employee_id, // Asegúrate de pasar el `employee_id` desde el formulario
+            'day' => $validated['day'],
+            'shift_id' => $validated['shift_id'], // Asociar el turno
+        ]);
+
+        // Redirigir con éxito
+        return redirect()->route('turnos.index', ['employee_id' => $request->employee_id])->with('success', 'Turno agregado correctamente.');
+    }
+
+    // Editar un turno
     public function edit($id)
     {
-        // Obtener la hora del empleado por su ID
-        $employeeHour = EmployeeHour::findOrFail($id);
-    
-        // Pasar la variable a la vista
-        return view('editar_turno', compact('employeeHour'));
+        $turno = EmployeeShift::with('shift')->findOrFail($id);
+        $shifts = Shift::all();
+        return view('editar_turnos', compact('turno', 'shifts'));
     }
-    
 
-// Método para actualizar el turno
-public function update(Request $request, $id)
-{
-    // Validación de los datos de entrada
-    $request->validate([
-        'start_time' => 'required|date_format:H:i',
-        'end_time' => 'required|date_format:H:i',
-    ]);
+    // Actualizar un turno
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'day' => 'required|string|max:15',
+            'shift_id' => 'required|exists:shifts,id',
+        ]);
 
-    // Buscar el registro que se va a actualizar
-    $employeeHour = EmployeeHour::findOrFail($id);
+        $turno = EmployeeShift::findOrFail($id);
+        $turno->update([
+            'day' => $request->day,
+            'shift_id' => $request->shift_id,
+        ]);
 
-    // Actualizar los campos de hora
-    $employeeHour->start_time = $request->input('start_time');
-    $employeeHour->end_time = $request->input('end_time');
+        return redirect()->route('turnos.index', ['employee_id' => $turno->employee_id])->with('success', 'Turno actualizado correctamente.');
+    }
 
-    // Calcular horas trabajadas y horas extras
-    $start_time = \Carbon\Carbon::parse($employeeHour->start_time);
-    $end_time = \Carbon\Carbon::parse($employeeHour->end_time);
-    $employeeHour->hours_worked = $end_time->diffInHours($start_time);
-    $employeeHour->overtime_hours = max(0, $employeeHour->hours_worked - 8);
+    // Eliminar un turno
+    public function destroy($id)
+    {
+        $turno = EmployeeShift::findOrFail($id);
+        $employee_id = $turno->employee_id;
+        $turno->delete();
 
-    // Mostrar los datos antes de guardar
-    // Verifica los valores actualizados antes de guardar
-
-    // Guardar la actualización
-    $employeeHour->save();
-
-    // Redirigir con un mensaje de éxito
-    return redirect()->route('turnos.index', ['employee_id' => $employeeHour->employee_id])
-    ->with('success', 'Horas actualizadas correctamente');
-
-}
-
-
-
+        return redirect()->route('turnos.index', ['employee_id' => $employee_id])->with('success', 'Turno eliminado correctamente.');
+    }
 }
