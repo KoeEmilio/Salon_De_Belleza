@@ -30,8 +30,13 @@ class Payroll extends Model
     {
         return $this->belongsTo(EmployeeData::class, 'employee_id');
     }
-    public function payments()
-    {
-        return $this->hasMany(PayrollPayment::class, 'payroll_id');
-    }
+    public function payrollPayments()
+{
+    return $this->hasMany(PayrollPayment::class, 'payroll_id');
+}
+public function payrollBonusesTaxes()
+{
+    return $this->hasMany(BonusTax::class, 'payroll_id'); // Asegúrate de que 'payroll_id' sea el nombre correcto
+}
+
 }

@@ -26,4 +26,10 @@ class BonusTax extends Model
     {
         return $this->belongsTo(EmployeeData::class, 'employee_id');
     }
+    // En el modelo BonusTax
+    public function payroll()
+{
+    return $this->belongsTo(Payroll::class, 'payroll_id'); // Usar el campo correcto para la relación
+}
+
 }

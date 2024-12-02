@@ -97,13 +97,7 @@
         <p><strong><i class="fas fa-money-bill-wave"></i> Sueldo Neto:</strong> ${{ $nomina->net_salary }}</p>
         <p><strong><i class="fas fa-info-circle"></i> Estado del Pago:</strong> {{ $nomina->payment_status }}</p>
 
-        <!-- Resumen de la nómina -->
-        <h2>
-            <i class="fas fa-chart-line icon-header"></i>
-            Resumen
-        </h2>
-        <p><strong>Total Pagado:</strong> ${{ $resumen['total_pagado'] }}</p>
-        <p><strong>Nóminas Pendientes:</strong> {{ $resumen['pendientes'] }}</p>
+       
 
         <!-- Mostrar horas trabajadas -->
         <h2>
@@ -127,7 +121,7 @@
                             <td>{{ $hours->date_worked }}</td>
                             <td>{{ $hours->start_time }}</td>
                             <td>{{ $hours->end_time }}</td>
-                            <td>{{ $hours->total_hours_worked }}</td>
+                            <td>{{ $hours->hours_worked }}</td>
                             <td>{{ $hours->overtime_hours }}</td>
                         </tr>
                     @endforeach

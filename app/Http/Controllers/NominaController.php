@@ -7,25 +7,53 @@ use App\Models\EmployeeData; // Modelo de Empleados
 use App\Models\BonusTax; // Modelo de Bonos e Impuestos
 use App\Models\User;
 use App\Models\EmployeeHour;
+use App\Models\PayrollPayment; // Modelo para la tabla PayrollPayments
 
-use PDF;
+
 class NominaController extends Controller
 {
     // Mostrar lista de nóminas
     public function index($empleado_id)
     {
+        // Validar que el empleado existe
         $empleado = User::findOrFail($empleado_id);
-        $nominas = Payroll::where('employee_id', $empleado_id)->get();
-        $totalPagado = $nominas->sum(function ($nomina) {
-            return $nomina->net_salary;
-        });
     
-        $pendientes = $nominas->where('payment_status', 'Pendiente')->count();
+        // Obtener los filtros
+        $period_start = request()->get('period_start');
+        $period_end = request()->get('period_end');
+        $payment_status = request()->get('payment_status');
+    
+        // Consultar nóminas relacionadas con el empleado
+        $query = Payroll::where('employee_id', $empleado_id);
+    
+        // Aplicar filtros si están presentes
+        if ($period_start) {
+            $query->where('period_start', '>=', $period_start);
+        }
+        if ($period_end) {
+            $query->where('period_end', '<=', $period_end);
+        }
+        if ($payment_status) {
+            $query->where('payment_status', $payment_status);
+        }
+    
+        // Obtener las nóminas filtradas
+        $nominas = $query->get();
+    
+        // Calcular totales y pendientes
+        $totalPagado = PayrollPayment::whereIn('payroll_id', $nominas->pluck('id'))
+            ->sum('payment_amount');
+    
+        $pendientes = Payroll::where('payment_status', 'Pendiente')
+            ->where('employee_id', $empleado_id)
+            ->count();
     
         return view('nominas', compact('empleado', 'nominas', 'totalPagado', 'pendientes'));
     }
+    
+    
 
-    // Formulario para crear una nueva nómina
+
     public function create($empleado_id)
     {
         $empleado = EmployeeData::findOrFail($empleado_id);
@@ -128,20 +156,17 @@ class NominaController extends Controller
 
     public function destroy($empleado_id, $nomina_id)
     {
-        // Buscar la nómina
+
         $nomina = Payroll::where('id', $nomina_id)->where('employee_id', $empleado_id)->first();
 
-        // Verificar si la nómina existe
         if (!$nomina) {
             return redirect()->route('nominas.index', ['empleado_id' => $empleado_id])->with('error', 'Nómina no encontrada.');
         }
 
-        // Eliminar la nómina
+
         $nomina->delete();
 
-        // Redirigir a la lista de nóminas
         return redirect()->route('nominas.index', ['empleado_id' => $empleado_id])->with('success', 'Nómina eliminada con éxito.');
     }
-
 
 }
