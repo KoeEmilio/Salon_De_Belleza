@@ -253,11 +253,6 @@
                             <td data-label="Estado de la cita">{{ $cita->status}}</td>
                             <td data-label="Forma de pago">{{ $cita->payment_type}}</td>
                             <td data-label="Acciones">
-                            <td data-label="Acciones">
-
-    <button class="cancel-button" data-id="{{ $cita->id }}">
-        <span>Cancelar</span>
-    </button>
 </td>
 
                                

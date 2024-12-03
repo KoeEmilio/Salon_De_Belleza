@@ -80,6 +80,8 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/addservice', [ServiciosController::class, 'addservice'])->name('addservice');
     Route::post('/register-service', [ServiciosController::class, 'registerServiceAndType'])->name('register.service');
     Route::get('/graficas',[ServicioController::class, 'serviciosmes'])->name('graficaMes');
+    Route::put('/usuario/{id}/actualizar-rol', [DashboardController::class, 'actualizarRol'])->name('actualizar_rol');
+
 
 Route::get('nominas/{empleado_id}', [NominaController::class, 'index'])->name('nominas.index');
 Route::get('nominas/create/{empleado_id}', [NominaController::class, 'create'])->name('nominas.create');
@@ -134,7 +136,7 @@ Route::middleware(['auth', 'role:cliente'])->group(function () {
     Route::post('/guardar-cita', [CitasController::class, 'guardarCita']);
     Route::post('/guardar-cita', [AppointmentController::class, 'guardarCita'])->name('guardarCita');
     Route::post('/guardar-cita', [AppointmentController::class, 'store']);
-    
+    Route::get('/agendadas-horas', [AppointmentController::class, 'getAgendadasHoras'])->name('agendadas.horas');        
     
 });
 Route::post('/passwordmail', [UserController::class, 'passwordmail'])->name('passwordmail');

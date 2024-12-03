@@ -99,6 +99,22 @@
                         </div>
                     </div>
 
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="role">Rol</label>
+                                <select class="form-control" id="role" name="role" required>
+                                    @foreach ($roles as $rol)
+                                        <option value="{{ $rol->id }}" 
+                                            {{ $usuario->roles->pluck('id')->contains($rol->id) ? 'selected' : '' }}>
+                                            {{ $rol->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Botón para Guardar Cambios -->
                     <div class="form-group mt-4">
                         <button type="submit" class="btn btn-primary">Guardar Cambios</button>

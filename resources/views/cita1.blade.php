@@ -1,3 +1,15 @@
+@php
+    use Carbon\Carbon;
+    $start = Carbon::createFromTime(9, 0, 0); // Hora de inicio (9 AM)
+    $end = Carbon::createFromTime(22, 0, 0); // Hora de fin (10 PM)
+    $options = [];
+
+    while ($start <= $end) {
+        $options[] = $start->format('H:i'); // Formato de hora (24 horas)
+        $start->addHour(); // Sumar una hora
+    }
+@endphp
+
 @extends('layouts.app')
 
 @section('content')
@@ -206,20 +218,9 @@
                         <h5>Selecciona una Hora</h5>
                         <select class="form-select" id="timeSelect">
                             <option value="">Selecciona una hora</option>
-                            <option value="09:00">09:00 AM</option>
-                            <option value="10:00">10:00 AM</option>
-                            <option value="11:00">11:00 AM</option>
-                            <option value="12:00">12:00 PM</option>
-                            <option value="01:00">01:00 PM</option>
-                            <option value="02:00">02:00 PM</option>
-                            <option value="03:00">03:00 PM</option>
-                            <option value="04:00">04:00 PM</option>
-                            <option value="05:00">05:00 PM</option>
-                            <option value="06:00">06:00 PM</option>
-                            <option value="07:00">07:00 PM</option>
-                            <option value="08:00">08:00 PM</option>
-                            <option value="09:00">09:00 PM</option>
-                            <option value="10:00">10:00 PM</option>
+                            @foreach ($options as $option)
+                                <option value="{{ $option }}">{{ $option }}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -276,6 +277,7 @@
                     }
                     dayDiv.classList.add('selected');
                     checkFormCompletion();
+                    fetchAgendadasHoras(dayDate.toISOString().split('T')[0]);
                 });
 
                 calendarDaysContainer.appendChild(dayDiv);
@@ -361,9 +363,45 @@
 
         renderizarServicios(); // Llamar al cargar la página
         renderCalendar(currentMonth, currentYear); // Inicializar el calendario
+
+        // Función para obtener las horas agendadas
+        function fetchAgendadasHoras(fecha) {
+            const url = `/agendadas-horas?fecha=${fecha}`;
+            console.log('Solicitando URL:', url);
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error HTTP! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (!Array.isArray(data)) {
+                        throw new Error('La respuesta no es un array válido.');
+                    }
+                    console.log('Horas agendadas:', data);
+
+                    const options = document.querySelectorAll('#timeSelect option');
+                    options.forEach(option => {
+                        const optionValue = option.value + ':00'; // Asegurarse de que el formato sea HH:mm:ss
+                        console.log(`Comparando ${optionValue} con ${data}`);
+                        if (data.includes(optionValue)) {
+                            option.disabled = true;
+                            option.classList.add('disabled');
+                        } else {
+                            option.disabled = false;
+                            option.classList.remove('disabled');
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al obtener las horas agendadas:', error);
+                    alert('No se pudieron obtener las horas agendadas. Intente de nuevo más tarde.');
+                });
+        }
     });
     </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-
 
 @endsection
