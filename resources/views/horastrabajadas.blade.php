@@ -12,14 +12,32 @@
             font-family: Arial, sans-serif;
         }
 
-        .container {
-            margin-top: 20px;
+        .navbar {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .card {
-            border: none;
+        .navbar h1 {
+            color: #ff69b4;
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .container {
+            margin-top: 20px;
+            max-width: 900px;
+            padding: 2rem;
+            background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h5 {
+            color: #ff69b4;
+            text-align: center;
         }
 
         .table th {
@@ -37,11 +55,32 @@
             border-radius: 5px;
         }
 
-        .btn-back {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 15px;
+        /* Estilo del botón "Regresar" rosa */
+        .btn-secondary {
+            background-color: #ff69b4;
+            border-color: #ff69b4;
+        }
+
+        /* Estilo de botones de acciones en negro con texto/íconos rosa */
+        .btn-warning, .btn-danger {
+            background-color: #000;
+            border-color: #000;
+            color: #ff69b4;
+        }
+
+        .btn-warning i, .btn-danger i {
+            color: #ff69b4;
+        }
+
+        /* Estilo del botón de agregar en negro con texto/íconos rosa */
+        .btn-add {
+            background-color: #000;
+            border-color: #000;
+            color: #ff69b4;
+        }
+
+        .btn-add i {
+            color: #ff69b4;
         }
 
         /* Responsividad */
@@ -63,7 +102,6 @@
         @media (max-width: 576px) {
             h1 {
                 font-size: 1.5rem;
-                text-align: center;
             }
 
             .card-title {
@@ -77,64 +115,71 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <a href="{{ route('nominas.index', ['empleado_id' => $empleado->id]) }}" class="btn btn-secondary btn-sm back-btn">Regresar a Nóminas</a>
-
-    <h1 class="mb-4 text-center">Horas Trabajadas de {{ $empleado->name }}</h1>
-    <h5 class="text-center mb-4">Periodo: {{ $nomina->period_start }} - {{ $nomina->period_end }}</h5>
-    
-    <div class="text-center mb-4">
-        <a href="{{ route('horas_trabajadas.create', ['nomina_id' => $nomina->id, 'empleado_id' => $empleado->id]) }}" class="btn btn-success btn-sm">
-            <i class="fas fa-plus-circle"></i> Agregar Horas Trabajadas
-        </a>
+    <!-- Barra superior -->
+    <div class="navbar">
+        <h1>Horas Trabajadas de {{ $empleado->name }}</h1>
     </div>
-    <!-- Tabla de Horas Trabajadas -->
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Hora de Entrada</th>
-                    <th>Hora de Salida</th>
-                    <th>Horas Trabajadas</th>
-                    <th>Horas Extras</th> <!-- Nueva columna -->
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($horasTrabajadas as $hora)
-                    <tr>
-                        <td>{{ $hora->date_worked }}</td>
-                        <td>{{ $hora->start_time }}</td>
-                        <td>{{ $hora->end_time }}</td>
-                        <td>{{ $hora->hours_worked }} horas</td>
-                        <td>{{ $hora->overtime_hours }} horas</td> <!-- Mostrar horas extras -->
-                        <td>
-                            <!-- Editar -->
-                            <a href="{{ route('horas_trabajadas.edit', ['nomina_id' => $nomina->id, 'empleado_id' => $empleado->id, 'id' => $hora->id]) }}" class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i> Editar
-                            </a>
-                            
-                            <!-- Eliminar -->
-                            <form action="{{ route('horas_trabajadas.destroy', ['nomina_id' => $nomina_id, 'empleado_id' => $empleado->id, 'id' => $hora->id]) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta entrada de horas trabajadas?');" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash-alt"></i> Eliminar
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="text-center">No se han registrado horas trabajadas para este periodo.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="container">
+
+        
+        <h5 class="mb-4">Periodo: {{ $nomina->period_start }} - {{ $nomina->period_end }}</h5>
+
+        <div class="text-center mb-4">
+            <a href="{{ route('horas_trabajadas.create', ['nomina_id' => $nomina->id, 'empleado_id' => $empleado->id]) }}" class="btn btn-add btn-sm">
+                <i class="fas fa-plus-circle"></i> Agregar Horas Trabajadas
+            </a>
+        </div>
+        <a href="{{ route('nominas.index', ['empleado_id' => $empleado->id]) }}"
+             class="btn btn-secondary btn-sm back-btn">Regresar a Nóminas</a>
+
+        <!-- Tabla de Horas Trabajadas -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora de Entrada</th>
+                        <th>Hora de Salida</th>
+                        <th>Horas Trabajadas</th>
+                        <th>Horas Extras</th> <!-- Nueva columna -->
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($horasTrabajadas as $hora)
+                        <tr>
+                            <td>{{ $hora->date_worked }}</td>
+                            <td>{{ $hora->start_time }}</td>
+                            <td>{{ $hora->end_time }}</td>
+                            <td>{{ $hora->hours_worked }} horas</td>
+                            <td>{{ $hora->overtime_hours }} horas</td> <!-- Mostrar horas extras -->
+                            <td>
+                                <!-- Editar -->
+                                <a href="{{ route('horas_trabajadas.edit', ['nomina_id' => $nomina->id, 'empleado_id' => $empleado->id, 'id' => $hora->id]) }}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+
+                                <!-- Eliminar -->
+                                <form action="{{ route('horas_trabajadas.destroy', ['nomina_id' => $nomina->id, 'empleado_id' => $empleado->id, 'id' => $hora->id]) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta entrada de horas trabajadas?');" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center">No se han registrado horas trabajadas para este periodo.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

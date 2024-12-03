@@ -1,14 +1,21 @@
-<form action="{{ route('reset-password.post') }}" method="POST">
-    @csrf
-    <input type="hidden" name="token" value="{{ $token }}">
-    <label for="email">Correo electrónico</label>
-    <input type="email" id="email" name="email" required>
+@extends('layouts.app')
 
-    <label for="password">Nueva contraseña</label>
-    <input type="password" id="password" name="password" required>
+@section('content')
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl font-bold text-center">Restablecer Contraseña</h1>
+    <form action="{{ route('custom.password.update') }}" method="POST">
+        @csrf
+        @method('PUT')  <!-- Asegúrate de que sea PUT si tu ruta es PUT -->
+        <input type="hidden" name="user" value="{{ $user->id }}">
+    
+        <label for="password">Nueva Contraseña</label>
+        <input id="password" name="password" type="password" required>
+    
+        <label for="password_confirmation">Confirmar Contraseña</label>
+        <input id="password_confirmation" name="password_confirmation" type="password" required>
+    
+        <button type="submit">Restablecer Contraseña</button>
+    </form>
+</div>
+@endsection
 
-    <label for="password_confirmation">Confirmar contraseña</label>
-    <input type="password" id="password_confirmation" name="password_confirmation" required>
-
-    <button type="submit">Restablecer contraseña</button>
-</form>

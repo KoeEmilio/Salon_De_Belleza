@@ -12,14 +12,44 @@
             font-family: Arial, sans-serif;
         }
 
+        .navbar {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 10px; /* Incrementar el tamaño de la barra */
+            display: flex;
+            justify-content: center; /* Centrar el título horizontalmente */
+            align-items: center; /* Centrar el contenido verticalmente */
+        }
+
+        .navbar h1 {
+            color: #ff69b4; /* Rosa suave */
+            margin: 0;
+            font-size: 2rem; /* Aumentar tamaño del título */
+        }
+
         .container {
             margin-top: 20px;
         }
 
-        .card {
+        .btn-back {
+            background-color: #ff69b4; /* Rosa suave */
+            color: #fff;
             border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-back:hover {
+            background-color: #e052a0;
+        }
+
+        .btn-add {
+            background-color: #000;
+            color: #ff69b4; /* Letra/Iconos rosas */
+            border: none;
+            margin-bottom: 20px;
+        }
+
+        .btn-add:hover {
+            background-color: #333;
         }
 
         .table th {
@@ -33,15 +63,18 @@
             text-align: center;
         }
 
-        .btn {
-            border-radius: 5px;
+        .btn-detail {
+            background-color: #000;
+            color: #ff69b4; /* Letra/Iconos rosas */
+            border: none;
         }
 
-        .btn-back {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 15px;
+        .btn-detail:hover {
+            background-color: #333;
+        }
+
+        .btn {
+            border-radius: 5px;
         }
 
         /* Responsividad */
@@ -55,127 +88,124 @@
                 width: 100%;
             }
 
-            .card-text {
-                font-size: 1.2rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            h1 {
-                font-size: 1.5rem;
-                text-align: center;
-            }
-
-            .card-title {
-                font-size: 1rem;
-            }
-
-            .card-text {
-                font-size: 1rem;
+            .navbar h1 {
+                font-size: 1.5rem; /* Ajustar tamaño del título en pantallas pequeñas */
             }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <a href="{{ route('empleados', ['empleado_id' => $empleado->id]) }}" class="btn btn-secondary btn-sm back-btn">Regresar</a>
+    <!-- Barra Negra Superior -->
+    <div class="navbar">
+        <h1>Nóminas de {{ $empleado->name }}</h1>
+    </div>
 
-    <h1 class="mb-4 text-center">Nóminas de {{ $empleado->name }}</h1>
+    <div class="container">
+       
 
-    <!-- Formulario de Filtros -->
-    <form method="GET" action="{{ route('nominas.index', ['empleado_id' => $empleado->id]) }}" class="mb-4">
-        <div class="row">
-            <div class="col-md-4">
-                <label for="period_start" class="form-label">Periodo (Inicio)</label>
-                <input type="date" id="period_start" name="period_start" class="form-control" value="{{ request()->get('period_start') }}">
-            </div>
-            <div class="col-md-4">
-                <label for="period_end" class="form-label">Periodo (Fin)</label>
-                <input type="date" id="period_end" name="period_end" class="form-control" value="{{ request()->get('period_end') }}">
-            </div>
-            <div class="col-md-4">
-                <label for="payment_status" class="form-label">Estado de Pago</label>
-                <select id="payment_status" name="payment_status" class="form-control">
-                    <option value="">Todos</option>
-                    <option value="Pagado" {{ request()->get('payment_status') == 'Pagado' ? 'selected' : '' }}>Pagado</option>
-                    <option value="Pendiente" {{ request()->get('payment_status') == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
-                </select>
-            </div>
+        <!-- Formulario de Filtros -->
+<form method="GET" action="{{ route('nominas.index', ['empleado_id' => $empleado->id]) }}" class="mb-4 p-3" style="border: 1px solid #000; border-radius: 8px; background-color: #fff;">
+    <div class="row">
+        <div class="col-md-4">
+            <label for="period_start" class="form-label" style="color: #000; font-weight: bold;">
+                <i class="fas fa-calendar-alt"></i> Periodo (Inicio)
+            </label>
+            <input type="date" id="period_start" name="period_start" class="form-control" value="{{ request()->get('period_start') }}" style="border-color: #000;">
         </div>
-        <button type="submit" class="btn btn-primary mt-3">Filtrar</button>
-    </form>
+        <div class="col-md-4">
+            <label for="period_end" class="form-label" style="color: #000; font-weight: bold;">
+                <i class="fas fa-calendar-alt"></i> Periodo (Fin)
+            </label>
+            <input type="date" id="period_end" name="period_end" class="form-control" value="{{ request()->get('period_end') }}" style="border-color: #000;">
+        </div>
+        <div class="col-md-4">
+            <label for="payment_status" class="form-label" style="color: #000; font-weight: bold;">
+                <i class="fas fa-check-circle"></i> Estado de Pago
+            </label>
+            <select id="payment_status" name="payment_status" class="form-control" style="border-color: #000;">
+                <option value="">Todos</option>
+                <option value="Pagado" {{ request()->get('payment_status') == 'Pagado' ? 'selected' : '' }}>Pagado</option>
+                <option value="Pendiente" {{ request()->get('payment_status') == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
+            </select>
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        <button type="submit" class="btn btn-add">
+            <i class="fas fa-search"></i> Filtrar
+        </button>
+    </div>
+</form>
 
-    <!-- Botón de Crear Nómina -->
-    <div class="text-center mb-4">
-        <a href="{{ route('nominas.create', ['empleado_id' => $empleado->id]) }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Crear Nómina para {{ $empleado->name }}
+
+         <!-- Botón Regresar -->
+         <a href="{{ route('empleados', ['empleado_id' => $empleado->id]) }}" class="btn btn-back mb-3">
+            <i class="fas fa-arrow-left"></i> Regresar
         </a>
+
+        <!-- Botón Agregar Nómina -->
+        <a href="{{ route('nominas.create', ['empleado_id' => $empleado->id]) }}" class="btn btn-add">
+            <i class="fas fa-plus"></i> Crear Nómina
+        </a>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th><i class="fas fa-calendar-alt"></i> Periodo</th>
+                    <th><i class="fas fa-clock"></i> Horas Trabajadas</th>
+                    <th><i class="fas fa-stopwatch"></i> Horas Extras</th>
+                    <th><i class="fas fa-gift"></i> Bonos</th>
+                    <th><i class="fas fa-percentage"></i> Impuestos</th>
+                    <th><i class="fas fa-wallet"></i> Salario Neto</th>
+                    <th><i class="fas fa-money-bill-wave"></i> Pago Total</th>
+                    <th><i class="fas fa-check-circle"></i> Estado</th>
+                    <th><i class="fas fa-tools"></i> Detalles</th>
+                </tr>
+                </thead>
+                <tbody>
+                @forelse ($nominas as $index => $nomina)
+                    @php
+                        $totalPayments = $nomina->payrollPayments->sum('payment_amount');
+                    @endphp
+                    <tr>
+                        <td>{{ $nomina->period_start }} - {{ $nomina->period_end }}</td>
+                        <td>{{ $nomina->total_hours_worked }} horas</td>
+                        <td>{{ $nomina->overtime_hours }} horas</td>
+                        <td>${{ number_format($nomina->bonuses, 2) }} MXN</td>
+                        <td>${{ number_format($nomina->tax, 2) }} MXN</td>
+                        <td>${{ number_format($nomina->net_salary, 2) }} MXN</td>
+                        <td>${{ number_format($totalPayments, 2) }} MXN</td>
+                        <td>
+                            <span class="badge {{ $nomina->payment_status == 'Pagado' ? 'bg-success' : 'bg-warning' }}">
+                                {{ $nomina->payment_status }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center flex-wrap">
+                                <a href="{{ route('bonos.impuestos', ['employee_id' => $empleado->id, 'nomina_id' => $nomina->id]) }}" 
+                                    class="btn btn-detail btn-sm m-1">
+                                    <i class="fas fa-gift"></i> 
+                                </a>
+                                <a href="{{ route('horas_trabajadas.index', ['nomina_id' => $nomina->id]) }}" 
+                                    class="btn btn-detail btn-sm m-1">
+                                    <i class="fas fa-clock"></i> 
+                                </a>
+                                <a href="{{ route('nominas.edit', ['empleado_id' => $empleado->id, 'nomina_id' => $nomina->id]) }}" 
+                                    class="btn btn-detail btn-sm m-1">
+                                    <i class="fas fa-edit"></i> 
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="9" class="text-center">No hay nóminas registradas para este empleado.</td>
+                    </tr>
+                @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
 
-
-    <!-- Tabla de Nóminas -->
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <thead>
-            <tr>
-                <th>Periodo</th>
-                <th>Horas Trabajadas</th>
-                <th>Horas Extras</th>
-                <th>Bonos</th>
-                <th>Impuestos</th>
-                <th>Salario Neto</th>
-                <th>Pago Total</th>
-                <th>Estado</th>
-                <th>Detalles de la Nomina</th>
-            </tr>
-            </thead>
-            <tbody>
-            @forelse ($nominas as $index => $nomina)
-                @php
-                    // Obtener el total de los pagos adicionales de la tabla payroll_payments
-                    $totalPayments = $nomina->payrollPayments->sum('payment_amount');
-                @endphp
-                <tr>
-                    <td>{{ $nomina->period_start }} - {{ $nomina->period_end }}</td>
-                    <td>{{ $nomina->total_hours_worked }} horas</td>
-                    <td>{{ $nomina->overtime_hours }} horas</td>
-                    <td>${{ number_format($nomina->bonuses, 2) }} MXN</td>
-                    <td>${{ number_format($nomina->tax, 2) }} MXN</td>
-                    <td>${{ number_format($nomina->net_salary, 2) }} MXN</td>
-                    <td>${{ number_format($totalPayments, 2) }} MXN</td>
-                    <td>
-                        <span class="badge {{ $nomina->payment_status == 'Pagado' ? 'bg-success' : 'bg-warning' }}">
-                            {{ $nomina->payment_status }}
-                        </span>
-                    </td>
-                    <td>
-                        <div class="d-flex justify-content-center flex-wrap">
-                            <!-- Botón para ver bonos e impuestos -->
-                            <a href="{{ route('bonos.impuestos', ['employee_id' => $empleado->id, 'nomina_id' => $nomina->id]) }}" 
-                                class="btn btn-warning btn-sm m-1 d-flex align-items-center justify-content-center">
-                                 <i class="fas fa-gift me-2"></i> Ver Bonos/Impuestos
-                             </a>
-                             
-                             
-                             
-                            <!-- Botón para ver horas trabajadas -->
-                            <a href="{{ route('horas_trabajadas.index', ['nomina_id' => $nomina->id]) }}" class="btn btn-secondary btn-sm m-1 d-flex align-items-center justify-content-center">
-                                <i class="fas fa-clock me-2"></i> Horas Trabajadas 
-                            </a>
-                            
-                        </div>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="9" class="text-center">No hay nóminas registradas para este empleado.</td>
-                </tr>
-            @endforelse
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
