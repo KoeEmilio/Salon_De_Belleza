@@ -190,6 +190,16 @@
                         <option value="transferencia">transferencia</option>
                     </select>
                 </div>
+
+                <div class="card p-3 mb-4">
+                    <h5>Empleados</h5>
+                    <select class="form-select" id="Selectspecialist">
+                        <option value="" selected>Selecciona el Empleado</option>
+                        <option value="efectivo">efectivo</option>
+                        <option value="transferencia">transferencia</option>
+                    </select>
+                </div>
+
             </div>
             
             <div class="col-12 col-md-8">

@@ -312,6 +312,12 @@
     border-color: #bbbbbb;
 }
 
+button.btn-cancelar:disabled {
+    background-color: #d6d6d6; /* Cambiar el color del botón */
+    color: #999;             /* Cambiar el color del texto */
+    cursor: not-allowed;     /* Cambiar el cursor */
+}
+
 
     </style>
 
@@ -348,42 +354,29 @@
                             <td data-label="Estado">{{ $cita->status }}</td>
                             <td data-label="Forma de pago">{{ $cita->payment_type }}</td>
                             <td data-label="Acciones">
+
+                                <td data-label="Acciones">
+                                    <form action="{{ route('citas.cancelar', $cita->id) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        <button 
+                                            type="button" 
+                                            class="btn btn-warning btn-cancelar" 
+                                            data-id="{{ $cita->id }}"
+                                            @if($cita->status == 'cancelada') disabled @endif>
+                                            @if($cita->status == 'cancelada') Cancelada @else Cancelar @endif
+                                        </button>
+                                    </form>
+                                </td>
                                 
-                                <form action="{{ route('citas.eliminar', $cita->id) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta cita?')">
-                                        Eliminar
-                                    </button>
-                                </form>
+                                
+                                
+                                
+                                
                             </td>
                         </tr>
                         @endforeach
-
-                        <!-- Modal de Confirmación -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header bg-danger text-white">
-          <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
-          <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body text-center">
-          <p class="fw-bold">¿Estás seguro de eliminar esta cita?</p>
-          <p class="text-muted">Esta acción no se puede deshacer.</p>
-        </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" id="confirmDeleteButton" class="btn btn-danger">Eliminar</button>
-        </div>
-      </div>
-    </div>
-  </div>
                     </tbody>
                 </table>
-
-
-                
             </div>
         </div>
     </div>
@@ -410,30 +403,50 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('.btn-eliminar').on('click', function() {
-            // Obtén el ID de la cita del botón
-            const citaId = $(this).data('id');
-            
-            if (confirm('¿Estás seguro de eliminar esta cita?')) {
-                $.ajax({
-    url: `/citas/${citaId}`,
-    type: 'DELETE',
-    headers: {
-        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-    },
-    success: function(response) {
-        alert(response.success);
-        $(`#cita-${citaId}`).remove();
-    },
-    error: function(xhr) {
-        alert(xhr.responseJSON.error || 'Error al eliminar la cita.');
-    }
+  $(document).ready(function () {
+    // Deshabilitar el botón "Cancelar" si la cita ya está cancelada
+    $('.btn-cancelar').each(function() {
+        const status = $(this).text().trim().toLowerCase();
+        if (status === 'cancelada') {
+            $(this).prop('disabled', true);
+        }
+    });
+
+    // Manejar el evento click para cancelar la cita
+    $('.btn-cancelar').on('click', function (event) {
+        event.preventDefault();  // Prevenir el comportamiento predeterminado del formulario
+
+        const citaId = $(this).data('id');
+        const button = $(this);
+
+        if (confirm('¿Estás seguro de cancelar esta cita?')) {
+            $.ajax({
+                url: `/citas/${citaId}/cancelar`,
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function (response) {
+                    alert('Cita cancelada correctamente.');
+                    
+                    // Cambiar el estado del botón
+                    button.prop('disabled', true);
+                    button.text('Cancelada'); // Cambiar el texto del botón
+
+                    // Actualizar el estado en la tabla
+                    $(`#cita-${citaId}`).find('[data-label="Estado"]').text('cancelada');
+                },
+                error: function (xhr) {
+                    alert('Error al cancelar la cita.');
+                }
+            });
+        }
+    });
 });
 
-            }
-        });
-    });
+
+
 </script>
+
 
 @endsection

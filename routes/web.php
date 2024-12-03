@@ -164,6 +164,14 @@ Route::middleware(['auth', 'role:cliente'])->group(function () {
     Route::get('/agendadas-horas', [AppointmentController::class, 'getAgendadasHoras'])->name('agendadas.horas');        
     Route::post('/citas/{id}/cancelar', [ClientePerfilController::class, 'cancelar'])->name('citas.cancelar');
 });
+
+Route::post('/citas/{id}/cancelar', [ClientePerfilController::class, 'cancelar'])->name('citas.cancelar');
+
+
+
+
+
+
 Route::post('/passwordmail', [UserController::class, 'passwordmail'])->name('passwordmail');
 Route::post('/register-person', [UserController::class, 'registerPerson'])->name('register.person');
 Route::get('/welcome', [InicioController::class, 'index'])->name('welcome');
