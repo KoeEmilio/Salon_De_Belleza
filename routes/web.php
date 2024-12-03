@@ -27,7 +27,7 @@ use App\Http\Controllers\Recepcionista_Cliente_Controller;
 use App\Http\Controllers\RecepcionistaController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ServicioHomeController;
+use App\Http\Controllers\serviciohomeController;
 use App\Http\Controllers\HorasController;
 
 
@@ -175,7 +175,7 @@ Route::post('/citas/{id}/cancelar', [ClientePerfilController::class, 'cancelar']
 Route::post('/passwordmail', [UserController::class, 'passwordmail'])->name('passwordmail');
 Route::post('/register-person', [UserController::class, 'registerPerson'])->name('register.person');
 Route::get('/welcome', [InicioController::class, 'index'])->name('welcome');
-Route::get('/servicio', [ServicioHomeController::class, 'index'])->name('servicio');
+Route::get('/servicio', [serviciohomeController::class, 'index'])->name('servicio');
 Route::get('/galeria', [GaleriaController::class, 'index'])->name('galeria');
 
 
