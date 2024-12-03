@@ -456,22 +456,33 @@
             </svg>
         </div>
         <nav class="popup-window">
-            <legend>Quick Start</legend>
-            <ul>
+            <legend class="h5 mb-3">Quick Start</legend>
+            <ul class="list-unstyled">
                 @guest
-                    <li><a href="{{ route('login') }}">Iniciar Sesión</a></li>
-                    <li><a href="{{ route('register') }}">Registrarse</a></li>
+                    <li class="mb-2">
+                        <a href="{{ route('login') }}" class="btn btn-primary btn-sm w-100">Iniciar Sesión</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('register') }}" class="btn btn-secondary btn-sm w-100">Registrarse</a>
+                    </li>
                 @else
                     @if(auth()->user()->hasRole('admin'))
-                        <li><a href="{{ route('dashboard') }}">Inicio Admin</a></li>
+                        <li class="mb-2">
+                            <a href="{{ route('dashboard') }}">Inicio Admin</a>
+                        </li>
                     @elseif(auth()->user()->hasRole('recepcionista'))
-                        <li><a href="{{ route('recepcionista.inicio') }}">Inicio Recepcionista</a></li>
+                        <li class="mb-2">
+                            <a href="{{ route('recepcionista.inicio') }}">Inicio Recepcionista</a>
+                        </li>
                     @elseif(auth()->user()->hasRole('cliente'))
-                        <li><a href="{{ route('cliente.perfil') }}">Mi Perfil</a></li>
+                        <li>
+                            <a href="{{ route('cliente.perfil') }}">Mi Perfil</a>
+                        </li>
                     @endif
                 @endguest
             </ul>
         </nav>
+        
     </label>
 </div>
 
