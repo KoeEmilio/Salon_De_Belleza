@@ -33,18 +33,16 @@ return [
     |
     */
 
-    'mailers' => [
+   'mailers' => [
     'smtp' => [
         'transport' => 'smtp',
-        'host' => env('MAIL_HOST', 'sandbox.smtp.mailtrap.io'),
-        'port' => env('MAIL_PORT', 2525), // Cambié el puerto a 2525 que es el correcto para Mailtrap
-        'encryption' => env('MAIL_ENCRYPTION', null), // El valor null está bien para Mailtrap, ya que no requiere cifrado.
+        'host' => env('MAIL_HOST', 'smtp.gmail.com'),
+        'port' => env('MAIL_PORT', 587),
+        'encryption' => env('MAIL_ENCRYPTION', 'tls'),
         'username' => env('MAIL_USERNAME'),
         'password' => env('MAIL_PASSWORD'),
-        'from' => [
-            'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'), // Asegúrate de poner una dirección de correo válida.
-            'name' => env('MAIL_FROM_NAME', env('APP_NAME')),
-        ],
+        'timeout' => null,
+        'auth_mode' => null,
     ],
 
 
@@ -96,7 +94,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'name' => 'Glow Studio',
     ],
 
     /*

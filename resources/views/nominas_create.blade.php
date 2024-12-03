@@ -12,55 +12,76 @@
             font-family: Arial, sans-serif;
         }
 
+        .navbar {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: #ff69b4;
+            margin: 0;
+            font-size: 2rem;
+        }
+
         .container {
             margin-top: 20px;
             max-width: 800px;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid #000;
         }
 
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        .form-label {
+        label {
             font-weight: bold;
+            color: #000;
+        }
+
+        input, select {
+            border: 1px solid #000;
+        }
+
+        input:focus, select:focus {
+            border-color: #ff69b4;
+            outline: none;
         }
 
         .btn {
             border-radius: 5px;
         }
 
-        /* Responsividad */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-                text-align: center;
-            }
-
-            .btn {
-                width: 100%;
-                margin-top: 10px;
-            }
+        .btn-primary {
+            background-color: #000;
+            color: #ff69b4;
+            border: none;
         }
 
-        @media (max-width: 576px) {
-            h1 {
-                font-size: 1.3rem;
-            }
+        .btn-primary:hover {
+            background-color: #333;
+        }
+
+        .btn-secondary {
+            background-color: #ff69b4;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e052a0;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>
-            <i class="fas fa-plus-circle text-primary"></i>
-            Crear Nómina para <span class="text-success">{{ $empleado->name }}</span>
-        </h1>
+    <!-- Barra Superior -->
+    <div class="navbar">
+        <h1>Crear Nómina para <span class="text-light">{{ $empleado->name }}</span></h1>
+    </div>
 
+    <div class="container">
         <form action="{{ route('nominas.store', $empleado->id) }}" method="POST">
             @csrf
             <input type="hidden" name="employee_id" value="{{ $empleado->id }}">
@@ -124,10 +145,14 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-save"></i> Crear Nómina
-            </button>
-            <a href="{{ route('nominas.index', ['empleado_id' => $empleado->id]) }}" class="btn btn-secondary btn-sm back-btn">Regresar</a>
+            <div class="d-flex justify-content-between mt-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Crear Nómina
+                </button>
+                <a href="{{ route('nominas.index', ['empleado_id' => $empleado->id]) }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Regresar
+                </a>
+            </div>
         </form>
     </div>
 

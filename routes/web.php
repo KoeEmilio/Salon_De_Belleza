@@ -35,6 +35,7 @@ use App\Http\Controllers\FavoritosController;
 use App\Http\Controllers\HorasTrabajadasController;
 use App\Http\Controllers\NominaController;
 use App\Http\Controllers\NominasController;
+use App\Http\Controllers\PasswordsController    ;
 use App\Http\Controllers\RecepcionistaServiciosController;
 use App\Http\Controllers\TrabajosController;
 use App\Http\Controllers\TurnosController;
@@ -55,6 +56,28 @@ use Illuminate\Support\Facades\Hash;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+
+Route::middleware('guest')->group(function () {
+    // Mostrar el formulario para solicitar el restablecimiento de la contraseña
+    Route::get('/forgot-password', [PasswordsController::class, 'showForgotPasswordForm'])
+        ->name('custom.password.request');
+
+    // Enviar el enlace de restablecimiento con firma
+    Route::post('/forgot-password', [PasswordsController::class, 'sendSignedResetLink'])
+        ->name('custom.password.email');
+
+    // Mostrar el formulario para restablecer la contraseña con firma
+    Route::get('/reset-password/{user}', [PasswordsController::class, 'showSignedResetForm'])
+    ->name('custom.password.reset')
+    ->middleware('signed');
+ 
+
+    Route::PUT('/reset-password', [PasswordsController::class, 'resetPassword'])
+    ->name('custom.password.update');
+});
+
 
 
 Route::post('/enviar-mensaje', [ContactController::class, 'sendMessage']);
