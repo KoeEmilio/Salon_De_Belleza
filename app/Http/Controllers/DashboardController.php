@@ -8,6 +8,8 @@ use App\Models\EmployeeData;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Role;
+use App\Models\UserRol;
 
 class DashboardController extends Controller
 {
@@ -33,8 +35,8 @@ class DashboardController extends Controller
     }
 
     public function usuarios(){
-        $usuarios = DB::table('users')
-        ->join('people_data', 'users.id', '=', 'people_data.user_id') 
+        $usuarios = User::with('roles')  // Usar Eloquent para cargar la relación 'roles'
+        ->join('people_data', 'users.id', '=', 'people_data.user_id')
         ->select(
             'users.id',
             'users.is_active',
@@ -48,8 +50,13 @@ class DashboardController extends Controller
         )
         ->paginate(5);
 
-        return view('clientes_admin', compact('usuarios'));
+    $roles = Role::all(); // Obtener todos los roles
+
+
+        return view('clientes_admin', compact('usuarios', 'roles'));
     }
+
+
 
 
     public function Actualizardatos(Request $request, $id)
@@ -59,13 +66,18 @@ class DashboardController extends Controller
         $user->email = $request->input('email');
         $user->save();
 
-        $person = $user->peopleData; // Asumiendo que tienes una relación definida en el modelo User
+        $person = $user->peopleData;
         $person->first_name = $request->input('first_name');
         $person->last_name = $request->input('last_name');
         $person->age = $request->input('age');
         $person->gender = $request->input('gender');
         $person->phone = $request->input('phone');
         $person->save();
+
+        $user->roles()->sync([$request->input('rol')]);
+        $user->save();
+
+        dd($user->roles()->sync([$request->input('rol')]));
     
         return redirect()->route('dashboard')->with('success', 'Persona actualizada con éxito');
     }
@@ -73,7 +85,8 @@ class DashboardController extends Controller
     public function FomrmEditarUsuario($id)
     {
         $usuario = User::with('peopleData')->findOrFail($id);
-        return view('Edit_cliente', compact('usuario'));
+        $roles = Role::all(); 
+        return view('Edit_cliente', compact('usuario', 'roles'));
     }
 
     public function toggleStatus($id)
@@ -83,6 +96,19 @@ class DashboardController extends Controller
     $usuario->save();
 
     return redirect()->back()->with('status', 'Estado actualizado correctamente');
+}
+
+public function actualizarRol(Request $request, $id)
+{
+    $request->validate([
+        'rol' => 'required|exists:roles,id', 
+    ]);
+
+    $user = User::findOrFail($id);
+
+    $user->roles()->sync([$request->input('rol')]);  
+
+    return redirect()->route('clientes_admin')->with('success', 'Rol actualizado correctamente');
 }
 
 }

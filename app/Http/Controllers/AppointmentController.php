@@ -8,6 +8,7 @@ use App\Mail\ConfirmacionCita;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
@@ -84,5 +85,15 @@ class AppointmentController extends Controller
                 'message' => 'Hubo un error al agendar la cita.',
             ], 500);
         }
+    }
+
+    public function getAgendadasHoras(Request $request)
+    {
+        $fecha = $request->input('fecha');
+        $horasAgendadas = Appointment::whereDate('appointment_day', $fecha)
+            ->pluck('appointment_time')
+            ->toArray();
+
+        return response()->json($horasAgendadas);
     }
 }
