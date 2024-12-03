@@ -25,4 +25,17 @@ class PayrollPayment extends Model
     {
         return $this->belongsTo(Payroll::class, 'payroll_id');
     }
+
+
+    /**
+     * Actualiza el monto del pago.
+     *
+     * @param float $amount
+     * @return bool
+     */
+    public function updatePaymentAmount(float $amount): bool
+    {
+        $this->payment_amount = $amount;
+        return $this->save();
+    }
 }
