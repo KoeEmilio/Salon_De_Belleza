@@ -9,7 +9,6 @@
     <title>Glow Studio - Salón de Belleza</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-     
         :root {
             --color-principal: #fe889f;
             --color-secundario: #ffb7c2;
@@ -18,54 +17,41 @@
         }
 
         body {
-            background-color:#F48FB1
-            ;
+            background-color: #f48fb1;
             color: var(--color-texto);
             scroll-behavior: smooth;
         }
 
-        
         .hero {
-            background-color:black
-            ;
+            background-color: black;
             color: #fff;
-            padding: 100px 0;
+            padding: 100px 20px;
             text-align: center;
             background-image: url('https://example.com/imagen-glow.jpg');
             background-size: cover;
             background-position: center;
-            animation: fadeIn 4s;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: bold;
         }
 
         .hero p {
-            font-size: 1.3rem;
-            margin-top: 20px;
-            animation: fadeInUp 1.5s;
+            font-size: clamp(1rem, 3vw, 1.3rem);
         }
 
-   
+        .fixed-background {
+            background-image: url('https://colorhaircolor.b-cdn.net/wp-content/uploads/2023/12/pink-hair-color-27.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 400px;
+        }
 
-      
-
-       
         .services-section {
-            background-color: #F48FB1;
-            padding: 50px 0;
-        }
-
-        .card-service {
-            border: none;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card-service:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            background-color: #f48fb1;
+            padding: 50px 15px;
         }
 
         .card-service img {
@@ -73,49 +59,25 @@
             object-fit: cover;
         }
 
-
-        .fixed-background {
-    background-image: url('https://colorhaircolor.b-cdn.net/wp-content/uploads/2023/12/pink-hair-color-27.jpg'); /* Usa una imagen de alta resolución */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed; 
-    filter: brightness(0.9) contrast(1.1); 
-    height: 600px; 
-    width: 100%;
-    image-rendering: -webkit-optimize-contrast; 
-}
-
-
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        
         .about-section {
             background-color: #fff;
-            padding: 50px 0;
-            animation: fadeInLeft 1.5s;
+            padding: 50px 15px;
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 50px 10px;
+            }
+
+            .card-service img {
+                height: 150px;
+            }
         }
     </style>
 </head>
 <body>
-
-   
     <section class="hero d-flex align-items-center">
-        <div class="container text-center">
+        <div class="container">
             <h1>Bienvenidos a Glow Studio</h1>
             <p>Donde la belleza y el estilo se encuentran</p>
         </div>
@@ -123,11 +85,12 @@
 
     <section class="fixed-background"></section>
 
-      
-        <section class="about-section" id="about">
-        <div class="container text-center">
-            <h2 class="mb-4">Sobre Glow Studio</h2>
-            <p class="lead">
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2 class="mb-4 text-center">Sobre Glow Studio</h2>
+            <p class="lead text-center">
+               
+
 Glow Studio: Donde la Belleza Encuentra su Brillo ✨
 
 En Glow Studio, creemos que la belleza no es solo una apariencia, sino una experiencia que transforma. Nos especializamos en realzar lo mejor de ti, ofreciendo servicios de alta calidad diseñados para destacar tu estilo y personalidad. <br>  <br>
@@ -136,6 +99,7 @@ En Glow Studio, creemos que la belleza no es solo una apariencia, sino una exper
 
 ¡Ven a Glow Studio y descubre cómo iluminar tu belleza desde el interior! 💖</p>
            
+            </p>
         </div>
     </section>
 
@@ -189,7 +153,7 @@ En Glow Studio, creemos que la belleza no es solo una apariencia, sino una exper
                     <div class="card card-service">
                         <img src="https://vailenespanol.com/wp-content/uploads/2021/07/d778417dd70bcc4eafef6504e9d0c107-768x1024.jpg" class="card-img-top" alt="Maquillaje Profesional">
                         <div class="card-body">
-                            <h5 class="card-title">Tintes de Cabello </h5>
+                            <h5 class="card-title">Colorimetria </h5>
                             <p class="card-text">Realza una nueva imagen donde luzcas brillante con los diferentes tipo de servicios en tinte que tenemos.</p>
                         </div>
                     </div>

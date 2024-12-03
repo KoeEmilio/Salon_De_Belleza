@@ -218,12 +218,104 @@
 
         }
 
-       
 
         
-        }
+.bin-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: rgb(255, 95, 95);
+  cursor: pointer;
+  border: 2px solid rgb(255, 201, 201);
+  transition-duration: 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.bin-bottom {
+  width: 15px;
+  z-index: 2;
+}
+.bin-top {
+  width: 17px;
+  transform-origin: right;
+  transition-duration: 0.3s;
+  z-index: 2;
+}
+.bin-button:hover .bin-top {
+  transform: rotate(45deg);
+}
+.bin-button:hover {
+  background-color: rgb(255, 0, 0);
+}
+.bin-button:active {
+  transform: scale(0.9);
+}
+.garbage {
+  position: absolute;
+  width: 14px;
+  height: auto;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.bin-button:hover .garbage {
+  animation: throw 0.4s linear;
+}
+@keyframes throw {
+  from {
+    transform: translate(-400%, -700%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+}
+.alert-success {
+    background-color: #ffb7c2;
+    color: #000000;
+    border: 2px solid #ff889f;
+}
+
+.alert-danger {
+    background-color: #000000;
+    color: #ffb7c2;
+    border: 2px solid #ff889f;
+}
+
+
+
+.modal-header {
+    border-bottom: none;
+}
+.modal-footer {
+    border-top: none;
+}
+.btn-danger {
+    background-color: #ff5959;
+    border-color: #ff5959;
+}
+.btn-danger:hover {
+    background-color: #ff3f3f;
+    border-color: #ff3f3f;
+}
+.btn-secondary {
+    background-color: #cccccc;
+    border-color: #cccccc;
+}
+.btn-secondary:hover {
+    background-color: #bbbbbb;
+    border-color: #bbbbbb;
+}
+
 
     </style>
+
+
 @endpush
 
 @section('body')
@@ -248,27 +340,100 @@
                     </thead>
                     <tbody>
                         @foreach($citas as $cita)
-                        <tr>
+                        <tr id="cita-{{ $cita->id }}">
                             <td data-label="F/H de registro">{{ $cita->sign_up_date }}</td>
-                            <td data-label="Dia programado para la cita">{{ $cita->appointment_day }}</td>
-                            <td data-label="Hora programada para la cita">{{ $cita->appointment_time}}</td>
-                            <td data-label="Propietario de la cita">{{ $cita->first_name}}</td>
-                            <td data-label="Estado de la cita">{{ $cita->status}}</td>
-                            <td data-label="Forma de pago">{{ $cita->payment_type}}</td>
+                            <td data-label="Día programado">{{ $cita->appointment_day }}</td>
+                            <td data-label="Hora programada">{{ $cita->appointment_time }}</td>
+                            <td data-label="Propietario">{{ $cita->first_name }}</td>
+                            <td data-label="Estado">{{ $cita->status }}</td>
+                            <td data-label="Forma de pago">{{ $cita->payment_type }}</td>
                             <td data-label="Acciones">
-                                <button class="cancel-button">
-                                    <span>Cancelar</span>
-                                </button>
+                                
+                                <form action="{{ route('citas.eliminar', $cita->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta cita?')">
+                                        Eliminar
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
+
+                        <!-- Modal de Confirmación -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+          <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p class="fw-bold">¿Estás seguro de eliminar esta cita?</p>
+          <p class="text-muted">Esta acción no se puede deshacer.</p>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" id="confirmDeleteButton" class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
                     </tbody>
                 </table>
+
+
+                
             </div>
         </div>
     </div>
+
+
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if($errors->any())
+    <div class="alert alert-danger">
+        {{ $errors->first() }}
+    </div>
+@endif
+
+
+
     <div class="pagination-container">
         {{ $citas->links('pagination::bootstrap-5') }}
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.btn-eliminar').on('click', function() {
+            // Obtén el ID de la cita del botón
+            const citaId = $(this).data('id');
+            
+            if (confirm('¿Estás seguro de eliminar esta cita?')) {
+                $.ajax({
+    url: `/citas/${citaId}`,
+    type: 'DELETE',
+    headers: {
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    },
+    success: function(response) {
+        alert(response.success);
+        $(`#cita-${citaId}`).remove();
+    },
+    error: function(xhr) {
+        alert(xhr.responseJSON.error || 'Error al eliminar la cita.');
+    }
+});
+
+            }
+        });
+    });
+</script>
+
 @endsection

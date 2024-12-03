@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Log;
+use App\Mail\ConfirmacionCita;
+use Illuminate\Support\Facades\Mail;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
@@ -30,6 +35,20 @@ class AppointmentController extends Controller
                 'payment_type' => $validated['payment_type'],
                 'status' => 'pendiente',
             ]);
+
+            $usuario = Auth::user();
+
+            if ($usuario) {
+                Mail::to($usuario->email)->send(
+                    new ConfirmacionCita($appointment, $validated['services'] ?? [])
+                );
+                Log::info('Correo enviado al usuario logueado:', ['email' => $usuario->email]);
+            } else {
+                Log::warning('No se encontró un usuario autenticado para enviar el correo.');
+            }
+
+            // Agregando el mensaje flash
+            session()->flash('success', '¡La confirmación se ha enviado al correo!');
 
             Log::info('Cita creada con éxito.', ['appointment_id' => $appointment->id]);
 
@@ -66,5 +85,15 @@ class AppointmentController extends Controller
                 'message' => 'Hubo un error al agendar la cita.',
             ], 500);
         }
+    }
+
+    public function getAgendadasHoras(Request $request)
+    {
+        $fecha = $request->input('fecha');
+        $horasAgendadas = Appointment::whereDate('appointment_day', $fecha)
+            ->pluck('appointment_time')
+            ->toArray();
+
+        return response()->json($horasAgendadas);
     }
 }

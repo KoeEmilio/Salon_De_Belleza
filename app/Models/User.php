@@ -44,4 +44,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(PeopleData::class);
     }
+
+    public function userRoles()
+{
+    return $this->hasMany(UserRol::class, 'user', 'id'); // 'user' es la columna en 'user_rol' que apunta a la tabla 'users'
+}
+
 }
