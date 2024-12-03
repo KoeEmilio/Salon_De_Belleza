@@ -20,38 +20,29 @@
         </div>
     </div>
 
-    <div class="confirmation-section">
-        <div class="user-info">
-            <p class="user-name">DIANA OCHOA</p>
-            <p class="user-contact"><i class="fa fa-whatsapp"></i> 871-450-1852</p>
-        </div>
-
+    
         <div class="appointment-info">
             <h2>¡Este es el último paso!</h2>
             <div class="appointment-card">
                 <h3>Información de la cita</h3>
-                <p><i class="fa fa-calendar"></i> <span id="selectedDate">29 de noviembre 2024</span></p>
-                <h4>Servicios</h4>
-                
-                <div class="card p-3 mb-4">
-    <h5>Resumen</h5>
-    <p id="payment-display">Tipo de Pago: No seleccionado</p>
-</div>
-                <p><i class="fa fa-user"></i> Milena M</p>
-            </div>
-        </div>
+               
 
-      <!-- Aquí se mostrará la fecha y la hora -->
-<p id="confirmationMessage"></p>
 
 <!-- Aquí se mostrarán los servicios seleccionados -->
 <div class="appointment-card">
     <h4>Servicios Seleccionados:</h4>
-    <p id="serviciosSeleccionados">No se seleccionaron servicios.</p>
+   <p id="serviciosSeleccionados">No se seleccionaron servicios.</p>
+
+    <br>
+      <!-- Aquí se mostrará la fecha y la hora -->
+      <i class="fa fa-calendar"></i><p id="confirmationMessage"></p>
+<br>
+      <!-- Aquí se mostrará el tipo de pago -->
+<p id="paymentMethodDisplay">Método de Pago: No seleccionado</p>
+
 </div>
 
-<!-- Aquí se mostrará el tipo de pago -->
-<p id="paymentMethodDisplay">Método de Pago: No seleccionado</p>
+
 
 
 

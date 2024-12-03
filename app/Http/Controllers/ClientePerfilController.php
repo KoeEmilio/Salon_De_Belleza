@@ -69,18 +69,45 @@ class ClientePerfilController extends Controller
     public function eliminar($id)
     {
         try {
+            // Verificar si la cita existe
             $cita = DB::table('appointments')->where('id', $id)->first();
     
             if (!$cita) {
                 return redirect()->back()->withErrors('La cita no existe.');
             }
     
-            DB::table('appointments')->where('id', $id)->delete();
+            // Cambiar el estado a 'Cancelada'
+            DB::table('appointments')->where('id', $id)->update(['status' => 'Cancelada']);
     
-            return redirect()->back()->with('success', 'Cita eliminada correctamente.');
+            return redirect()->back()->with('success', 'Cita cancelada correctamente.');
         } catch (\Exception $e) {
-            \Log::error("Error al eliminar la cita: {$e->getMessage()}");
-            return redirect()->back()->withErrors('Error al eliminar la cita.');
+            Log::error("Error al cancelar la cita: {$e->getMessage()}");
+            return redirect()->back()->withErrors('Error al cancelar la cita.');
         }
     }
+    public function cancelar($id)
+    
+    {
+        try {
+            // Buscar la cita por ID
+            $cita = DB::table('appointments')->where('id', $id)->first();
+    
+            // Verificar si la cita existe
+            if (!$cita) {
+                return redirect()->back()->withErrors('La cita no existe.');
+            }
+    
+            // Cambiar el estado a 'cancelada'
+            DB::table('appointments')->where('id', $id)->update(['status' => 'cancelada']);
+    
+            return redirect()->back()->with('success', 'Cita cancelada correctamente.');
+        } catch (\Exception $e) {
+            Log::error("Error al cancelar la cita: {$e->getMessage()}");
+            return redirect()->back()->withErrors('Error al cancelar la cita.');
+        }
+    }
+    
+
+
+    
 }
