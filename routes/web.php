@@ -16,6 +16,8 @@ use App\Http\Controllers\GaleriaController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiciosController;
+use App\Http\Controllers\Elimina_citaController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmpleadoAdminController;
@@ -134,8 +136,18 @@ Route::middleware(['auth', 'role:cliente'])->group(function () {
     Route::post('/guardar-cita', [CitasController::class, 'guardarCita']);
     Route::post('/guardar-cita', [AppointmentController::class, 'guardarCita'])->name('guardarCita');
     Route::post('/guardar-cita', [AppointmentController::class, 'store']);
-    
-    
+
+// deshabilitar las horas lol 
+// web.php
+Route::get('/get-occupied-times', [AppointmentController::class, 'getOccupiedTimes'])->name('get.occupied.times');
+Route::get('/api/horas-ocupadas/{date}', [AppointmentController::class, 'getOccupiedHours']);
+Route::get('/api/horas-disponibles/{date}', [AppointmentController::class, 'getAvailableHours']);
+
+
+Route::delete('/citas/{id}', [ClientePerfilController::class, 'eliminar'])->name('citas.eliminar');
+
+
+
 });
 Route::post('/passwordmail', [UserController::class, 'passwordmail'])->name('passwordmail');
 Route::post('/register-person', [UserController::class, 'registerPerson'])->name('register.person');

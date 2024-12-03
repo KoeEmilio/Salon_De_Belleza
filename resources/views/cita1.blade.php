@@ -1,3 +1,17 @@
+@php
+    use Carbon\Carbon;
+    $start = Carbon::createFromTime(9, 0, 0); // Hora de inicio (9 AM)
+    $end = Carbon::createFromTime(22, 0, 0); // Hora de fin (6 PM)
+    $options = [];
+
+    while ($start <= $end) {
+        $options[] = $start->format('h:i A'); // Formato de hora (12 horas AM/PM)
+        $start->addHour(); // Sumar una hora
+    }
+    
+    
+@endphp
+
 @extends('layouts.app')
 
 @section('content')
@@ -206,20 +220,12 @@
                         <h5>Selecciona una Hora</h5>
                         <select class="form-select" id="timeSelect">
                             <option value="">Selecciona una hora</option>
-                            <option value="09:00">09:00 AM</option>
-                            <option value="10:00">10:00 AM</option>
-                            <option value="11:00">11:00 AM</option>
-                            <option value="12:00">12:00 PM</option>
-                            <option value="01:00">01:00 PM</option>
-                            <option value="02:00">02:00 PM</option>
-                            <option value="03:00">03:00 PM</option>
-                            <option value="04:00">04:00 PM</option>
-                            <option value="05:00">05:00 PM</option>
-                            <option value="06:00">06:00 PM</option>
-                            <option value="07:00">07:00 PM</option>
-                            <option value="08:00">08:00 PM</option>
-                            <option value="09:00">09:00 PM</option>
-                            <option value="10:00">10:00 PM</option>
+                            @foreach ($options as $option)
+
+                                <option value=""> {{$option}} </option>
+
+                            @endforeach
+                            
                         </select>
                     </div>
 
@@ -346,6 +352,7 @@
             // Redirigir a la siguiente vista
             window.location.href = "/paso2";
         });
+
 
         // Renderizar servicios seleccionados
         const serviciosSeleccionados = JSON.parse(localStorage.getItem("serviciosAgregados")) || [];
