@@ -149,59 +149,55 @@
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead>
-                <tr>
-                    <th><i class="fas fa-calendar-alt"></i> Periodo</th>
-                    <th><i class="fas fa-clock"></i> Horas Trabajadas</th>
-                    <th><i class="fas fa-stopwatch"></i> Horas Extras</th>
-                    <th><i class="fas fa-gift"></i> Bonos</th>
-                    <th><i class="fas fa-percentage"></i> Impuestos</th>
-                    <th><i class="fas fa-wallet"></i> Salario Neto</th>
-                    <th><i class="fas fa-money-bill-wave"></i> Pago Total</th>
-                    <th><i class="fas fa-check-circle"></i> Estado</th>
-                    <th><i class="fas fa-tools"></i> Detalles</th>
-                </tr>
+                    <tr>
+                        <th><i class="fas fa-calendar-alt"></i> Periodo</th>
+                        <th><i class="fas fa-clock"></i> Horas Trabajadas</th>
+                        <th><i class="fas fa-stopwatch"></i> Horas Extras</th>
+                        <th><i class="fas fa-gift"></i> Bonos</th>
+                        <th><i class="fas fa-percentage"></i> Impuestos</th>
+                        <th><i class="fas fa-wallet"></i> Pago Total</th>                    
+                        <th><i class="fas fa-check-circle"></i> Estado</th>
+                        <th><i class="fas fa-tools"></i> Detalles</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @forelse ($nominas as $index => $nomina)
-                    @php
-                        $totalPayments = $nomina->payrollPayments->sum('payment_amount');
-                    @endphp
-                    <tr>
-                        <td>{{ $nomina->period_start }} - {{ $nomina->period_end }}</td>
-                        <td>{{ $nomina->total_hours_worked }} horas</td>
-                        <td>{{ $nomina->overtime_hours }} horas</td>
-                        <td>${{ number_format($nomina->bonuses, 2) }} MXN</td>
-                        <td>${{ number_format($nomina->tax, 2) }} MXN</td>
-                        <td>${{ number_format($nomina->net_salary, 2) }} MXN</td>
-                        <td>${{ number_format($totalPayments, 2) }} MXN</td>
-                        <td>
-                            <span class="badge {{ $nomina->payment_status == 'Pagado' ? 'bg-success' : 'bg-warning' }}">
-                                {{ $nomina->payment_status }}
-                            </span>
-                        </td>
-                        <td>
-                            <div class="d-flex justify-content-center flex-wrap">
-                                <a href="{{ route('bonos.impuestos', ['employee_id' => $empleado->id, 'nomina_id' => $nomina->id]) }}" 
-                                    class="btn btn-detail btn-sm m-1">
-                                    <i class="fas fa-gift"></i> 
-                                </a>
-                                <a href="{{ route('horas_trabajadas.index', ['nomina_id' => $nomina->id]) }}" 
-                                    class="btn btn-detail btn-sm m-1">
-                                    <i class="fas fa-clock"></i> 
-                                </a>
-                                <a href="{{ route('nominas.edit', ['empleado_id' => $empleado->id, 'nomina_id' => $nomina->id]) }}" 
-                                    class="btn btn-detail btn-sm m-1">
-                                    <i class="fas fa-edit"></i> 
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="9" class="text-center">No hay nóminas registradas para este empleado.</td>
-                    </tr>
-                @endforelse
+                    @forelse ($nominas as $nomina)
+                        <tr>
+                            <td>{{ $nomina->period_start }} - {{ $nomina->period_end }}</td>
+                            <td>{{ $nomina->total_hours_worked }} horas</td>
+                            <td>{{ $nomina->overtime_hours }} horas</td>
+                            <td>${{ number_format($nomina->bonuses, 2) }} MXN</td>
+                            <td>${{ number_format($nomina->tax, 2) }} MXN</td>
+                            <td>${{ number_format($nomina->net_salary, 2) }} MXN</td>
+                            <td>
+                                <span class="badge {{ $nomina->payment_status == 'Pagado' ? 'bg-success' : 'bg-warning' }}">
+                                    {{ $nomina->payment_status }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-center flex-wrap">
+                                    <a href="{{ route('bonos.impuestos', ['employee_id' => $empleado->id, 'nomina_id' => $nomina->id]) }}" 
+                                        class="btn btn-detail btn-sm m-1">
+                                        <i class="fas fa-gift"></i> 
+                                    </a>
+                                    <a href="{{ route('horas_trabajadas.index', ['nomina_id' => $nomina->id]) }}" 
+                                        class="btn btn-detail btn-sm m-1">
+                                        <i class="fas fa-clock"></i> 
+                                    </a>
+                                    <a href="{{ route('nominas.edit', ['empleado_id' => $empleado->id, 'nomina_id' => $nomina->id]) }}" 
+                                        class="btn btn-detail btn-sm m-1">
+                                        <i class="fas fa-edit"></i> 
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="9" class="text-center">No hay nóminas registradas para este empleado.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
+                
             </table>
         </div>
     </div>

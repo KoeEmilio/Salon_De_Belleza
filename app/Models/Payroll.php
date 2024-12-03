@@ -9,10 +9,8 @@ class Payroll extends Model
 {
     use HasFactory;
 
-    // Nombre de la tabla
     protected $table = 'payroll';
 
-    // Campos que son asignables
     protected $fillable = [
         'employee_id',
         'period_start',
@@ -25,18 +23,29 @@ class Payroll extends Model
         'payment_status',
     ];
 
-    // Relación con EmployeeData
     public function employee()
     {
         return $this->belongsTo(EmployeeData::class, 'employee_id');
     }
-    public function payrollPayments()
-{
-    return $this->hasMany(PayrollPayment::class, 'payroll_id');
-}
-public function payrollBonusesTaxes()
-{
-    return $this->hasMany(BonusTax::class, 'payroll_id'); // Asegúrate de que 'payroll_id' sea el nombre correcto
-}
 
+    public function payrollPayments()
+    {
+        return $this->hasMany(PayrollPayment::class, 'payroll_id');
+    }
+
+    public function payrollBonusesTaxes()
+    {
+        return $this->hasMany(BonusTax::class, 'payroll_id');
+    }
+
+    /**
+     * Encuentra un pago relacionado.
+     *
+     * @param int $paymentId
+     * @return PayrollPayment|null
+     */
+    public function findPaymentById(int $paymentId): ?PayrollPayment
+    {
+        return $this->payrollPayments()->find($paymentId);
+    }
 }

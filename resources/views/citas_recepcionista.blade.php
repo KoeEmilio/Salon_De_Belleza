@@ -20,7 +20,6 @@
         <div></div>
     </div>
 </a>
-
 <svg style="display: block; height: 0; width: 0;" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <defs>
         <filter id="goo">
@@ -67,20 +66,84 @@
 
                                 <!-- Ícono del "ojo" -->
                                 <a href="{{ route('service.index', $cita->id) }}" class="container">
-  <input checked="checked" type="checkbox" disabled>
-  <div class="checkmark"></div>
-</a>
-
+                                    <input checked="checked" type="checkbox" disabled>
+                                    <div class="checkmark"></div>
+                                </a>
                             </div>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        
     </div>
+
+    <!-- Paginación -->
+    <div class="d-flex justify-content-center mt-4">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <!-- Páginas anteriores -->
+                @if ($citas->onFirstPage())
+                <li class="page-item disabled">
+                    <span class="page-link">Anterior</span>
+                </li>
+                @else
+                <li class="page-item">
+                    <a class="page-link" href="{{ $citas->previousPageUrl() }}" aria-label="Previous">
+                        <i class="fas fa-arrow-left"></i> Anterior
+                    </a>
+                </li>
+                @endif
+    
+                <!-- Páginas numeradas -->
+                @foreach ($citas->getUrlRange(1, $citas->lastPage()) as $page => $url)
+                <li class="page-item {{ $page == $citas->currentPage() ? 'active' : '' }}">
+                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                </li>
+                @endforeach
+    
+                <!-- Páginas siguientes -->
+                @if ($citas->hasMorePages())
+                <li class="page-item">
+                    <a class="page-link" href="{{ $citas->nextPageUrl() }}" aria-label="Next">
+                        Siguiente <i class="fas fa-arrow-right"></i>
+                    </a>
+                </li>
+                @else
+                <li class="page-item disabled">
+                    <span class="page-link">Siguiente</span>
+                </li>
+                @endif
+            </ul>
+        </nav>
+    </div>
+    
+
 </div>
 
 <style>
+     /* Paginación */
+     .pagination {
+            justify-content: center;
+        }
+        .custom-color-text {
+            color: #ffb7c2;
+        }
+        .custom-icon-size {
+            font-size: 48px;
+        }
+        .custom-icon-color {
+            color: #ffb7c2;
+        }
+        .pagination .page-link {
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #ffb7c2;
+            border-color: #ffb7c2;
+        }
 /* Encabezado personalizado */
 .custom-header {
     background-color: black;

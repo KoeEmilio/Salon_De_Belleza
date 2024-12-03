@@ -49,10 +49,10 @@
                     <td>{{ $serviceDetail->service->service_name }}</td>
                     <td>{{ $serviceDetail->service->duration }}</td>
                     <td>{{ $serviceDetail->quantity }}</td>
-                    <td>${{ $serviceDetail->unit_price }}</td>
+                    <td>{{ $serviceDetail->unit_price }}</td>
                     <td>{{ $serviceDetail->hairType->type }}</td>
                     <td>{{ $serviceDetail->hairType->price }}</td>
-                    <td>${{ $serviceDetail->total_price }}</td>
+                    <td>{{ $serviceDetail->total_price }}</td>
                     <td>    
 
                     <button class="editBtn">

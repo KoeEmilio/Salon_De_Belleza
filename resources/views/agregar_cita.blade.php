@@ -70,11 +70,20 @@
                 <option value="transferencia">Transferencia</option>
             </select>
         </div>
-
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
         <!-- Botón Guardar -->
         <div class="text-center">
         <button class="btn">
-Guardar Cita</button>
+               Guardar Cita
+            </button>
         </div>
     </form>
 </div>
