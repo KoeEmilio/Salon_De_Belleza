@@ -55,4 +55,8 @@ class EmployeeData extends Model
     {
         return $this->hasMany(Order::class, 'employee_id');
     }
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'employee_id');
+    }
 }

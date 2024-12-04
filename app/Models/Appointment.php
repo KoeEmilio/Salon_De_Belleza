@@ -44,5 +44,9 @@ class Appointment extends Model
     {
         return $this->belongsToMany(Order::class, 'orders_appointments', 'appointment_id', 'order_id');
     }
+    public function employees()
+{
+    return $this->belongsToMany(EmployeeData::class, 'appointment_employee', 'appointment_id', 'employee_id');
+}
     
 }

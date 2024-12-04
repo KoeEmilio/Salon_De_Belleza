@@ -6,7 +6,6 @@
     
     <h3 class="text-center mb-3" style="color: #000;">Cita de: {{ $cita->owner->first_name }} {{ $cita->owner->last_name }}</h3>
     
-    <!-- Botón adaptado con efecto gooey -->
     <div class="text-center mb-4">
         <a href="{{ route('service.create', $cita->id) }}" class="c-button c-button--gooey">
             Agregar Servicio
@@ -17,16 +16,6 @@
             </div>
         </a>
     </div>
-
-    <svg style="display: block; height: 0; width: 0;" version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <filter id="goo">
-                <feGaussianBlur result="blur" stdDeviation="10" in="SourceGraphic"></feGaussianBlur>
-                <feColorMatrix result="goo" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" mode="matrix" in="blur"></feColorMatrix>
-                <feBlend in2="goo" in="SourceGraphic"></feBlend>
-            </filter>
-        </defs>
-    </svg>
 
     <h4 class="mt-4 mb-3" style="color: #000;">Servicios actuales</h4>
     
@@ -65,7 +54,12 @@
                                     ></path>
                                 </svg>
                             </a>
-                        </td>
+                            <!-- Botón para ver detalles del pedido -->
+                            @if($serviceDetail->order_id)
+                            <a href="{{ route('order.details', $serviceDetail->order_id) }}" class="btn btn-info btn-sm">Ver Detalles del Pedido</a>
+                        @else
+                            <span class="text-muted">Sin Pedido Asignado</span>
+                        @endif                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -76,6 +70,8 @@
         <a href="{{ route('appointment.index') }}" class="btn btn-outline-dark">Regresar</a>
     </div>
 </div>
+
+
 
 <style>
     body {

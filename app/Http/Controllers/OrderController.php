@@ -10,66 +10,56 @@ use App\Models\EmployeeData;
 
 class OrderController extends Controller
 {
-    
-    public function createOrder(Appointment $appointment)
-{
-    // Verificar si la cita ya tiene una orden asociada
-    $existingOrder = $appointment->orders()->first();  // Asumiendo que tienes una relación 'orders' en el modelo Appointment
-    
-    if ($existingOrder) {
-        return redirect()->route('orders.show', $existingOrder->id)
-            ->with('error', 'Ya se ha creado una orden para esta cita.');
-    }
-
-    // Obtener los servicios de la cita
-    $services = $appointment->serviceDetails;
-    if ($services->isEmpty()) {
-        return redirect()->back()->with('error', 'No se pueden levantar órdenes sin servicios asignados.');
-    }
-
-    // Seleccionar un empleado aleatorio
-    $employee = EmployeeData::inRandomOrder()->first();
-
-    // Crear la orden
-    $order = new Order();
-    $order->client_id = $appointment->owner_id; 
-    $order->employee_id = $employee->id; 
-    $order->save();
-
-    // Asociar los servicios a la orden
-    foreach ($services as $service) {
-        $service->order_id = $order->id;
-        $service->save();
-    }
-
-    // Relacionar la orden con la cita
-    $order->appointments()->attach($appointment->id);
-
-    return redirect()->route('orders.show', $order->id)->with('success', 'Orden creada exitosamente.');
-}
-
-public function show($id)
-{
-    $order = Order::with(['client', 'employee', 'details.service', 'appointments'])->findOrFail($id);
-    $employees = EmployeeData::all();  // Obtener todos los empleados para mostrarlos en el formulario
-
-    return view('levantar_orden', compact('order', 'employees')); // Aquí debes pasar 'employees' y no 'empleado'
-}
-   
-    public function index()
+    /**
+     * Crear una orden para una cita específica con empleado asignado aleatoriamente
+     */
+    public function createOrder(Request $request, Appointment $appointment)
     {
-        $orders = Order::with('client', 'employee')->paginate(10);
+        // Verificar que la cita no tenga ya una orden asociada
+        if ($appointment->orders()->exists()) {
+            return redirect()->back()->with('error', 'Esta cita ya tiene una orden levantada.');
+        }
 
-        return view('orders.index', compact('orders'));
+        // Obtener un empleado aleatorio
+        $randomEmployee = EmployeeData::inRandomOrder()->first();
+        if (!$randomEmployee) {
+            return redirect()->back()->with('error', 'No hay empleados disponibles para asignar.');
+        }
+
+        // Crear la nueva orden con el empleado asignado aleatoriamente
+        $order = Order::create([
+            'client_id' => $appointment->owner_id,
+            'employee_id' => $randomEmployee->id,
+        ]);
+
+        // Asociar los servicios de la cita a la orden
+        foreach ($appointment->serviceDetails as $serviceDetail) {
+            $serviceDetail->update(['order_id' => $order->id]);
+        }
+
+        // Asociar la cita con la orden
+        $order->appointments()->attach($appointment->id);
+
+        return redirect()->route('orders.show', $order->id)->with('success', 'Orden creada exitosamente con empleado asignado aleatoriamente.');
     }
 
-  
+    /**
+     * Mostrar una orden específica con sus detalles
+     */
+    public function show($id)
+    {
+        $order = Order::with(['client', 'employee.person', 'details.service', 'appointments'])->findOrFail($id);
+
+        return view('levantar_orden', compact('order'));
+    }
+
+    /**
+     * Mostrar formulario para crear una orden a partir de una cita (opcional)
+     */
     public function create($appointmentId)
     {
         $appointment = Appointment::with('serviceDetails.service')->findOrFail($appointmentId);
-        $employees = EmployeeData::all();
 
-        return view('orders.create', compact('appointment', 'employees'));
+        return view('orders.create', compact('appointment'));
     }
-    
 }
