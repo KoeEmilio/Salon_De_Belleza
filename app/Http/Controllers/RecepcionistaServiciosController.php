@@ -97,37 +97,39 @@ class RecepcionistaServiciosController extends Controller
     }
 
     // Actualizar un servicio
-    public function update(Request $request, $serviceDetailId)
-{
-    // Buscar el detalle del servicio
-    $serviceDetail = ServiceDetail::findOrFail($serviceDetailId);
-
-    // Validación de los datos
-    $validatedData = $request->validate([
-        'quantity' => 'required|integer|min:1',
-        'unit_price' => 'required|numeric|min:0',
-        'hair_type_id' => 'required|exists:hair_type,id',
-    ]);
-
-    // Obtener el precio adicional del tipo de cabello seleccionado
-    $hairType = HairType::find($validatedData['hair_type_id']);
-    $hair_extra_price = $hairType->price;
-
-    // Calcular el total (aunque no deberías insertar esto si `total_price` es calculado)
-    $unit_price = $validatedData['unit_price'];
-    $total_price = ($unit_price + $hair_extra_price) * $validatedData['quantity'];
-
-    // Actualizar los datos del servicio
-    $serviceDetail->quantity = $validatedData['quantity'];
-    $serviceDetail->unit_price = $unit_price;
-    // No actualizar la columna total_price porque es generada automáticamente
-    $serviceDetail->hair_type_id = $validatedData['hair_type_id'];
-
-    // Guardar los cambios
-    $serviceDetail->save();
-
-    return redirect()->route('service.index', $serviceDetail->appointment_id)->with('success', 'Servicio actualizado correctamente');
-}
+    public function update(Request $request, $appointmentId, $serviceDetailId)
+    {
+        // Buscar el detalle del servicio
+        $serviceDetail = ServiceDetail::findOrFail($serviceDetailId);
+    
+        // Validación de los datos
+        $validatedData = $request->validate([
+            'service_id' => 'required|exists:services,id',
+            'quantity' => 'required|integer|min:1',
+            'unit_price' => 'required|numeric|min:0',
+            'hair_type_id' => 'required|exists:hair_type,id',
+        ]);
+    
+        // Obtener el precio adicional del tipo de cabello seleccionado
+        $hairType = HairType::find($validatedData['hair_type_id']);
+        $hair_extra_price = $hairType->price;
+    
+        // Calcular el total (aunque no deberías insertar esto si `total_price` es calculado)
+        $unit_price = $validatedData['unit_price'];
+        $total_price = ($unit_price + $hair_extra_price) * $validatedData['quantity'];
+    
+        // Actualizar los datos del servicio
+        $serviceDetail->service_id = $validatedData['service_id'];  // Asegúrate de actualizar el service_id
+        $serviceDetail->quantity = $validatedData['quantity'];
+        $serviceDetail->unit_price = $unit_price;
+        $serviceDetail->hair_type_id = $validatedData['hair_type_id'];
+    
+        // Guardar los cambios
+        $serviceDetail->save();
+    
+        // Redirigir con mensaje de éxito
+        return redirect()->route('service.index', $appointmentId)->with('success', 'Servicio actualizado correctamente');
+    }
 
 
     // Eliminar un servicio

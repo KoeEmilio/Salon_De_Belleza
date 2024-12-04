@@ -33,7 +33,7 @@
                         <td>${{ number_format($servicio->price, 2) }}</td>
                         <td>{{ $servicio->duration }}</td>
                         <td>{{ $servicio->description }}</td>
-                        <td>{{ $servicio->typeService->type }}</td> <!-- Acceder al tipo de servicio -->
+                        <td>{{ $servicio->typeService->type }}</td> 
                         <td>{{ $servicio->estado ? 'Activo' : 'Inactivo' }}</td>
                     </tr>
                 @empty

@@ -9,26 +9,27 @@
             {{ session('success') }}
         </div>
     @endif
+   
 
     <!-- Botón para agregar una nueva cita -->
     <div class="mb-4 text-center">
-    <a href="{{ route('appointment.create') }}" class="c-button c-button--gooey">
-    Agregar Cita
-    <div class="c-button__blobs">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-</a>
-<svg style="display: block; height: 0; width: 0;" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-        <filter id="goo">
-            <feGaussianBlur result="blur" stdDeviation="10" in="SourceGraphic"></feGaussianBlur>
-            <feColorMatrix result="goo" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" mode="matrix" in="blur"></feColorMatrix>
-            <feBlend in2="goo" in="SourceGraphic"></feBlend>
-        </filter>
-    </defs>
-</svg>
+        <a href="{{ route('appointment.create') }}" class="c-button c-button--gooey">
+            Agregar Cita
+            <div class="c-button__blobs">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </a>
+        <svg style="display: block; height: 0; width: 0;" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <filter id="goo">
+                    <feGaussianBlur result="blur" stdDeviation="10" in="SourceGraphic"></feGaussianBlur>
+                    <feColorMatrix result="goo" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" mode="matrix" in="blur"></feColorMatrix>
+                    <feBlend in2="goo" in="SourceGraphic"></feBlend>
+                </filter>
+            </defs>
+        </svg>
     </div>
 
     <div class="table-responsive">
@@ -66,84 +67,66 @@
 
                                 <!-- Ícono del "ojo" -->
                                 <a href="{{ route('service.index', $cita->id) }}" class="container">
-                                    <input checked="checked" type="checkbox" disabled>
-                                    <div class="checkmark"></div>
+                               Ver servicios
                                 </a>
+
+                                <!-- Botón para levantar orden -->
+                                <form action="{{ route('orders.create', $cita->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="btn btn-warning btn-sm">
+                                        Levantar Orden
+                                    </button>
+                                </form>
                             </div>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        
     </div>
 
-    <!-- Paginación -->
     <div class="d-flex justify-content-center mt-4">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <!-- Páginas anteriores -->
                 @if ($citas->onFirstPage())
-                <li class="page-item disabled">
-                    <span class="page-link">Anterior</span>
-                </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">Anterior</span>
+                    </li>
                 @else
-                <li class="page-item">
-                    <a class="page-link" href="{{ $citas->previousPageUrl() }}" aria-label="Previous">
-                        <i class="fas fa-arrow-left"></i> Anterior
-                    </a>
-                </li>
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $citas->previousPageUrl() }}" aria-label="Previous">Anterior</a>
+                    </li>
                 @endif
-    
-                <!-- Páginas numeradas -->
+
                 @foreach ($citas->getUrlRange(1, $citas->lastPage()) as $page => $url)
-                <li class="page-item {{ $page == $citas->currentPage() ? 'active' : '' }}">
-                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                </li>
+                    <li class="page-item {{ $page == $citas->currentPage() ? 'active' : '' }}">
+                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                    </li>
                 @endforeach
-    
-                <!-- Páginas siguientes -->
+
                 @if ($citas->hasMorePages())
-                <li class="page-item">
-                    <a class="page-link" href="{{ $citas->nextPageUrl() }}" aria-label="Next">
-                        Siguiente <i class="fas fa-arrow-right"></i>
-                    </a>
-                </li>
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $citas->nextPageUrl() }}" aria-label="Next">Siguiente</a>
+                    </li>
                 @else
-                <li class="page-item disabled">
-                    <span class="page-link">Siguiente</span>
-                </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">Siguiente</span>
+                    </li>
                 @endif
             </ul>
         </nav>
     </div>
-    
-
 </div>
 
 <style>
-     /* Paginación */
-     .pagination {
-            justify-content: center;
-        }
-        .custom-color-text {
-            color: #ffb7c2;
-        }
-        .custom-icon-size {
-            font-size: 48px;
-        }
-        .custom-icon-color {
-            color: #ffb7c2;
-        }
-        .pagination .page-link {
-            border-radius: 50%;
-            margin: 0 5px;
-        }
+     .pagination .page-item.active .page-link {
+        background-color: #F06292;
+        border-color: #F06292;
+    }
 
-        .pagination .page-item.active .page-link {
-            background-color: #ffb7c2;
-            border-color: #ffb7c2;
-        }
+    .pagination .page-link {
+        color: #F06292;
+    }
 /* Encabezado personalizado */
 .custom-header {
     background-color: black;
@@ -153,78 +136,43 @@
     color: #ffb7c2;
 }
 
-/* Contenedor de botones de acción */
-.action-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
+ /* Contenedor de botones de acción */
+ .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
 
-/* Botón de edición */
-.editBtn {
-    width: 50px;
-    height: 50px;
-    border-radius: 20px;
-    border: none;
-    background-color: rgb(93, 93, 116);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.123);
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
-}
-.editBtn::before {
-    content: "";
-    width: 200%;
-    height: 200%;
-    background-color: #ffb7c2;
-    position: absolute;
-    z-index: 1;
-    transform: scale(0);
-    transition: all 0.3s;
-    border-radius: 50%;
-    filter: blur(10px);
-}
-.editBtn:hover::before {
-    transform: scale(1);
-}
-.editBtn:hover {
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.336);
-}
-.editBtn svg {
-    height: 17px;
-    fill: white;
-    z-index: 3;
-    transition: all 0.2s;
-    transform-origin: bottom;
-}
-.editBtn:hover svg {
-    transform: rotate(-15deg) translateX(5px);
-}
+    /* Estilo de los botones de acción */
+    .action-buttons a,
+    .action-buttons button {
+        background-color: black; /* Fondo negro */
+        color: #F06292; /* Letras rosas */
+        border: 2px solid #F06292; /* Borde rosa */
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s, color 0.3s;
+    }
 
-/* Estilo para el ícono del "ojo" */
-.viewBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-.viewBtn .checkmark {
-    position: relative;
-    height: 1.4em;
-    width: 1.4em;
-    border: 2px solid #000000;
-    border-radius: 1rem 0rem 1rem;
-    transform: rotate(45deg);
-    transition: all 0.5s ease-in-out;
-}
-.viewBtn input:checked ~ .checkmark {
-    box-shadow: 0px 0px 40px 5px #ffb7c2;
-    background-color: #2195f31f;
-}
+    /* Efecto al pasar el mouse */
+    .action-buttons a:hover,
+    .action-buttons button:hover {
+        background-color: #F06292; /* Fondo rosa */
+        color: black; /* Texto negro */
+    }
+
+    /* Estilo de los íconos dentro de los botones */
+    .action-buttons svg {
+        width: 20px;
+        height: 20px;
+        fill: #F06292; /* Íconos rosas */
+        margin-right: 5px;
+    }
 
 
 /* From Uiverse.io by ercnersoy */ 
@@ -370,5 +318,5 @@
 .c-button--gooey:hover .c-button__blobs div {
   transform: scale(1.4) translateY(0) translateZ(0);
 }
-</style>
+</style>-
 @endsection

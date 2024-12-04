@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-5">
     <!-- Título de la página -->
-    <h1 class="mb-4 text-center" style="color: pink;">Detalles del Cliente</h1>
+    <h1 class="mb-4 text-center" style="color: pink;">Detalles </h1>
 
     <!-- Card para detalles del cliente -->
     <div class="card shadow-lg border-0 rounded-3">

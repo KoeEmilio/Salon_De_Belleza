@@ -18,7 +18,10 @@ class Order extends Model
     {
         return $this->belongsTo(PeopleData::class, 'client_id');
     }
-
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
+    }
     // Relación con el empleado (una orden pertenece a un empleado)
     public function employee()
     {
@@ -36,8 +39,8 @@ class Order extends Model
           return $this->belongsToMany(Appointment::class, 'orders_appointments', 'order_id', 'appointment_id');
       }
        // Relación con los detalles de la orden
-    public function details()
-    {
-        return $this->hasMany(DetailOrder::class, 'order_id');
-    }
+       public function details()
+       {
+           return $this->hasMany(ServiceDetail::class, 'order_id');
+       }
 }
