@@ -44,7 +44,7 @@
 </div>
 
 <button>
-  <a href="#" class="btn2"><span class="spn2">HELLO !</span></a>
+  <a href="/paso1" class="btn2"><span class="spn2">Atras</span></a>
 </button>  
 
     <!-- Botón para agendar cita -->

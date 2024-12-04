@@ -209,6 +209,12 @@
                 padding: 5px 10px;
                 font-size: 10px;
             }
+
+            .home{
+                display: flex;
+                position: absolute;
+                margin-bottom: 140px;
+            }
         }
     </style>
 </head>
@@ -220,7 +226,7 @@
             <div class="navbar-center">
                 <h1>EMPLEADOS</h1>
             </div>
-            <div class="d-flex align-items-center">
+            <div id="home" class="d-flex align-items-center">
                 <a href="{{ route('dashboard') }}" class="btn logout-button">
                     <i class='bx bxs-home custom-icon-size custom-icon-color'></i>
                     <span class="custom-color-text">Inicio</span>

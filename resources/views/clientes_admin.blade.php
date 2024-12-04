@@ -59,6 +59,11 @@
             justify-content: center;
             align-items: center;
         }
+
+        .card{
+            height: 75%;
+        }
+
         .card-header {
             background-color: #000000;
             color: #ffb7c2;
@@ -280,6 +285,10 @@
                 justify-content: center;
                 gap: 5px;
             }
+            
+            .form-control {
+                width: 80vw;
+            }
         }
     </style>
 </head>
@@ -296,6 +305,15 @@
                 <h1>CLIENTES</h1>
             </div>
         </nav>
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+        <form action="{{route('buscar.usuario')}}" method="GET" class="d-flex w-50">
+            <input style="border: solid black 1px" type="text" name="search" class="form-control me-2" placeholder="Buscar cliente..." value="{{ request()->get('search') }}"  oninput="this.form.submit()">
+            <button class="btn btn-pink" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
     </div>
 
     <div class="principal">
@@ -333,13 +351,15 @@
                                         @csrf
                                         @method('PUT')
                                     <div class="button-container">
-                                        <select name="rol" id="rol" required onchange="this.form.submit()">                                            @foreach ($roles as $rol)
-                                            <option value="{{ $rol->id }}" 
-                                                {{ $usuario->roles->pluck('id')->contains($rol->id) ? 'selected' : '' }}>
-                                                {{ $rol->rol }}
-                                            </option>
-                                        @endforeach
+                                        <select name="rol" id="rol" required onchange="this.form.submit()">
+                                            @foreach ($roles as $rol)
+                                                <option value="{{ $rol->id }}" 
+                                                    {{ $usuario->roles->pluck('id')->contains($rol->id) ? 'selected' : '' }}>
+                                                    {{ $rol->rol }}
+                                                </option>
+                                            @endforeach
                                         </select>
+                                        
                                     </form>
                                         <a href="{{ route('usuarios.edit', $usuario->id) }}">
                                             <button class="editBtn" data-bs-toggle="modal" data-bs-target="#editUserModal" data-user-id="{{ $usuario->id }}" data-user-name="{{ $usuario->name }}" data-user-email="{{ $usuario->email }}">
