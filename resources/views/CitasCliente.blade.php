@@ -414,34 +414,47 @@ button.btn-cancelar:disabled {
 
     // Manejar el evento click para cancelar la cita
     $('.btn-cancelar').on('click', function (event) {
-        event.preventDefault();  // Prevenir el comportamiento predeterminado del formulario
+    event.preventDefault();
 
-        const citaId = $(this).data('id');
-        const button = $(this);
+    const citaId = $(this).data('id');
+    const button = $(this);
 
-        if (confirm('¿Estás seguro de cancelar esta cita?')) {
-            $.ajax({
-                url: `/citas/${citaId}/cancelar`,
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                success: function (response) {
-                    alert('Cita cancelada correctamente.');
-                    
+    if (confirm('¿Estás seguro de cancelar esta cita?')) {
+        $.ajax({
+            url: `/citas/${citaId}/cancelar`,
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            success: function (response) {
+                if (response.success) {
+                    alert(response.message);
+
                     // Cambiar el estado del botón
                     button.prop('disabled', true);
-                    button.text('Cancelada'); // Cambiar el texto del botón
+                    button.text('Cancelada');
 
                     // Actualizar el estado en la tabla
                     $(`#cita-${citaId}`).find('[data-label="Estado"]').text('cancelada');
-                },
-                error: function (xhr) {
-                    alert('Error al cancelar la cita.');
+
+                    // Liberar la hora en el selector de tiempo
+                    const horaLiberada = response.horaLiberada;
+                    if (horaLiberada) {
+                        const timeOption = $(`#timeSelect option[value="${horaLiberada}"]`);
+                        timeOption.prop('disabled', false);
+                        timeOption.removeClass('disabled');
+                    }
+                } else {
+                    alert('No se pudo cancelar la cita.');
                 }
-            });
-        }
-    });
+            },
+            error: function () {
+                alert('Error al cancelar la cita.');
+            }
+        });
+    }
+});
+
 });
 
 

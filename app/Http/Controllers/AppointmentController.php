@@ -91,6 +91,7 @@ class AppointmentController extends Controller
     {
         $fecha = $request->input('fecha');
         $horasAgendadas = Appointment::whereDate('appointment_day', $fecha)
+            ->where('status', '!=', 'cancelada')
             ->pluck('appointment_time')
             ->toArray();
 

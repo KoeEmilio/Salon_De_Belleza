@@ -22,30 +22,30 @@
 
     
         <div class="appointment-info">
-            <h2>¡Este es el último paso!</h2>
+            
             <div class="appointment-card">
-                <h3>Información de la cita</h3>
+                <h2>Confirmacion de la cita</h2>
                
 
 
 <!-- Aquí se mostrarán los servicios seleccionados -->
 <div class="appointment-card">
-    <h4>Servicios Seleccionados:</h4>
+    <h5>Servicios Seleccionados:</h5>
    <p id="serviciosSeleccionados">No se seleccionaron servicios.</p>
-
     <br>
+    <h5>Fecha Y Hora:</h5>
       <!-- Aquí se mostrará la fecha y la hora -->
       <i class="fa fa-calendar"></i><p id="confirmationMessage"></p>
-<br>
+      <br>
+      <h5>Metodo De Pago :</h5>
       <!-- Aquí se mostrará el tipo de pago -->
-<p id="paymentMethodDisplay">Método de Pago: No seleccionado</p>
+<p id="paymentMethodDisplay">No seleccionado</p>
 
 </div>
 
-
-
-
-
+<button>
+  <a href="#" class="btn2"><span class="spn2">HELLO !</span></a>
+</button>  
 
     <!-- Botón para agendar cita -->
     <button class="c-button c-button--gooey mt-4" id="agendarCitaBtn">Agendar Cita
@@ -56,116 +56,109 @@
         </div>
     </button>
 </div>
+
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    // Obtener los datos de localStorage
-    const selectedDate = localStorage.getItem("selectedDate");
-    const selectedTime = localStorage.getItem("selectedTime");
-    const serviciosSeleccionados = JSON.parse(localStorage.getItem("serviciosAgregados")) || [];
-    const selectedPayment = localStorage.getItem("selectedPayment");
-
-    // Validar datos necesarios
-    if (!selectedDate || !selectedTime || !selectedPayment) {
-        alert("Faltan datos necesarios. Por favor, completa todos los pasos anteriores.");
-        window.location.href = "/paso1";  // Redirigir a la primera vista si faltan datos
-        return;
-    }
-
-    console.log(`Fecha seleccionada: ${selectedDate}, Hora seleccionada: ${selectedTime}`);
-    console.log("Servicios seleccionados:", serviciosSeleccionados);
-    console.log("Método de pago seleccionado:", selectedPayment);
-
-    // Convertir el código del tipo de pago a texto legible
-    const paymentMethods = {
-        "1": "efectivo",
-        "2": "transferencia",
-        "3": "Tarjeta de Crédito",
-    };
-    const paymentText = paymentMethods[selectedPayment] || "No seleccionado";
-
-    // Mostrar detalles en la vista
-    const confirmationMessage = document.getElementById("confirmationMessage");
-    const serviciosContainer = document.getElementById("serviciosSeleccionados");
-    const paymentContainer = document.getElementById("paymentMethodDisplay");
-
-    if (confirmationMessage) {
-        confirmationMessage.textContent = `Has seleccionado: ${selectedDate} a las ${selectedTime}`;
-    }
-
-    if (serviciosContainer) {
-        serviciosContainer.innerHTML = "";
-        if (serviciosSeleccionados.length > 0) {
-            serviciosSeleccionados.forEach(servicio => {
-                const servicioElement = document.createElement("p");
-                servicioElement.innerHTML = `<i class="fa fa-check"></i> ${servicio}`;
-                serviciosContainer.appendChild(servicioElement);
-            });
-        } else {
-            serviciosContainer.textContent = "No se seleccionaron servicios.";
+    document.addEventListener("DOMContentLoaded", () => {
+        // Obtener los datos de localStorage
+        const selectedDate = localStorage.getItem("selectedDate");
+        const selectedTime = localStorage.getItem("selectedTime");
+        const serviciosSeleccionados = JSON.parse(localStorage.getItem("serviciosAgregados")) || [];
+        const selectedPayment = localStorage.getItem("selectedPayment");
+    
+        // Validar datos necesarios
+        if (!selectedDate || !selectedTime || !selectedPayment) {
+            alert("Faltan datos necesarios. Por favor, completa todos los pasos anteriores.");
+            window.location.href = "/paso1";  // Redirigir a la primera vista si faltan datos
+            return;
         }
-    }
-
-    // Reflejar el tipo de pago
-    if (paymentContainer) {
-        paymentContainer.textContent = `Método de Pago: ${paymentText}`;
-    }
-
-    // Manejar el clic en "Agendar Cita"
-    document.getElementById("agendarCitaBtn").addEventListener("click", async () => {
-    const ownerId = "{{ auth()->id() }}";
-    const bodyData = {
-        appointment_day: selectedDate,
-        appointment_time: selectedTime,
-        owner_id: ownerId, // Puedes reemplazarlo si el ID del usuario está disponible
-        services: serviciosSeleccionados,
-        payment_type: selectedPayment,
-    };
-
-    console.log("Cita a agendar:", bodyData);
-
-    try {
-        const response = await fetch("/guardar-cita", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            },
-            body: JSON.stringify(bodyData),
-        });
-
-        const text = await response.text(); // Obtener la respuesta como texto
-        console.log("Respuesta del servidor:", text);
-
-        // Intentar parsear la respuesta como JSON
-        try {
-            const data = JSON.parse(text); // Intentamos parsear la respuesta como JSON
-            if (data.success) {
-                alert(data.message);
-                window.location.href = "/paso3"; // Redirigir a la página de confirmación
+    
+        console.log(`Fecha seleccionada: ${selectedDate}, Hora seleccionada: ${selectedTime}`);
+        console.log("Servicios seleccionados:", serviciosSeleccionados);
+        console.log("Método de pago seleccionado:", selectedPayment);
+    
+        // Mostrar detalles en la vista
+        const confirmationMessage = document.getElementById("confirmationMessage");
+        const serviciosContainer = document.getElementById("serviciosSeleccionados");
+        const paymentContainer = document.getElementById("paymentMethodDisplay");
+    
+        if (confirmationMessage) {
+            confirmationMessage.textContent = `Has seleccionado: ${selectedDate} a las ${selectedTime}`;
+        }
+    
+        if (serviciosContainer) {
+            serviciosContainer.innerHTML = "";
+            if (serviciosSeleccionados.length > 0) {
+                serviciosSeleccionados.forEach(servicio => {
+                    const servicioElement = document.createElement("p");
+                    servicioElement.innerHTML = `<i class="fa fa-check"></i> ${servicio}`;
+                    serviciosContainer.appendChild(servicioElement);
+                });
             } else {
-                let errorMessage = "Errores de validación:\n";
-                if (data.errors) {
-                    for (const field in data.errors) {
-                        errorMessage += `${field}: ${data.errors[field].join(", ")}\n`;
-                    }
-                } else {
-                    errorMessage = data.message;
-                }
-                alert(errorMessage);
+                serviciosContainer.textContent = "No se seleccionaron servicios.";
             }
-        } catch (error) {
-            console.error("Error al parsear la respuesta como JSON:", error);
-            alert("Hubo un error al procesar la respuesta del servidor. La respuesta no es válida.");
         }
-
-    } catch (error) {
-        console.error("Error al guardar la cita:", error);
-        alert("Hubo un error al agendar la cita. Intenta más tarde.");
-    }
-});
-
-});
-</script>
+    
+        // Reflejar el tipo de pago
+        if (paymentContainer) {
+            paymentContainer.textContent = `Método de Pago: ${selectedPayment}`;
+        }
+    
+        // Manejar el clic en "Agendar Cita"
+        document.getElementById("agendarCitaBtn").addEventListener("click", async () => {
+            const ownerId = "{{ auth()->id() }}";
+            const bodyData = {
+                appointment_day: selectedDate,
+                appointment_time: selectedTime,
+                owner_id: ownerId, // Puedes reemplazarlo si el ID del usuario está disponible
+                services: serviciosSeleccionados,
+                payment_type: selectedPayment,
+            };
+    
+            console.log("Cita a agendar:", bodyData);
+    
+            try {
+                const response = await fetch("/guardar-cita", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    },
+                    body: JSON.stringify(bodyData),
+                });
+    
+                const text = await response.text(); // Obtener la respuesta como texto
+                console.log("Respuesta del servidor:", text);
+    
+                // Intentar parsear la respuesta como JSON
+                try {
+                    const data = JSON.parse(text); // Intentamos parsear la respuesta como JSON
+                    if (data.success) {
+                        alert(data.message);
+                        window.location.href = "/paso3"; // Redirigir a la página de confirmación
+                    } else {
+                        let errorMessage = "Errores de validación:\n";
+                        if (data.errors) {
+                            for (const field in data.errors) {
+                                errorMessage += `${field}: ${data.errors[field].join(", ")}\n`;
+                            }
+                        } else {
+                            errorMessage = data.message;
+                        }
+                        alert(errorMessage);
+                    }
+                } catch (error) {
+                    console.error("Error al parsear la respuesta como JSON:", error);
+                    alert("Hubo un error al procesar la respuesta del servidor. La respuesta no es válida.");
+                }
+    
+            } catch (error) {
+                console.error("Error al guardar la cita:", error);
+                alert("Hubo un error al agendar la cita. Intenta más tarde.");
+            }
+        });
+    });
+    </script>
+    
 
 
 
@@ -324,6 +317,73 @@ document.addEventListener("DOMContentLoaded", () => {
 
 .c-button--gooey:hover .c-button__blobs div {
   transform: scale(1.4) translateY(0) translateZ(0);
+}
+
+
+
+
+
+/* From Uiverse.io by TISEPSE */ 
+.btn2 {
+  position: relative;
+  display: inline-block;
+  padding: 15px 30px;
+  border: 2px solid #ffb7c2;
+  text-transform: uppercase;
+  color: #000000;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 20px;
+  transition: 0.3s;
+}
+
+.btn2::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% - -2px);
+  background-color: #ffb7c2;
+  transition: 0.3s ease-out;
+  transform: scaleY(1);
+}
+
+.btn2::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% - 50px);
+  background-color: #ffb7c2;
+  transition: 0.3s ease-out;
+  transform: scaleY(1);
+}
+
+.btn2:hover::before {
+  transform: translateY(-25px);
+  height: 0;
+}
+
+.btn2:hover::after {
+  transform: scaleX(0);
+  transition-delay: 0.15s;
+}
+
+.btn2:hover {
+  border: 2px solid #ffb7c2;
+}
+
+.btn2 span {
+  position: relative;
+  z-index: 3;
+}
+
+button {
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
 }
 </style>
 @endsection
