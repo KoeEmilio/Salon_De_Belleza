@@ -149,6 +149,8 @@
         text-align: center;
         margin-top: 20px;
     }
+
+    
 </style>
 @if(session('success'))
         <div class="alert alert-success custom-alert" role="alert">
@@ -191,14 +193,7 @@
                     </select>
                 </div>
 
-                <div class="card p-3 mb-4">
-                    <h5>Empleados</h5>
-                    <select class="form-select" id="Selectspecialist">
-                        <option value="" selected>Selecciona el Empleado</option>
-                        <option value="efectivo">efectivo</option>
-                        <option value="transferencia">transferencia</option>
-                    </select>
-                </div>
+              
 
             </div>
             
@@ -213,13 +208,13 @@
                             </div>
                         </div>
                         <div class="weekdays d-flex justify-content-between text-center mb-2">
-                            <div>Lun</div>
-                            <div>Mar</div>
-                            <div>Mié</div>
-                            <div>Jue</div>
-                            <div>Vie</div>
-                            <div>Sáb</div>
-                            <div>Dom</div>
+                            <div>Lunes</div>
+                            <div>Martes</div>
+                            <div>Miercoles</div>
+                            <div>Jueves</div>
+                            <div>Viernes</div>
+                            <div>Sábado</div>
+                            <div>Domingo</div>
                         </div>
                         <div class="days" id="calendar-days"></div>
                     </div>
@@ -255,42 +250,48 @@
         let currentMonth = today.getMonth();
         let currentYear = today.getFullYear();
 
-        // Función para renderizar el calendario
         function renderCalendar(month, year) {
-            const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-            currentMonthDisplay.innerText = `${months[month]} ${year}`;
+    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    currentMonthDisplay.innerText = `${months[month]} ${year}`;
 
-            const firstDayOfMonth = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            calendarDaysContainer.innerHTML = "";
+    const firstDayOfMonth = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    calendarDaysContainer.innerHTML = "";
 
-            for (let i = 0; i < firstDayOfMonth; i++) {
-                const emptyDiv = document.createElement('div');
-                calendarDaysContainer.appendChild(emptyDiv);
-            }
+    for (let i = 0; i < firstDayOfMonth; i++) {
+        const emptyDiv = document.createElement('div');
+        calendarDaysContainer.appendChild(emptyDiv);
+    }
 
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dayDiv = document.createElement('div');
-                dayDiv.classList.add('calendar-day');
-                dayDiv.textContent = day;
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.classList.add('calendar-day');
+        dayDiv.textContent = day;
 
-                const dayDate = new Date(year, month, day);
+        const dayDate = new Date(year, month, day);
+
                 if (dayDate < today) {
                     dayDiv.classList.add('disabled');
                     dayDiv.style.pointerEvents = 'none';
                 }
+                // Deshabilitar domingos
+        if (dayDate.getDay() === 0) { // 0 representa domingo
+            dayDiv.classList.add('disabled');
+            dayDiv.style.pointerEvents = 'none';
+            dayDiv.title = "No disponible los domingos";
+        }
 
-                dayDiv.addEventListener('click', function () {
-                    const selectedDay = document.querySelector('.calendar-day.selected');
-                    if (selectedDay) {
-                        selectedDay.classList.remove('selected');
-                    }
-                    dayDiv.classList.add('selected');
-                    checkFormCompletion();
-                    fetchAgendadasHoras(dayDate.toISOString().split('T')[0]);
-                });
+        dayDiv.addEventListener('click', function () {
+            const selectedDay = document.querySelector('.calendar-day.selected');
+            if (selectedDay) {
+                selectedDay.classList.remove('selected');
+            }
+            dayDiv.classList.add('selected');
+            checkFormCompletion();
+            fetchAgendadasHoras(dayDate.toISOString().split('T')[0]);
+        });
 
-                calendarDaysContainer.appendChild(dayDiv);
+        calendarDaysContainer.appendChild(dayDiv);
             }
         }
 

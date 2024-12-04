@@ -456,7 +456,7 @@
             </svg>
         </div>
         <nav class="popup-window">
-            <legend>Quick Start</legend>
+            <legend></legend>
             <ul>
                 @guest
                     <li><a href="{{ route('login') }}">Iniciar Sesión</a></li>

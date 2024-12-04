@@ -42,11 +42,11 @@
         }
 
         .fixed-background {
-            background-image: url('https://colorhaircolor.b-cdn.net/wp-content/uploads/2023/12/pink-hair-color-27.jpg');
+            background-image: url('/inicio3.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            height: 400px;
+            height: 500px;
         }
 
         .services-section {

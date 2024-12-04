@@ -170,8 +170,6 @@ Route::post('/citas/{id}/cancelar', [ClientePerfilController::class, 'cancelar']
 
 
 
-
-
 Route::post('/passwordmail', [UserController::class, 'passwordmail'])->name('passwordmail');
 Route::post('/register-person', [UserController::class, 'registerPerson'])->name('register.person');
 Route::get('/welcome', [InicioController::class, 'index'])->name('welcome');
@@ -184,6 +182,7 @@ Route::get('/paso1', function () { return view('cita1');});
 Route::get('/paso2', function () { return view('cita2');});
 Route::get('/paso3', function () { return view('cita3');});
 Route::post('/appointments/store', [AppointmentController::class, 'store'])->name('appointments.store');
+
 
 
 

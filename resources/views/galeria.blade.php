@@ -406,13 +406,13 @@
                         <div id="MESOTERAPIA" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="https://eternia.ec/Imagenes/Blog_images/mesoterapia-facial-quito.jpg" alt="Uñas 1">
+                                    <img src="/m3.jpg" alt="Uñas 1">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="https://th.bing.com/th/id/OIP.nJYrDTq2YyGbAd91YD_qAQHaE8?rs=1&pid=ImgDetMain" alt="Uñas 2">
+                                    <img src="/m2.jpg" alt="Uñas 2">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="https://clinicaesteticaoviedo.es/wp-content/uploads/2020/09/lipolysis-of-adipose-tissue-in-the-abdominal-regio-3BHUB23-min-scaled.jpg" alt="Uñas 2">
+                                    <img src="/m1.jpg" alt="Uñas 2">
                                 </div>
                                
                                 <!-- Añade más imágenes si es necesario -->
