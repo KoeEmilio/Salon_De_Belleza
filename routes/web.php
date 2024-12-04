@@ -206,7 +206,7 @@ Route::middleware(['auth', 'role:cliente'])->group(function () {
     Route::post('/guardar-cita', [AppointmentController::class, 'store']);
     Route::get('/agendadas-horas', [AppointmentController::class, 'getAgendadasHoras'])->name('agendadas.horas');        
     Route::post('/citas/{id}/cancelar', [ClientePerfilController::class, 'cancelar'])->name('citas.cancelar');
-    Route::post('/citas/{id}/cancelar', [ClientePerfilController::class, 'cancelar'])->name('citas.cancelar');
+  
     Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto');
     Route::get('/paso1', function () { return view('cita1');});
     Route::get('/paso2', function () { return view('cita2');});

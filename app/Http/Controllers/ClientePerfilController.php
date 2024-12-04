@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Log;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -102,7 +102,7 @@ class ClientePerfilController extends Controller
     
             return redirect()->back()->with('success', 'Cita cancelada correctamente.');
         } catch (\Exception $e) {
-            Log::error("Error al cancelar la cita: {$e->getMessage()}");
+            \Log::error("Error al cancelar la cita: {$e->getMessage()}");
             return redirect()->back()->withErrors('Error al cancelar la cita.');
         }
     }

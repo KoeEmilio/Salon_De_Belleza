@@ -42,10 +42,15 @@
 <p id="paymentMethodDisplay">No seleccionado</p>
 
 </div>
-
-<button>
-  <a href="/paso1" class="btn2"><span class="spn2">Atras</span></a>
-</button>  
+<a href="/paso1">
+<button  class="c-button c-button--gooey mt-4" >Atras
+    <div class="c-button__blobs">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</button>
+</a>
 
     <!-- Botón para agendar cita -->
     <button class="c-button c-button--gooey mt-4" id="agendarCitaBtn">Agendar Cita
@@ -174,6 +179,8 @@
 
 
 <style>
+
+    
 
 .hidden {
         display: none;

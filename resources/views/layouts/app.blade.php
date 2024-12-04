@@ -257,9 +257,9 @@
 }
 
 .popup .burger svg {
-    width: 100%;
-    height: 100%;
-    fill: #fff; /* Blanco para el icono */
+    width: 80%; /* Reducido al 50% del contenedor */
+    height: 80%; /* Reducido al 50% del contenedor */
+    fill: #f06292; /* Mantiene el color actual */
 }
 
 .popup-window {

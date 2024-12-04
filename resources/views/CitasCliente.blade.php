@@ -312,12 +312,6 @@
     border-color: #bbbbbb;
 }
 
-button.btn-cancelar:disabled {
-    background-color: #d6d6d6; /* Cambiar el color del botón */
-    color: #999;             /* Cambiar el color del texto */
-    cursor: not-allowed;     /* Cambiar el cursor */
-}
-
 
     </style>
 
@@ -358,17 +352,12 @@ button.btn-cancelar:disabled {
                                 <td data-label="Acciones">
                                     <form action="{{ route('citas.cancelar', $cita->id) }}" method="POST" style="display: inline;">
                                         @csrf
-                                        <button 
-                                            type="button" 
-                                            class="btn btn-warning btn-cancelar" 
-                                            data-id="{{ $cita->id }}"
-                                            @if($cita->status == 'cancelada') disabled @endif>
-                                            @if($cita->status == 'cancelada') Cancelada @else Cancelar @endif
+                                        <button type="submit" class="btn btn-warning" onclick="return confirm('¿Estás seguro de cancelar esta cita?')">
+                                            Cancelar
                                         </button>
                                     </form>
+                                    
                                 </td>
-                                
-                                
                                 
                                 
                                 
@@ -403,49 +392,28 @@ button.btn-cancelar:disabled {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  $(document).ready(function () {
-    // Deshabilitar el botón "Cancelar" si la cita ya está cancelada
-    $('.btn-cancelar').each(function() {
-        const status = $(this).text().trim().toLowerCase();
-        if (status === 'cancelada') {
-            $(this).prop('disabled', true);
-        }
+    $(document).ready(function () {
+        $('.btn-cancelar').on('click', function () {
+            const citaId = $(this).data('id');
+
+            if (confirm('¿Estás seguro de cancelar esta cita?')) {
+                $.ajax({
+                    url: `/citas/${citaId}/cancelar`,
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    success: function (response) {
+                        alert('Cita cancelada correctamente.');
+                        $(`#cita-${citaId}`).find('[data-label="Estado"]').text('cancelada');
+                    },
+                    error: function (xhr) {
+                        alert('Error al cancelar la cita.');
+                    }
+                });
+            }
+        });
     });
-
-    // Manejar el evento click para cancelar la cita
-    $('.btn-cancelar').on('click', function (event) {
-        event.preventDefault();  // Prevenir el comportamiento predeterminado del formulario
-
-        const citaId = $(this).data('id');
-        const button = $(this);
-
-        if (confirm('¿Estás seguro de cancelar esta cita?')) {
-            $.ajax({
-                url: /citas/${citaId}/cancelar,
-                type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                success: function (response) {
-                    alert('Cita cancelada correctamente.');
-                    
-                    // Cambiar el estado del botón
-                    button.prop('disabled', true);
-                    button.text('Cancelada'); // Cambiar el texto del botón
-
-                    // Actualizar el estado en la tabla
-                    $(#cita-${citaId}).find('[data-label="Estado"]').text('cancelada');
-                },
-                error: function (xhr) {
-                    alert('Error al cancelar la cita.');
-                }
-            });
-        }
-    });
-});
-
-
-
 </script>
 
 
