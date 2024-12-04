@@ -135,24 +135,6 @@
         color: #F06292;
     }
 
-    .btn-info {
-        background-color: #0288D1;
-        color: white;
-    }
-
-    .btn-info:hover {
-        background-color: #0277BD;
-    }
-
-    .btn-warning {
-        background-color: #FFB74D;
-        color: white;
-    }
-
-    .btn-warning:hover {
-        background-color: #FF9800;
-    }
-
     .btn i {
         margin-right: 5px;
     }
@@ -161,7 +143,92 @@
         background-color: #F8BBD0;
         border-color: #F8BBD0;
     }
+
+    /* RESPONSIVIDAD */
+    @media (max-width: 1200px) {
+        .table th, .table td {
+            font-size: 1rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 992px) {
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .table {
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            font-size: 0.9rem;
+            padding: 5px 10px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .d-flex {
+            flex-wrap: wrap;
+        }
+
+        .table {
+            font-size: 0.85rem;
+        }
+
+        .btn {
+            font-size: 0.8rem;
+            padding: 5px 8px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+        }
+
+        .pagination {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .page-link {
+            font-size: 0.8rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        h1 {
+            font-size: 1.3rem;
+        }
+
+        .table th, .table td {
+            font-size: 0.75rem;
+            padding: 10px;
+        }
+
+        .btn {
+            font-size: 0.75rem;
+            padding: 4px 6px;
+        }
+
+        .d-flex.justify-content-between {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .form-control {
+            margin-bottom: 10px;
+        }
+
+        .pagination {
+            font-size: 0.7rem;
+        }
+    }
 </style>
+
 
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
