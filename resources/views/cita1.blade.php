@@ -22,6 +22,8 @@
     body {
         font-family: Arial, sans-serif;
         background-color: #fff0f5;
+        margin: 0;
+        padding: 0;
     }
     .step {
         font-size: 1rem;
@@ -64,24 +66,21 @@
         color: #ff5c8a;
         margin-right: 10px;
     }
-    
     .card {
         border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1rem;
     }
-
     .calendar-container {
         background-color: #f9f9f9;
         padding: 15px;
         border-radius: 8px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
-
     .calendar-header {
         font-size: 1.2rem;
         margin-bottom: 10px;
     }
-
     .weekdays {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
@@ -89,19 +88,16 @@
         margin-bottom: 5px;
         font-weight: bold;
     }
-
     .weekdays div {
         font-size: 1rem;
         color: #ff5c8a;
     }
-
     .days {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         gap: 5px;
         justify-items: center;
     }
-
     .calendar-day {
         width: 40px;
         height: 40px;
@@ -113,32 +109,26 @@
         cursor: pointer;
         transition: background-color 0.3s;
     }
-
     .calendar-day:hover {
         background-color: #f0f0f0;
     }
-
     .calendar-day.selected {
         background-color: #007bff;
         color: #fff;
     }
-
     .calendar-day.disabled {
         background-color: #f0f0f0;
         color: #ddd;
         pointer-events: none;
     }
-
     .btn-light {
         color: #007bff;
         border-color: #007bff;
     }
-
     .btn-light:hover {
         background-color: #007bff;
         color: #fff;
     }
-
     .custom-alert {
         background-color: #ffb7c2;
         color: #ff5c8a;
@@ -149,9 +139,46 @@
         text-align: center;
         margin-top: 20px;
     }
+    .container {
+        padding: 15px;
+    }
 
-    
+    /* Responsividad */
+    @media (max-width: 768px) {
+        .progress-line {
+            display: none;
+        }
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            font-size: 1rem;
+        }
+        .calendar-day {
+            width: 35px;
+            height: 35px;
+        }
+        .calendar-header {
+            font-size: 1rem;
+        }
+    }
+    @media (max-width: 576px) {
+        .calendar-day {
+            width: 30px;
+            height: 30px;
+            font-size: 0.9rem;
+        }
+        .calendar-container {
+            padding: 10px;
+        }
+        .card {
+            padding: 10px;
+        }
+        .step {
+            font-size: 0.9rem;
+        }
+    }
 </style>
+
 @if(session('success'))
         <div class="alert alert-success custom-alert" role="alert">
             <i class="bx bxs-envelope"></i> {{ session('success') }}
@@ -205,13 +232,14 @@
                             </div>
                         </div>
                         <div class="weekdays d-flex justify-content-between text-center mb-2">
-                            <div>Lunes</div>
-                            <div>Martes</div>
-                            <div>Miercoles</div>
-                            <div>Jueves</div>
-                            <div>Viernes</div>
-                            <div>Sábado</div>
-                            <div>Domingo</div>
+                            <div>Dom</div>
+                            <div>Lun</div>
+                            <div>Mar</div>
+                            <div>Mie</div>
+                            <div>Jue</div>
+                            <div>Vie</div>
+                            <div>Sáb</div>
+                            
                         </div>
                         <div class="days" id="calendar-days"></div>
                     </div>
@@ -233,182 +261,142 @@
     </div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const calendarDaysContainer = document.getElementById('calendar-days');
-        const currentMonthDisplay = document.getElementById('current-month');
-        const prevMonthButton = document.getElementById('prev-month');
-        const nextMonthButton = document.getElementById('next-month');
-        const timeSelect = document.getElementById('timeSelect');
-        const continueBtn = document.getElementById('continueBtn');
-        const serviciosLista = document.getElementById("servicios-seleccionados");
-        const paymentSelect = document.getElementById("employeeSelect");
+  document.addEventListener("DOMContentLoaded", function () {
+    const calendarDaysContainer = document.getElementById('calendar-days');
+    const currentMonthDisplay = document.getElementById('current-month');
+    const prevMonthButton = document.getElementById('prev-month');
+    const nextMonthButton = document.getElementById('next-month');
+    const timeSelect = document.getElementById('timeSelect');
+    const continueBtn = document.getElementById('continueBtn');
+    const serviciosLista = document.getElementById("servicios-seleccionados");
+    const paymentSelect = document.getElementById("employeeSelect");
 
-        const today = new Date();
-        let currentMonth = today.getMonth();
-        let currentYear = today.getFullYear();
+    const today = new Date();
+    let currentMonth = today.getMonth();
+    let currentYear = today.getFullYear();
 
-        function renderCalendar(month, year) {
-    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    currentMonthDisplay.innerText = `${months[month]} ${year}`;
+    function renderCalendar(month, year) {
+        const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        currentMonthDisplay.innerText = `${months[month]} ${year}`;
 
-    const firstDayOfMonth = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    calendarDaysContainer.innerHTML = "";
+        const firstDayOfMonth = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        calendarDaysContainer.innerHTML = "";
 
-    for (let i = 0; i < firstDayOfMonth; i++) {
-        const emptyDiv = document.createElement('div');
-        calendarDaysContainer.appendChild(emptyDiv);
+        for (let i = 0; i < firstDayOfMonth; i++) {
+            const emptyDiv = document.createElement('div');
+            calendarDaysContainer.appendChild(emptyDiv);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayDiv = document.createElement('div');
+            dayDiv.classList.add('calendar-day');
+            dayDiv.textContent = day;
+
+            const dayDate = new Date(year, month, day);
+
+            if (dayDate < today || dayDate.getDay() === 0) {
+                dayDiv.classList.add('disabled');
+                dayDiv.style.pointerEvents = 'none';
+            } else {
+                dayDiv.addEventListener('click', function () {
+                    const selectedDay = document.querySelector('.calendar-day.selected');
+                    if (selectedDay) {
+                        selectedDay.classList.remove('selected');
+                    }
+                    dayDiv.classList.add('selected');
+                    checkFormCompletion();
+                    fetchAgendadasHoras(dayDate.toISOString().split('T')[0]);
+                });
+            }
+
+            calendarDaysContainer.appendChild(dayDiv);
+        }
     }
 
-    for (let day = 1; day <= daysInMonth; day++) {
-        const dayDiv = document.createElement('div');
-        dayDiv.classList.add('calendar-day');
-        dayDiv.textContent = day;
+    function checkFormCompletion() {
+        const selectedDate = document.querySelector('.calendar-day.selected');
+        const selectedTime = timeSelect.value;
+        const selectedPayment = paymentSelect.value;
 
-        const dayDate = new Date(year, month, day);
+        continueBtn.disabled = !(selectedDate && selectedTime && selectedPayment);
+    }
 
-                if (dayDate < today) {
-                    dayDiv.classList.add('disabled');
-                    dayDiv.style.pointerEvents = 'none';
-                }
-                // Deshabilitar domingos
-        if (dayDate.getDay() === 0) { // 0 representa domingo
-            dayDiv.classList.add('disabled');
-            dayDiv.style.pointerEvents = 'none';
-            dayDiv.title = "No disponible los domingos";
+    paymentSelect.addEventListener("change", checkFormCompletion);
+    timeSelect.addEventListener("change", checkFormCompletion);
+
+    continueBtn.addEventListener("click", () => {
+        const selectedDate = document.querySelector('.calendar-day.selected');
+        const selectedTime = timeSelect.value;
+        const selectedPayment = paymentSelect.value;
+
+        if (!selectedDate || !selectedTime || !selectedPayment) {
+            alert("Por favor, selecciona una fecha, hora y tipo de pago antes de continuar.");
+            return;
         }
 
-        dayDiv.addEventListener('click', function () {
-            const selectedDay = document.querySelector('.calendar-day.selected');
-            if (selectedDay) {
-                selectedDay.classList.remove('selected');
-            }
-            dayDiv.classList.add('selected');
-            checkFormCompletion();
-            fetchAgendadasHoras(dayDate.toISOString().split('T')[0]);
-        });
+        const selectedDay = selectedDate.textContent;
+        const selectedDateValue = new Date(currentYear, currentMonth, selectedDay)
+            .toISOString()
+            .split("T")[0];
 
-        calendarDaysContainer.appendChild(dayDiv);
-            }
-        }
+        localStorage.setItem("selectedDate", selectedDateValue);
+        localStorage.setItem("selectedTime", selectedTime);
+        localStorage.setItem("selectedPayment", selectedPayment);
 
-        // Navegar por meses
-        prevMonthButton.addEventListener('click', function () {
-            if (currentMonth === 0) {
-                currentMonth = 11;
-                currentYear--;
-            } else {
-                currentMonth--;
-            }
-            renderCalendar(currentMonth, currentYear);
-        });
-
-        nextMonthButton.addEventListener('click', function () {
-            if (currentMonth === 11) {
-                currentMonth = 0;
-                currentYear++;
-            } else {
-                currentMonth++;
-            }
-            renderCalendar(currentMonth, currentYear);
-        });
-
-        // Validación del formulario
-        function checkFormCompletion() {
-            const selectedDate = document.querySelector('.calendar-day.selected');
-            const selectedTime = timeSelect.value;
-            const selectedPayment = paymentSelect.value;
-
-            // El formulario no se puede continuar sin hora seleccionada
-            if (selectedDate && selectedTime && selectedPayment) {
-                continueBtn.disabled = false; // Habilitar el botón si todo está seleccionado
-            } else {
-                continueBtn.disabled = true; // Deshabilitar el botón si falta alguna opción
-            }
-        }
-
-        // Configurar tipo de pago
-        paymentSelect.addEventListener("change", function () {
-            checkFormCompletion();
-        });
-
-        // Continuar a la siguiente vista
-        continueBtn.addEventListener("click", () => {
-            const selectedDate = document.querySelector('.calendar-day.selected');
-            const selectedTime = timeSelect.value;
-            const selectedPayment = paymentSelect.value;
-
-            if (!selectedDate || !selectedTime || !selectedPayment) {
-                alert("Por favor, selecciona una fecha, hora y tipo de pago antes de continuar.");
-                return;
-            }
-
-            // Guardar en localStorage
-            const selectedDay = selectedDate.textContent;
-            const selectedDateValue = new Date(currentYear, currentMonth, selectedDay)
-                .toISOString()
-                .split("T")[0];
-
-            localStorage.setItem("selectedDate", selectedDateValue);
-            localStorage.setItem("selectedTime", selectedTime);
-            localStorage.setItem("selectedPayment", selectedPayment);
-
-            // Redirigir a la siguiente vista
-            window.location.href = "/paso2";
-        });
-
-        // Renderizar servicios seleccionados
-        const serviciosSeleccionados = JSON.parse(localStorage.getItem("serviciosAgregados")) || [];
-        function renderizarServicios() {
-            serviciosLista.innerHTML = ""; // Limpiar la lista actual
-            serviciosSeleccionados.forEach(servicio => {
-                const listItem = document.createElement("li");
-                listItem.className = "list-group-item";
-                listItem.textContent = servicio;
-                serviciosLista.appendChild(listItem);
-            });
-        }
-
-        renderizarServicios(); // Llamar al cargar la página
-        renderCalendar(currentMonth, currentYear); // Inicializar el calendario
-
-        // Función para obtener las horas agendadas
-        function fetchAgendadasHoras(fecha) {
-            const url = `/agendadas-horas?fecha=${fecha}`;
-            console.log('Solicitando URL:', url);
-
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Error HTTP! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (!Array.isArray(data)) {
-                        throw new Error('La respuesta no es un array válido.');
-                    }
-                    console.log('Horas agendadas:', data);
-
-                    const options = document.querySelectorAll('#timeSelect option');
-                    options.forEach(option => {
-                        const optionValue = option.value + ':00'; // Asegurarse de que el formato sea HH:mm:ss
-                        console.log(`Comparando ${optionValue} con ${data}`);
-                        if (data.includes(optionValue)) {
-                            option.disabled = true;
-                            option.classList.add('disabled');
-                        } else {
-                            option.disabled = false;
-                            option.classList.remove('disabled');
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error al obtener las horas agendadas:', error);
-                    alert('No se pudieron obtener las horas agendadas. Intente de nuevo más tarde.');
-                });
-        }
+        window.location.href = "/paso2";
     });
+
+    const serviciosSeleccionados = JSON.parse(localStorage.getItem("serviciosAgregados")) || [];
+    function renderizarServicios() {
+        serviciosLista.innerHTML = "";
+        serviciosSeleccionados.forEach(servicio => {
+            const listItem = document.createElement("li");
+            listItem.className = "list-group-item";
+            listItem.textContent = servicio;
+            serviciosLista.appendChild(listItem);
+        });
+    }
+
+    renderizarServicios();
+    renderCalendar(currentMonth, currentYear);
+
+    prevMonthButton.addEventListener('click', function () {
+        if (currentMonth === 0) {
+            currentMonth = 11;
+            currentYear--;
+        } else {
+            currentMonth--;
+        }
+        renderCalendar(currentMonth, currentYear);
+    });
+
+    nextMonthButton.addEventListener('click', function () {
+        if (currentMonth === 11) {
+            currentMonth = 0;
+            currentYear++;
+        } else {
+            currentMonth++;
+        }
+        renderCalendar(currentMonth, currentYear);
+    });
+
+    function fetchAgendadasHoras(fecha) {
+        const url = `/agendadas-horas?fecha=${fecha}`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const options = document.querySelectorAll('#timeSelect option');
+                options.forEach(option => {
+                    const optionValue = option.value + ':00';
+                    option.disabled = data.includes(optionValue);
+                });
+                checkFormCompletion(); // Verificar cada vez que se actualicen las horas
+            })
+            .catch(error => console.error('Error al obtener las horas agendadas:', error));
+    }
+});
+
     </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 

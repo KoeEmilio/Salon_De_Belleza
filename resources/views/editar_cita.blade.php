@@ -52,7 +52,7 @@
             <label for="appointment_time" class="form-label" style="color: #00000;">Hora de la Cita</label>
             <input type="time" name="appointment_time" id="appointment_time" class="form-control" style="border: 1px solid #fe889f;" value="{{ $cita->appointment_time }}" required>
         </div>
-
+      
         <!-- Estado -->
         <div class="mb-3">
             <label for="status" class="form-label" style="color: #00000;">Estado</label>
@@ -75,6 +75,11 @@
         <!-- Botón Actualizar -->
         <div class="text-center">
             <button type="submit" class="btn" style="background-color: #fe889f; color: #fff; border-radius: 20px; padding: 10px 20px;">Actualizar Cita</button>
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ route('appointment.index') }}" class="btn">
+                Regresar
+            </a>
         </div>
     </form>
 </div>

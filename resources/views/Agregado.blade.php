@@ -1,14 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMF2Mj0O4b2J4g0mEEnE0Hq4Lg0Ub4PhG6fO0" crossorigin="anonymous">
 <div class="container mt-5">
   <h1 class="text-center mb-4">Servicios Agregados</h1>
   <ul id="servicios-lista" class="list-group mb-4"></ul>
+  <p id="mensaje-vacio" class="text-center text-muted" style="display: none;">No hay servicios seleccionados.</p>
   
   <div class="d-flex justify-content-end align-items-center">
     <button id="agendar-btn" onclick="window.location.href='{{ route('carga') }}'" class="c-button c-button--gooey" style="display: none;"> 
-      AGENDAR
+      Agendar
       <div class="c-button__blobs">
         <div></div>
         <div></div>
@@ -17,12 +19,19 @@
     </button>
   </div>
 </div>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br><br><br>
+<br><br><br><br><br>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
   let servicios = JSON.parse(localStorage.getItem('serviciosAgregados')) || [];
   const lista = document.getElementById('servicios-lista');
   const agendarBtn = document.getElementById('agendar-btn');
+  const mensajeVacio = document.getElementById('mensaje-vacio');
 
   // Eliminar duplicados
   servicios = [...new Set(servicios)];
@@ -30,13 +39,16 @@
 
   function renderServicios() {
     lista.innerHTML = '';
-    servicios.forEach((servicio, index) => {
-      const listItem = document.createElement('li');
-      listItem.className = 'list-group-item d-flex justify-content-between align-items-center list-item';
-      listItem.textContent = servicio;
+    if (servicios.length === 0) {
+      mensajeVacio.style.display = 'block';
+    } else {
+      mensajeVacio.style.display = 'none';
+      servicios.forEach((servicio, index) => {
+        const listItem = document.createElement('li');
+        listItem.className = 'list-group-item d-flex justify-content-between align-items-center list-item';
+        listItem.textContent = servicio;
 
-    
-      const deleteButton = document.createElement('button');
+        const deleteButton = document.createElement('button');
         deleteButton.className = 'button delete-button';
         deleteButton.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 69 14" class="svgIcon bin-top">
@@ -52,6 +64,7 @@
             <defs><clipPath id="clip0_35_22"><rect fill="white" height="57" width="69"></rect></clipPath></defs>
           </svg>
         `;
+
         deleteButton.onclick = () => {
           eliminarServicio(index);
         };
@@ -59,14 +72,16 @@
         listItem.appendChild(deleteButton);
         lista.appendChild(listItem);
       });
-      agendarBtn.style.display = servicios.length > 0 ? 'inline-block' : 'none';
     }
 
-    function eliminarServicio(index) {
-      servicios.splice(index, 1); 
-      localStorage.setItem('serviciosAgregados', JSON.stringify(servicios)); 
-      renderServicios();
-    }
+    agendarBtn.style.display = servicios.length > 0 ? 'inline-block' : 'none';
+  }
+
+  function eliminarServicio(index) {
+    servicios.splice(index, 1); 
+    localStorage.setItem('serviciosAgregados', JSON.stringify(servicios)); 
+    renderServicios();
+  }
 
   renderServicios();
 });
