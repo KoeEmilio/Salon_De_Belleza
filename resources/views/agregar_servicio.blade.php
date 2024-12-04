@@ -57,32 +57,32 @@
             <input type="number" name="total_price" id="total_price" class="form-control" readonly>
         </div>
 
-        <button type="submit" class="btn btn-pink w-100 py-2 mt-3">Agregar Servicio</button>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-4 gap-3">
+            <a href="{{ route('service.index', ['appointmentId' => $cita->id]) }}" class="btn btn-pink w-100 w-md-50 py-2">
+                Regresar
+            </a>
+            <button type="submit" class="btn btn-pink w-100 w-md-50 py-2">Agregar Servicio</button>
+        </div>
     </form>
 </div>
 
 <script>
-    // Función para actualizar los precios y la duración cuando se selecciona un servicio o tipo de cabello
     function updatePriceAndDuration() {
         var servicePrice = parseFloat(document.getElementById("service_id").selectedOptions[0].getAttribute("data-price")) || 0;
         var serviceDuration = document.getElementById("service_id").selectedOptions[0].getAttribute("data-duration") || '0';
         var hairPrice = parseFloat(document.getElementById("hair_type_id").selectedOptions[0].getAttribute("data-price")) || 0;
         var quantity = parseInt(document.getElementById("quantity").value) || 1;
     
-        // Actualizar los precios de servicio, tipo de cabello y duración
         document.getElementById("unit_price").value = servicePrice;
         document.getElementById("hair_extra_price").value = hairPrice;
         document.getElementById("duration").value = serviceDuration;
     
-        // Recalcular el precio total
         var totalPrice = (servicePrice + hairPrice) * quantity;
         document.getElementById("total_price").value = totalPrice.toFixed(2);
     }
     
-    // Asegurarse de recalcular el precio cuando cambie la cantidad
     document.getElementById('quantity').addEventListener('input', updatePriceAndDuration);
     
-    // Ejecutar la función para inicializar los valores por defecto al cargar la página
     window.onload = function() {
         updatePriceAndDuration();
     };
@@ -121,8 +121,8 @@
     }
 
     .btn-pink:hover {
-        background-color: #ffb7c2;
-        border-color: #ffb7c2;
+        background-color: #ff9eaa;
+        border-color: #ff9eaa;
     }
 
     .form-label {
@@ -141,6 +141,10 @@
     .py-5 {
         padding-top: 3rem;
         padding-bottom: 3rem;
+    }
+
+    .gap-3 {
+        gap: 1rem;
     }
 </style>
 @endsection

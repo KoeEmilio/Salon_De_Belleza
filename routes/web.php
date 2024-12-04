@@ -27,7 +27,7 @@ use App\Http\Controllers\Recepcionista_Cliente_Controller;
 use App\Http\Controllers\RecepcionistaController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ServicioHomeController;
+use App\Http\Controllers\serviciohomeController;
 use App\Http\Controllers\HorasController;
 
 
@@ -35,6 +35,7 @@ use App\Http\Controllers\FavoritosController;
 use App\Http\Controllers\HorasTrabajadasController;
 use App\Http\Controllers\NominaController;
 use App\Http\Controllers\NominasController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PasswordsController    ;
 use App\Http\Controllers\RecepcionistaServiciosController;
 use App\Http\Controllers\TrabajosController;
@@ -58,40 +59,27 @@ Route::get('/', function () {
 });
 
 
-
-Route::middleware('guest')->group(function () {
-    // Mostrar el formulario para solicitar el restablecimiento de la contraseña
     Route::get('/forgot-password', [PasswordsController::class, 'showForgotPasswordForm'])
         ->name('custom.password.request');
 
-    // Enviar el enlace de restablecimiento con firma
     Route::post('/forgot-password', [PasswordsController::class, 'sendSignedResetLink'])
         ->name('custom.password.email');
 
-    // Mostrar el formulario para restablecer la contraseña con firma
     Route::get('/reset-password/{user}', [PasswordsController::class, 'showSignedResetForm'])
     ->name('custom.password.reset')
     ->middleware('signed');
- 
 
     Route::PUT('/reset-password', [PasswordsController::class, 'resetPassword'])
     ->name('custom.password.update');
-});
-
-
 
 Route::post('/enviar-mensaje', [ContactController::class, 'sendMessage']);
 
-Route::get('/graficas',[ServicioController::class, 'serviciosmes'])->name('graficaMes');
-// Rutas de perfil
+
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/citas', [ClientePerfilController::class, 'citas'])->name('cliente.citas');
-    Route::get('/perfil', [ClientePerfilController::class, 'DatosCliente'])->name('cliente.perfil');
-});
+
 
 Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -106,6 +94,8 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::post('/register-service', [ServiciosController::class, 'registerServiceAndType'])->name('register.service');
     Route::get('/graficas',[ServicioController::class, 'serviciosmes'])->name('graficaMes');
     Route::put('/usuario/{id}/actualizar-rol', [DashboardController::class, 'actualizarRol'])->name('actualizar_rol');
+    Route::get('/idk', [DashboardController::class, 'buscar'])->name('buscar.usuario');
+    
 
 
 Route::get('nominas/{empleado_id}', [NominaController::class, 'index'])->name('nominas.index');
@@ -150,68 +140,19 @@ Route::delete('/horas_trabajadas/{nomina_id}/{empleado_id}/{id}', [HorasTrabajad
 
 Route::middleware(['auth', 'role:recepcionista'])->group(function () {
     Route::get('/inicio_recepcionista', [RecepcionistaController::class, 'index'])->name('recepcionista.inicio');
-});
 
-Route::middleware(['auth', 'role:cliente'])->group(function () {
-    Route::get('/carga', function () { return view('carga');})->name('carga');
-    Route::view('/paso1', 'cita1')->name('paso1');
-    Route::post('/guardar-cita', [AppointmentController::class, 'store'])->name('appointment.store');
-    Route::post('/guardar-cita', [AppointmentController::class, 'store'])->name('guardar.cita');
-    // web.php (Ruta)
-    Route::post('/guardar-cita', [CitasController::class, 'guardarCita']);
-    Route::post('/guardar-cita', [AppointmentController::class, 'guardarCita'])->name('guardarCita');
-    Route::post('/guardar-cita', [AppointmentController::class, 'store']);
-    Route::get('/agendadas-horas', [AppointmentController::class, 'getAgendadasHoras'])->name('agendadas.horas');        
-    
-});
-
-Route::post('/citas/{id}/cancelar', [ClientePerfilController::class, 'cancelar'])->name('citas.cancelar');
-
-
-
-
-
-
-Route::post('/passwordmail', [UserController::class, 'passwordmail'])->name('passwordmail');
-Route::post('/register-person', [UserController::class, 'registerPerson'])->name('register.person');
-Route::get('/welcome', [InicioController::class, 'index'])->name('welcome');
-Route::get('/servicio', [ServicioHomeController::class, 'index'])->name('servicio');
-Route::get('/galeria', [GaleriaController::class, 'index'])->name('galeria');
-
-
-Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto');
-Route::get('/paso1', function () { return view('cita1');});
-Route::get('/paso2', function () { return view('cita2');});
-Route::get('/paso3', function () { return view('cita3');});
-Route::post('/appointments/store', [AppointmentController::class, 'store'])->name('appointments.store');
-
-
-
-Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
-Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado');
-Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
-
-
-// Rutas para usuarios
-Route::post('/users/{id}/assign-role', [UserController::class, 'assignRole']);
-Route::get('/users/{id}/roles', [UserController::class, 'getUserRoles']);
-
-// Rutas con prefijo recepcionista
 Route::prefix('recepcionista')->group(function () {
     Route::get('/dashboard', [RecepcionistaController::class, 'index'])->name('recepcionista.dashboard');
     Route::get('/citas', [RecepcionistaController::class, 'citas'])->name('recepcionista.citas');
     Route::get('/clientes', [RecepcionistaController::class, 'clientes'])->name('recepcionista.clientes');
     Route::get('/servicios', [RecepcionistaController::class, 'servicios'])->name('recepcionista.servicios');
 
-    // Rutas para citas
-    Route::get('/recepcionista/citas', [CitasRecepcionistaController::class, 'index'])->name('appointment.index');
+Route::get('/recepcionista/citas', [CitasRecepcionistaController::class, 'index'])->name('appointment.index');
 Route::get('/recepcionista/citas/{id}/editar', [CitasRecepcionistaController::class, 'edit'])->name('appointment.edit');
 Route::put('/recepcionista/citas/{id}', [CitasRecepcionistaController::class, 'update'])->name('appointment.update');
 Route::get('appointments/create', [CitasRecepcionistaController::class, 'create'])->name('appointment.create');
 Route::post('appointments', [CitasRecepcionistaController::class, 'store'])->name('appointment.store');
 
-
-// servicios a citas
 Route::get('recepcionista/appointment/{appointmentId}/services', [RecepcionistaServiciosController::class, 'index'])->name('service.index');
 Route::get('recepcionista/appointment/{appointmentId}/services/create', [RecepcionistaServiciosController::class, 'create'])->name('service.create');
 Route::post('recepcionista/appointment/{appointmentId}/services', [RecepcionistaServiciosController::class, 'store'])->name('service.store');
@@ -224,25 +165,17 @@ Route::get('/', [ServiciosController::class, 'index'])->name('servicios_recepcio
         Route::get('{id}/servicios', [ServicioController::class, 'index'])->name('recepcionista.citas.servicios');
     }); 
 
-    Route::prefix('servicios')->group(function () {
-        
-
-        // Rutas para los servicios asociados a una cita
-        Route::prefix('servi')->group(function () {
-// Mostrar servicios asociados a una cita
+Route::prefix('servicios')->group(function () {
+Route::prefix('servi')->group(function () {
 Route::get('/citas/{appointmentId}/servicios', [ServicioController::class, 'index'])->name('servi.index');
-
-// Crear un servicio para una cita específica
 Route::get('/citas/{appointmentId}/servicios/create', [ServicioController::class, 'create'])->name('servi.create');
-
-// Guardar el servicio asociado a una cita
 Route::post('/citas/{appointmentId}/servicios', [ServicioController::class, 'store'])->name('servi.store');
-
-// Eliminar un servicio de una cita
 Route::delete('/citas/{appointmentId}/servicios/{serviceId}', [ServicioController::class, 'destroy'])->name('servi.destroy');
 
 
-
+Route::post('/orders/create/{appointment}', [OrderController::class, 'createOrder'])->name('orders.create');
+Route::post('orders/{orderId}/assign-employee', [OrderController::class, 'assignEmployee'])->name('orders.assignEmployee');
+Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
         });
         
@@ -258,14 +191,49 @@ Route::delete('/citas/{appointmentId}/servicios/{serviceId}', [ServicioControlle
         Route::delete('/{id}', [Recepcionista_Cliente_Controller::class, 'destroy'])->name('clientes.destroy');
     });
 
-
-
-
     Route::get('/clientes/{id}', [VerDetalleClienteController::class, 'show'])->name('clientes.show');
     Route::get('/clientes/{cliente}/historial-citas', [HistorialCitaClienteController::class, 'index'])->name('clientes.historial_citas');
 });
+});
+
+Route::middleware(['auth', 'role:cliente'])->group(function () {
+    Route::get('/carga', function () { return view('carga');})->name('carga');
+    Route::view('/paso1', 'cita1')->name('paso1');
+    Route::post('/guardar-cita', [AppointmentController::class, 'store'])->name('appointment.store');
+    Route::post('/guardar-cita', [AppointmentController::class, 'store'])->name('guardar.cita');
+    Route::post('/guardar-cita', [CitasController::class, 'guardarCita']);
+    Route::post('/guardar-cita', [AppointmentController::class, 'guardarCita'])->name('guardarCita');
+    Route::post('/guardar-cita', [AppointmentController::class, 'store']);
+    Route::get('/agendadas-horas', [AppointmentController::class, 'getAgendadasHoras'])->name('agendadas.horas');        
+    Route::post('/citas/{id}/cancelar', [ClientePerfilController::class, 'cancelar'])->name('citas.cancelar');
+    Route::post('/citas/{id}/cancelar', [ClientePerfilController::class, 'cancelar'])->name('citas.cancelar');
+    Route::get('/contacto', [ContactoController::class, 'index'])->name('contacto');
+    Route::get('/paso1', function () { return view('cita1');});
+    Route::get('/paso2', function () { return view('cita2');});
+    Route::get('/paso3', function () { return view('cita3');});
+    Route::post('/appointments/store', [AppointmentController::class, 'store'])->name('appointments.store');
+    Route::get('/citas', [ClientePerfilController::class, 'citas'])->name('cliente.citas');
+    Route::get('/perfil', [ClientePerfilController::class, 'DatosCliente'])->name('cliente.perfil');
+
+
+});
+
+Route::post('/passwordmail', [UserController::class, 'passwordmail'])->name('passwordmail');
+Route::post('/register-person', [UserController::class, 'registerPerson'])->name('register.person');
+Route::get('/welcome', [InicioController::class, 'index'])->name('welcome');
+Route::get('/servicio', [serviciohomeController::class, 'index'])->name('servicio');
+Route::get('/galeria', [GaleriaController::class, 'index'])->name('galeria');
+
+Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
+Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado');
+Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
+
+
+// Rutas para usuarios
+Route::post('/users/{id}/assign-role', [UserController::class, 'assignRole']);
+Route::get('/users/{id}/roles', [UserController::class, 'getUserRoles']);
+
+
 
 // Incluir rutas de autenticación
 require __DIR__.'/auth.php'; 
-
-

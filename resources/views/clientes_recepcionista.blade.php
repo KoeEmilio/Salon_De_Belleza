@@ -47,11 +47,11 @@
         </tbody>
     </table>
 
-    <!-- Paginación de Bootstrap -->
+    
     <div class="d-flex justify-content-center mt-4">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <!-- Páginas anteriores -->
+               
                 @if ($clientes->onFirstPage())
                     <li class="page-item disabled">
                         <span class="page-link">Anterior</span>
@@ -62,14 +62,14 @@
                     </li>
                 @endif
 
-                <!-- Páginas numeradas -->
+                
                 @foreach ($clientes->getUrlRange(1, $clientes->lastPage()) as $page => $url)
                     <li class="page-item {{ $page == $clientes->currentPage() ? 'active' : '' }}">
                         <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                     </li>
                 @endforeach
 
-                <!-- Páginas siguientes -->
+               
                 @if ($clientes->hasMorePages())
                     <li class="page-item">
                         <a class="page-link" href="{{ $clientes->nextPageUrl() }}" aria-label="Next">Siguiente</a>

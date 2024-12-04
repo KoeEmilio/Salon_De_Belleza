@@ -10,17 +10,14 @@
         @method('PUT')
 
         <!-- Selección del Servicio -->
-        <div class="form-group">
-            <label for="service_id" style="color: #ff4d88;">Servicio</label>
-            <select name="service_id" id="service_id" class="form-control" required onchange="updatePriceAndDuration()" style="background-color: #f1f1f1;">
-                <option value="">Selecciona un servicio</option>
-                @foreach ($services as $service)
-                    <option value="{{ $service->id }}" data-price="{{ $service->price }}" data-duration="{{ $service->duration }}" {{ $serviceDetail->service_id == $service->id ? 'selected' : '' }}>
-                        {{ $service->service_name }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
+        <select name="service_id" id="service_id" class="form-control" required onchange="updatePriceAndDuration()">
+            <option value="">Selecciona un servicio</option>
+            @foreach ($services as $service)
+                <option value="{{ $service->id }}" data-price="{{ $service->price }}" data-duration="{{ $service->duration }}" {{ $serviceDetail->service_id == $service->id ? 'selected' : '' }}>
+                    {{ $service->service_name }}
+                </option>
+            @endforeach
+        </select>
 
         <!-- Selección del Tipo de Cabello -->
         <div class="form-group">
@@ -65,40 +62,51 @@
             <input type="number" name="total_price" id="total_price" class="form-control" value="{{ old('total_price', $serviceDetail->total_price) }}" readonly style="background-color: #f1f1f1;">
         </div>
 
-        <button type="submit" class="btn" style="background-color: #ff4d88; color: white; border-radius: 5px; padding: 10px 20px;">Actualizar Servicio</button>
+        <!-- Botones de Acción -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-4 gap-3">
+            <a href="{{ route('service.index', ['appointmentId' => $cita->id]) }}" class="btn action-btn w-100 w-md-50 py-2">
+                Regresar
+            </a>
+            <button type="submit" class="btn action-btn w-100 w-md-50 py-2">Actualizar Servicio</button>
+        </div>
     </form>
 
     <script>
-        // Función para actualizar los precios y la duración cuando se selecciona un servicio o tipo de cabello
         function updatePriceAndDuration() {
             var servicePrice = parseFloat(document.getElementById("service_id").selectedOptions[0].getAttribute("data-price")) || 0;
             var serviceDuration = document.getElementById("service_id").selectedOptions[0].getAttribute("data-duration") || '0';
             var hairPrice = parseFloat(document.getElementById("hair_type_id").selectedOptions[0].getAttribute("data-price")) || 0;
             var quantity = parseInt(document.getElementById("quantity").value) || 1;
 
-            // Actualizar los precios de servicio, tipo de cabello y duración
             document.getElementById("unit_price").value = servicePrice;
             document.getElementById("hair_extra_price").value = hairPrice;
             document.getElementById("duration").value = serviceDuration;
 
-            // Recalcular el precio total
             var totalPrice = (servicePrice + hairPrice) * quantity;
-            document.getElementById("total_price").value = totalPrice.toFixed(2);
+            document.getElementById("total_price").value = totalPrice;
         }
-
-        // Asegurarse de recalcular el precio cuando cambie la cantidad
-        document.getElementById('quantity').addEventListener('input', updatePriceAndDuration);
-
-        // Ejecutar la función para inicializar los valores por defecto al cargar la página
-        window.onload = function() {
-            updatePriceAndDuration();
-        };
     </script>
 </div>
+
+
 <style>
     body {
         font-family: Arial, sans-serif;
         background-color: #fff0f5;
     }
-    </style>
+
+    .action-btn {
+        background-color: #ff4d88;
+        color: white;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .action-btn:hover {
+        background-color: #e04378;
+    }
+</style>
 @endsection

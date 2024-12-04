@@ -51,7 +51,7 @@
             <label for="appointment_time" class="form-label" style="color: #fe889f;">Hora de la Cita</label>
             <input type="time" name="appointment_time" id="appointment_time" class="form-control" style="border: 2px solid #000000;" required>
         </div>
-
+        
         <!-- Estado -->
         <div class="mb-3">
             <label for="status" class="form-label" style="color: #fe889f;">Estado</label>
@@ -84,6 +84,11 @@
         <button class="btn">
                Guardar Cita
             </button>
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ route('appointment.index') }}" class="btn">
+                Regresar
+            </a>
         </div>
     </form>
 </div>
