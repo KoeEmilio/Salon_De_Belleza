@@ -39,7 +39,7 @@ class ServicioController extends Controller
     public function serviciosmes()
     {
         $serviciosAgendados = ServiceDetail::selectRaw('service_id, COUNT(*) as total')
-            ->whereMonth('created_at', Carbon::now()->month)
+            ->whereMonth('created_at', 12)
             ->groupBy('service_id')
             ->with('service:id,service_name') 
             ->get();
@@ -56,7 +56,7 @@ class ServicioController extends Controller
         $months = $data->pluck('month')->toArray();
         $earnings = $data->pluck('total_earnings')->toArray();
 
-        return view('graficas_admin', compact('serviciosAgendados', 'months', 'earnings'));
+        return view('Graficas_admin', compact('serviciosAgendados', 'months', 'earnings'));
     }
 
 

@@ -390,31 +390,56 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('.btn-cancelar').on('click', function () {
-            const citaId = $(this).data('id');
+  $('.btn-cancelar').on('click', function () {
+    const citaId = $(this).data('id');
 
-            if (confirm('¿Estás seguro de cancelar esta cita?')) {
-                $.ajax({
-                    url: `/citas/${citaId}/cancelar`,
-                    type: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    success: function (response) {
-                        alert('Cita cancelada correctamente.');
-                        $(`#cita-${citaId}`).find('[data-label="Estado"]').text('cancelada');
-                    },
-                    error: function (xhr) {
-                        alert('Error al cancelar la cita.');
-                    }
-                });
-            }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Deseas cancelar esta cita?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#fe889f',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cancelar',
+      cancelButtonText: 'No, mantener'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: `/citas/${citaId}/cancelar`,
+          method: 'POST',
+          headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+          },
+          success: function () {
+            Swal.fire({
+              title: '¡Cita cancelada!',
+              text: 'La cita ha sido cancelada correctamente.',
+              icon: 'success',
+              confirmButtonColor: '#fe889f'
+            });
+
+            $(`#cita-${citaId}`).find('[data-label="Estado"]').text('cancelada');
+          },
+          error: function () {
+            Swal.fire({
+              title: 'Error',
+              text: 'Hubo un problema al cancelar la cita.',
+              icon: 'error',
+              confirmButtonColor: '#fe889f'
+            });
+          }
         });
+      }
     });
-</script>
+  });
+});
+
+  </script>
+  
 
 
 @endsection

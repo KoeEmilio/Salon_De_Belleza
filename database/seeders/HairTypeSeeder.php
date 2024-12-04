@@ -58,6 +58,12 @@ class HairTypeSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'type' => 'No Aplica',
+                'price' => 00.00, 
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
         ]);
     }
 }

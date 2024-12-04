@@ -449,7 +449,7 @@
             <div class="container" >
 
                 <!-- Logo -->
-                <a class="navbar-brand" href="{{ route('dashboard') }}">
+                <a class="navbar-brand" href="{{ route('welcome') }}">
                     <img src="/AH1.png" alt="Logo">
                 </a>
 
