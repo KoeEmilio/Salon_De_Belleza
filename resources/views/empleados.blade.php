@@ -262,9 +262,7 @@
                                             <a href="{{ route('nominas.index', ['empleado_id' => $empleado->id]) }}" class="btn-custom">
                                                 <i class='bx bx-wallet'></i> Nóminas
                                             </a>
-                                            <a href="{{ route('turnos.index', ['employee_id' => $empleado->id]) }}" class="btn-custom">
-                                                <i class='bx bx-calendar'></i> Ver turnos
-                                            </a>
+                                           
                                         </div>
                                     </td>
                                 </tr>

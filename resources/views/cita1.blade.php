@@ -5,7 +5,7 @@
     $options = [];
 
     while ($start <= $end) {
-        $options[] = $start->format('H:i'); // Formato de hora (24 horas)
+        $options[] = $start->format('H:i'); 
         $start->addHour(); // Sumar una hora
     }
 @endphp
@@ -192,9 +192,6 @@
                         <option value="transferencia">transferencia</option>
                     </select>
                 </div>
-
-              
-
             </div>
             
             <div class="col-12 col-md-8">
@@ -359,7 +356,6 @@
             // Redirigir a la siguiente vista
             window.location.href = "/paso2";
         });
-
 
         // Renderizar servicios seleccionados
         const serviciosSeleccionados = JSON.parse(localStorage.getItem("serviciosAgregados")) || [];
