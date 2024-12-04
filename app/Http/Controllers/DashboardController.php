@@ -48,7 +48,7 @@ class DashboardController extends Controller
             'people_data.gender',
             'people_data.phone'
         )
-        ->paginate(5);
+        ->paginate(4);
 
     $roles = Role::all(); // Obtener todos los roles
 
@@ -110,5 +110,40 @@ public function actualizarRol(Request $request, $id)
 
     return redirect()->route('clientes_admin')->with('success', 'Rol actualizado correctamente');
 }
+
+    public function buscar(Request $request)
+    {
+        $query = $request->input('search');
+
+        // Utilizamos `with()` para cargar la relación de los roles
+        $usuarios = User::with('roles') // Cargamos la relación roles
+            ->join('people_data', 'users.id', '=', 'people_data.user_id')
+            ->select(
+                'users.id',
+                'users.is_active',
+                'users.name',
+                'users.email',
+                'people_data.first_name',
+                'people_data.last_name',
+                'people_data.age',
+                'people_data.gender',
+                'people_data.phone'
+            )
+            ->when($query, function ($queryBuilder) use ($query) {
+                return $queryBuilder
+                    ->where('users.name', 'like', "%{$query}%")
+                    ->orWhere('users.email', 'like', "%{$query}%")
+                    ->orWhere('people_data.first_name', 'like', "%{$query}%")
+                    ->orWhere('people_data.last_name', 'like', "%{$query}%")
+                    ->orWhere('people_data.gender', 'like', "%{$query}%")
+                    ->orWhere('people_data.age', 'like', "%{$query}%")
+                    ->orWhere('people_data.phone', 'like', "%{$query}%");
+            })
+            ->paginate(4);
+    
+        $roles = Role::all(); // Obtener todos los roles para el formulario
+    
+        return view('clientes_admin', compact('usuarios', 'query', 'roles'));
+    }
 
 }

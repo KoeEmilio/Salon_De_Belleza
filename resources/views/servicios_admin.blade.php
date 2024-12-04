@@ -236,6 +236,96 @@
             background-color: #ffb7c2;
             border-color: #ffb7c2;
         }
+
+        @media (max-width: 771px) {
+    /* Estilos para pantallas de 576px o menos */
+    .container {
+        padding: 10px;
+        width: 100%;
+    }
+
+    .table th, .table td {
+        font-size: 12px; /* Ajusta el tamaño de la fuente para mejorar la visibilidad en pantallas pequeñas */
+        padding: 8px;
+    }
+
+    .navbar-center h1 {
+        font-size: 16px; /* Reduce el tamaño del texto en la barra de navegación */
+    }
+
+    .card-header h3 {
+        font-size: 18px; /* Ajusta el tamaño de fuente en el encabezado de la tarjeta */
+    }
+
+    .button-container {
+        flex-direction: column; /* Cambia la disposición de los botones a una columna */
+        align-items: flex-start;
+    }
+
+    .editBtn, .button {
+        width: 35px; /* Reduce el tamaño de los botones */
+        height: 35px;
+    }
+
+    .pagination .page-link {
+        padding: 5px 10px; /* Ajusta los márgenes para los elementos de paginación */
+    }
+
+    /* Asegura que la tabla se ajuste y no se desborde */
+    .table {
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+    }
+}
+
+        @media (max-width: 430px) {
+    /* Make the table container responsive */
+    .table {
+        width: 100%;
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+
+    /* Stack the table headers vertically on smaller screens */
+    .table th, .table td {
+        display: block;
+        text-align: right;
+        padding: 10px;
+    }
+
+    .table th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+    }
+
+    .table td {
+        background-color: #ffffff;
+        border-top: 1px solid #f8f9fa;
+    }
+
+    /* Add a simple label for each column in the table for clarity */
+    .table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        padding-right: 5px;
+    }
+
+    /* Adjust the button sizes to fit smaller screens */
+    .button, .editBtn {
+        width: 35px;
+        height: 35px;
+    }
+
+    .btn-container {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .pagination {
+        font-size: 12px;
+        margin-top: 10px;
+    }
+}
     </style>
 </head>
 <body>

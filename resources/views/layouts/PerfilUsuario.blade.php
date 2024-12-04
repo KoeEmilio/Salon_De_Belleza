@@ -119,6 +119,9 @@
 <body>
     <section class="layout">
         <div class="sidebar">
+            <a href="{{route('welcome')}}">
+                <button class="btn-container">Inicio</button>
+                </a>
             <a href="{{route('cliente.citas')}}">
             <button class="btn-container">Mis Cita</button>
             </a>

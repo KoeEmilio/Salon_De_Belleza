@@ -42,10 +42,15 @@
 <p id="paymentMethodDisplay">No seleccionado</p>
 
 </div>
-
-<button>
-  <a href="#" class="btn2"><span class="spn2">HELLO !</span></a>
-</button>  
+<a href="/paso1">
+<button  class="c-button c-button--gooey mt-4" >Atras
+    <div class="c-button__blobs">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</button>
+</a>
 
     <!-- Botón para agendar cita -->
     <button class="c-button c-button--gooey mt-4" id="agendarCitaBtn">Agendar Cita
@@ -57,6 +62,14 @@
     </button>
 </div>
 
+<div id="successMessage" class="hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <h2>Cita agendada correctamente</h2>
+        <button id="closeModal" class="close-btn">Cerrar</button>
+    </div>
+</div>
+
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         // Obtener los datos de localStorage
@@ -65,10 +78,9 @@
         const serviciosSeleccionados = JSON.parse(localStorage.getItem("serviciosAgregados")) || [];
         const selectedPayment = localStorage.getItem("selectedPayment");
     
-        // Validar datos necesarios
         if (!selectedDate || !selectedTime || !selectedPayment) {
             alert("Faltan datos necesarios. Por favor, completa todos los pasos anteriores.");
-            window.location.href = "/paso1";  // Redirigir a la primera vista si faltan datos
+            window.location.href = "/paso1"; 
             return;
         }
     
@@ -98,64 +110,64 @@
             }
         }
     
-        // Reflejar el tipo de pago
+        // refleja el tipo de pago en la segunda vista 
         if (paymentContainer) {
             paymentContainer.textContent = `Método de Pago: ${selectedPayment}`;
         }
     
-        // Manejar el clic en "Agendar Cita"
+        // aqui maneja el clic del boton de agendar la cita 
         document.getElementById("agendarCitaBtn").addEventListener("click", async () => {
-            const ownerId = "{{ auth()->id() }}";
-            const bodyData = {
-                appointment_day: selectedDate,
-                appointment_time: selectedTime,
-                owner_id: ownerId, // Puedes reemplazarlo si el ID del usuario está disponible
-                services: serviciosSeleccionados,
-                payment_type: selectedPayment,
-            };
-    
-            console.log("Cita a agendar:", bodyData);
-    
-            try {
-                const response = await fetch("/guardar-cita", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    },
-                    body: JSON.stringify(bodyData),
-                });
-    
-                const text = await response.text(); // Obtener la respuesta como texto
-                console.log("Respuesta del servidor:", text);
-    
-                // Intentar parsear la respuesta como JSON
-                try {
-                    const data = JSON.parse(text); // Intentamos parsear la respuesta como JSON
-                    if (data.success) {
-                        alert(data.message);
-                        window.location.href = "/paso3"; // Redirigir a la página de confirmación
-                    } else {
-                        let errorMessage = "Errores de validación:\n";
-                        if (data.errors) {
-                            for (const field in data.errors) {
-                                errorMessage += `${field}: ${data.errors[field].join(", ")}\n`;
-                            }
-                        } else {
-                            errorMessage = data.message;
-                        }
-                        alert(errorMessage);
-                    }
-                } catch (error) {
-                    console.error("Error al parsear la respuesta como JSON:", error);
-                    alert("Hubo un error al procesar la respuesta del servidor. La respuesta no es válida.");
-                }
-    
-            } catch (error) {
-                console.error("Error al guardar la cita:", error);
-                alert("Hubo un error al agendar la cita. Intenta más tarde.");
-            }
+    const ownerId = "{{ auth()->id() }}";
+    const bodyData = {
+        appointment_day: selectedDate,
+        appointment_time: selectedTime,
+        owner_id: ownerId,
+        services: serviciosSeleccionados,
+        payment_type: selectedPayment,
+    };
+
+    try {
+        const response = await fetch("/guardar-cita", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+            body: JSON.stringify(bodyData),
         });
+
+        const text = await response.text();
+        const data = JSON.parse(text);
+
+        if (data.success) {
+            const successModal = document.getElementById("successMessage");
+            successModal.classList.remove("hidden");
+
+            document.getElementById("closeModal").addEventListener("click", () => {
+                successModal.classList.add("hidden");
+                window.location.href = "/paso3"; // Redirigir después de cerrar el modal
+            });
+        } else if (data.error === "Hora usada") {
+            const errorModal = document.getElementById("errorMessage");
+            errorModal.classList.remove("hidden");
+
+            document.getElementById("closeErrorModal").addEventListener("click", () => {
+                errorModal.classList.add("hidden");
+            });
+        } else {
+            let errorMessage = data.errors
+                ? Object.entries(data.errors)
+                      .map(([field, errors]) => `${field}: ${errors.join(", ")}`)
+                      .join("\n")
+                : data.message;
+            alert(errorMessage);
+        }
+    } catch (error) {
+        console.error("Hora ya usada, por favor elige otra:", error);
+        alert("Hora ya usada, por favor elige otra.");
+    }
+});
+
     });
     </script>
     
@@ -167,6 +179,71 @@
 
 
 <style>
+
+    
+
+.hidden {
+        display: none;
+    }
+
+    /* Fondo semitransparente */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    /* Contenedor del modal */
+    .modal-content {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffb7c2;
+        color: #000;
+        border: 2px solid #fe889f;
+        border-radius: 10px;
+        padding: 20px;
+        width: 80%;
+        max-width: 400px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        text-align: center;
+    }
+
+    .modal-content h2 {
+        margin: 0 0 10px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+
+    .modal-content.error {
+        background-color: #faccd3; /* Fondo más claro */
+        border: 2px solid #fe889f; /* Borde rosa */
+        color: #000; /* Texto negro */
+    }
+
+    .close-btn {
+        background-color: #fe889f;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .close-btn:hover {
+        background-color: #ff99ac;
+    }
+
+
+    
      .calendar-container {
         max-width: 100%;
         margin: auto;

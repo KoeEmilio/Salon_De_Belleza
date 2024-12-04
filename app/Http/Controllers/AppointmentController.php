@@ -56,7 +56,7 @@ class AppointmentController extends Controller
                 Log::info('Servicios asociados a la cita:', $validated['services']);
             }
 
-            // Agregando el mensaje flash
+            // aqui se envia el mensaje de la vista3 
             session()->flash('success', '¡La confirmación se ha enviado al correo!');
 
             return response()->json([
@@ -82,7 +82,7 @@ class AppointmentController extends Controller
             ]);
             return response()->json([
                 'success' => false,
-                'message' => 'Hubo un error al agendar la cita.',
+                'message' => 'Hora ya usada, por favor elige otra.',
             ], 500);
         }
     }

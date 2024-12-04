@@ -97,105 +97,110 @@
 
   <!-- Primera fila -->
   
+  <div class="text-center">
+    <h1 class="servicio-titulo">COLORIMETRIA</h1>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://www.cortesdepelotendencias.com/wp-content/uploads/2022/07/cortes-de-pelo-mujer-2023-para-caras-cuadradas.jpg" class="card-img-top" alt="Corte de Cabello">
+          <div class="description-overlay">
+            <p>Corte de cabello profesional para todo tipo de rostro.<br><br>
+              (El precio puede variar dependiendo del tipo de cabello.)
+            </p>
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">CORTES</h5>
+            <h5 class="card-title">$150</h5>
+            <button class="btn btn-outline-dark agregar-servicio" data-bs-toggle="modal" data-bs-target="#confirmationModal">+ Agregar servicio</button>
+          </div>
+        </div>
+      </div>
+  
 
-<div class="text-center">
-<h1 class="servicio-titulo">COLORIMETRIA</h1>
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card">
-        <img src="https://www.cortesdepelotendencias.com/wp-content/uploads/2022/07/cortes-de-pelo-mujer-2023-para-caras-cuadradas.jpg" class="card-img-top" alt="Corte de Cabello">
-        <div class="description-overlay">
-          <p>Corte de cabello profesional para todo tipo de rostro.<br>
-            (El precio puede variar dependiendo de la cantidad de cabello.)
-          </p>
-        </div>
-        <div class="card-body text-center">
-          <h5 class="card-title">CORTES</h5>
-          <h5 class="card-title">$150</h5>
-          <button class="btn btn-outline-dark agregar-servicio" data-bs-toggle="modal" data-bs-target="#confirmationModal">+ Agregar servicio</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card">
-        <img src="https://www.hairstylery.com/wp-content/uploads/images/2-caramel-balayage-on-shiny-black-hair.jpg" class="card-img-top" alt="Balayage">
-        <div class="description-overlay">
-          <p>Técnica de balayage para un look natural y brillante.<br>
-          (El precio puede variar dependiendo de la cantidad de cabello.)</p>
-        </div>
-        <div class="card-body text-center">
-          <h5 class="card-title">BALAYAGE</h5>
-          <h5 class="card-title">$2,000</h5>
-          <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card">
-        <img src="https://th.bing.com/th/id/R.16e9603ac3d99e1c57e6eb84676b55db?rik=TXvb%2fmouMzYtNA&pid=ImgRaw&r=0" class="card-img-top" alt="Babylights">
-        <div class="description-overlay">
-          <p>Babylights para un brillo sutil y juvenil en tu cabello.<br>
-          (El precio puede variar dependiendo de la cantidad de cabello.)</p>
-        </div>
-        <div class="card-body text-center">
-          <h5 class="card-title">BABYLIGHTS</h5>
-          <h5 class="card-title">$1,000</h5>
-          <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Segunda fila -->
-  <div class="row">
-  <div class="col-md-4">
+      <!-- Balayage -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://www.hairstylery.com/wp-content/uploads/images/2-caramel-balayage-on-shiny-black-hair.jpg" class="card-img-top" alt="Balayage">
+          <div class="description-overlay">
+            <p>Técnica de balayage para un look natural y brillante.<br>(El precio puede variar dependiendo del tipo de cabello.)</p>
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">BALAYAGE</h5>
+            <h5 class="card-title">$2,000</h5>
+            <button class="btn btn-outline-dark agregar-servicio" data-servicio="Balayage" data-precio="$2,000">+ Agregar servicio</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Babylights -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://th.bing.com/th/id/R.16e9603ac3d99e1c57e6eb84676b55db?rik=TXvb%2fmouMzYtNA&pid=ImgRaw&r=0" class="card-img-top" alt="Babylights">
+          <div class="description-overlay">
+            <p>Babylights para un brillo sutil y juvenil en tu cabello.<br>(El precio puede variar dependiendo del tipo de cabello.)</p>
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">BABYLIGHTS</h5>
+            <h5 class="card-title">$1,000</h5>
+            <button class="btn btn-outline-dark agregar-servicio" data-servicio="Babylights" data-precio="$1,000">+ Agregar servicio</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Segunda fila -->
+    <div class="row">
+      <!-- Tinte Global -->
+      <div class="col-md-4">
         <div class="card">
           <img src="https://cdn.shopify.com/s/files/1/0692/4484/6401/files/Disenosintitulo_11_68a159ae-1a21-4e54-a635-9b55fb0d640b.png?v=1686702556&width=900" class="card-img-top" alt="Tinte Global">
           <div class="description-overlay">
-            <p>Tinte global para un color intenso y duradero.
-            <br>
-            (El presio puede variar dependiendo de la cantidad de cabello.)
-            </p>
+            <p>Tinte global para un color intenso y duradero.<br>(El precio puede variar dependiendo del tipo de cabello.)</p>
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">TINTE GLOBAL</h5>
             <h5 class="card-title">$3,000</h5>
-            <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
+            <button class="btn btn-outline-dark agregar-servicio" data-servicio="Tinte Global" data-precio="$3,000">+ Agregar servicio</button>
           </div>
         </div>
-  </div>
-  <div class="col-md-4">
+      </div>
+  
+      <!-- Mechas Tradicionales -->
+      <div class="col-md-4">
         <div class="card">
           <img src="https://i.pinimg.com/736x/06/19/63/061963f192d606683acbd3a9f5c2eeba.jpg" class="card-img-top" alt="Mechas Tradicionales">
           <div class="description-overlay">
-            <p>Mechas tradicionales para dar luz y dimensión al cabello. <br>
-            (El presio puede variar dependiendo de la cantidad de cabello.)</p>
+            <p>Mechas tradicionales para dar luz y dimensión al cabello.<br>(El precio puede variar dependiendo del tipo de cabello.)</p>
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">MECHAS TRADICIONALES</h5>
             <h5 class="card-title">$2,500</h5>
-            <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
+            <button class="btn btn-outline-dark agregar-servicio" data-servicio="Mechas Tradicionales" data-precio="$2,500">+ Agregar servicio</button>
           </div>
         </div>
       </div>
-
+  
+      <!-- Alaciado Permanente -->
       <div class="col-md-4">
         <div class="card">
           <img src="https://hair.montibello.com/wp-content/uploads/2022/09/ALISADO-PERMANENTE-CON-QUERATINA-PASO-A-PASO-scaled.jpg" class="card-img-top" alt="Alaciado Permanente">
           <div class="description-overlay">
-            <p>Alisado permanente para un cabello suave y lacio.
-            <br>
-            (El presio puede variar dependiendo de la cantidad de cabello.)
-            </p>
+            <p>Alisado permanente para un cabello suave y lacio.<br>(El precio puede variar dependiendo del tipo de cabello.)</p>
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">ALACIADO PERMANENTE</h5>
             <h5 class="card-title">$500</h5>
-            <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
+            <button class="btn btn-outline-dark agregar-servicio" data-servicio="Alaciado Permanente" data-precio="$500">+ Agregar servicio</button>
           </div>
         </div>
       </div>
     </div>
+  
+    <div id="message" class="alert alert-warning mt-4" style="display: none;">Por favor, elimina el servicio seleccionado antes de agregar uno nuevo.</div>
+  </div>
+  
+
 
   <div class="divider"></div>
    <!-- Tercera fila -->
@@ -204,7 +209,7 @@
         <div class="card">
           <img src="https://i.pinimg.com/736x/fa/47/57/fa4757a7aed07aea2f3c933d56ec3380.jpg" class="card-img-top" alt="Maquillaje">
           <div class="description-overlay">
-            <p>Maquillaje profesional para cualquier ocasión.<br> (El precio puede variar dependiendo del tipo de maquillaje)</p>
+            <p>Maquillaje profesional para cualquier ocasión.<br> </p>
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">MAQUILLAJE DE DIA</h5>
@@ -219,7 +224,7 @@
         <div class="card">
           <img src="https://cursosdemaquillajegratis.com/wp-content/uploads/2020/01/700591285768639576.jpg" class="card-img-top" alt="Maquillaje">
           <div class="description-overlay">
-            <p>Maquillaje profesional para cualquier ocasión.<br> (El precio puede variar dependiendo del tipo de maquillaje)</p>
+            <p>Maquillaje profesional para cualquier ocasión.<br> </p>
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">MAQUILLAJE DE NOCHE</h5>
@@ -233,7 +238,7 @@
         <div class="card">
           <img src="https://i.pinimg.com/736x/83/c6/f0/83c6f011ade63d1ed1adc316a61d8c10.jpg" class="card-img-top" alt="Maquillaje">
           <div class="description-overlay">
-            <p>Maquillaje profesional para cualquier ocasión.<br> (El precio puede variar dependiendo del tipo de maquillaje)</p>
+            <p>Maquillaje profesional para cualquier ocasión.<br> </p>
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">MAQUILLAJE NARURAL</h5>
@@ -261,7 +266,7 @@
         <div class="card">
           <img src="https://mujersaludable10.com/wp-content/uploads/2022/09/293485004_1648884595498499_1408346630619025824_n-1024x1024.jpg" class="card-img-top" alt="Diseño de Uñas">
           <div class="description-overlay">
-            <p>Diseño de uñas creativas y personalizadas.<br>(El presio puede variar dependiendo del diseño de uñas escogido)</p>
+            <p>Diseño de uñas creativas y personalizadas.<br></p>
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">DISEÑO DE UÑAS</h5>
@@ -275,7 +280,7 @@
           <img src="https://th.bing.com/th/id/OIP.X_PGaGfAMBUoUjDbtFkDnQAAAA?rs=1&pid=ImgDetMain" class="card-img-top" alt="Corte de Cabello">
           <div class="description-overlay">
           <p>Incluye los siguientes servicios: <br>-Prueba de maquillaje <br>-Prueba de peinado <br>-Maquillaje para el dia del evento<br>-Peinado para el dia del evento  <br>-Facial hidratante.
-        <br><br>(El presio puede variar dependiendo de si quieren agregar otro servicio )</p>
+        <br><br></p>
         </div>
           <div class="card-body text-center">
             <h5 class="card-title">PAQUETE DE XV</h5>
@@ -289,7 +294,7 @@
           <img src="https://marielenamakeup.com/wp-content/uploads/2023/02/Maquillaje-de-Novia-Elegante.jpg" class="card-img-top" alt="Corte de Cabello">
           <div class="description-overlay">
           <p>Incluye los siguientes servicios: <br>-Prueba de maquillaje <br>-Prueba de peinado <br>-Maquillaje para el dia del evento<br>-Peinado para el dia del evento  <br>-Facial hidratante.
-          <br><br>(El presio puede variar dependiendo de si quieren agregar otro servicio )</p>
+          <br><br></p>
         </div>
           <div class="card-body text-center">
             <h5 class="card-title">PAQUETE DE NOVIA</h5>
@@ -427,30 +432,72 @@
       </div>
     
 </div>
-
 <script>
-  document.querySelectorAll('.agregar-servicio').forEach((button, index) => {
-  button.addEventListener('click', () => {
-    const servicio = button.closest('.card').querySelector('.card-title').textContent.trim();
-    const servicios = JSON.parse(localStorage.getItem('serviciosAgregados')) || [];
+  document.querySelectorAll('.agregar-servicio').forEach((button) => {
+    button.addEventListener('click', () => {
+      const servicio = button.closest('.card').querySelector('.card-title').textContent.trim();
+      let servicios = JSON.parse(localStorage.getItem('serviciosAgregados')) || [];
 
-    servicios.push(servicio);
-    localStorage.setItem('serviciosAgregados', JSON.stringify(servicios));
+      // Verificar si el servicio es de la sección 'COLORIMETRIA'
+      const isColorimetria = ['BALAYAGE', 'BABYLIGHTS', 'TINTE GLOBAL', 'MECHAS TRADICIONALES'].includes(servicio);
+      
+      // Verificar si el servicio es de la sección 'MAQUILLAJE'
+      const isMaquillaje = ['MAQUILLAJE DE DIA', 'MAQUILLAJE DE NOCHE', 'MAQUILLAJE NARURAL'].includes(servicio);
 
-    // Usar SweetAlert2 para mostrar el mensaje
-    Swal.fire({
-      title: '¡Servicio agregado!',
-      text: `${servicio} se ha agregado a 🩷(El precio puede variar dependiendo de la cantidad de cabello.)` ,
-      icon: 'success',
-      background: '#faccd3', 
-      color: '#000',         
-      confirmButtonColor: '#fe889f',
-      confirmButtonText: 'Aceptar'
+      // Si el servicio seleccionado es de la categoría Maquillaje y ya hay un servicio de maquillaje agregado
+      if (isMaquillaje && servicios.some(serv => ['MAQUILLAJE DE DIA', 'MAQUILLAJE DE NOCHE', 'MAQUILLAJE NARURAL'].includes(serv))) {
+        Swal.fire({
+          title: '¡Ya tienes un servicio de Maquillaje agregado!',
+          text: 'Por favor elimina el servicio anterior para seleccionar uno nuevo.',
+          icon: 'warning',
+          background: '#faccd3',
+          color: '#000',
+          confirmButtonColor: '#fe889f',
+          confirmButtonText: 'Aceptar'
+        });
+      } 
+      // Si el servicio es de colorimetría y ya hay uno agregado, mostrar alerta
+      else if (isColorimetria && servicios.some(serv => ['BALAYAGE', 'BABYLIGHTS', 'TINTE GLOBAL', 'MECHAS TRADICIONALES'].includes(serv))) {
+        Swal.fire({
+          title: '¡Ya tienes un servicio de colorimetría agregado!',
+          text: 'Por favor elimina el servicio anterior para seleccionar uno nuevo.',
+          icon: 'warning',
+          background: '#faccd3',
+          color: '#000',
+          confirmButtonColor: '#fe889f',
+          confirmButtonText: 'Aceptar'
+        });
+      } 
+      // Si no es un servicio de maquillaje ni de colorimetría, se agrega normalmente
+      else {
+        // Si es de maquillaje, agregarlo sin eliminar otros servicios
+        if (isMaquillaje) {
+          servicios.push(servicio);
+        } else if (isColorimetria) {
+          // Si es de colorimetría, agregarlo sin eliminar servicios previos
+          servicios.push(servicio);
+        } else {
+          // Para cualquier otro servicio, agregar sin restricciones
+          servicios.push(servicio);
+        }
+
+        localStorage.setItem('serviciosAgregados', JSON.stringify(servicios));
+
+        // Usar SweetAlert2 para mostrar el mensaje de éxito
+        Swal.fire({
+          title: '¡Servicio agregado!',
+          text: `${servicio} se ha agregado a la lista de 🩷`,
+          icon: 'success',
+          background: '#faccd3',
+          color: '#000',
+          confirmButtonColor: '#fe889f',
+          confirmButtonText: 'Aceptar'
+        });
+      }
     });
   });
-});
-  
 </script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

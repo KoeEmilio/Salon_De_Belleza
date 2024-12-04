@@ -54,17 +54,31 @@
             background-color: #fe889f;
             transform: translateY(-8px);
             color: black;
-            border-color: transparent; /* Asegura que no haya borde */
+            border-color: transparent; 
+            text-decoration: none;
         }
 
         .menu-button h2 {
             margin-top: 20px;
             color: #fe889f;
             transition: color 0.3s ease;
+            text-decoration: none;
         }
 
         .menu-button:hover h2 {
             color: black;
+            text-decoration: none;
+        }
+
+        .menu-button:hover a{
+            text-decoration: none;
+        }
+        
+        .containers{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 70vh;
         }
 
         /* Media queries */
@@ -96,6 +110,11 @@
             .custom-icon-size {
                 font-size: 28px;
             }
+
+            .contenedor nav h1{
+                font-size: 30px;
+                margin-left: 15px;
+            }
         }
     </style>
 </head>
@@ -115,7 +134,7 @@
         </nav>
     </div>
 
-    <div class="container mt-5">
+    <div class="containers mt-5">
         <div class="row justify-content-center">
             <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-4">
                 <a href="{{ route('clientes_admin') }}" class="menu-button">

@@ -257,9 +257,9 @@
 }
 
 .popup .burger svg {
-    width: 100%;
-    height: 100%;
-    fill: #fff; /* Blanco para el icono */
+    width: 80%; /* Reducido al 50% del contenedor */
+    height: 80%; /* Reducido al 50% del contenedor */
+    fill: #f06292; /* Mantiene el color actual */
 }
 
 .popup-window {
@@ -342,7 +342,7 @@
     .popup-window {
         right: 0;
         top: 0;
-        width: 100%;
+        width: 320%;
         box-sizing: border-box;
         padding: 15px;
     }
@@ -398,6 +398,45 @@
 .navbar  { 
   background-color: pink;
 
+}
+
+
+.map-container {
+    width: 100%; 
+    max-width: 100%;
+    height: 300px; 
+    margin: 0 auto;
+    position: relative;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 80%; 
+    border: 0; 
+    display: block;
+}
+
+/* Definimos los colores y estilos para los botones */
+.btn-rosa {
+    background-color: #fe889f; /* Rosa */
+    color: white;
+    border: 1px solid #fe889f;
+}
+
+.btn-rosa:hover {
+    background-color: #ffb7c2; /* Rosa más claro */
+    color: black;
+}
+
+.btn-negro {
+    background-color: #000000; /* Negro */
+    color: white;
+    border: 1px solid #000000;
+}
+
+.btn-negro:hover {
+    background-color: #333333; /* Negro más claro */
+    color: white;
 }
 
     </style>
@@ -456,14 +495,14 @@
             </svg>
         </div>
         <nav class="popup-window">
-            <legend class="h5 mb-3">Quick Start</legend>
+            <legend class="h5 mb-3">Bienvenido</legend>
             <ul class="list-unstyled">
                 @guest
                     <li class="mb-2">
-                        <a href="{{ route('login') }}" class="btn btn-primary btn-sm w-100">Iniciar Sesión</a>
+                        <a href="{{ route('login') }}" class="btn btn-rosa btn-sm w-100">Iniciar Sesión</a>
                     </li>
                     <li>
-                        <a href="{{ route('register') }}" class="btn btn-secondary btn-sm w-100">Registrarse</a>
+                        <a href="{{ route('register') }}" class="btn btn-negro btn-sm w-100">Registrarse</a>
                     </li>
                 @else
                     @if(auth()->user()->hasRole('admin'))
@@ -521,7 +560,7 @@
    
     <div class="child child-2">
         <button class="button btn-2">
-        <a href="https://www.instagram.com/alonz.ohernandez/" target="_blank">
+        <a href="https://www.instagram.com/nacho_hernandez111/" target="_blank">
           <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" fill="#ff00ff">
             <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path>
           </svg>
@@ -533,14 +572,24 @@
       </div>  
         <!-- Ubicación -->
         <p class="location-text mb-0" style="font-size: 1.1rem;">
-            <i class="fas fa-map-marker-alt mr-2" style="color: #fe889f;"></i>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.519800588352!2d-103.41203772477516!3d25.587638177461702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x868fda61208a9159%3A0x8297d1b2f4a3236d!2sC.%20Lolo%20de%20M%C3%A9ndez%2065%2C%20Villa%20Florida%2C%2027105%20Torre%C3%B3n%2C%20Coah.!5e0!3m2!1ses-419!2smx!4v1732033520322!5m2!1ses-419!2smx"   allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+           
         </p>
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.519800588352!2d-103.41203772477516!3d25.587638177461702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x868fda61208a9159%3A0x8297d1b2f4a3236d!2sC.%20Lolo%20de%20M%C3%A9ndez%2065%2C%20Villa%20Florida%2C%2027105%20Torre%C3%B3n%2C%20Coah.!5e0!3m2!1ses-419!2smx!4v1732033520322!5m2!1ses-419!2smx"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                style="border: 0;"
+            ></iframe>
+            <p class="mt-3 mb-0" style="font-size: 0.9rem; color: #faccd3;">
+                © 2024 Glow Studio. Todos los derechos reservados.
+            </p>
+        </div>
+        
 
       
-        <p class="mt-3 mb-0" style="font-size: 0.9rem; color: #faccd3;">
-            © 2024 Glow Studio. Todos los derechos reservados.
-        </p>
+        
       
       </div> 
 </footer>
