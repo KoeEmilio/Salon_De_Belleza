@@ -22,7 +22,7 @@ class CreatePayrollTable extends Migration
             $table->decimal('overtime_hours', 5, 2)->default(0);
             $table->decimal('bonuses', 10, 2)->nullable()->default(0); 
             $table->decimal('tax', 10, 2)->nullable()->default(0); 
-            $table->decimal('net_salary', 10, 2)->default(0);
+            $table->decimal('net_salary', 10, 2)->nullable()->default(0);
             $table->enum('payment_status', ['Pendiente', 'Pagado'])->default('Pendiente');
             $table->timestamps();
         });
