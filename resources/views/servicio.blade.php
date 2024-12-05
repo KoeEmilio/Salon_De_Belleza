@@ -111,6 +111,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">CORTES</h5>
             <h5 class="card-title">$150</h5>
+            <h5 class="card-title">Tiempo del servicio: 45:00 min</h5>
             <button class="btn btn-outline-dark agregar-servicio" data-bs-toggle="modal" data-bs-target="#confirmationModal">+ Agregar servicio</button>
           </div>
         </div>
@@ -128,6 +129,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">BALAYAGE</h5>
             <h5 class="card-title">$2,000</h5>
+            <h5 class="card-title">Tiempo del servicio: 06:00 horas</h5>
             <button class="btn btn-outline-dark agregar-servicio" data-servicio="Balayage" data-precio="$2,000">+ Agregar servicio</button>
           </div>
         </div>
@@ -143,6 +145,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">BABYLIGHTS</h5>
             <h5 class="card-title">$1,000</h5>
+            <h5 class="card-title">Tiempo del servicio: 05:00 horas</h5>
             <button class="btn btn-outline-dark agregar-servicio" data-servicio="Babylights" data-precio="$1,000">+ Agregar servicio</button>
           </div>
         </div>
@@ -161,6 +164,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">TINTE GLOBAL</h5>
             <h5 class="card-title">$3,000</h5>
+            <h5 class="card-title">Tiempo del servicio: 07:00 horas</h5>
             <button class="btn btn-outline-dark agregar-servicio" data-servicio="Tinte Global" data-precio="$3,000">+ Agregar servicio</button>
           </div>
         </div>
@@ -176,6 +180,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">MECHAS TRADICIONALES</h5>
             <h5 class="card-title">$2,500</h5>
+            <h5 class="card-title">Tiempo del servicio: 06:00 horas</h5>
             <button class="btn btn-outline-dark agregar-servicio" data-servicio="Mechas Tradicionales" data-precio="$2,500">+ Agregar servicio</button>
           </div>
         </div>
@@ -191,6 +196,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">ALACIADO PERMANENTE</h5>
             <h5 class="card-title">$500</h5>
+            <h5 class="card-title">Tiempo del servicio: 02:00 horas</h5>
             <button class="btn btn-outline-dark agregar-servicio" data-servicio="Alaciado Permanente" data-precio="$500">+ Agregar servicio</button>
           </div>
         </div>
@@ -214,6 +220,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">MAQUILLAJE DE DIA</h5>
             <h5 class="card-title">$1,000</h5>
+            <h5 class="card-title">Tiempo del servicio: 01:00 hora</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -229,6 +236,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">MAQUILLAJE DE NOCHE</h5>
             <h5 class="card-title">$1,000</h5>
+            <h5 class="card-title">Tiempo del servicio: 01:00 hora</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -241,8 +249,9 @@
             <p>Maquillaje profesional para cualquier ocasión.<br> </p>
           </div>
           <div class="card-body text-center">
-            <h5 class="card-title">MAQUILLAJE NARURAL</h5>
+            <h5 class="card-title">MAQUILLAJE NATURAL</h5>
             <h5 class="card-title">$1,000</h5>
+            <h5 class="card-title">Tiempo del servicio: 01:00 hora</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -258,6 +267,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">PEINADOS</h5>
             <h5 class="card-title">$700</h5>
+            <h5 class="card-title">Tiempo del servicio: 01:00 hora</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -266,11 +276,12 @@
         <div class="card">
           <img src="https://mujersaludable10.com/wp-content/uploads/2022/09/293485004_1648884595498499_1408346630619025824_n-1024x1024.jpg" class="card-img-top" alt="Diseño de Uñas">
           <div class="description-overlay">
-            <p>Diseño de uñas creativas y personalizadas.<br></p>
+            <p>Diseño de uñas creativas y personalizadas.<br>(El precio puede variar dependiendo del tipo de diseño.)</p>
           </div>
           <div class="card-body text-center">
             <h5 class="card-title">DISEÑO DE UÑAS</h5>
             <h5 class="card-title">$500</h5>
+            <h5 class="card-title">Tiempo del servicio: 06:00 horas</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -285,6 +296,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">PAQUETE DE XV</h5>
             <h5 class="card-title">$5,000</h5>
+            <h5 class="card-title">Tiempo del servicio: 04:00 horas</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -299,6 +311,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">PAQUETE DE NOVIA</h5>
             <h5 class="card-title">$5,000</h5>
+            <h5 class="card-title">Tiempo del servicio: 06:00 horas</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -314,6 +327,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">HENNA Y TINTE</h5>
             <h5 class="card-title">$1,000</h5>
+            <h5 class="card-title">Tiempo del servicio: 01:00 hora</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -330,6 +344,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">LIFTING DE CEJA</h5>
             <h5 class="card-title">$1,000</h5>
+            <h5 class="card-title">Tiempo del servicio: 30:00 min</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -355,6 +370,8 @@
           <div class="card-body text-center">
             <h5 class="card-title">ABDOMEN</h5>
             <h5 class="card-title">$2,708</h5>
+            <h5 class="card-title">Tiempo del servicio: 01:00 hora</h5>
+
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -369,6 +386,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">CADERAS</h5>
             <h5 class="card-title">$1,500</h5>
+            <h5 class="card-title">Tiempo del servicio: 01:00 hora</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -383,6 +401,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">BRAZOS</h5>
             <h5 class="card-title">$2,000</h5>
+            <h5 class="card-title">Tiempo del servicio: 01:00 hora</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -398,6 +417,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">ROSTRO</h5>
             <h5 class="card-title">$1,000</h5>
+            <h5 class="card-title">Tiempo del servicio: 01:00 hora</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -412,6 +432,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">CUELLO</h5>
             <h5 class="card-title">$2,500</h5>
+            <h5 class="card-title">Tiempo del servicio: 01:00 hora</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -426,6 +447,7 @@
           <div class="card-body text-center">
             <h5 class="card-title">GLUTEOS</h5>
             <h5 class="card-title">$3,000</h5>
+            <h5 class="card-title">Tiempo del servicio: 01:00 hora</h5>
             <button class="btn btn-outline-dark agregar-servicio">+ Agregar servicio</button>
           </div>
         </div>
@@ -437,6 +459,20 @@
     button.addEventListener('click', () => {
       const servicio = button.closest('.card').querySelector('.card-title').textContent.trim();
       let servicios = JSON.parse(localStorage.getItem('serviciosAgregados')) || [];
+
+      // Validar que no se seleccionen más de 2 servicios
+      if (servicios.length >= 2) {
+        Swal.fire({
+          title: '¡Máximo 2 servicios permitidos!',
+          text: 'Elimina un servicio para agregar uno nuevo.',
+          icon: 'warning',
+          background: '#faccd3',
+          color: '#000',
+          confirmButtonColor: '#fe889f',
+          confirmButtonText: 'Aceptar'
+        });
+        return;
+      }
 
       // Verificar si el servicio es de la sección 'COLORIMETRIA'
       const isColorimetria = ['BALAYAGE', 'BABYLIGHTS', 'TINTE GLOBAL', 'MECHAS TRADICIONALES'].includes(servicio);
@@ -470,17 +506,7 @@
       } 
       // Si no es un servicio de maquillaje ni de colorimetría, se agrega normalmente
       else {
-        // Si es de maquillaje, agregarlo sin eliminar otros servicios
-        if (isMaquillaje) {
-          servicios.push(servicio);
-        } else if (isColorimetria) {
-          // Si es de colorimetría, agregarlo sin eliminar servicios previos
-          servicios.push(servicio);
-        } else {
-          // Para cualquier otro servicio, agregar sin restricciones
-          servicios.push(servicio);
-        }
-
+        servicios.push(servicio);
         localStorage.setItem('serviciosAgregados', JSON.stringify(servicios));
 
         // Usar SweetAlert2 para mostrar el mensaje de éxito

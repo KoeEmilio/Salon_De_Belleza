@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Models\PeopleData; // Importar el modelo PeopleData
+use App\Models\PeopleData;
+use Illuminate\Support\Facades\Log;
 
 class ClientePerfilController extends Controller
 {
@@ -85,8 +86,14 @@ class ClientePerfilController extends Controller
             return redirect()->back()->withErrors('Error al cancelar la cita.');
         }
     }
+
+    /**
+     * Cancela una cita y actualiza el estado.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function cancelar($id)
-    
     {
         try {
             // Buscar la cita por ID
@@ -94,20 +101,18 @@ class ClientePerfilController extends Controller
     
             // Verificar si la cita existe
             if (!$cita) {
-                return redirect()->back()->withErrors('La cita no existe.');
+                return response()->json(['error' => 'La cita no existe.'], 400);
             }
     
             // Cambiar el estado a 'cancelada'
             DB::table('appointments')->where('id', $id)->update(['status' => 'cancelada']);
     
-            return redirect()->back()->with('success', 'Cita cancelada correctamente.');
+            // Responder con éxito
+            return response()->json(['success' => 'Cita cancelada correctamente.']);
         } catch (\Exception $e) {
-            \Log::error("Error al cancelar la cita: {$e->getMessage()}");
-            return redirect()->back()->withErrors('Error al cancelar la cita.');
+            Log::error("Error al cancelar la cita: {$e->getMessage()}");
+            return response()->json(['error' => 'Error al cancelar la cita.'], 500);
         }
     }
-    
-
-
     
 }

@@ -27,7 +27,7 @@
 <br><br><br>
 <br><br><br><br><br>
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   let servicios = JSON.parse(localStorage.getItem('serviciosAgregados')) || [];
   const lista = document.getElementById('servicios-lista');
   const agendarBtn = document.getElementById('agendar-btn');
@@ -85,6 +85,7 @@
 
   renderServicios();
 });
+
 </script>
 
 <style>

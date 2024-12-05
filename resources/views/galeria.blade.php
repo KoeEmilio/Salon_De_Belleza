@@ -64,7 +64,7 @@
     <!-- Sección de Galería de Servicios -->
     <section class="gallery-section" id="servicios">
         <div class="container">
-            <h2>Nuestros Servicios</h2>
+            <h2>Nuestro Trabajo</h2>
             <div class="divider"></div>
             <div class="row g-4">
                 <!-- Servicio 3: CORTES -->

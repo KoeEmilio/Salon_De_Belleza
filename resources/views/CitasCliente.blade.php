@@ -348,18 +348,16 @@
                             <td data-label="Estado">{{ $cita->status }}</td>
                             <td data-label="Forma de pago">{{ $cita->payment_type }}</td>
                             <td data-label="Acciones">
-
+                                
                                 <td data-label="Acciones">
-                                    <form action="{{ route('citas.cancelar', $cita->id) }}" method="POST" style="display: inline;">
+                                    <form class="cancelar-form" data-id="{{ $cita->id }}" style="display: inline;">
                                         @csrf
-                                        <button type="submit" class="btn btn-warning" onclick="return confirm('¿Estás seguro de cancelar esta cita?')">
+                                        <button type="submit" class="btn btn-warning btn-cancelar" 
+                                            @if($cita->status == 'cancelada') disabled @endif>
                                             Cancelar
                                         </button>
                                     </form>
-                                    
                                 </td>
-                                
-                                
                                 
                             </td>
                         </tr>
@@ -393,28 +391,31 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('.btn-cancelar').on('click', function () {
-            const citaId = $(this).data('id');
+        $('.cancelar-form').on('submit', function (event) {
+            event.preventDefault(); // Prevenir el envío completo del formulario
+
+            const form = $(this); // Capturar el formulario actual
+            const citaId = form.data('id');
+            const botonCancelar = form.find('.btn-cancelar'); // Buscar el botón en el formulario actual
 
             if (confirm('¿Estás seguro de cancelar esta cita?')) {
                 $.ajax({
                     url: `/citas/${citaId}/cancelar`,
                     type: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    data: {
+                        _token: '{{ csrf_token() }}',
                     },
                     success: function (response) {
-                        alert('Cita cancelada correctamente.');
-                        $(`#cita-${citaId}`).find('[data-label="Estado"]').text('cancelada');
+                        alert(response.success);
+                        $(`#cita-${citaId}`).find('[data-label="Estado"]').text('Cancelada');
+                        botonCancelar.prop('disabled', true); // Deshabilitar el botón
                     },
                     error: function (xhr) {
-                        alert('Error al cancelar la cita.');
+                        alert(xhr.responseJSON.error || 'Error al cancelar la cita.');
                     }
                 });
             }
         });
     });
 </script>
-
-
 @endsection

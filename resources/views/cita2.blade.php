@@ -42,8 +42,10 @@
 <p id="paymentMethodDisplay">No seleccionado</p>
 
 </div>
+
 <a href="/paso1">
 <button  class="c-button c-button--gooey mt-4" >Atras
+    
     <div class="c-button__blobs">
         <div></div>
         <div></div>
@@ -117,6 +119,7 @@
     
         // aqui maneja el clic del boton de agendar la cita 
         document.getElementById("agendarCitaBtn").addEventListener("click", async () => {
+            localStorage.removeItem('serviciosAgregados');
     const ownerId = "{{ auth()->id() }}";
     const bodyData = {
         appointment_day: selectedDate,

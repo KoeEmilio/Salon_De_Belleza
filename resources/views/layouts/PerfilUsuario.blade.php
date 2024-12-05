@@ -123,7 +123,7 @@
                 <button class="btn-container">Inicio</button>
                 </a>
             <a href="{{route('cliente.citas')}}">
-            <button class="btn-container">Mis Cita</button>
+            <button class="btn-container">Mis Citas</button>
             </a>
             <a href="{{route('cliente.perfil')}}">
             <button class="btn-container">Perfil</button>
