@@ -9,9 +9,15 @@
             {{ session('success') }}
         </div>
     @endif
-   
-
-    <!-- Botón para agregar una nueva cita -->
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <div class="mb-4 text-center">
         <a href="{{ route('appointment.create') }}" class="c-button c-button--gooey">
             Agregar Cita
@@ -65,12 +71,11 @@
                                     </svg>
                                 </a>
 
-                                <!-- Ícono del "ojo" -->
+                               
                                 <a href="{{ route('service.index', $cita->id) }}" class="container">
                                Ver servicios
                                 </a>
 
-                                <!-- Botón para levantar orden -->
                                 <form action="{{ route('orders.create', $cita->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     <button type="submit" class="btn btn-warning btn-sm">
@@ -119,6 +124,22 @@
 </div>
 
 <style>
+    .alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.alert-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.alert-danger {
+    background-color: #dc3545;
+    color: white;
+}
      .pagination .page-item.active .page-link {
         background-color: #F06292;
         border-color: #F06292;
@@ -175,8 +196,6 @@
     }
 
 
-/* From Uiverse.io by ercnersoy */ 
-/* Hide the default checkbox */
 .container input {
  position: absolute;
  opacity: 0;

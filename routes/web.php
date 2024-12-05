@@ -158,6 +158,7 @@ Route::get('recepcionista/appointment/{appointmentId}/services/create', [Recepci
 Route::post('recepcionista/appointment/{appointmentId}/services', [RecepcionistaServiciosController::class, 'store'])->name('service.store');
 Route::get('recepcionista/service/{serviceDetailId}/edit', [RecepcionistaServiciosController::class, 'edit'])->name('service.edit');
 Route::put('recepcionista/service/{serviceDetailId}', [RecepcionistaServiciosController::class, 'update'])->name('service.update');
+Route::get('order/{orderId}/details', [RecepcionistaServiciosController::class, 'showOrderDetails'])->name('order.details');
 
 Route::get('/', [ServiciosController::class, 'index'])->name('servicios_recepcionista');
 

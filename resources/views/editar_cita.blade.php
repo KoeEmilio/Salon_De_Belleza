@@ -71,7 +71,15 @@
                 <option value="transferencia" {{ $cita->payment_type == 'transferencia' ? 'selected' : '' }}>Transferencia</option>
             </select>
         </div>
-
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
         <!-- Botón Actualizar -->
         <div class="text-center">
             <button type="submit" class="btn" style="background-color: #fe889f; color: #fff; border-radius: 20px; padding: 10px 20px;">Actualizar Cita</button>
