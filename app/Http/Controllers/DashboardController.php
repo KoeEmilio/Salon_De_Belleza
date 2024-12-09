@@ -63,7 +63,6 @@ class DashboardController extends Controller
     {
         $user = User::findOrFail($id);
         $user->name = $request->input('name');
-        $user->email = $request->input('email');
         $user->save();
 
         $person = $user->peopleData;
@@ -73,11 +72,6 @@ class DashboardController extends Controller
         $person->gender = $request->input('gender');
         $person->phone = $request->input('phone');
         $person->save();
-
-        $user->roles()->sync([$request->input('rol')]);
-        $user->save();
-
-        dd($user->roles()->sync([$request->input('rol')]));
     
         return redirect()->route('dashboard')->with('success', 'Persona actualizada con éxito');
     }
