@@ -99,21 +99,6 @@
                         </div>
                     </div>
 
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="role">Rol</label>
-                                <select class="form-control" id="role" name="rol" required>
-                                    @foreach ($roles as $rol)
-                                        <option value="{{ $rol->id }}" 
-                                            {{ $usuario->roles->pluck('id')->contains($rol->id) ? 'selected' : '' }}>
-                                            {{ $rol->rol }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Teléfono -->
                     <div class="row mt-3">
