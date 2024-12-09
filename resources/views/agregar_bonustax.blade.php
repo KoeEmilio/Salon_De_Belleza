@@ -67,7 +67,6 @@
     </style>
 </head>
 <body>
-    <!-- Barra Superior -->
     <div class="navbar">
         <h1>Agregar Bono/Impuesto</h1>
     </div>

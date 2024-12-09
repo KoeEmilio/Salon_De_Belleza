@@ -4,12 +4,10 @@
 <div class="container mt-5">
     <h1 class="mb-4" style="color: #F06292;">Lista de Clientes</h1>
 
-    <!-- Barra de búsqueda -->
     <div class="mb-4 d-flex justify-content-between align-items-center">
         <div>
         </div>
         <div class="d-flex">
-            <!-- Formulario de búsqueda -->
             <form action="{{ route('clientes.index') }}" method="GET" class="d-flex">
                 <input type="text" name="query" class="form-control me-2" placeholder="Buscar por nombre" value="{{ request()->input('query') }}" style="border: 2px solid #F06292;">
                 <button class="btn btn-outline-secondary" type="submit" style="background-color: #F06292; color: white;">
@@ -86,16 +84,16 @@
 @endsection  
 
 <style>
-    /* Fondo de la página */
+
     body {
-        background-color: #FCE4EC; /* Rosa claro */
+        background-color: #FCE4EC; 
         font-family: 'Roboto', sans-serif;
     }
 
     h1 {
         font-size: 2.5rem;
         font-weight: 600;
-        color: #F06292; /* Rosa más intenso */
+        color: #F06292; 
     }
 
     .table {
@@ -110,7 +108,7 @@
     }
 
     .table-dark {
-        background-color: #000000; /* Fondo negro para encabezado */
+        background-color: #000000; 
     }
 
     .pagination .page-item.active .page-link {
@@ -144,7 +142,6 @@
         border-color: #F8BBD0;
     }
 
-    /* RESPONSIVIDAD */
     @media (max-width: 1200px) {
         .table th, .table td {
             font-size: 1rem;

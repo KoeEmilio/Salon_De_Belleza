@@ -62,7 +62,6 @@
                         <td>{{ $cita->payment_type }}</td>
                         <td>
                             <div class="action-buttons">
-                                <!-- Ícono de edición -->
                                 <a href="{{ route('appointment.edit', $cita->id) }}" class="editBtn">
                                     <svg height="1em" viewBox="0 0 512 512">
                                         <path
@@ -70,8 +69,6 @@
                                         </path>
                                     </svg>
                                 </a>
-
-                               
                                 <a href="{{ route('service.index', $cita->id) }}" class="container">
                                Ver servicios
                                 </a>
@@ -148,7 +145,6 @@
     .pagination .page-link {
         color: #F06292;
     }
-/* Encabezado personalizado */
 .custom-header {
     background-color: black;
     color: #ffb7c2;
@@ -157,19 +153,17 @@
     color: #ffb7c2;
 }
 
- /* Contenedor de botones de acción */
  .action-buttons {
         display: flex;
         justify-content: center;
         gap: 10px;
     }
 
-    /* Estilo de los botones de acción */
     .action-buttons a,
     .action-buttons button {
-        background-color: black; /* Fondo negro */
-        color: #F06292; /* Letras rosas */
-        border: 2px solid #F06292; /* Borde rosa */
+        background-color: black; 
+        color: #F06292;
+        border: 2px solid #F06292; 
         padding: 8px 16px;
         text-align: center;
         text-decoration: none;
@@ -180,18 +174,15 @@
         transition: background-color 0.3s, color 0.3s;
     }
 
-    /* Efecto al pasar el mouse */
     .action-buttons a:hover,
     .action-buttons button:hover {
-        background-color: #F06292; /* Fondo rosa */
-        color: black; /* Texto negro */
+        background-color: #F06292; 
+        color: black; 
     }
-
-    /* Estilo de los íconos dentro de los botones */
     .action-buttons svg {
         width: 20px;
         height: 20px;
-        fill: #F06292; /* Íconos rosas */
+        fill: #F06292; 
         margin-right: 5px;
     }
 
@@ -212,7 +203,6 @@
  user-select: none;
 }
 
-/* Create a custom checkbox */
 .checkmark {
  position: relative;
  top: 0;
@@ -225,26 +215,22 @@
  transition: all .5s ease-in-out;
 }
 
-/* When the checkbox is checked, add a blue background */
 .container input:checked ~ .checkmark {
  box-shadow: 0px 0px 40px 5px #ffb7c2;
  border-radius: 1rem 0rem 1rem;
  background-color: #2195f31f;
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
  content: "";
  position: absolute;
  display: none;
 }
 
-/* Show the checkmark when checked */
 .container input:checked ~ .checkmark:after {
  display: block;
 }
 
-/* Style the checkmark/indicator */
 .container .checkmark:after {
  left: 0.35em;
  top: 0.20em;
@@ -268,9 +254,6 @@
  }
 }
 
-
-
-/* From Uiverse.io by JaydipPrajapati1910 */ 
 .c-button {
   color: #000;
   font-weight: 700;

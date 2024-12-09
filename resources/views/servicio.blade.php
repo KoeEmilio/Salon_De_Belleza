@@ -94,8 +94,6 @@
     <p class="subtitulo">Es hora de darle un poco de amor a tu cabello</p>
   </div>
   <div class="divider"></div>
-
-  <!-- Primera fila -->
   
   <div class="text-center">
     <h1 class="servicio-titulo">COLORIMETRIA</h1>
@@ -116,10 +114,6 @@
           </div>
         </div>
       </div>
-  
-
-
-      <!-- Balayage -->
       <div class="col-md-4">
         <div class="card">
           <img src="https://www.hairstylery.com/wp-content/uploads/images/2-caramel-balayage-on-shiny-black-hair.jpg" class="card-img-top" alt="Balayage">
@@ -134,8 +128,7 @@
           </div>
         </div>
       </div>
-  
-      <!-- Babylights -->
+
       <div class="col-md-4">
         <div class="card">
           <img src="https://th.bing.com/th/id/R.16e9603ac3d99e1c57e6eb84676b55db?rik=TXvb%2fmouMzYtNA&pid=ImgRaw&r=0" class="card-img-top" alt="Babylights">
@@ -151,10 +144,8 @@
         </div>
       </div>
     </div>
-  
-    <!-- Segunda fila -->
+
     <div class="row">
-      <!-- Tinte Global -->
       <div class="col-md-4">
         <div class="card">
           <img src="https://cdn.shopify.com/s/files/1/0692/4484/6401/files/Disenosintitulo_11_68a159ae-1a21-4e54-a635-9b55fb0d640b.png?v=1686702556&width=900" class="card-img-top" alt="Tinte Global">
@@ -169,8 +160,7 @@
           </div>
         </div>
       </div>
-  
-      <!-- Mechas Tradicionales -->
+
       <div class="col-md-4">
         <div class="card">
           <img src="https://i.pinimg.com/736x/06/19/63/061963f192d606683acbd3a9f5c2eeba.jpg" class="card-img-top" alt="Mechas Tradicionales">
@@ -185,8 +175,6 @@
           </div>
         </div>
       </div>
-  
-      <!-- Alaciado Permanente -->
       <div class="col-md-4">
         <div class="card">
           <img src="https://hair.montibello.com/wp-content/uploads/2022/09/ALISADO-PERMANENTE-CON-QUERATINA-PASO-A-PASO-scaled.jpg" class="card-img-top" alt="Alaciado Permanente">
@@ -209,7 +197,6 @@
 
 
   <div class="divider"></div>
-   <!-- Tercera fila -->
    <div class="row">
       <div class="col-md-4">
         <div class="card">
@@ -349,12 +336,7 @@
           </div>
         </div>
       </div>
-
       </div>
-
-
-
-
       <div class="divider"></div>
 
       <div class="text-center">
@@ -460,7 +442,6 @@
       const servicio = button.closest('.card').querySelector('.card-title').textContent.trim();
       let servicios = JSON.parse(localStorage.getItem('serviciosAgregados')) || [];
 
-      // Validar que no se seleccionen más de 2 servicios
       if (servicios.length >= 2) {
         Swal.fire({
           title: '¡Máximo 2 servicios permitidos!',
@@ -474,13 +455,9 @@
         return;
       }
 
-      // Verificar si el servicio es de la sección 'COLORIMETRIA'
       const isColorimetria = ['BALAYAGE', 'BABYLIGHTS', 'TINTE GLOBAL', 'MECHAS TRADICIONALES'].includes(servicio);
-      
-      // Verificar si el servicio es de la sección 'MAQUILLAJE'
-      const isMaquillaje = ['MAQUILLAJE DE DIA', 'MAQUILLAJE DE NOCHE', 'MAQUILLAJE NARURAL'].includes(servicio);
 
-      // Si el servicio seleccionado es de la categoría Maquillaje y ya hay un servicio de maquillaje agregado
+      const isMaquillaje = ['MAQUILLAJE DE DIA', 'MAQUILLAJE DE NOCHE', 'MAQUILLAJE NARURAL'].includes(servicio);
       if (isMaquillaje && servicios.some(serv => ['MAQUILLAJE DE DIA', 'MAQUILLAJE DE NOCHE', 'MAQUILLAJE NARURAL'].includes(serv))) {
         Swal.fire({
           title: '¡Ya tienes un servicio de Maquillaje agregado!',
@@ -492,7 +469,6 @@
           confirmButtonText: 'Aceptar'
         });
       } 
-      // Si el servicio es de colorimetría y ya hay uno agregado, mostrar alerta
       else if (isColorimetria && servicios.some(serv => ['BALAYAGE', 'BABYLIGHTS', 'TINTE GLOBAL', 'MECHAS TRADICIONALES'].includes(serv))) {
         Swal.fire({
           title: '¡Ya tienes un servicio de colorimetría agregado!',
@@ -504,12 +480,9 @@
           confirmButtonText: 'Aceptar'
         });
       } 
-      // Si no es un servicio de maquillaje ni de colorimetría, se agrega normalmente
       else {
         servicios.push(servicio);
         localStorage.setItem('serviciosAgregados', JSON.stringify(servicios));
-
-        // Usar SweetAlert2 para mostrar el mensaje de éxito
         Swal.fire({
           title: '¡Servicio agregado!',
           text: `${servicio} se ha agregado a la lista de 🩷`,

@@ -47,8 +47,6 @@
                     @method('PUT')
 
                     <input type="hidden" name="id" value="{{ $usuario->id }}">
-
-                    <!-- Nombre de Usuario y Correo -->
                     <div class="row">
                         <div class="col-12 col-md-6">
                             <div class="form-group">
@@ -63,8 +61,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Nombre y Apellidos -->
                     <div class="row mt-3">
                         <div class="col-12 col-md-6">
                             <div class="form-group">
@@ -79,8 +75,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Edad y Género -->
                     <div class="row mt-3">
                         <div class="col-12 col-md-6">
                             <div class="form-group">
@@ -98,9 +92,6 @@
                             </div>
                         </div>
                     </div>
-
-
-                    <!-- Teléfono -->
                     <div class="row mt-3">
                         <div class="col-12">
                             <div class="form-group">
@@ -109,8 +100,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Botones -->
                     <div class="form-group mt-4 d-flex justify-content-between">
                         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                         <a href="{{ route('clientes_admin') }}" class="btn btn-secondary">Cancelar</a>

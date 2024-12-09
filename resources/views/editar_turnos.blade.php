@@ -21,7 +21,7 @@
         }
 
         h2 {
-            color: #ff69b4; /* Rosa para el encabezado */
+            color: #ff69b4; 
             text-align: center;
         }
 
@@ -107,18 +107,18 @@
     </div>
 
     <script>
-        // Función que actualiza las horas de entrada y salida según el turno seleccionado
+     
         document.getElementById('shift').addEventListener('change', function() {
             const shift = this.value;
             const entryTime = document.getElementById('entry_time');
             const exitTime = document.getElementById('exit_time');
 
             if (shift === 'Mañana') {
-                entryTime.value = '08:00'; // Hora de entrada para el turno Mañana
-                exitTime.value = '15:00'; // Hora de salida para el turno Mañana
+                entryTime.value = '08:00'; 
+                exitTime.value = '15:00';
             } else if (shift === 'Tarde') {
-                entryTime.value = '15:00'; // Hora de entrada para el turno Tarde
-                exitTime.value = '22:00'; // Hora de salida para el turno Tarde
+                entryTime.value = '15:00'; 
+                exitTime.value = '22:00'; 
             }
         });
     </script>

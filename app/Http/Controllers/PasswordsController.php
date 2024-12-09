@@ -38,7 +38,6 @@ class PasswordsController extends Controller
             ['user' => $user->id]
         );
     
-        // Enviar el correo con el enlace firmado
         Mail::to($request->email)->send(new RecuperarPasswordMail($signedUrl));
     
         return back()->with('status', 'Enlace de restablecimiento enviado a tu correo.');

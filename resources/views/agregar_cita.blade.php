@@ -7,25 +7,21 @@
     <form action="{{ route('appointment.store') }}" method="POST" class="p-4 shadow-sm rounded" style="background-color: #fff;">
         @csrf
 
-        <!-- Nombre -->
         <div class="mb-3">
             <label for="name" class="form-label" style="color: #fe889f;">Nombre</label>
             <input type="text" name="name" id="name" class="form-control" style="border: 2px solid #000000;" required>
         </div>
 
-        <!-- Apellido -->
         <div class="mb-3">
             <label for="last_name" class="form-label" style="color: #fe889f;">Apellido</label>
             <input type="text" name="last_name" id="last_name" class="form-control" style="border: 2px solid #000000;" required>
         </div>
 
-        <!-- Edad -->
         <div class="mb-3">
             <label for="age" class="form-label" style="color: #fe889f;">Edad</label>
             <input type="number" name="age" id="age" class="form-control" style="border: 2px solid #000000;" required>
         </div>
 
-        <!-- Género -->
         <div class="mb-3">
             <label for="gender" class="form-label" style="color: #fe889f;">Género</label>
             <select name="gender" id="gender" class="form-select" style="border: 2px solid #000000;" required>
@@ -34,25 +30,21 @@
             </select>
         </div>
 
-        <!-- Teléfono -->
         <div class="mb-3">
             <label for="phone" class="form-label" style="color: #fe889f;">Teléfono</label>
             <input type="text" name="phone" id="phone" class="form-control" style="border: 2px solid #000000;" required>
         </div>
 
-        <!-- Fecha de Cita -->
         <div class="mb-3">
             <label for="appointment_day" class="form-label" style="color: #fe889f;">Fecha de Cita</label>
             <input type="date" name="appointment_day" id="appointment_day" class="form-control" style="border: 2px solid #000000;" required>
         </div>
 
-        <!-- Hora de la Cita -->
         <div class="mb-3">
             <label for="appointment_time" class="form-label" style="color: #fe889f;">Hora de la Cita</label>
             <input type="time" name="appointment_time" id="appointment_time" class="form-control" style="border: 2px solid #000000;" required>
         </div>
         
-        <!-- Estado -->
         <div class="mb-3">
             <label for="status" class="form-label" style="color: #fe889f;">Estado</label>
             <select name="status" id="status" class="form-select" style="border: 2px solid #000000;" required>
@@ -62,7 +54,6 @@
             </select>
         </div>
 
-        <!-- Tipo de Pago -->
         <div class="mb-3">
             <label for="payment_type" class="form-label" style="color: #fe889f;">Tipo de Pago</label>
             <select name="payment_type" id="payment_type" class="form-select" style="border: 2px solid #000000;" required>
@@ -79,7 +70,6 @@
             </ul>
         </div>
     @endif
-        <!-- Botón Guardar -->
         <div class="text-center">
         <button class="btn">
                Guardar Cita
@@ -93,7 +83,6 @@
     </form>
 </div>
 
-<!-- Estilo personalizado -->
 <style>
 body {
         font-family: Arial, sans-serif;
@@ -110,8 +99,6 @@ body {
         margin: 0 auto;
     }
 
-
-    /* From Uiverse.io by Dashrath-Sharma */ 
 .btn {
   border-right: 1px solid #ff758f;
   border-bottom: 1px solid #ff758f;

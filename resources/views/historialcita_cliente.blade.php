@@ -12,7 +12,6 @@
         </a>
     </div>
 
-    <!-- Mostrar las citas -->
     <table class="table table-bordered table-striped table-hover">
         <thead class="table-dark" style="background-color: #D5006D; color: white;">
             <tr>
@@ -44,7 +43,6 @@
 
 @section('scripts')
 <script>
-    // Añadir animación de entrada a las filas de la tabla
     document.querySelectorAll('.animated-row').forEach(row => {
         row.classList.add('fade-in');
     });
@@ -53,23 +51,22 @@
 
 <style>
     body {
-        font-family: 'Roboto', sans-serif; /* Cambiar a fuente más moderna */
-        background-color: #fef2f7; /* Rosa suave de fondo */
+        font-family: 'Roboto', sans-serif; 
+        background-color: #fef2f7; 
     }
 
     .table th, .table td {
-        text-align: center; /* Centrar texto en celdas */
+        text-align: center; 
     }
 
     .table-striped tbody tr:nth-of-type(odd) {
-        background-color: #ffeef8; /* Color rosa claro para filas impares */
+        background-color: #ffeef8; 
     }
 
     .table-hover tbody tr:hover {
-        background-color: #f1c7d4; /* Color rosa más claro al pasar el ratón */
+        background-color: #f1c7d4; 
     }
 
-    /* Animaciones */
     .fade-in {
         animation: fadeIn 0.5s ease forwards;
     }
@@ -84,17 +81,14 @@
             transform: translateY(0);
         }
     }
-
-    /* Estilo personalizado para las filas de la tabla */
     .table-hover tbody tr {
         transition: background-color 0.3s ease;
     }
 
     .table-dark th {
-        background-color: #D5006D !important; /* Rosa suave para el encabezado */
+        background-color: #D5006D !important; 
     }
 
-    /* Iconos */
     .fas {
         color: white;
     }

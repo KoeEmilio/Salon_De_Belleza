@@ -9,10 +9,8 @@ class BonusTax extends Model
 {
     use HasFactory;
 
-    // Nombre de la tabla
     protected $table = 'bonuses_tax';
 
-    // Campos que son asignables
     protected $fillable = [
         'employee_id',
         'date_recorded',
@@ -21,15 +19,13 @@ class BonusTax extends Model
         'amount',
     ];
 
-    // Relación con el modelo EmployeeData
     public function employee()
     {
         return $this->belongsTo(EmployeeData::class, 'employee_id');
     }
-    // En el modelo BonusTax
     public function payroll()
 {
-    return $this->belongsTo(Payroll::class, 'payroll_id'); // Usar el campo correcto para la relación
+    return $this->belongsTo(Payroll::class, 'payroll_id'); 
 }
 
 }

@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\PeopleData;
-use App\Models\User; // Si vas a usar el modelo de usuarios
+use App\Models\User; 
 use Illuminate\Http\Request;
 
 class Recepcionista_Cliente_Controller extends Controller
 {
-    // Mostrar la lista de clientes
+ 
     public function index(Request $request)
     {
         $query = $request->input('query');
@@ -23,7 +23,6 @@ class Recepcionista_Cliente_Controller extends Controller
 
     public function store(Request $request)
 {
-    // Validación de los datos del cliente
     $validated = $request->validate([
         'name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',
@@ -34,52 +33,45 @@ class Recepcionista_Cliente_Controller extends Controller
         'age' => 'required|integer|min:0|max:120',
     ]);
 
-    // Crear el usuario (User)
     $user = User::create([
         'name' => $validated['name'],
         'email' => $validated['email'],
         'password' => bcrypt($validated['password']),
     ]);
 
-    // Crear el cliente (PeopleData)
     $cliente = PeopleData::create([
         'name' => $validated['name'],
         'last_name' => $validated['last_name'],
         'age' => $validated['age'],
         'gender' => $validated['gender'],
         'phone' => $validated['phone'],
-        'user_id' => $user->id,  // Relacionamos el cliente con el usuario
+        'user_id' => $user->id, 
     ]);
 
-    // Redirigir con mensaje de éxito
     return redirect()->route('clientes.index')->with('message', 'Cliente agregado exitosamente.');
 }
 
-
-    // Mostrar un cliente específico
     public function show($id)
-{
+   {
     $cliente = User::findOrFail($id);
     return view('detalle_cliente', compact('cliente'));
-}
+   }
 
-    // Crear un cliente
     public function create()
     {
         return view('agregar_clienterecepcionista');
     }
 
-    // Actualizar un cliente existente
     public function update(Request $request, $id)
     {
-        $this->validateClient($request); // Validar los datos
-        $cliente = PeopleData::findOrFail($id); // Buscar cliente
-        $cliente->update($request->all()); // Actualizar cliente
+        $this->validateClient($request);
+        $cliente = PeopleData::findOrFail($id); 
+        $cliente->update($request->all()); 
 
-        return response()->json($cliente, 200); // Responder con el cliente actualizado
+        return response()->json($cliente, 200); 
     }
 
-    // Eliminar un cliente
+    
     public function destroy($id)
     {
         $cliente = PeopleData::find($id);

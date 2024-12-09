@@ -7,7 +7,6 @@
     <ul class="list-unstyled">
         <li>Nombre: {{ $recepcionista->nombre }}</li>
         <li>Fecha de ingreso: {{ $recepcionista->fecha_ingreso }}</li>
-        <!-- Puedes agregar más detalles del perfil aquí -->
     </ul>
 </div>
 @endsection

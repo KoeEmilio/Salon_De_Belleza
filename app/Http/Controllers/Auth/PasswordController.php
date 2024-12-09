@@ -10,13 +10,12 @@ use App\Models\User;
 
 class PasswordController extends Controller
 {
-    // Mostrar el formulario de solicitud de correo para restablecer la contraseña
     public function showLinkRequestForm()
     {
-        return view('auth.passwords.email');  // Vista personalizada para ingresar el correo
+        return view('auth.passwords.email'); 
     }
 
-    // Enviar el enlace de restablecimiento de contraseña al correo
+   
     public function sendResetLinkEmail(Request $request)
     {
         $request->validate([
@@ -32,13 +31,11 @@ class PasswordController extends Controller
                     : back()->withErrors(['email' => trans($status)]);
     }
 
-    // Mostrar el formulario de restablecimiento de la contraseña
     public function showResetForm(Request $request, $token = null)
     {
         return view('auth.passwords.reset', ['token' => $token, 'email' => $request->email]);  // Vista personalizada para restablecer la contraseña
     }
 
-    // Procesar el restablecimiento de la contraseña
     public function reset(Request $request)
     {
         $request->validate([

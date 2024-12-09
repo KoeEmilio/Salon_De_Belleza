@@ -7,7 +7,6 @@ use App\Models\Appointment;
 use App\Models\HairType;
 use Illuminate\Http\Request;
 use App\Models\ServiceDetail;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ServicioController extends Controller

@@ -9,7 +9,7 @@ class EmployeeData extends Model
 {
     use HasFactory;
 
-    protected $table = 'employees_data'; // Nombre de la tabla
+    protected $table = 'employees_data';
 
     protected $fillable = [
         'nss',

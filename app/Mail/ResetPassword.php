@@ -17,22 +17,14 @@ class ResetPassword extends Mailable
     protected $user;
     protected $signedUrl;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
+   
     public function __construct(User $user, $signedUrl)
     {
         $this->user = $user;
         $this->signedUrl = $signedUrl;
     }
 
-    /**
-     * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
+ 
     public function envelope()
     {
         return new Envelope(
@@ -40,11 +32,7 @@ class ResetPassword extends Mailable
         );
     }
 
-    /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
+   
     public function content()
     {
         return new Content(
@@ -56,11 +44,7 @@ class ResetPassword extends Mailable
         );
     }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
+
     public function attachments()
     {
         return [];

@@ -12,19 +12,15 @@ use Illuminate\Http\Request;
 
 class CitasRecepcionistaController extends Controller
 {
-    /**
-     * Mostrar la vista principal con citas y datos necesarios.
-     */
+   
     public function index(Request $request)
     {
-        // Obtener los parámetros de búsqueda
         $fecha = $request->input('fecha');
         $nombre = $request->input('nombre');
     
-        // Filtrar citas por fecha y nombre del cliente
         $citas = Appointment::with(['owner', 'services'])
             ->when($fecha, function ($query, $fecha) {
-                return $query->whereDate('appointment_day', $fecha); // Filtrar por fecha
+                return $query->whereDate('appointment_day', $fecha); 
             })
             ->when($nombre, function ($query, $nombre) {
                 return $query->whereHas('owner', function ($q) use ($nombre) {
@@ -34,27 +30,24 @@ class CitasRecepcionistaController extends Controller
             })
             ->paginate(5);
     
-        // Obtener clientes y servicios
         $clientes = PeopleData::all();
         $servicios = Service::all();
     
         return view('citas_recepcionista', compact('clientes', 'servicios', 'citas'));
     }
 
-    /**
-     * Mostrar formulario para crear una nueva cita.
-     */
+   
     public function create()
     {
         $clientes = PeopleData::all();
-        $empleados = EmployeeData::all();  // Obtener todos los empleados
+        $empleados = EmployeeData::all();  
         return view('agregar_cita', compact('clientes', 'empleados'));
     }
 
   
     public function store(Request $request)
     {
-        // Validar los datos
+        
         $request->validate([
             'appointment_day' => 'required|date|after_or_equal:' . now()->toDateString(),
             'appointment_time' => [
@@ -67,12 +60,10 @@ class CitasRecepcionistaController extends Controller
                     $startTime = \Carbon\Carbon::parse("$appointmentDay 07:00");
                     $endTime = \Carbon\Carbon::parse("$appointmentDay 23:00");
 
-                    // Validar que la hora no sea en el pasado
                     if ($appointmentTime < $currentDateTime) {
                         $fail('La hora de la cita no puede ser en el pasado.');
                     }
 
-                    // Validar que la hora esté entre las 7:00 AM y 11:00 PM
                     if ($appointmentTime < $startTime || $appointmentTime > $endTime) {
                         $fail('La hora de la cita debe estar entre las 7:00 AM y las 11:00 PM.');
                     }
@@ -86,7 +77,6 @@ class CitasRecepcionistaController extends Controller
             'appointment_time.date_format' => 'La hora debe tener el formato HH:MM.',
         ]);
 
-        // Crear un nuevo cliente
         $cliente = PeopleData::create([
             'first_name' => $request->name,
             'last_name' => $request->last_name,
@@ -96,7 +86,6 @@ class CitasRecepcionistaController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        // Crear la cita
         $cita = Appointment::create([
             'owner_id' => $cliente->id,
             'appointment_day' => $request->appointment_day,
@@ -106,7 +95,6 @@ class CitasRecepcionistaController extends Controller
             'sign_up_date' => now(),
         ]);
 
-        // Crear orden si la cita es confirmada
         if ($cita->status == 'confirmada') {
             Order::create(['client_id' => $cliente->id]);
         }
@@ -122,14 +110,12 @@ class CitasRecepcionistaController extends Controller
         return view('ver_servicios', compact('cita'));
     }
 
-    /**
-     * Mostrar formulario para editar una cita.
-     */
+
     public function edit($id)
     {
         $cita = Appointment::findOrFail($id);
         $clientes = PeopleData::all();
-        $empleados = EmployeeData::all();  // Obtener todos los empleados
+        $empleados = EmployeeData::all();  
         return view('editar_cita', compact('cita', 'clientes', 'empleados'));
     }
 
@@ -137,7 +123,6 @@ class CitasRecepcionistaController extends Controller
     {
         $cita = Appointment::findOrFail($id);
 
-        // Validar los datos
         $request->validate([
             'appointment_day' => 'required|date|after_or_equal:' . now()->toDateString(),
             'appointment_time' => [
@@ -150,12 +135,10 @@ class CitasRecepcionistaController extends Controller
                     $startTime = \Carbon\Carbon::parse("$appointmentDay 07:00");
                     $endTime = \Carbon\Carbon::parse("$appointmentDay 23:00");
 
-                    // Validar que la hora no sea en el pasado
                     if ($appointmentTime < $currentDateTime) {
                         $fail('La hora de la cita no puede ser en el pasado.');
                     }
 
-                    // Validar que la hora esté entre las 7:00 AM y 11:00 PM
                     if ($appointmentTime < $startTime || $appointmentTime > $endTime) {
                         $fail('La hora de la cita debe estar entre las 7:00 AM y las 11:00 PM.');
                     }
@@ -163,14 +146,12 @@ class CitasRecepcionistaController extends Controller
             ],
         ]);
 
-        // Actualizar la cita
         $cita->update([
             'appointment_day' => $request->appointment_day,
             'appointment_time' => $request->appointment_time,
             'status' => $request->status,
         ]);
 
-        // Crear orden si se confirma la cita
         if ($request->status == 'confirmada' && $cita->status != 'confirmada') {
             Order::create(['client_id' => $cita->owner_id]);
         }

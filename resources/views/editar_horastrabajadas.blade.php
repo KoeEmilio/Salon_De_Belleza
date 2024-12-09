@@ -45,13 +45,11 @@
             border-radius: 5px;
         }
 
-        /* Estilo del botón "Volver" rosa */
         .btn-secondary {
             background-color: #ff69b4;
             border-color: #ff69b4;
         }
 
-        /* Estilo del botón "Actualizar" en negro con texto rosa */
         .btn-primary {
             background-color: #000;
             border-color: #000;
@@ -62,7 +60,7 @@
             color: #ff69b4;
         }
 
-        /* Responsividad */
+
         @media (max-width: 768px) {
             .table-responsive {
                 overflow-x: auto;
@@ -94,7 +92,6 @@
     </style>
 </head>
 <body>
-    <!-- Barra superior -->
     <div class="navbar">
         <h1>Editar Horas Trabajadas</h1>
     </div>
@@ -105,28 +102,19 @@
         <form action="{{ route('horas_trabajadas.update', ['nomina_id' => $nomina_id, 'empleado_id' => $empleado_id, 'id' => $hora->id]) }}" method="POST">
             @csrf
             @method('PUT')
-
-            <!-- Campo de fecha -->
             <div class="mb-3">
                 <label for="date_worked" class="form-label">Fecha</label>
                 <input type="date" class="form-control" id="date_worked" name="date_worked" value="{{ $hora->date_worked }}" required>
             </div>
-
-            <!-- Campo de hora de entrada -->
             <div class="mb-3">
                 <label for="start_time" class="form-label">Hora de Entrada</label>
                 <input type="time" class="form-control" id="start_time" name="start_time" value="{{ $hora->start_time }}" required>
             </div>
-
-            <!-- Campo de hora de salida -->
             <div class="mb-3">
                 <label for="end_time" class="form-label">Hora de Salida</label>
                 <input type="time" class="form-control" id="end_time" name="end_time" value="{{ $hora->end_time }}" required>
             </div>
-
-            <!-- Botón para actualizar los cambios -->
             <button type="submit" class="btn btn-primary">Actualizar</button>         <a href="{{ route('horas_trabajadas.index', ['nomina_id' => $nomina_id, 'empleado_id' => $empleado_id]) }}" class="btn btn-secondary">Volver</a>
-
         </form>
 
         <br>

@@ -9,10 +9,8 @@ class Schedule extends Model
 {
     use HasFactory;
 
-    // Nombre de la tabla
     protected $table = 'schedules';
 
-    // Campos que son asignables
     protected $fillable = [
         'day',
         'opening_time',

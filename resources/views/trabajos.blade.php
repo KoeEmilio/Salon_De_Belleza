@@ -65,7 +65,7 @@
 <body>
 
 <div class="navbar navbar-expand-md text-center">
-    <h3>Trabajos de {{ $empleado->name }}</h3> <!-- Usar $empleado porque es el que pasas desde el controlador -->
+    <h3>Trabajos de {{ $empleado->name }}</h3> 
 </div>
 
 <div class="container">

@@ -10,27 +10,20 @@ use Illuminate\Support\Facades\Log;
 
 class ClientePerfilController extends Controller
 {
-    /**
-     * Muestra el perfil del cliente.
-     */
+    
     public function perfil()
     {
         $cliente = auth()->user();
         return view('cliente_perfil', compact('cliente'));
     }
 
-    /**
-     * Muestra el formulario para editar el perfil del cliente.
-     */
     public function editarPerfil()
     {
         $cliente = auth()->user();
         return view('cliente_perfil_editar', compact('cliente'));
     }
 
-    /**
-     * Muestra las citas del cliente autenticado.
-     */
+
     public function citas()
     {
         $userId = Auth::id();
@@ -52,9 +45,7 @@ class ClientePerfilController extends Controller
         return view('CitasCliente', compact('citas'));
     }
 
-    /**
-     * Muestra los datos del cliente autenticado.
-     */
+  
     public function DatosCliente()
     {
         $cliente = PeopleData::where('user_id', Auth::id())->first();
@@ -70,14 +61,12 @@ class ClientePerfilController extends Controller
     public function eliminar($id)
     {
         try {
-            // Verificar si la cita existe
             $cita = DB::table('appointments')->where('id', $id)->first();
     
             if (!$cita) {
                 return redirect()->back()->withErrors('La cita no existe.');
             }
     
-            // Cambiar el estado a 'Cancelada'
             DB::table('appointments')->where('id', $id)->update(['status' => 'Cancelada']);
     
             return redirect()->back()->with('success', 'Cita cancelada correctamente.');
@@ -88,7 +77,7 @@ class ClientePerfilController extends Controller
     }
 
     /**
-     * Cancela una cita y actualiza el estado.
+     * 
      *
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
@@ -96,18 +85,14 @@ class ClientePerfilController extends Controller
     public function cancelar($id)
     {
         try {
-            // Buscar la cita por ID
             $cita = DB::table('appointments')->where('id', $id)->first();
     
-            // Verificar si la cita existe
             if (!$cita) {
                 return response()->json(['error' => 'La cita no existe.'], 400);
             }
     
-            // Cambiar el estado a 'cancelada'
             DB::table('appointments')->where('id', $id)->update(['status' => 'cancelada']);
     
-            // Responder con éxito
             return response()->json(['success' => 'Cita cancelada correctamente.']);
         } catch (\Exception $e) {
             Log::error("Error al cancelar la cita: {$e->getMessage()}");

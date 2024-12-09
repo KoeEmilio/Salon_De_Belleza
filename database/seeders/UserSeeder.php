@@ -10,16 +10,16 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        // Crear usuarios con datos reales
+       
         $users = [
-            // Admin
+         
             [
                 'name' => 'Koe',
                 'email' => 'koe@gmail.com',
-                'password' => Hash::make('1234'), // Contraseña segura
+                'password' => Hash::make('1234'),
                 'rol' => 'admin',
             ],
-            // Empleados
+            
             [
                 'name' => 'María López',
                 'email' => 'maria.lopez@example.com',
@@ -56,7 +56,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('empleado123'),
                 'rol' => 'empleado',
             ],
-            // Recepcionistas
+            
             [
                 'name' => 'Ximena Martinez',
                 'email' => 'ximena@gmail.com',
@@ -69,7 +69,6 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('recepcionista123'),
                 'rol' => 'recepcionista',
             ],
-            // Clientes
             [
                 'name' => 'Gabriela Cruz',
                 'email' => 'gabriela.cruz@example.com',
@@ -96,9 +95,7 @@ class UserSeeder extends Seeder
             ],
         ];
 
-        // Insertar usuarios y asignar roles
         foreach ($users as $user) {
-            // Crear el usuario
             $userId = DB::table('users')->insertGetId([
                 'name' => $user['name'],
                 'email' => $user['email'],
@@ -107,10 +104,7 @@ class UserSeeder extends Seeder
                 'updated_at' => now(),
             ]);
 
-            // Obtener el rol correspondiente
             $roleId = DB::table('roles')->where('rol', $user['rol'])->value('id');
-
-            // Asignar el rol al usuario en la tabla pivote
             DB::table('user_rol')->insert([
                 'user' => $userId,
                 'rol' => $roleId,

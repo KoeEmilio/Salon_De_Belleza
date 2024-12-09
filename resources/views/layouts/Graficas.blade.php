@@ -17,10 +17,9 @@
             margin-bottom: 20px;
         }
         .chart-container {
-            height: 400px; /* Altura de las gráficas */
+            height: 400px; 
         }
     </style>
-    <!-- Incluir ECharts -->
     <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
 </head>
 <body>

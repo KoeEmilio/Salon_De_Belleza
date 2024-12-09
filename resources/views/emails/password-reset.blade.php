@@ -33,7 +33,7 @@
         }
         .email-header h1 {
             font-size: 32px;
-            color: #D91B6E; /* Rosa elegante */
+            color: #D91B6E; 
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -54,7 +54,7 @@
         .email-body a {
             display: inline-block;
             padding: 15px 30px;
-            background-color: #D91B6E; /* Rosa */
+            background-color: #D91B6E;
             color: white;
             text-decoration: none;
             font-size: 18px;
@@ -64,7 +64,7 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .email-body a:hover {
-            background-color: #C2185B; /* Rosa oscuro */
+            background-color: #C2185B;
             transform: translateY(-2px);
         }
         .email-footer {
@@ -76,7 +76,7 @@
             margin-bottom: 5px;
         }
         .email-footer a {
-            color: #D91B6E; /* Rosa */
+            color: #D91B6E;
             text-decoration: none;
         }
         .email-footer a:hover {
@@ -84,7 +84,7 @@
         }
         .icon {
             font-size: 40px;
-            color: #D91B6E; /* Rosa elegante */
+            color: #D91B6E; 
             margin-bottom: 15px;
         }
     </style>

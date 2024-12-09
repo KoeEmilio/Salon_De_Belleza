@@ -108,7 +108,6 @@ En Glow Studio, creemos que la belleza no es solo una apariencia, sino una exper
         <div class="container text-center">
             <h2 class="mb-5">Nuestros Servicios</h2>
             <div class="row">
-                <!-- Servicio 1 -->
                 <div class="col-md-4 mb-4">
                     <div class="card card-service">
                         <img src="https://i.pinimg.com/originals/3a/da/80/3ada805cfb2ac8e2909dfd442571a1d4.jpg" class="card-img-top" alt="Corte de Cabello">

@@ -9,7 +9,6 @@ class PeopleDataSeeder extends Seeder
 {
     public function run()
     {
-        // Información de personas relacionada con los usuarios
         $peopleData = [
             // Administrador
             [
@@ -18,7 +17,7 @@ class PeopleDataSeeder extends Seeder
                 'age' => 34,
                 'gender' => 'H',
                 'phone' => '1234567890',
-                'user_id' => 1, // ID del administrador
+                'user_id' => 1, 
             ],
             // Empleados
             [
@@ -27,7 +26,7 @@ class PeopleDataSeeder extends Seeder
                 'age' => 28,
                 'gender' => 'M',
                 'phone' => '1234567891',
-                'user_id' => 2, // ID del primer empleado
+                'user_id' => 2, 
             ],
             [
                 'first_name' => 'Juan',
@@ -121,7 +120,6 @@ class PeopleDataSeeder extends Seeder
             ],
         ];
 
-        // Insertar los datos de las personas en la base de datos
         foreach ($peopleData as $data) {
             DB::table('people_data')->insert([
                 'first_name' => $data['first_name'],

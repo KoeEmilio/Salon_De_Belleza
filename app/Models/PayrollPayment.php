@@ -27,12 +27,6 @@ class PayrollPayment extends Model
     }
 
 
-    /**
-     * Actualiza el monto del pago.
-     *
-     * @param float $amount
-     * @return bool
-     */
     public function updatePaymentAmount(float $amount): bool
     {
         $this->payment_amount = $amount;

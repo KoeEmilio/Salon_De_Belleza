@@ -5,10 +5,9 @@
 @section('grafica1-title', 'Ventas Mensuales')
 @section('grafica1')
 <script>
-    // Datos pasados desde el backend
+
     var serviciosAgendados = @json($serviciosAgendados);
 
-    // Extraer nombres de servicios y totales
     var servicios = serviciosAgendados.map(function(servicio) {
         return servicio.service ? servicio.service.service_name : 'Desconocido';
     });
@@ -17,7 +16,6 @@
         return servicio.total;
     });
 
-    // Configuración de la gráfica
     var chart1 = echarts.init(document.getElementById('chart1'));
     var option1 = {
         color: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff', '#ff9f40'],

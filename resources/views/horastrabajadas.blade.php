@@ -42,7 +42,7 @@
 
         .table th {
             background-color: #000;
-            color: #ff69b4; /* Texto rosa */
+            color: #ff69b4; 
             text-align: center;
         }
 
@@ -55,13 +55,11 @@
             border-radius: 5px;
         }
 
-        /* Estilo del botón "Regresar" rosa */
         .btn-secondary {
             background-color: #ff69b4;
             border-color: #ff69b4;
         }
 
-        /* Estilo de botones de acciones en negro con texto/íconos rosa */
         .btn-warning, .btn-danger {
             background-color: #000;
             border-color: #000;
@@ -72,7 +70,6 @@
             color: #ff69b4;
         }
 
-        /* Estilo del botón de agregar en negro con texto/íconos rosa */
         .btn-add {
             background-color: #000;
             border-color: #000;
@@ -83,7 +80,6 @@
             color: #ff69b4;
         }
 
-        /* Responsividad */
         @media (max-width: 768px) {
             .table-responsive {
                 overflow-x: auto;
@@ -115,7 +111,6 @@
     </style>
 </head>
 <body>
-    <!-- Barra superior -->
     <div class="navbar">
         <h1>Horas Trabajadas de {{ $empleado->name }}</h1>
     </div>
@@ -133,7 +128,6 @@
         <a href="{{ route('nominas.index', ['empleado_id' => $empleado->id]) }}"
              class="btn btn-secondary btn-sm back-btn">Regresar a Nóminas</a>
 
-        <!-- Tabla de Horas Trabajadas -->
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead>
@@ -142,7 +136,7 @@
                         <th>Hora de Entrada</th>
                         <th>Hora de Salida</th>
                         <th>Horas Trabajadas</th>
-                        <th>Horas Extras</th> <!-- Nueva columna -->
+                        <th>Horas Extras</th> 
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -153,14 +147,12 @@
                             <td>{{ $hora->start_time }}</td>
                             <td>{{ $hora->end_time }}</td>
                             <td>{{ $hora->hours_worked }} horas</td>
-                            <td>{{ $hora->overtime_hours }} horas</td> <!-- Mostrar horas extras -->
+                            <td>{{ $hora->overtime_hours }} horas</td> 
                             <td>
-                                <!-- Editar -->
                                 <a href="{{ route('horas_trabajadas.edit', ['nomina_id' => $nomina->id, 'empleado_id' => $empleado->id, 'id' => $hora->id]) }}" class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i> Editar
                                 </a>
 
-                                <!-- Eliminar -->
                                 <form action="{{ route('horas_trabajadas.destroy', ['nomina_id' => $nomina->id, 'empleado_id' => $empleado->id, 'id' => $hora->id]) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta entrada de horas trabajadas?');" style="display:inline;">
                                     @csrf
                                     @method('DELETE')

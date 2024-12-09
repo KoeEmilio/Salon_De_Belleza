@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const agendarBtn = document.getElementById('agendar-btn');
   const mensajeVacio = document.getElementById('mensaje-vacio');
 
-  // Eliminar duplicados
   servicios = [...new Set(servicios)];
   localStorage.setItem('serviciosAgregados', JSON.stringify(servicios));
 

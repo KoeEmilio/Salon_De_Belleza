@@ -26,7 +26,6 @@ return new class extends Migration
     public function down()
     {
         Schema::table('people_data', function (Blueprint $table) {
-            // Revertir el cambio
             DB::statement('ALTER TABLE people_data CHANGE COLUMN `first_name` `name` VARCHAR(255)');
         });
     }

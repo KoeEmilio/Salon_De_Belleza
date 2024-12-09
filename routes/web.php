@@ -119,7 +119,7 @@ Route::delete('/turnos/eliminar/{id}', [TurnosController::class, 'destroy'])->na
     
     Route::delete('/servicios/{id}', [ServiciosController::class, 'delete'])->name('servicios.delete');
 
-// routes/web.php
+
 Route::get('/empleados/{employee_id}/nomina/{nomina_id}/bonos-impuestos', [BonosImpuestosController::class, 'index'])->name('bonos.impuestos');
 Route::get('/empleados/{employee_id}/nomina/{nomina_id}/crear', [BonosImpuestosController::class, 'create'])->name('bonos.impuestos.create');
 Route::post('/empleados/{employee_id}/nomina/{nomina_id}/bonos-impuestos', [BonosImpuestosController::class, 'store'])->name('bonos.impuestos.store');
@@ -230,7 +230,6 @@ Route::get('/agregado', [FavoritosController::class, 'index'])->name('agregado')
 Route::get('/servicios/agregados', [ServicioController::class, 'agregados'])->name('servicios.agregados');
 
 
-// Rutas para usuarios
 Route::post('/users/{id}/assign-role', [UserController::class, 'assignRole']);
 Route::get('/users/{id}/roles', [UserController::class, 'getUserRoles']);
 

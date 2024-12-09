@@ -4,18 +4,15 @@
 <div class="container mt-5">
     <h1 class="mb-4" style="color: #D5006D;">Agregar Nuevo Cliente</h1>
 
-    <!-- Mensaje de error o éxito -->
     @if(session('message'))
         <div class="alert alert-success">
             {{ session('message') }}
         </div>
     @endif
 
-    <!-- Formulario para agregar cliente -->
     <form action="{{ route('clientes.store') }}" method="POST">
-        @csrf <!-- Token de seguridad -->
+        @csrf 
         
-        <!-- Nombre del Cliente -->
         <div class="mb-3">
             <label for="name" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
@@ -24,7 +21,6 @@
             @enderror
         </div>
 
-        <!-- Apellido del Cliente -->
         <div class="mb-3">
             <label for="last_name" class="form-label">Apellido</label>
             <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" required>
@@ -33,7 +29,6 @@
             @enderror
         </div>
 
-        <!-- Correo Electrónico -->
         <div class="mb-3">
             <label for="email" class="form-label">Correo Electrónico</label>
             <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
@@ -42,7 +37,6 @@
             @enderror
         </div>
 
-        <!-- Teléfono -->
         <div class="mb-3">
             <label for="phone" class="form-label">Número de Teléfono</label>
             <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone') }}" required>
@@ -51,7 +45,6 @@
             @enderror
         </div>
 
-        <!-- Edad -->
         <div class="mb-3">
             <label for="age" class="form-label">Edad</label>
             <input type="number" class="form-control" id="age" name="age" value="{{ old('age') }}" required>
@@ -60,7 +53,6 @@
             @enderror
         </div>
 
-        <!-- Género -->
         <div class="mb-3">
             <label for="gender" class="form-label">Género</label>
             <select class="form-control" id="gender" name="gender" required>
@@ -72,7 +64,6 @@
             @enderror
         </div>
 
-        <!-- Contraseña -->
         <div class="mb-3">
             <label for="password" class="form-label">Contraseña</label>
             <input type="password" class="form-control" id="password" name="password" required>
@@ -81,7 +72,6 @@
             @enderror
         </div>
 
-        <!-- Confirmar Contraseña -->
         <div class="mb-3">
             <label for="password_confirmation" class="form-label">Confirmar Contraseña</label>
             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
@@ -90,7 +80,6 @@
             @enderror
         </div>
 
-        <!-- Botón de Enviar -->
         <button type="submit" class="btn btn-custom">Agregar Cliente</button>
     </form>
 </div>

@@ -1,4 +1,3 @@
-<!-- resources/views/layouts/cliente.blade.php -->
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -8,19 +7,14 @@
 
     <title>{{ config('app.name', 'Cliente App') }}</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Styles -->
     <style>
-        /* Estilos personalizados aquí */
         body {
             background-color: #f9f9f9;
         }
@@ -67,7 +61,6 @@
 </head>
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
-        <!-- Navigation -->
         <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('cliente.inicio') }}">
@@ -98,12 +91,10 @@
             </div>
         </nav>
 
-        <!-- Page Content -->
         <main>
             @yield('content')
         </main>
 
-        <!-- Footer -->
         <footer>
             <div class="container">
                 <div class="row">
@@ -137,7 +128,6 @@
         </footer>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

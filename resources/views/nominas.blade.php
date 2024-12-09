@@ -15,16 +15,16 @@
         .navbar {
             background-color: #000;
             color: #fff;
-            padding: 20px 10px; /* Incrementar el tamaño de la barra */
+            padding: 20px 10px; 
             display: flex;
-            justify-content: center; /* Centrar el título horizontalmente */
-            align-items: center; /* Centrar el contenido verticalmente */
+            justify-content: center;
+            align-items: center; 
         }
 
         .navbar h1 {
-            color: #ff69b4; /* Rosa suave */
+            color: #ff69b4; 
             margin: 0;
-            font-size: 2rem; /* Aumentar tamaño del título */
+            font-size: 2rem; 
         }
 
         .container {
@@ -32,7 +32,7 @@
         }
 
         .btn-back {
-            background-color: #ff69b4; /* Rosa suave */
+            background-color: #ff69b4; 
             color: #fff;
             border: none;
         }
@@ -43,7 +43,7 @@
 
         .btn-add {
             background-color: #000;
-            color: #ff69b4; /* Letra/Iconos rosas */
+            color: #ff69b4; 
             border: none;
             margin-bottom: 20px;
         }
@@ -54,7 +54,7 @@
 
         .table th {
             background-color: #000;
-            color: #ff69b4; /* Texto rosa */
+            color: #ff69b4; 
             text-align: center;
         }
 
@@ -65,7 +65,7 @@
 
         .btn-detail {
             background-color: #000;
-            color: #ff69b4; /* Letra/Iconos rosas */
+            color: #ff69b4;
             border: none;
         }
 
@@ -77,7 +77,6 @@
             border-radius: 5px;
         }
 
-        /* Responsividad */
         @media (max-width: 768px) {
             .table-responsive {
                 overflow-x: auto;
@@ -89,21 +88,17 @@
             }
 
             .navbar h1 {
-                font-size: 1.5rem; /* Ajustar tamaño del título en pantallas pequeñas */
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Barra Negra Superior -->
     <div class="navbar">
         <h1>Nóminas de {{ $empleado->name }}</h1>
     </div>
 
     <div class="container">
-       
-
-        <!-- Formulario de Filtros -->
 <form method="GET" action="{{ route('nominas.index', ['empleado_id' => $empleado->id]) }}" class="mb-4 p-3" style="border: 1px solid #000; border-radius: 8px; background-color: #fff;">
     <div class="row">
         <div class="col-md-4">
@@ -135,14 +130,9 @@
         </button>
     </div>
 </form>
-
-
-         <!-- Botón Regresar -->
          <a href="{{ route('empleados', ['empleado_id' => $empleado->id]) }}" class="btn btn-back mb-3">
             <i class="fas fa-arrow-left"></i> Regresar
         </a>
-
-        <!-- Botón Agregar Nómina -->
         <a href="{{ route('nominas.create', ['empleado_id' => $empleado->id]) }}" class="btn btn-add">
             <i class="fas fa-plus"></i> Crear Nómina
         </a>

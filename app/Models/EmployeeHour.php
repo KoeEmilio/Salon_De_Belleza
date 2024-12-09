@@ -9,10 +9,9 @@ class EmployeeHour extends Model
 {
     use HasFactory;
 
-    // Nombre de la tabla
     protected $table = 'employee_hours';
 
-    // Campos que son asignables
+
     protected $fillable = [
         'employee_id',
         'date_worked',

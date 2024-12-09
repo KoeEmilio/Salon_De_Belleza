@@ -7,8 +7,8 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #ffffff; /* Fondo blanco para toda la vista */
-            color: #d5006d; /* Letras en rosa */
+            background-color: #ffffff; 
+            color: #d5006d; 
             margin: 0;
             padding: 0;
         }
@@ -17,7 +17,7 @@
             max-width: 600px;
             margin: 20px auto;
             padding: 30px;
-            background-color: #f8bbd0; /* Rosa suave para el fondo de la carta */
+            background-color: #f8bbd0; 
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
@@ -29,7 +29,7 @@
 
         h2 {
             font-size: 24px;
-            color: #d5006d; /* Rosa fuerte */
+            color: #d5006d; 
         }
 
         p {
@@ -38,11 +38,11 @@
         }
 
         .details {
-            background-color: #fce4ec; /* Rosa suave para el fondo de los datos */
+            background-color: #fce4ec;
             padding: 15px;
             border-radius: 6px;
             margin-top: 20px;
-            border-left: 4px solid #d5006d; /* Rosa fuerte */
+            border-left: 4px solid #d5006d; 
         }
 
         .details p {
@@ -59,7 +59,7 @@
 
         .details p i {
             margin-right: 10px;
-            color: #d5006d; /* Rosa fuerte */
+            color: #d5006d; 
         }
 
         .footer {

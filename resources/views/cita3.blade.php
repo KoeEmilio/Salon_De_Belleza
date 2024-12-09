@@ -9,24 +9,18 @@
         </div>
     @endif
 
-    <!-- Resto del contenido -->
-
 <style>
 body {
         font-family: Arial, sans-serif;
         background-color: #fff0f5;
     }
-    
-    /* Contenedor centrado */
-    .custom-alert-container {
+        .custom-alert-container {
         display: flex;
         justify-content: center; 
         align-items: center; 
         min-height: 100vh;
         background-color: #f8f9fa; 
     }
-
-    /* Estilo del cuadro de alerta */
     .custom-alert {
         width: 300px;
         height: 300px; 
@@ -46,14 +40,11 @@ body {
         animation: fadeIn 1s ease-in-out;
         text-align: center; 
     }
-
-    /* Estilo del ícono */
     .custom-alert i {
         font-size: 50px;
         color: #ffb7c2; 
     }
 
-    /* Animación de entrada */
     @keyframes fadeIn {
         from {
             opacity: 0;

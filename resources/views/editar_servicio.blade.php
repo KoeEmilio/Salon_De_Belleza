@@ -8,8 +8,6 @@
     <form action="{{ route('service.update', ['appointmentId' => $cita->id, 'serviceDetailId' => $serviceDetail->id]) }}" method="POST" style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
         @csrf
         @method('PUT')
-
-        <!-- Selección del Servicio -->
         <select name="service_id" id="service_id" class="form-control" required onchange="updatePriceAndDuration()">
             <option value="">Selecciona un servicio</option>
             @foreach ($services as $service)
@@ -18,8 +16,6 @@
                 </option>
             @endforeach
         </select>
-
-        <!-- Selección del Tipo de Cabello -->
         <div class="form-group">
             <label for="hair_type_id" style="color: #ff4d88;">Tipo de Cabello</label>
             <select name="hair_type_id" id="hair_type_id" class="form-control" required onchange="updatePriceAndDuration()" style="background-color: #f1f1f1;">
@@ -32,37 +28,31 @@
             </select>
         </div>
 
-        <!-- Precio Unitario -->
         <div class="form-group">
             <label for="unit_price" style="color: #ff4d88;">Precio del Servicio</label>
             <input type="number" name="unit_price" id="unit_price" class="form-control" value="{{ old('unit_price', $serviceDetail->unit_price) }}" required readonly style="background-color: #f1f1f1;">
         </div>
 
-        <!-- Precio Adicional por Tipo de Cabello -->
         <div class="form-group">
             <label for="hair_extra_price" style="color: #ff4d88;">Precio Adicional por Tipo de Cabello</label>
             <input type="number" name="hair_extra_price" id="hair_extra_price" class="form-control" value="{{ old('hair_extra_price', $serviceDetail->hair_extra_price) }}" readonly style="background-color: #f1f1f1;">
         </div>
 
-        <!-- Duración del Servicio -->
         <div class="form-group">
             <label for="duration" style="color: #ff4d88;">Duración del Servicio</label>
             <input type="text" name="duration" id="duration" class="form-control" value="{{ old('duration', $serviceDetail->duration) }}" readonly style="background-color: #f1f1f1;">
         </div>
 
-        <!-- Cantidad -->
         <div class="form-group">
             <label for="quantity" style="color: #ff4d88;">Cantidad</label>
             <input type="number" name="quantity" id="quantity" class="form-control" value="{{ old('quantity', $serviceDetail->quantity) }}" required onchange="updatePriceAndDuration()" style="background-color: #f1f1f1;">
         </div>
 
-        <!-- Precio Total -->
         <div class="form-group">
             <label for="total_price" style="color: #ff4d88;">Precio Total</label>
             <input type="number" name="total_price" id="total_price" class="form-control" value="{{ old('total_price', $serviceDetail->total_price) }}" readonly style="background-color: #f1f1f1;">
         </div>
 
-        <!-- Botones de Acción -->
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-4 gap-3">
             <a href="{{ route('service.index', ['appointmentId' => $cita->id]) }}" class="btn action-btn w-100 w-md-50 py-2">
                 Regresar

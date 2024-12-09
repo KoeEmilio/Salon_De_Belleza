@@ -195,14 +195,14 @@
 
 .button-container {
   display: flex;
-  gap: 8px; /* Space between buttons */
+  gap: 8px;
   align-items: center;
 }
 
 .button,
 .editBtn {
-  width: 40px; /* Adjusted size */
-  height: 40px; /* Adjusted size */
+  width: 40px; 
+  height: 40px; 
 }
         .card-header {
             background-color: #000000;
@@ -238,40 +238,38 @@
         }
 
         @media (max-width: 771px) {
-    /* Estilos para pantallas de 576px o menos */
     .container {
         padding: 10px;
         width: 100%;
     }
 
     .table th, .table td {
-        font-size: 12px; /* Ajusta el tamaño de la fuente para mejorar la visibilidad en pantallas pequeñas */
+        font-size: 12px;
         padding: 8px;
     }
 
     .navbar-center h1 {
-        font-size: 16px; /* Reduce el tamaño del texto en la barra de navegación */
+        font-size: 16px;
     }
 
     .card-header h3 {
-        font-size: 18px; /* Ajusta el tamaño de fuente en el encabezado de la tarjeta */
+        font-size: 18px;
     }
 
     .button-container {
-        flex-direction: column; /* Cambia la disposición de los botones a una columna */
+        flex-direction: column; 
         align-items: flex-start;
     }
 
     .editBtn, .button {
-        width: 35px; /* Reduce el tamaño de los botones */
+        width: 35px; 
         height: 35px;
     }
 
     .pagination .page-link {
-        padding: 5px 10px; /* Ajusta los márgenes para los elementos de paginación */
+        padding: 5px 10px; 
     }
 
-    /* Asegura que la tabla se ajuste y no se desborde */
     .table {
         width: 100%;
         overflow-x: auto;
@@ -280,13 +278,10 @@
 }
 
         @media (max-width: 430px) {
-    /* Make the table container responsive */
     .table {
         width: 100%;
-        font-size: 14px; /* Adjust font size for smaller screens */
+        font-size: 14px; 
     }
-
-    /* Stack the table headers vertically on smaller screens */
     .table th, .table td {
         display: block;
         text-align: right;
@@ -303,14 +298,12 @@
         border-top: 1px solid #f8f9fa;
     }
 
-    /* Add a simple label for each column in the table for clarity */
     .table td::before {
         content: attr(data-label);
         font-weight: bold;
         padding-right: 5px;
     }
 
-    /* Adjust the button sizes to fit smaller screens */
     .button, .editBtn {
         width: 35px;
         height: 35px;
@@ -440,7 +433,6 @@
             <div class="d-flex justify-content-center mt-4">
               <nav aria-label="Page navigation example">
                   <ul class="pagination">
-                      <!-- Páginas anteriores -->
                       @if ($servicios->onFirstPage())
                       <li class="page-item disabled">
                           <span class="page-link">Anterior</span>
@@ -452,15 +444,11 @@
                           </a>
                       </li>
                       @endif
-
-                      <!-- Páginas numeradas -->
                       @foreach ($servicios->getUrlRange(1, $servicios->lastPage()) as $page => $url)
                       <li class="page-item {{ $page == $servicios->currentPage() ? 'active' : '' }}">
                           <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                       </li>
                       @endforeach
-
-                      <!-- Páginas siguientes -->
                       @if ($servicios->hasMorePages())
                       <li class="page-item">
                           <a class="page-link" href="{{ $servicios->nextPageUrl() }}" aria-label="Next">

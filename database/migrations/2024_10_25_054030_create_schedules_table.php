@@ -15,9 +15,9 @@ class CreateSchedulesTable extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->string('day', 10); // Día de la semana
-            $table->time('opening_time')->nullable(); // Hora de apertura
-            $table->time('closing_time')->nullable(); // Hora de cierre
+            $table->string('day', 10); 
+            $table->time('opening_time')->nullable();
+            $table->time('closing_time')->nullable(); 
             $table->timestamps();
         });
     }

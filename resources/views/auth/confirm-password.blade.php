@@ -1,4 +1,3 @@
-<!-- resources/views/auth/confirm-password.blade.php -->
 <!DOCTYPE html>
 <html lang="es">
 <head>

@@ -90,7 +90,6 @@
     </style>
 </head>
 <body>
-    <!-- Barra Superior -->
     <div class="navbar">
         <h1>Bonos e Impuestos de <span class="text-light">{{ $empleado->name }}</span></h1>
     </div>
@@ -99,15 +98,12 @@
       
 
         <h5 class="text-center mb-4">Periodo: {{ $nomina->period_start }} - {{ $nomina->period_end }}</h5>
-
-        <!-- Botón de Agregar -->
         <div class="text-center mb-4">
             <a href="{{ route('bonos.impuestos.create', ['employee_id' => $empleado->id, 'nomina_id' => $nomina->id]) }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Agregar Bono/Impuesto
             </a>
         </div>
 
-          <!-- Botón de Regresar -->
           <a href="{{ route('nominas.index', ['empleado_id' => $empleado->id]) }}" class="btn btn-secondary btn-sm mb-3">
             <i class="fas fa-arrow-left"></i> Regresar a Nóminas
         </a>
@@ -134,12 +130,10 @@
                                 </span>
                             </td>
                             <td>
-                                <!-- Editar -->
                                 <a href="{{ route('bonos.impuestos.edit', ['employee_id' => $empleado->id, 'nomina_id' => $nomina->id, 'id' => $item->id]) }}" 
                                    class="btn btn-action btn-sm">
                                     <i class="fas fa-edit"></i> Editar
                                 </a>
-                                <!-- Eliminar -->
                                 <form action="{{ route('bonos.impuestos.destroy', ['employee_id' => $empleado->id, 'nomina_id' => $nomina->id, 'id' => $item->id]) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este bono/impuesto?');" style="display: inline;">
                                     @csrf
                                     @method('DELETE')

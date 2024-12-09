@@ -15,8 +15,8 @@ class CreateHairTypeTable extends Migration
     {
         Schema::create('hair_type', function (Blueprint $table) {
             $table->id();
-            $table->string('type', 20); // Tipo de cabello
-            $table->decimal('price', 5, 2); // Precio asociado al tipo de cabello
+            $table->string('type', 20); 
+            $table->decimal('price', 5, 2); 
             $table->timestamps();
         });
     }

@@ -9,11 +9,9 @@ class BonusTaxSeeder extends Seeder
 {
     public function run()
     {
-        // Asumimos que los IDs de los empleados son los mismos que en el seeder de `employees_data`
-
-        // Bonos para empleados
+      
         BonusTax::create([
-            'employee_id' => 1, // Asumiendo que el primer empleado tiene el ID 1
+            'employee_id' => 1, 
             'date_recorded' => Carbon::now()->subDays(10),
             'type' => 'Bono',
             'description' => 'Bonificación por buen desempeño',
@@ -21,7 +19,7 @@ class BonusTaxSeeder extends Seeder
         ]);
 
         BonusTax::create([
-            'employee_id' => 2, // Segundo empleado
+            'employee_id' => 2,
             'date_recorded' => Carbon::now()->subDays(15),
             'type' => 'Bono',
             'description' => 'Bonificación por metas alcanzadas',
@@ -29,7 +27,7 @@ class BonusTaxSeeder extends Seeder
         ]);
 
         BonusTax::create([
-            'employee_id' => 3, // Tercer empleado
+            'employee_id' => 3,
             'date_recorded' => Carbon::now()->subDays(5),
             'type' => 'Bono',
             'description' => 'Bonificación mensual',
@@ -37,16 +35,15 @@ class BonusTaxSeeder extends Seeder
         ]);
 
         BonusTax::create([
-            'employee_id' => 4, // Cuarto empleado
+            'employee_id' => 4, 
             'date_recorded' => Carbon::now()->subDays(12),
             'type' => 'Bono',
             'description' => 'Bonificación por jornada extendida',
             'amount' => 500.00
         ]);
 
-        // Impuestos para empleados
         BonusTax::create([
-            'employee_id' => 5, // Quinto empleado
+            'employee_id' => 5, 
             'date_recorded' => Carbon::now()->subDays(8),
             'type' => 'Impuesto',
             'description' => 'Deducción por impuestos federales',
@@ -54,16 +51,15 @@ class BonusTaxSeeder extends Seeder
         ]);
 
         BonusTax::create([
-            'employee_id' => 6, // Sexto empleado
+            'employee_id' => 6, 
             'date_recorded' => Carbon::now()->subDays(20),
             'type' => 'Impuesto',
             'description' => 'Impuesto sobre la renta',
             'amount' => 200.00
         ]);
 
-        // Recibos de impuestos para algunos de los recepcionistas
         BonusTax::create([
-            'employee_id' => 7, // Primer recepcionista
+            'employee_id' => 7, 
             'date_recorded' => Carbon::now()->subDays(30),
             'type' => 'Impuesto',
             'description' => 'Deducción por impuestos municipales',
@@ -71,7 +67,7 @@ class BonusTaxSeeder extends Seeder
         ]);
 
         BonusTax::create([
-            'employee_id' => 8, // Segundo recepcionista
+            'employee_id' => 8,
             'date_recorded' => Carbon::now()->subDays(25),
             'type' => 'Bono',
             'description' => 'Bono por servicio al cliente',
