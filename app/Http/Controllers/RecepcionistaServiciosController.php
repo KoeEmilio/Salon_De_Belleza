@@ -64,18 +64,16 @@ class RecepcionistaServiciosController extends Controller
     }
     // Mostrar formulario para editar un servicio
     public function edit($serviceDetailId)
-{
-    $serviceDetail = ServiceDetail::with('service', 'hairType', 'appointment.owner')->findOrFail($serviceDetailId);
-    $cita = $serviceDetail->appointment; 
-    $hairTypes = HairType::all();
-    $services = Service::all();
-
-    // Obtener duración del servicio y precio adicional del tipo de cabello
-    $serviceDetail->duration = $serviceDetail->service->duration ?? 0;
-    $serviceDetail->hair_extra_price = $serviceDetail->hairType->price ?? 0;
-
-    return view('editar_servicio', compact('serviceDetail', 'cita', 'services', 'hairTypes'));
-}
+    {
+        // Buscar el detalle del servicio
+        $serviceDetail = ServiceDetail::with('appointment.owner')->findOrFail($serviceDetailId); // Incluye el propietario de la cita
+        $cita = $serviceDetail->appointment; 
+        $hairTypes = HairType::all();
+        $services = Service::all();
+    
+        // Pasar las variables necesarias a la vista
+        return view('editar_servicio', compact('serviceDetail', 'cita', 'services', 'hairTypes'));
+    }
 
     // Actualizar un servicio existente
     public function update(Request $request, $serviceDetailId)
