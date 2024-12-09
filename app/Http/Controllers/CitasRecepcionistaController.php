@@ -56,65 +56,37 @@ class CitasRecepcionistaController extends Controller
     {
         // Validar los datos
         $request->validate([
-            'name' => 'required|string|alpha|max:15',
-            'last_name' => 'required|string|alpha|max:20',
-            'age' => 'required|integer|min:0|max:120',
-            'gender' => 'required|in:H,M',
-            'phone' => 'required|digits:10|regex:/^[0-9]{10}$/',
             'appointment_day' => 'required|date|after_or_equal:' . now()->toDateString(),
-'appointment_time' => 'required|date_format:H:i|after:' . now()->toDateString() . ' ' . now()->format('H:i'),
-            'status' => 'required|in:pendiente,confirmada,cancelada',
-            'payment_type' => 'required|in:efectivo,transferencia',
-        ],[
-            'name.required' => 'El nombre es obligatorio.',
-            'name.string' => 'El nombre debe ser una cadena de texto.',
-            'name.alpha' => 'El nombre solo puede contener letras.',
-            'name.max' => 'El nombre no puede tener más de 15 caracteres.',
-            
-            'last_name.required' => 'El apellido es obligatorio.',
-            'last_name.string' => 'El apellido debe ser una cadena de texto.',
-            'last_name.alpha' => 'El apellido solo puede contener letras.',
-            'last_name.max' => 'El apellido no puede tener más de 20 caracteres.',
-            
-            'age.required' => 'La edad es obligatoria.',
-            'age.integer' => 'La edad debe ser un número entero.',
-            'age.min' => 'La edad no puede ser menor a 0.',
-            'age.max' => 'La edad no puede ser mayor a 120.',
-            
-            'gender.required' => 'El género es obligatorio.',
-            'gender.in' => 'El género debe ser uno de los siguientes: H (Hombre), M (Mujer).',
-            
-            'phone.required' => 'El número de teléfono es obligatorio.',
-            'phone.digits' => 'El número de teléfono debe tener 10 dígitos.',
-            'phone.regex' => 'El número de teléfono debe ser un número válido de 10 dígitos.',
-            
+            'appointment_time' => [
+                'required',
+                'date_format:H:i',
+                function ($attribute, $value, $fail) use ($request) {
+                    $appointmentDay = $request->input('appointment_day');
+                    $appointmentTime = \Carbon\Carbon::parse("$appointmentDay $value");
+                    $currentDateTime = \Carbon\Carbon::now();
+                    $startTime = \Carbon\Carbon::parse("$appointmentDay 07:00");
+                    $endTime = \Carbon\Carbon::parse("$appointmentDay 23:00");
+
+                    // Validar que la hora no sea en el pasado
+                    if ($appointmentTime < $currentDateTime) {
+                        $fail('La hora de la cita no puede ser en el pasado.');
+                    }
+
+                    // Validar que la hora esté entre las 7:00 AM y 11:00 PM
+                    if ($appointmentTime < $startTime || $appointmentTime > $endTime) {
+                        $fail('La hora de la cita debe estar entre las 7:00 AM y las 11:00 PM.');
+                    }
+                },
+            ],
+        ], [
             'appointment_day.required' => 'La fecha de la cita es obligatoria.',
             'appointment_day.date' => 'La fecha debe ser válida.',
             'appointment_day.after_or_equal' => 'La fecha de la cita no puede ser anterior a la fecha actual.',
-           
-            'appointment_time.after' => 'La hora de la cita debe ser posterior a la hora actual.',
             'appointment_time.required' => 'La hora de la cita es obligatoria.',
             'appointment_time.date_format' => 'La hora debe tener el formato HH:MM.',
-            
-            'status.required' => 'El estado de la cita es obligatorio.',
-            'status.in' => 'El estado debe ser uno de los siguientes: pendiente, confirmada, cancelada.',
-            
-            'payment_type.required' => 'El tipo de pago es obligatorio.',
-            'payment_type.in' => 'El tipo de pago debe ser uno de los siguientes: efectivo, transferencia.',
         ]);
 
-        // Verificar si ya existe una cita en la misma fecha y hora
-        $existingAppointment = Appointment::where('appointment_day', $request->appointment_day)
-                                          ->where('appointment_time', $request->appointment_time)
-                                          ->exists();
-
-        if ($existingAppointment) {
-            return redirect()->back()
-                             ->withErrors(['error' => 'Ya existe una cita en esta fecha y hora. Por favor, elija otro horario.'])
-                             ->withInput();
-        }
-
-        // Crear un nuevo cliente en la tabla people_data
+        // Crear un nuevo cliente
         $cliente = PeopleData::create([
             'first_name' => $request->name,
             'last_name' => $request->last_name,
@@ -142,6 +114,7 @@ class CitasRecepcionistaController extends Controller
         return redirect()->route('appointment.index')->with('success', 'Cita creada con éxito');
     }
 
+
    
     public function showServices($id)
     {
@@ -163,63 +136,48 @@ class CitasRecepcionistaController extends Controller
     public function update(Request $request, $id)
     {
         $cita = Appointment::findOrFail($id);
-    
+
         // Validar los datos
         $request->validate([
-            'appointment_day' => 'required|date|after_or_equal:'.now()->toDateString(), // Asegura que la cita no esté en el pasado
+            'appointment_day' => 'required|date|after_or_equal:' . now()->toDateString(),
             'appointment_time' => [
                 'required',
                 'date_format:H:i',
                 function ($attribute, $value, $fail) use ($request) {
                     $appointmentDay = $request->input('appointment_day');
-                    $appointmentTime = \Carbon\Carbon::parse($appointmentDay . ' ' . $value);
-                    $now = \Carbon\Carbon::now();
-        
-                    // Si la fecha seleccionada es hoy
-                    if ($appointmentDay == $now->toDateString()) {
-                        if ($appointmentTime <= $now) {
-                            $fail('La hora de la cita debe ser posterior a la hora actual.');
-                        }
+                    $appointmentTime = \Carbon\Carbon::parse("$appointmentDay $value");
+                    $currentDateTime = \Carbon\Carbon::now();
+                    $startTime = \Carbon\Carbon::parse("$appointmentDay 07:00");
+                    $endTime = \Carbon\Carbon::parse("$appointmentDay 23:00");
+
+                    // Validar que la hora no sea en el pasado
+                    if ($appointmentTime < $currentDateTime) {
+                        $fail('La hora de la cita no puede ser en el pasado.');
+                    }
+
+                    // Validar que la hora esté entre las 7:00 AM y 11:00 PM
+                    if ($appointmentTime < $startTime || $appointmentTime > $endTime) {
+                        $fail('La hora de la cita debe estar entre las 7:00 AM y las 11:00 PM.');
                     }
                 },
             ],
-            'status' => 'required|in:pendiente,confirmada,cancelada',
-        ], [
-            'appointment_day.required' => 'La fecha de la cita es obligatoria.',
-            'appointment_day.date' => 'La fecha debe ser válida.',
-            'appointment_day.after_or_equal' => 'La fecha de la cita no puede ser anterior a la fecha actual.',
-            
-            'appointment_time.required' => 'La hora de la cita es obligatoria.',
-            'appointment_time.date_format' => 'La hora debe tener el formato HH:MM.',
-            'appointment_time.after' => 'La hora de la cita debe ser posterior a la hora actual.',
         ]);
-    
-        // Verificar si la cita no está duplicada
-        $existingAppointment = Appointment::where('appointment_day', $request->appointment_day)
-                                          ->where('appointment_time', $request->appointment_time)
-                                          ->where('id', '!=', $id) // Excluir la cita actual
-                                          ->exists();
-    
-        if ($existingAppointment) {
-            return redirect()->back()
-                             ->withErrors(['error' => 'Ya existe una cita en esta fecha y hora. Por favor, elija otro horario.'])
-                             ->withInput();
-        }
-    
+
         // Actualizar la cita
         $cita->update([
             'appointment_day' => $request->appointment_day,
             'appointment_time' => $request->appointment_time,
             'status' => $request->status,
         ]);
-    
+
         // Crear orden si se confirma la cita
         if ($request->status == 'confirmada' && $cita->status != 'confirmada') {
             Order::create(['client_id' => $cita->owner_id]);
         }
-    
+
         return redirect()->route('appointment.index')->with('success', 'Cita actualizada con éxito');
     }
+
     
     public function updateStatus(Request $request, $id)
     {
