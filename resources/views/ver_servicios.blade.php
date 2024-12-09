@@ -1,3 +1,4 @@
+
 @extends('layouts.recepcionista')
 
 @section('content')
