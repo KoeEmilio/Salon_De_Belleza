@@ -77,11 +77,9 @@
             var serviceDuration = document.getElementById("service_id").selectedOptions[0].getAttribute("data-duration") || '0';
             var hairPrice = parseFloat(document.getElementById("hair_type_id").selectedOptions[0].getAttribute("data-price")) || 0;
             var quantity = parseInt(document.getElementById("quantity").value) || 1;
-
             document.getElementById("unit_price").value = servicePrice;
             document.getElementById("hair_extra_price").value = hairPrice;
             document.getElementById("duration").value = serviceDuration;
-
             var totalPrice = (servicePrice + hairPrice) * quantity;
             document.getElementById("total_price").value = totalPrice;
         }
