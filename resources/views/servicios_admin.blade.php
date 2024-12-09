@@ -349,9 +349,6 @@
             <a href="{{route('addservice')}}">
             <button class="btn-container">Agregar Servicio</button>
           </a>
-          <a href="{{route('graficaMes')}}">
-          <button class="btn-container">Estadistica</button>
-        </a>
         </div>  
             <div class="card shadow-sm">
                 <div class="card-header">
@@ -379,6 +376,7 @@
                                 <td>{{ $servicio->typeService->type }}</td>
                                 <td>
                                   <div class="button-container">
+                                    <a href="{{route('servicios.edit', $servicio->id)}}">
                                     <button class="editBtn">
                                         <svg height="1em" viewBox="0 0 512 512">
                                           <path
@@ -386,6 +384,7 @@
                                           ></path>
                                         </svg>
                                       </button>
+                                      </a>
                                       <form action="{{ route('servicios.delete', $servicio->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este servicio?')">
                                         @csrf
                                         @method('DELETE')
