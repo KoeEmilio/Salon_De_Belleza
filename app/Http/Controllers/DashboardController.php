@@ -85,8 +85,7 @@ class DashboardController extends Controller
     public function FomrmEditarUsuario($id)
     {
         $usuario = User::with('peopleData')->findOrFail($id);
-        $roles = Role::all(); 
-        return view('Edit_cliente', compact('usuario', 'roles'));
+        return view('Edit_cliente', compact('usuario',));
     }
 
     public function toggleStatus($id)
