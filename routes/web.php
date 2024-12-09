@@ -153,6 +153,7 @@ Route::put('/recepcionista/citas/{id}', [CitasRecepcionistaController::class, 'u
 Route::get('appointments/create', [CitasRecepcionistaController::class, 'create'])->name('appointment.create');
 Route::post('appointments', [CitasRecepcionistaController::class, 'store'])->name('appointment.store');
 
+
 Route::get('recepcionista/appointment/{appointmentId}/services', [RecepcionistaServiciosController::class, 'index'])->name('service.index');
 Route::get('recepcionista/appointment/{appointmentId}/services/create', [RecepcionistaServiciosController::class, 'create'])->name('service.create');
 Route::post('recepcionista/appointment/{appointmentId}/services', [RecepcionistaServiciosController::class, 'store'])->name('service.store');
