@@ -95,7 +95,8 @@ Route::middleware(['is_active','auth','role:admin'])->group(function () {
     Route::get('/graficas',[ServicioController::class, 'serviciosmes'])->name('graficaMes');
     Route::put('/usuario/{id}/actualizar-rol', [DashboardController::class, 'actualizarRol'])->name('actualizar_rol');
     Route::get('/idk', [DashboardController::class, 'buscar'])->name('buscar.usuario');
-    
+    Route::get('/servicio/{id}/edit', [DashboardController::class, 'FomrmEditarServicio'])->name('servicios.edit');
+    Route::put('/servicio/{id}', [DashboardController::class, 'Actualizarservicios'])->name('servicios.update');
 
 
 Route::get('nominas/{empleado_id}', [NominaController::class, 'index'])->name('nominas.index');

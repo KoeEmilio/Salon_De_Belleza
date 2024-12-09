@@ -139,4 +139,26 @@ public function actualizarRol(Request $request, $id)
         return view('clientes_admin', compact('usuarios', 'query', 'roles'));
     }
 
+    public function FomrmEditarServicio($id)
+    {
+        $servicio = Service::with('typeService')->findOrFail($id);
+        return view('Edit_servicios', compact('servicio'));
+    }
+
+    public function Actualizarservicios(Request $request, $id)
+    {
+        $servicio = Service::findOrFail($id);
+        $servicio->service_name = $request->input('service_name');
+        $servicio->price = $request->input('price');
+        $servicio->description = $request->input('description');
+        $servicio->duration = $request->input('duration');
+        $servicio->save();
+
+        $tipo_servicio = $servicio->typeService;
+        $tipo_servicio->type = $request->input('type');
+        $tipo_servicio->save();
+
+        return redirect()->route('servicios_admin')->with('success', 'Persona actualizada con éxito');
+    }
+
 }
