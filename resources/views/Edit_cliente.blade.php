@@ -42,7 +42,7 @@
                 <h3 class="my-0">Editar Datos</h3>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('update.user', $usuario->id) }}">
+                <form method="POST" action="{{ route('usuarios.update', $usuario->id) }}">
                     @csrf
                     @method('PUT')
 
@@ -59,7 +59,7 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="email">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{ $usuario->email }}" required>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ $usuario->email }}" disabled>
                             </div>
                         </div>
                     </div>
@@ -99,21 +99,6 @@
                         </div>
                     </div>
 
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="role">Rol</label>
-                                <select class="form-control" id="role" name="rol" required>
-                                    @foreach ($roles as $rol)
-                                        <option value="{{ $rol->id }}" 
-                                            {{ $usuario->roles->pluck('id')->contains($rol->id) ? 'selected' : '' }}>
-                                            {{ $rol->rol }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Teléfono -->
                     <div class="row mt-3">

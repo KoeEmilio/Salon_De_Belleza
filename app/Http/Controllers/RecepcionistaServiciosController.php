@@ -122,3 +122,4 @@ class RecepcionistaServiciosController extends Controller
         return view('service.create', ['appointmentId' => $appointment->id]);
     }
 }
+
