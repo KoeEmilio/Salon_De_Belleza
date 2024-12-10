@@ -35,7 +35,7 @@ class DashboardController extends Controller
     }
 
     public function usuarios(){
-        $usuarios = User::with('roles')  // Usar Eloquent para cargar la relación 'roles'
+        $usuarios = User::with('roles')  
         ->join('people_data', 'users.id', '=', 'people_data.user_id')
         ->select(
             'users.id',
@@ -50,7 +50,7 @@ class DashboardController extends Controller
         )
         ->paginate(4);
 
-    $roles = Role::all(); // Obtener todos los roles
+    $roles = Role::all(); 
 
 
         return view('clientes_admin', compact('usuarios', 'roles'));
@@ -85,7 +85,7 @@ class DashboardController extends Controller
     public function toggleStatus($id)
 {
     $usuario = User::findOrFail($id);
-    $usuario->is_active = !$usuario->is_active; // Cambiar el estado
+    $usuario->is_active = !$usuario->is_active; 
     $usuario->save();
 
     return redirect()->back()->with('status', 'Estado actualizado correctamente');
@@ -108,8 +108,7 @@ public function actualizarRol(Request $request, $id)
     {
         $query = $request->input('search');
 
-        // Utilizamos `with()` para cargar la relación de los roles
-        $usuarios = User::with('roles') // Cargamos la relación roles
+        $usuarios = User::with('roles') 
             ->join('people_data', 'users.id', '=', 'people_data.user_id')
             ->select(
                 'users.id',
@@ -134,7 +133,7 @@ public function actualizarRol(Request $request, $id)
             })
             ->paginate(4);
     
-        $roles = Role::all(); // Obtener todos los roles para el formulario
+        $roles = Role::all(); 
     
         return view('clientes_admin', compact('usuarios', 'query', 'roles'));
     }

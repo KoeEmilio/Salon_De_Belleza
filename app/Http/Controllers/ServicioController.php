@@ -21,7 +21,7 @@ class ServicioController extends Controller
         $appointment = Appointment::with(['services' => function ($queryBuilder) use ($searchQuery) {
             if ($searchQuery) {
                 $queryBuilder->where('service_name', 'like', "%{$searchQuery}%")
-                             ->orWhere('description', 'like', "%{$searchQuery}%");
+                ->orWhere('description', 'like', "%{$searchQuery}%");
             }
         }])->findOrFail($appointmentId);
 
@@ -86,7 +86,7 @@ class ServicioController extends Controller
         $appointment->services()->attach($request->service_id);
 
         return redirect()->route('servi.create', $appointmentId)
-                         ->with('success', 'Servicio agregado correctamente.');
+        ->with('success', 'Servicio agregado correctamente.');
     }
 
     public function destroy($appointmentId, $serviceId)
@@ -98,10 +98,10 @@ class ServicioController extends Controller
             $appointment->services()->detach($serviceId);
 
             return redirect()->route('servi.index', $appointmentId)
-                             ->with('success', 'Servicio eliminado de la cita exitosamente.');
+            ->with('success', 'Servicio eliminado de la cita exitosamente.');
         }
 
         return redirect()->route('servi.index', $appointmentId)
-                         ->with('info', 'El servicio no está asociado a esta cita.');
+        ->with('info', 'El servicio no está asociado a esta cita.');
     }
 }

@@ -47,7 +47,6 @@ class AppointmentController extends Controller
                 Log::warning('No se encontró un usuario autenticado para enviar el correo.');
             }
 
-            // Agregando el mensaje flash
             session()->flash('success', '¡La confirmación se ha enviado al correo!');
 
             Log::info('Cita creada con éxito.', ['appointment_id' => $appointment->id]);
@@ -56,7 +55,6 @@ class AppointmentController extends Controller
                 Log::info('Servicios asociados a la cita:', $validated['services']);
             }
 
-            // aqui se envia el mensaje de la vista3 
             session()->flash('success', '¡La confirmación se ha enviado al correo!');
 
             return response()->json([

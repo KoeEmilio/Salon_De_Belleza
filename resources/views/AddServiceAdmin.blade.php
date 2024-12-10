@@ -54,7 +54,9 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="price">Precio</label>
-                                <input type="number" class="form-control" id="price" name="price" required min="0" step="0.01">
+                                <i
+                                
+                                nput type="number" class="form-control" id="price" name="price" required min="0" step="0.01">
                             </div>
                         </div>
                     </div>

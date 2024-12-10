@@ -29,7 +29,7 @@
         }
 
         .table-responsive {
-            overflow-x: auto; /* Permite scroll horizontal en pantallas pequeñas */
+            overflow-x: auto; 
             max-width: 100%;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -57,8 +57,8 @@
         @media (max-width: 958px) {
             .table th, .table td {
                 font-size: 0.8rem;
-                padding: 0.4rem; /* Espaciado reducido */
-                text-align: center; /* Mejor alineación */
+                padding: 0.4rem; 
+                text-align: center; 
             }
 
             .pagination-container {
@@ -74,14 +74,12 @@
                 padding: 5px 10px;
             }
 
-            /* Card Title */
             .card-header h3 {
                 font-size: 1.2rem;
                 text-align: center;
             }
         }
 
-        /* Ajustes para dispositivos muy pequeños */
         @media (max-width: 629px) {
             .navbar-center {
                 justify-content: center;
@@ -99,8 +97,8 @@
                 width: 100%;
                 box-sizing: border-box;
                 text-align: left;
-                padding: 8px 4px; /* Reduce el espaciado interno */
-                font-size: 0.9rem; /* Fuente más pequeña */
+                padding: 8px 4px; 
+                font-size: 0.9rem; 
             }
 
             .table th {
@@ -126,11 +124,11 @@
             }
 
             .pagination-container {
-                flex-wrap: wrap; /* Ajusta la paginación en varias filas si es necesario */
+                flex-wrap: wrap; 
             }
 
             .page-link {
-                padding: 6px 10px; /* Botones más pequeños */
+                padding: 6px 10px; 
                 font-size: 0.9rem;
             }
         }       

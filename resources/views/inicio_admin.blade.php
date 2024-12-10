@@ -42,7 +42,7 @@
             align-items: center;
             height: 250px;
             width: 250px;
-            border: 4px solid transparent; /* Elimina el borde visible */
+            border: 4px solid transparent; 
             border-radius: 20px;
             background-color:black;
             color: white;

@@ -76,7 +76,7 @@
             vertical-align: middle;
         }
         .table-container {
-            overflow-x: auto; /* Scroll horizontal */
+            overflow-x: auto; 
         }
 
         .editBtn {
@@ -220,7 +220,6 @@
             border-color: #ffb7c2;
         }
         
-        /* Media Queries */
         @media (max-width: 768px) {
             nav {
                 flex-wrap: wrap;
@@ -259,7 +258,7 @@
             }
 
             thead {
-                display: none; /* Ocultar encabezados */
+                display: none; 
             }
 
             tbody tr {
@@ -389,7 +388,6 @@
             <div class="d-flex justify-content-center mt-4">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                        <!-- Páginas anteriores -->
                         @if ($usuarios->onFirstPage())
                         <li class="page-item disabled">
                             <span class="page-link">Anterior</span>
@@ -402,14 +400,12 @@
                         </li>
                         @endif
   
-                        <!-- Páginas numeradas -->
                         @foreach ($usuarios->getUrlRange(1, $usuarios->lastPage()) as $page => $url)
                         <li class="page-item {{ $page == $usuarios->currentPage() ? 'active' : '' }}">
                             <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                         </li>
                         @endforeach
   
-                        <!-- Páginas siguientes -->
                         @if ($usuarios->hasMorePages())
                         <li class="page-item">
                             <a class="page-link" href="{{ $usuarios->nextPageUrl() }}" aria-label="Next">
