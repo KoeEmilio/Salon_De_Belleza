@@ -1,12 +1,12 @@
 @php
     use Carbon\Carbon;
-    $start = Carbon::createFromTime(9, 0, 0); // Hora de inicio (9 AM)
-    $end = Carbon::createFromTime(22, 0, 0); // Hora de fin (10 PM)
+    $start = Carbon::createFromTime(9, 0, 0); 
+    $end = Carbon::createFromTime(22, 0, 0); 
     $options = [];
 
     while ($start <= $end) {
         $options[] = $start->format('H:i'); 
-        $start->addHour(); // Sumar una hora
+        $start->addHour();
     }
 @endphp
 
@@ -143,7 +143,6 @@
         padding: 15px;
     }
 
-    /* Responsividad */
     @media (max-width: 768px) {
         .progress-line {
             display: none;

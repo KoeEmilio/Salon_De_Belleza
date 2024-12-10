@@ -39,7 +39,7 @@ class Service extends Model
     }
     public function peopleData()
     {
-        return $this->belongsTo(PeopleData::class, 'people_data_id'); // Asegúrate de usar la clave foránea correcta si es necesario
+        return $this->belongsTo(PeopleData::class, 'people_data_id'); 
     }
     public function details()
     {

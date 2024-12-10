@@ -25,9 +25,8 @@
 
 @section('scripts')
 <script>
-    // Manejar el envío del formulario de registro
     document.getElementById('registrarClienteForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Evitar el envío normal del formulario
+        event.preventDefault();
         const formData = new FormData(this);
         
         fetch('/clientes', {
@@ -40,7 +39,7 @@
         .then(response => response.json())
         .then(data => {
             alert('Cliente registrado exitosamente.');
-            window.location.href = '{{ route('clientes.index') }}'; // Redirigir a la lista de clientes
+            window.location.href = '{{ route('clientes.index') }}'; 
         })
         .catch(error => console.error('Error:', error));
     });

@@ -25,16 +25,14 @@
 @endsection
 
 <style>
-    /* Fondo de la página */
     body {
         background-color: #1a1a1a;
         color: white;
         font-family: 'Arial', sans-serif;
     }
 
-    /* Botón de envío */
     button {
-        background-color: #F06292; /* Rosa */
+        background-color: #F06292; 
         color: white;
         font-weight: bold;
         border: none;
@@ -47,10 +45,10 @@
     }
 
     button:hover {
-        background-color: #E91E63; /* Rosa más fuerte */
+        background-color: #E91E63; 
     }
 
-    /* Inputs de formulario */
+
     input {
         background-color: #333;
         color: white;
@@ -65,13 +63,11 @@
         border-color: #E91E63;
     }
 
-    /* Etiquetas */
     label {
         color: #F06292;
         font-weight: bold;
     }
 
-    /* Fondo de formulario */
     form {
         background-color: #000;
         padding: 30px;

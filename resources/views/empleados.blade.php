@@ -13,7 +13,6 @@
             overflow-x: hidden;
         }
 
-        /* Barra superior */
         .navbar {
             background-color: black;
             height: 80px;
@@ -42,7 +41,6 @@
             color: white;
         }
 
-        /* Estilos del contenido principal */
         .principal {
             height: calc(100vh - 80px);
             display: flex;
@@ -57,7 +55,6 @@
             overflow-y: auto;
         }
 
-        /* Estilo de la tarjeta */
         .card {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
@@ -85,7 +82,6 @@
             background-color: #f5f5f5;
         }
 
-        /* Botones personalizados */
         .btn-custom {
             background-color: #000000;
             color: #ffb7c2;
@@ -103,7 +99,6 @@
             color: #000000;
         }
 
-        /* Contenedor de botones */
         .action-buttons {
             display: flex;
             gap: 15px;
@@ -122,7 +117,6 @@
             font-size: 16px;
         }
 
-        /* Paginación */
         .pagination {
             justify-content: center;
         }
@@ -145,7 +139,6 @@
             border-color: #ffb7c2;
         }
 
-        /* Responsividad */
         @media (max-width: 1024px) {
             .navbar-center h1 {
                 font-size: 28px;
@@ -221,7 +214,7 @@
 
 <body>
     <div class="contenedor">
-        <!-- Navbar -->
+
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="navbar-center">
                 <h1>EMPLEADOS</h1>
@@ -237,7 +230,7 @@
 
     <div class="principal">
         <div class="container">
-            <!-- Card con la tabla -->
+
             <div class="card shadow-sm">
                 <div class="card-header">
                     <h3 class="my-0">Lista de Trabajadores</h3>
@@ -283,11 +276,9 @@
                 </div>
             </div>
 
-            <!-- Paginación debajo de la tabla -->
             <div class="d-flex justify-content-center mt-4">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                        <!-- Páginas anteriores -->
                         @if ($empleados->onFirstPage())
                         <li class="page-item disabled">
                             <span class="page-link">Anterior</span>
@@ -299,15 +290,11 @@
                             </a>
                         </li>
                         @endif
-
-                        <!-- Páginas numeradas -->
                         @foreach ($empleados->getUrlRange(1, $empleados->lastPage()) as $page => $url)
                         <li class="page-item {{ $page == $empleados->currentPage() ? 'active' : '' }}">
                             <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                         </li>
                         @endforeach
-
-                        <!-- Páginas siguientes -->
                         @if ($empleados->hasMorePages())
                         <li class="page-item">
                             <a class="page-link" href="{{ $empleados->nextPageUrl() }}" aria-label="Next">

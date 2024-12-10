@@ -61,7 +61,6 @@
             background-color: #5a6268;
         }
 
-        /* Responsividad */
         @media (max-width: 768px) {
             h1, h2 {
                 text-align: center;
@@ -92,14 +91,9 @@
             Detalles de la Nómina para <span class="text-success">{{ $empleado->name }}</span>
         </h1>
 
-        <!-- Mostrar información de la nómina -->
         <p><strong><i class="fas fa-calendar-alt"></i> Periodo:</strong> {{ $nomina->period_start }} - {{ $nomina->period_end }}</p>
         <p><strong><i class="fas fa-money-bill-wave"></i> Sueldo Neto:</strong> ${{ $nomina->net_salary }}</p>
         <p><strong><i class="fas fa-info-circle"></i> Estado del Pago:</strong> {{ $nomina->payment_status }}</p>
-
-       
-
-        <!-- Mostrar horas trabajadas -->
         <h2>
             <i class="fas fa-clock icon-header"></i>
             Horas Trabajadas
@@ -129,7 +123,6 @@
             </table>
         </div>
 
-        <!-- Mostrar bonos e impuestos -->
         <h2>
             <i class="fas fa-gift icon-header"></i>
             Bonos e Impuestos
@@ -157,7 +150,6 @@
             </table>
         </div>
 
-        <!-- Botón para regresar -->
         <a href="{{ route('nominas.index', ['empleado_id' => $empleado->id]) }}" class="btn btn-secondary btn-sm back-btn">Regresar</a>
     </div>
 

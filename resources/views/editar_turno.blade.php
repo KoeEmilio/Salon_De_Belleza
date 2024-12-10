@@ -2,7 +2,6 @@
     @csrf
     @method('PUT')
 
-    <!-- Campos para la actualización -->
     <label for="start_time">Hora de entrada:</label>
     <input type="time" name="start_time" id="start_time" value="{{ old('start_time', $employeeHour->start_time) }}">
 

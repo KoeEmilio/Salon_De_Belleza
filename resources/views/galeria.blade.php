@@ -9,7 +9,6 @@
     <title>Glow Studio - Servicios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Colores personalizados */
         :root {
             --color-principal: #EC407A;
             --color-secundario: #EC407A;
@@ -23,7 +22,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Estilo de la galería */
         .gallery-section {
             padding: 50px 0;
             text-align: center;
@@ -60,14 +58,11 @@
     </style>
 </head>
 <body>
-
-    <!-- Sección de Galería de Servicios -->
     <section class="gallery-section" id="servicios">
         <div class="container">
             <h2>Nuestro Trabajo</h2>
             <div class="divider"></div>
             <div class="row g-4">
-                <!-- Servicio 3: CORTES -->
                 <div class="col-md-4">
                     <div class="gallery-item">
                         <div id="CORTES" class="carousel slide" data-bs-ride="carousel">
@@ -84,7 +79,6 @@
                                 <div class="carousel-item">
                                     <img src="https://media.metrolatam.com/2020/11/20/1182636411158284-14a3a1419b7979811ac3a37fc1034677-0x1200.jpg" alt="Uñas 2">
                                 </div>
-                                <!-- Añade más imágenes si es necesario -->
                             </div>
                             <div class="carousel-caption">Cortes</div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#CORTES" data-bs-slide="prev">
@@ -96,8 +90,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Servicio 3: BAYALAGE -->
                 <div class="col-md-4">
                     <div class="gallery-item">
                         <div id="BAYALAGE" class="carousel slide" data-bs-ride="carousel">
@@ -114,7 +106,6 @@
                                 <div class="carousel-item">
                                     <img src="https://i.pinimg.com/originals/f5/ba/f5/f5baf5bc6adac3ae1fe241248318339b.jpg" alt="Uñas 2">
                                 </div>
-                                <!-- Añade más imágenes si es necesario -->
                             </div>
                             <div class="carousel-caption">Balayage</div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#BAYALAGE" data-bs-slide="prev">
@@ -126,8 +117,6 @@
                         </div>
                     </div>
                 </div>
-
-                    <!-- Servicio 3: BAYALAGE -->
                     <div class="col-md-4">
                     <div class="gallery-item">
                         <div id="BABYLIGHTS" class="carousel slide" data-bs-ride="carousel">
@@ -144,7 +133,6 @@
                                 <div class="carousel-item">
                                     <img src="https://i.pinimg.com/736x/0a/48/23/0a4823e5fa647937915fd0a59624e0d9.jpg" alt="Uñas 2">
                                 </div>
-                                <!-- Añade más imágenes si es necesario -->
                             </div>
                             <div class="carousel-caption">Babylights</div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#BABYLIGHTS" data-bs-slide="prev">
@@ -157,9 +145,6 @@
                     </div>
                 </div>
                 <div class="divider"></div>
-
-
-                <!-- Servicio 1: Maquillaje -->
                 <div class="col-md-4">
                     <div class="gallery-item">
                         <div id="TINTEGLOBAL" class="carousel slide" data-bs-ride="carousel">
@@ -176,7 +161,6 @@
                                 <div class="carousel-item">
                                     <img src="https://i.pinimg.com/originals/2e/60/54/2e6054e4cbb4776a4359cd729d03d893.jpg" alt="Maquillaje 2">
                                 </div>
-                                <!-- Añade más imágenes si es necesario -->
                             </div>
                             <div class="carousel-caption">Tinte Global</div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#TINTEGLOBAL" data-bs-slide="prev">
@@ -188,9 +172,6 @@
                         </div>
                     </div>
                 </div>
-
-                
-                <!-- Servicio 1: Maquillaje -->
                 <div class="col-md-4">
                     <div class="gallery-item">
                         <div id="MECHAS" class="carousel slide" data-bs-ride="carousel">
@@ -204,8 +185,6 @@
                                 <div class="carousel-item">
                                     <img src="https://i.pinimg.com/736x/82/68/b2/8268b26aa8bf2ac768d9d30636785a10.jpg" alt="Maquillaje 2">
                                 </div>
-                  
-                                <!-- Añade más imágenes si es necesario -->
                             </div>
                             <div class="carousel-caption">Mechas Tradicionales</div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#MECHAS" data-bs-slide="prev">
@@ -217,8 +196,6 @@
                         </div>
                     </div>
                 </div>
-
-                 <!-- Servicio 1: Maquillaje -->
                  <div class="col-md-4">
                     <div class="gallery-item">
                         <div id="ALACIADO" class="carousel slide" data-bs-ride="carousel">
@@ -232,8 +209,6 @@
                                 <div class="carousel-item">
                                     <img src="https://i.pinimg.com/originals/a2/37/02/a23702ce11c70f89a4f77c71a5055424.jpg" alt="Maquillaje 2">
                                 </div>
-                  
-                                <!-- Añade más imágenes si es necesario -->
                             </div>
                             <div class="carousel-caption">Alaciado Permanente</div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#ALACIADO" data-bs-slide="prev">
@@ -247,8 +222,6 @@
                 </div>
 
                 <div class="divider"></div>
-
-                <!-- Servicio 1: Maquillaje -->
                 <div class="col-md-4">
                     <div class="gallery-item">
                         <div id="carouselMaquillaje" class="carousel slide" data-bs-ride="carousel">
@@ -265,7 +238,6 @@
                                 <div class="carousel-item">
                                     <img src="https://i.pinimg.com/736x/14/d5/68/14d5684ea629262efc76845ab61e8ec4.jpg" alt="Maquillaje 2">
                                 </div>
-                                <!-- Añade más imágenes si es necesario -->
                             </div>
                             <div class="carousel-caption">Maquillaje</div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselMaquillaje" data-bs-slide="prev">
@@ -277,8 +249,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Servicio 2: Peinado -->
                 <div class="col-md-4">
                     <div class="gallery-item">
                         <div id="carouselPeinado" class="carousel slide" data-bs-ride="carousel">
@@ -295,7 +265,6 @@
                                 <div class="carousel-item">
                                     <img src="https://i.pinimg.com/originals/37/e8/61/37e861664b71138fcbcba083b48ae161.jpg" alt="Peinado 2">
                                 </div>
-                                <!-- Añade más imágenes si es necesario -->
                             </div>
                             <div class="carousel-caption">Peinado</div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselPeinado" data-bs-slide="prev">
@@ -307,9 +276,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Añade más servicios según sea necesario, usando la misma estructura de carrusel -->
-                <!-- Servicio 3: Uñas -->
                 <div class="col-md-4">
                     <div class="gallery-item">
                         <div id="carouselUnas" class="carousel slide" data-bs-ride="carousel">
@@ -326,7 +292,6 @@
                                 <div class="carousel-item">
                                     <img src="https://th.bing.com/th/id/OIP.valGV7hPPTOlpQa-HHRsIQAAAA?rs=1&pid=ImgDetMain" alt="Uñas 2">
                                 </div>
-                                <!-- Añade más imágenes si es necesario -->
                             </div>
                             <div class="carousel-caption">Uñas</div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselUnas" data-bs-slide="prev">
@@ -340,9 +305,6 @@
                 </div>
 
                 <div class="divider"></div>
-
-
-                 <!-- Servicio 3: CEJA -->
                  <div class="col-md-4">
                     <div class="gallery-item">
                         <div id="CEJA" class="carousel slide" data-bs-ride="carousel">
@@ -356,8 +318,6 @@
                                 <div class="carousel-item">
                                     <img src="https://leonora-studio.mx/cdn/shop/files/Disenosintitulo_09f015ab-457d-4ace-9f5c-008ade6d7dda.png?v=1686720398&width=900" alt="Uñas 2">
                                 </div>
-                               
-                                <!-- Añade más imágenes si es necesario -->
                             </div>
                             <div class="carousel-caption">Diseño de Cejas</div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#CEJA" data-bs-slide="prev">
@@ -369,8 +329,6 @@
                         </div>
                     </div>
                 </div>
-                
-                      <!-- Servicio 3: Uñas -->
                       <div class="col-md-4">
                     <div class="gallery-item">
                         <div id="PAQUETES" class="carousel slide" data-bs-ride="carousel">
@@ -387,7 +345,6 @@
                                 <div class="carousel-item">
                                     <img src="https://i.pinimg.com/736x/18/5f/e7/185fe7aac76210eb34cfdd73057c9a11.jpg" alt="Uñas 2">
                                 </div>
-                                <!-- Añade más imágenes si es necesario -->
                             </div>
                             <div class="carousel-caption">Paquetes</div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#PAQUETES" data-bs-slide="prev">
@@ -399,8 +356,6 @@
                         </div>
                     </div>
                 </div>
-
-                 <!-- Servicio 3: Uñas -->
                  <div class="col-md-4">
                     <div class="gallery-item">
                         <div id="MESOTERAPIA" class="carousel slide" data-bs-ride="carousel">
@@ -414,8 +369,6 @@
                                 <div class="carousel-item">
                                     <img src="/m1.jpg" alt="Uñas 2">
                                 </div>
-                               
-                                <!-- Añade más imágenes si es necesario -->
                             </div>
                             <div class="carousel-caption">Mesoterapia</div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#MESOTERAPIA" data-bs-slide="prev">

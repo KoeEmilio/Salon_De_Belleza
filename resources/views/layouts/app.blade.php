@@ -16,17 +16,13 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Favicon básico -->
 <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
-<!-- Iconos adicionales para compatibilidad -->
 <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
 <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
 
-<!-- Icono para Apple dispositivos -->
 <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
 
-<!-- Archivo de configuración para navegadores avanzados -->
 <link rel="manifest" href="{{ asset('manifest.json') }}">
 
 
@@ -257,22 +253,22 @@
 }
 
 .popup .burger svg {
-    width: 80%; /* Reducido al 50% del contenedor */
-    height: 80%; /* Reducido al 50% del contenedor */
-    fill: #f06292; /* Mantiene el color actual */
+    width: 80%;
+    height: 80%;
+    fill: #f06292;
 }
 
 .popup-window {
     position: absolute;
     top: 50px;
     right: 0;
-    background-color: #fff; /* Fondo blanco para el menú */
+    background-color: #fff; 
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     display: none;
-    border: 2px solid #f06292; /* Rosa suave */
-    width: 200px; /* Ajustamos el ancho del contenedor */
+    border: 2px solid #f06292; 
+    width: 200px; 
 }
 
 .popup input:checked ~ .popup-window {
@@ -281,9 +277,9 @@
 
 .popup-window legend {
     font-weight: bold;
-    color: #f06292; /* Rosa */
+    color: #f06292; 
     font-size: 20px;
-    margin-bottom: 15px; /* Agregamos un poco de margen abajo */
+    margin-bottom: 15px; 
 }
 
 .popup-window ul {
@@ -297,37 +293,35 @@
 }
 
 .popup-window li a {
-    color: #333; /* Texto negro */
+    color: #333; 
     text-decoration: none;
     font-size: 18px;
-    display: block; /* Hacer que los enlaces ocupen todo el ancho */
-    padding: 10px; /* Añadimos espacio alrededor de los enlaces */
-    border-radius: 5px; /* Bordes redondeados para los enlaces */
+    display: block; 
+    padding: 10px; 
+    border-radius: 5px; 
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .popup-window li a:hover {
-    background-color: #f06292; /* Fondo rosa en hover */
-    color: #fff; /* Texto blanco al pasar el ratón */
+    background-color: #f06292; 
+    color: #fff; 
 }
 
-/* Estilos para el contenedor de "Iniciar Sesión" y "Registrarse" */
 .popup-window .guest-links li a {
     font-weight: bold;
-    color: #f06292; /* Rosa para los enlaces de invitado */
-    background-color: #fff; /* Fondo blanco para destacar */
-    border: 2px solid #f06292; /* Borde rosa */
+    color: #f06292; 
+    background-color: #fff; 
+    border: 2px solid #f06292;
     margin-top: 5px;
-    text-align: center; /* Centrar el texto */
+    text-align: center;
     transition: all 0.3s ease;
 }
 
 .popup-window .guest-links li a:hover {
-    background-color: #f06292; /* Rosa */
-    color: #fff; /* Texto blanco */
+    background-color: #f06292; 
+    color: #fff; 
 }
 
-/* Estilos responsivos */
 @media (max-width: 768px) {
     .popup .burger {
         width: 40px;
@@ -349,16 +343,16 @@
 
     .popup-window legend {
         font-size: 18px;
-        color: #f06292; /* Rosa */
+        color: #f06292;
     }
 
     .popup-window li a {
         font-size: 16px;
-        color: #333; /* Texto negro */
+        color: #333; 
     }
 
     .popup-window .guest-links li a {
-        font-size: 16px; /* Tamaño de fuente más pequeño en móviles */
+        font-size: 16px; 
     }
 }
 
@@ -416,26 +410,25 @@
     display: block;
 }
 
-/* Definimos los colores y estilos para los botones */
 .btn-rosa {
-    background-color: #fe889f; /* Rosa */
+    background-color: #fe889f; 
     color: white;
     border: 1px solid #fe889f;
 }
 
 .btn-rosa:hover {
-    background-color: #ffb7c2; /* Rosa más claro */
+    background-color: #ffb7c2; 
     color: black;
 }
 
 .btn-negro {
-    background-color: #000000; /* Negro */
+    background-color: #000000; 
     color: white;
     border: 1px solid #000000;
 }
 
 .btn-negro:hover {
-    background-color: #333333; /* Negro más claro */
+    background-color: #333333; 
     color: white;
 }
 
@@ -443,12 +436,8 @@
 </head>
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg sticky-top" >
-          
+        <nav class="navbar navbar-expand-lg sticky-top" >       
             <div class="container" >
-
-                <!-- Logo -->
                 <a class="navbar-brand" href="{{ route('welcome') }}">
                     <img src="/AH1.png" alt="Logo">
                 </a>
@@ -485,7 +474,6 @@
     </svg>
 </button>
 
-            <!-- Icono de usuario -->
             <div class="btn-user-menu">
     <label class="popup">
         <input type="checkbox" />
@@ -523,12 +511,7 @@
         </nav>
         
     </label>
-</div>
-
-
-
-
-                        
+</div>    
                     </a>
                 </div>
             </div>
@@ -541,12 +524,9 @@
 <br>
 <footer class="footer text-center text-light">
     <div class="container py-5">
-        <!-- Logo -->
         <h1 class="footer-logo display-4 text-uppercase mb-4" style="font-size: 2.5rem; color: #fe889f;">
             Glow Studio
         </h1>
-
-        <!-- Redes Sociales -->
         <div class="social-icons d-flex justify-content-center mb-4">
         <div class="child child-4">
         <button class="button btn-4">
@@ -570,7 +550,6 @@
       
       </div>
       </div>  
-        <!-- Ubicación -->
         <p class="location-text mb-0" style="font-size: 1.1rem;">
            
         </p>
@@ -586,11 +565,6 @@
                 © 2024 Glow Studio. Todos los derechos reservados.
             </p>
         </div>
-        
-
-      
-        
-      
       </div> 
 </footer>
 
@@ -598,8 +572,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
     <script>
         document.getElementById('heartBtn').addEventListener('click', function() {
             this.classList.toggle('favorito'); 

@@ -8,16 +8,16 @@ class ClientesController extends Controller
 {
     public function index()
     {
-        return view('clientes.index'); // Cambia esto por la vista correspondiente
+        return view('clientes.index');
     }
 
     public function create()
     {
-        return view('clientes.create'); // Cambia esto por la vista correspondiente
+        return view('clientes.create');
     }
 
     public function edit($id)
     {
-        return view('clientes.edit', compact('id')); // Cambia esto por la vista correspondiente
+        return view('clientes.edit', compact('id'));
     }
 }

@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container mt-5">
-    <!-- Progreso de pasos -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="text-center step">
             <div class="step-circle">1</div>
@@ -25,20 +24,14 @@
             
             <div class="appointment-card">
                 <h2>Confirmacion de la cita</h2>
-               
-
-
-<!-- Aquí se mostrarán los servicios seleccionados -->
-<div class="appointment-card">
+               <div class="appointment-card">
     <h5>Servicios Seleccionados:</h5>
    <p id="serviciosSeleccionados">No se seleccionaron servicios.</p>
     <br>
     <h5>Fecha Y Hora:</h5>
-      <!-- Aquí se mostrará la fecha y la hora -->
       <i class="fa fa-calendar"></i><p id="confirmationMessage"></p>
       <br>
       <h5>Metodo De Pago :</h5>
-      <!-- Aquí se mostrará el tipo de pago -->
 <p id="paymentMethodDisplay">No seleccionado</p>
 
 </div>
@@ -53,8 +46,6 @@
     </div>
 </button>
 </a>
-
-    <!-- Botón para agendar cita -->
     <button class="c-button c-button--gooey mt-4" id="agendarCitaBtn">Agendar Cita
         <div class="c-button__blobs">
             <div></div>
@@ -74,7 +65,6 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        // Obtener los datos de localStorage
         const selectedDate = localStorage.getItem("selectedDate");
         const selectedTime = localStorage.getItem("selectedTime");
         const serviciosSeleccionados = JSON.parse(localStorage.getItem("serviciosAgregados")) || [];
@@ -90,7 +80,6 @@
         console.log("Servicios seleccionados:", serviciosSeleccionados);
         console.log("Método de pago seleccionado:", selectedPayment);
     
-        // Mostrar detalles en la vista
         const confirmationMessage = document.getElementById("confirmationMessage");
         const serviciosContainer = document.getElementById("serviciosSeleccionados");
         const paymentContainer = document.getElementById("paymentMethodDisplay");
@@ -112,12 +101,10 @@
             }
         }
     
-        // refleja el tipo de pago en la segunda vista 
         if (paymentContainer) {
             paymentContainer.textContent = `Método de Pago: ${selectedPayment}`;
         }
     
-        // aqui maneja el clic del boton de agendar la cita 
         document.getElementById("agendarCitaBtn").addEventListener("click", async () => {
             localStorage.removeItem('serviciosAgregados');
     const ownerId = "{{ auth()->id() }}";
@@ -148,7 +135,7 @@
 
             document.getElementById("closeModal").addEventListener("click", () => {
                 successModal.classList.add("hidden");
-                window.location.href = "/paso3"; // Redirigir después de cerrar el modal
+                window.location.href = "/paso3"; 
             });
         } else if (data.error === "Hora usada") {
             const errorModal = document.getElementById("errorMessage");
@@ -173,23 +160,10 @@
 
     });
     </script>
-    
-
-
-
-
-
-
-
 <style>
-
-    
-
 .hidden {
         display: none;
     }
-
-    /* Fondo semitransparente */
     .modal-overlay {
         position: fixed;
         top: 0;
@@ -200,7 +174,6 @@
         z-index: 999;
     }
 
-    /* Contenedor del modal */
     .modal-content {
         position: fixed;
         top: 50%;
@@ -226,9 +199,9 @@
 
 
     .modal-content.error {
-        background-color: #faccd3; /* Fondo más claro */
-        border: 2px solid #fe889f; /* Borde rosa */
-        color: #000; /* Texto negro */
+        background-color: #faccd3; 
+        border: 2px solid #fe889f;
+        color: #000;
     }
 
     .close-btn {
@@ -278,7 +251,6 @@
     .step-circle.bg-active {
         background-color: #ff5c8a;
     }
-/* Información del usuario */
 .user-info {
     text-align: left;
     margin-bottom: 20px;
@@ -299,7 +271,6 @@
     color: #666;
 }
 
-/* Información de la cita */
 .confirmation-section h2 {
     font-size: 20px;
     color: #fe889f;
@@ -331,7 +302,6 @@
     color: #fe889f;
 }
 
-/* Botón de agendar */
 .c-button {
   color: #000;
   font-weight: 700;
@@ -399,11 +369,6 @@
   transform: scale(1.4) translateY(0) translateZ(0);
 }
 
-
-
-
-
-/* From Uiverse.io by TISEPSE */ 
 .btn2 {
   position: relative;
   display: inline-block;

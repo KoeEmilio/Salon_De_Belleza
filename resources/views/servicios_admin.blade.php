@@ -203,6 +203,8 @@
 .editBtn {
   width: 40px; 
   height: 40px; 
+  width: 40px; 
+  height: 40px; 
 }
         .card-header {
             background-color: #000000;
@@ -258,15 +260,18 @@
 
     .button-container {
         flex-direction: column; 
+        flex-direction: column; 
         align-items: flex-start;
     }
 
     .editBtn, .button {
         width: 35px; 
+        width: 35px; 
         height: 35px;
     }
 
     .pagination .page-link {
+        padding: 5px 10px; 
         padding: 5px 10px; 
     }
 
@@ -280,6 +285,7 @@
         @media (max-width: 430px) {
     .table {
         width: 100%;
+        font-size: 14px; 
         font-size: 14px; 
     }
 
@@ -433,7 +439,6 @@
             <div class="d-flex justify-content-center mt-4">
               <nav aria-label="Page navigation example">
                   <ul class="pagination">
-                      <!-- Páginas anteriores -->
                       @if ($servicios->onFirstPage())
                       <li class="page-item disabled">
                           <span class="page-link">Anterior</span>
@@ -445,15 +450,11 @@
                           </a>
                       </li>
                       @endif
-
-                      <!-- Páginas numeradas -->
                       @foreach ($servicios->getUrlRange(1, $servicios->lastPage()) as $page => $url)
                       <li class="page-item {{ $page == $servicios->currentPage() ? 'active' : '' }}">
                           <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                       </li>
                       @endforeach
-
-                      <!-- Páginas siguientes -->
                       @if ($servicios->hasMorePages())
                       <li class="page-item">
                           <a class="page-link" href="{{ $servicios->nextPageUrl() }}" aria-label="Next">

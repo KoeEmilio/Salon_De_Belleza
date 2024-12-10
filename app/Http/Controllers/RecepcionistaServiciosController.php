@@ -7,12 +7,9 @@ use App\Models\Service;
 use App\Models\ServiceDetail;
 use App\Models\HairType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\OrderDetailMail;
-use app\Models\Order;
+
 class RecepcionistaServiciosController extends Controller
 {
-    // Mostrar los servicios y detalles de una cita
     public function index($appointmentId)
     {
         $cita = Appointment::with(['services', 'serviceDetails'])->findOrFail($appointmentId);
@@ -21,7 +18,6 @@ class RecepcionistaServiciosController extends Controller
         return view('ver_servicios', compact('cita', 'allServices'));
     }
 
-    // Mostrar formulario para crear un nuevo servicio para una cita específica
     public function create($appointmentId)
     {
         $cita = Appointment::findOrFail($appointmentId);
@@ -31,7 +27,6 @@ class RecepcionistaServiciosController extends Controller
         return view('agregar_servicio', compact('cita', 'services', 'hairTypes'));
     }
 
-    // Almacenar un nuevo servicio en la base de datos
     public function store(Request $request, $appointmentId)
     {
         $validatedData = $request->validate([
@@ -62,20 +57,16 @@ class RecepcionistaServiciosController extends Controller
          
         return view('detalle_orden', compact('order'));
     }
-    // Mostrar formulario para editar un servicio
     public function edit($serviceDetailId)
     {
-        // Buscar el detalle del servicio
         $serviceDetail = ServiceDetail::with('appointment.owner')->findOrFail($serviceDetailId); // Incluye el propietario de la cita
         $cita = $serviceDetail->appointment; 
         $hairTypes = HairType::all();
         $services = Service::all();
     
-        // Pasar las variables necesarias a la vista
         return view('editar_servicio', compact('serviceDetail', 'cita', 'services', 'hairTypes'));
     }
 
-    // Actualizar un servicio existente
     public function update(Request $request, $serviceDetailId)
     {
         $serviceDetail = ServiceDetail::findOrFail($serviceDetailId);
@@ -102,7 +93,6 @@ class RecepcionistaServiciosController extends Controller
                          ->with('success', 'Servicio actualizado correctamente');
     }
 
-    // Eliminar un servicio
     public function destroy($serviceDetailId)
     {
         $serviceDetail = ServiceDetail::findOrFail($serviceDetailId);
@@ -114,7 +104,6 @@ class RecepcionistaServiciosController extends Controller
                          ->with('success', 'Servicio eliminado correctamente');
     }
 
-    // Mostrar los detalles de una cita específica
     public function showAppointment($id)
     {
         $appointment = Appointment::findOrFail($id);

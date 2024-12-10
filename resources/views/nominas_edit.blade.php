@@ -76,13 +76,11 @@
     </style>
 </head>
 <body>
-    <!-- Barra Superior -->
     <div class="navbar">
         <h1>Editar Nómina para {{ $empleado->name }}</h1>
     </div>
 
     <div class="container">
-        <!-- Formulario para editar la nómina -->
         <form action="{{ route('nominas.update', ['empleado_id' => $empleado->id, 'nomina_id' => $nomina->id]) }}" method="POST">
             @csrf
             @method('PUT')

@@ -21,7 +21,7 @@
         }
 
         h3 {
-            color: #ff69b4; /* Rosa para el encabezado */
+            color: #ff69b4; 
             text-align: center;
         }
 
@@ -29,7 +29,6 @@
             border-radius: 5px;
         }
 
-        /* Estilo del botón "Agregar Turno" negro con texto rosa */
         .btn-success {
             background-color: #000;
             border-color: #000;
@@ -40,20 +39,17 @@
             color: #ff69b4;
         }
 
-        /* Estilo del botón "Regresar" rosa */
         .btn-secondary {
             background-color: #ff69b4;
             border-color: #ff69b4;
         }
 
-        /* Estilo de los botones de acción en la tabla (editar) */
         .btn-warning {
             background-color: #000;
             border-color: #000;
             color: #ff69b4;
         }
 
-        /* Responsividad */
         @media (max-width: 768px) {
             .table-responsive {
                 overflow-x: auto;
@@ -80,17 +76,14 @@
     <div class="container mt-5">
         <h3>Turnos Asignados</h3>
 
-        <!-- Botón para agregar un nuevo turno -->
         <a href="{{ route('turnos.create', ['employee_id' => $employee_id]) }}" class="btn btn-success mb-3">
             Agregar Turno
         </a>
 
-        <!-- Botón para regresar al listado de turnos -->
         <a href="{{ route('turnos.index', ['employee_id' => $employee_id]) }}" class="btn btn-secondary mb-3">
             Regresar
         </a>
 
-        <!-- Tabla de turnos -->
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -98,18 +91,16 @@
                     <th>Turno</th>
                     <th>Hora de Entrada</th>
                     <th>Hora de Salida</th>
-                    <th>Acciones</th> <!-- Columna para editar -->
+                    <th>Acciones</th> 
                 </tr>
             </thead>
             <tbody>
                 @foreach($turnos as $turno)
                     <tr>
                         <td>{{ $turno->day }}</td>
-                        <td>{{ $turno->shift->shift }}</td> <!-- Nombre del turno -->
-                        <td>{{ $turno->shift->entry_time }}</td> <!-- Hora de entrada -->
-                        <td>{{ $turno->shift->exit_time }}</td> <!-- Hora de salida -->
-
-                        <!-- Botón para editar el turno -->
+                        <td>{{ $turno->shift->shift }}</td> 
+                        <td>{{ $turno->shift->entry_time }}</td> 
+                        <td>{{ $turno->shift->exit_time }}</td>
                         <td>
                             <a href="{{ route('turnos.edit', ['id' => $turno->id]) }}" class="btn btn-warning btn-sm">
                                 Editar

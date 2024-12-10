@@ -21,8 +21,8 @@ class ServiceDetailsSeeder extends Seeder
             for ($i = 0; $i < $count; $i++) {
                 $day = rand(1, 28);
                 $hour = rand(0, 23);
-                $minute = sprintf('%02d', rand(0, 59)); // Asegurar 2 dígitos
-                $second = sprintf('%02d', rand(0, 59)); // Asegurar 2 dígitos
+                $minute = sprintf('%02d', rand(0, 59)); 
+                $second = sprintf('%02d', rand(0, 59)); 
                 $createdAt = Carbon::createFromFormat('Y-m-d H:i:s', "$month-$day $hour:$minute:$second");
 
                 $data[] = [

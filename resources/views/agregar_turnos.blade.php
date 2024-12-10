@@ -21,15 +21,13 @@
         }
 
         h3 {
-            color: #ff69b4; /* Rosa para el encabezado */
+            color: #ff69b4; 
             text-align: center;
         }
 
         .btn {
             border-radius: 5px;
         }
-
-        /* Estilo del botón "Agregar Turno" negro con texto rosa */
         .btn-primary {
             background-color: #000;
             border-color: #000;
@@ -40,13 +38,11 @@
             color: #ff69b4;
         }
 
-        /* Estilo de los botones */
         .btn-secondary {
             background-color: #ff69b4;
             border-color: #ff69b4;
         }
 
-        /* Estilo de las etiquetas y campos de entrada */
         .form-control {
             border-radius: 5px;
             border-color: #ccc;
@@ -56,7 +52,6 @@
             color: #333;
         }
 
-        /* Estilos adicionales */
         .form-group select {
             background-color: #f8f9fa;
             border-radius: 5px;
@@ -115,18 +110,17 @@
     </div>
 
     <script>
-        // Función que actualiza las horas de entrada y salida según el turno seleccionado
         document.getElementById('shift').addEventListener('change', function() {
             const shift = this.value;
             const entryTime = document.getElementById('entry_time');
             const exitTime = document.getElementById('exit_time');
 
             if (shift === 'Mañana') {
-                entryTime.value = '08:00'; // Hora de entrada para el turno Mañana
-                exitTime.value = '15:00'; // Hora de salida para el turno Mañana
+                entryTime.value = '08:00'; 
+                exitTime.value = '15:00'; 
             } else if (shift === 'Tarde') {
-                entryTime.value = '15:00'; // Hora de entrada para el turno Tarde
-                exitTime.value = '22:00'; // Hora de salida para el turno Tarde
+                entryTime.value = '15:00'; 
+                exitTime.value = '22:00';
             } else {
                 entryTime.value = '';
                 exitTime.value = '';

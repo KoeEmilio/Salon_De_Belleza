@@ -38,12 +38,7 @@ class Payroll extends Model
         return $this->hasMany(BonusTax::class, 'payroll_id');
     }
 
-    /**
-     * Encuentra un pago relacionado.
-     *
-     * @param int $paymentId
-     * @return PayrollPayment|null
-     */
+   
     public function findPaymentById(int $paymentId): ?PayrollPayment
     {
         return $this->payrollPayments()->find($paymentId);

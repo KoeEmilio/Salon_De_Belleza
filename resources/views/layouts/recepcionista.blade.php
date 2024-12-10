@@ -11,12 +11,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
-        /* Ajustes globales */
         body {
             background-color: #f9f9f9;
         }
 
-        /* Navbar */
         nav.navbar {
             font-size: 1rem;
             padding: 0.5rem;
@@ -46,7 +44,6 @@
             height: 50px;
         }
 
-        /* Loader */
         .dots-container {
             display: flex;
             align-items: center;
@@ -105,7 +102,6 @@
             }
         }
 
-        /* Footer */
         footer {
             background-color: black;
             color: #fff;
@@ -142,7 +138,6 @@
             transform: scale(1.2);
         }
 
-        /* Responsividad */
         @media (max-width: 768px) {
             nav.navbar a.nav-link {
                 font-size: 0.9rem;
@@ -162,14 +157,12 @@
     </style>
 </head>
 <body>
-    <!-- Loader -->
     <div id="loader" class="dots-container" style="display: none;">
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
     </div>
 
-    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand">
@@ -196,7 +189,6 @@
                     </li>
                 </ul>
 
-                <!-- Logout -->
                 <a href="{{ route('logout') }}" class="nav-link" style="color:white;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt"></i>
                 </a>
@@ -208,12 +200,10 @@
         </div>
     </nav>
 
-    <!-- Page Content -->
     <main>
         @yield('content')
     </main>
 
-    <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

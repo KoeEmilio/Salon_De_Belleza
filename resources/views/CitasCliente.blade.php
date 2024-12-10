@@ -309,11 +309,7 @@
     background-color: #bbbbbb;
     border-color: #bbbbbb;
 }
-
-
     </style>
-
-
 @endpush
 
 @section('body')
@@ -391,12 +387,11 @@
 <script>
     $(document).ready(function () {
         $('.cancelar-form').on('submit', function (event) {
-            event.preventDefault(); // Prevenir el envío completo del formulario
+            event.preventDefault(); 
 
-            const form = $(this); // Capturar el formulario actual
+            const form = $(this); 
             const citaId = form.data('id');
-            const botonCancelar = form.find('.btn-cancelar'); // Buscar el botón en el formulario actual
-
+            const botonCancelar = form.find('.btn-cancelar'); 
             if (confirm('¿Estás seguro de cancelar esta cita?')) {
                 $.ajax({
                     url: `/citas/${citaId}/cancelar`,
@@ -407,7 +402,7 @@
                     success: function (response) {
                         alert(response.success);
                         $(`#cita-${citaId}`).find('[data-label="Estado"]').text('Cancelada');
-                        botonCancelar.prop('disabled', true); // Deshabilitar el botón
+                        botonCancelar.prop('disabled', true); 
                     },
                     error: function (xhr) {
                         alert(xhr.responseJSON.error || 'Error al cancelar la cita.');

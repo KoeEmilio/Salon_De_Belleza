@@ -2,10 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <!-- Título de la página -->
     <h1 class="mb-4 text-center" style="color: pink;">Detalles </h1>
-
-    <!-- Card para detalles del cliente -->
     <div class="card shadow-lg border-0 rounded-3">
         <div class="card-body text-center">
             <h5 class="card-title text-dark" style="font-weight: 600; font-size: 2rem; color: pink;">{{ $cliente->first_name }} {{ $cliente->last_name }}</h5>
@@ -26,7 +23,6 @@
         </div>
     </div>
 
-    <!-- Botón para regresar a la lista de clientes -->
     <div class="mt-4 text-center">
         <a href="{{ route('clientes.index') }}" class="btn btn-pink btn-lg">
             <i class="fas fa-arrow-left"></i> Regresar a la Lista de Clientes
@@ -37,19 +33,17 @@
 
 @section('scripts')
 <script>
-    // Animación de entrada al cargar la vista
     document.addEventListener("DOMContentLoaded", function() {
         const card = document.querySelector('.card');
-        card.classList.add('animate__animated', 'animate__fadeIn'); // Usar animate.css
+        card.classList.add('animate__animated', 'animate__fadeIn'); 
     });
 </script>
 @endsection
 
 <style>
-    /* Fondo de la página */
     body {
-        background-color: #f0f4f8; /* Fondo suave y claro */
-        font-family: 'Roboto', sans-serif; /* Tipografía moderna */
+        background-color: #f0f4f8; 
+        font-family: 'Roboto', sans-serif; 
     }
 
     h1 {
@@ -60,17 +54,17 @@
     }
 
     .card {
-        transition: transform 0.3s ease-in-out; /* Transición suave */
-        border-radius: 15px; /* Bordes redondeados */
+        transition: transform 0.3s ease-in-out; 
+        border-radius: 15px; 
     }
 
     .card:hover {
-        transform: scale(1.05); /* Efecto de escala al pasar el ratón */
+        transform: scale(1.05); 
     }
 
     .card-title {
-        color: #333; /* Color del título */
-        font-size: 2rem; /* Título más grande */
+        color: #333; 
+        font-size: 2rem; 
         font-weight: 600;
         margin-bottom: 20px;
     }
@@ -78,7 +72,7 @@
     .card-body p {
         font-size: 1.125rem;
         line-height: 1.6;
-        color: #555; /* Color más suave para los textos */
+        color: #555; 
     }
 
     .btn-pink {
@@ -93,24 +87,21 @@
     .btn-pink:hover {
         background-color: #b0004b;
         border-color: #b0004b;
-        transform: translateY(-2px); /* Sutil elevación al hacer hover */
+        transform: translateY(-2px); 
     }
 
     .btn-pink i {
-        margin-right: 8px; /* Espaciado entre el ícono y el texto */
+        margin-right: 8px; 
     }
 
-    /* Efectos de sombra y bordes para la tarjeta */
     .card {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
     }
 
-    /* Añadir un margen superior a los elementos de la página */
     .container {
         margin-top: 50px;
     }
 
-    /* Estilo para los iconos dentro de las columnas */
     .fa {
         color: #D5006D;
         font-size: 1.4rem;

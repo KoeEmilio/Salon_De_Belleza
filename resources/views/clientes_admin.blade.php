@@ -77,6 +77,7 @@
         }
         .table-container {
             overflow-x: auto; 
+            overflow-x: auto; 
         }
 
         .editBtn {
@@ -258,6 +259,7 @@
             }
 
             thead {
+                display: none; 
                 display: none; 
             }
 

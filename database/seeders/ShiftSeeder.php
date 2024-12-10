@@ -9,7 +9,6 @@ class ShiftSeeder extends Seeder
 {
     public function run()
     {
-        // Datos de los turnos
         $shifts = [
             [
                 'shift' => 'Mañana',
@@ -23,7 +22,6 @@ class ShiftSeeder extends Seeder
             ]
         ];
 
-        // Insertar los turnos en la base de datos
         foreach ($shifts as $shift) {
             DB::table('shifts')->insert([
                 'shift' => $shift['shift'],

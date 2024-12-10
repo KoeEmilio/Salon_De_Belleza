@@ -76,7 +76,6 @@
     </style>
 </head>
 <body>
-    <!-- Barra Superior -->
     <div class="navbar">
         <h1>Crear Nómina para <span class="text-light">{{ $empleado->name }}</span></h1>
     </div>

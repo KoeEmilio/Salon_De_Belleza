@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cargando...</title>
   <style>
-    /* Estilos para centrar y ajustar el tamaño del loader */
-    /* From Uiverse.io by S4tyendra */ 
 .container {
   position: absolute;
   top: 50%;
@@ -113,7 +111,6 @@
 
 
   <script>
-    // Redirigir automáticamente después de 7 segundos
     setTimeout(() => {
       window.location.href = "/paso1";    }, 4000);
   </script>

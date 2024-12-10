@@ -16,16 +16,16 @@
             text-align: center;
         }
         .card {
-            height: auto; /* Adaptable al contenido */
+            height: auto; 
             width: 100%; 
             max-width: 800px; 
-            margin: 20px auto; /* Centrado horizontalmente */
+            margin: 20px auto; 
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: relative; /* Contenedor relativo para botones absolutos */
+            position: relative; 
         }
         .card-body {
-            padding: 20px; /* Espacio interno para mejor legibilidad */
+            padding: 20px; 
         }
     </style>
 </head>
@@ -114,8 +114,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Botón para Guardar Cambios -->
                     <div class="form-group mt-4">
                         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                         <a href="{{ route('clientes_admin') }}" class="btn btn-secondary">Cancelar</a>

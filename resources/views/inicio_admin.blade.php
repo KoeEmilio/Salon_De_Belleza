@@ -81,7 +81,6 @@
             height: 70vh;
         }
 
-        /* Media queries */
         @media (max-width: 767.98px) {
             .menu-button {
                 height: 200px;

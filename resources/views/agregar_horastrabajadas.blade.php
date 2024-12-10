@@ -46,13 +46,11 @@
             border-radius: 5px;
         }
 
-        /* Estilo del botón "Regresar" rosa */
         .btn-secondary {
             background-color: #ff69b4;
             border-color: #ff69b4;
         }
 
-        /* Estilo de botones de acción en negro con texto/íconos rosa */
         .btn-success {
             background-color: #000;
             border-color: #000;
@@ -63,7 +61,6 @@
             color: #ff69b4;
         }
 
-        /* Responsividad */
         @media (max-width: 768px) {
             .table-responsive {
                 overflow-x: auto;
@@ -95,7 +92,6 @@
     </style>
 </head>
 <body>
-    <!-- Barra superior -->
     <div class="navbar">
         <h1>Agregar Horas Trabajadas </h1>
     </div>
